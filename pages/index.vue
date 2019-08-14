@@ -6,7 +6,7 @@
     <section class="Top-news"></section>
     <section class="Analitic-articles"></section>
     <section class="Top-competition"></section>
-  </div>
+  </div>  
 </template>
 
 <script>

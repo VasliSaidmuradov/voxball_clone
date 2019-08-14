@@ -4,7 +4,7 @@
     <nav-bar />
     <search />
     <div class="add-poll">
-      <button class="button primary add-poll__button">+ Опрос</button>
+      <v-btn @click="addPoll()" disabled link>+ Опрос</v-btn>
     </div>
     <locale></locale>
     <account />
@@ -13,16 +13,23 @@
 
 <script>
 import navBar from "@/components/navbar.vue"
-import search from "@/components/search.vue"
+import search from "@/components/inputs/search.vue"
 import locale from "@/components/locale.vue"
 import account from "@/components/account.vue"
+import vBtn from "@/components/buttons/vBtn.vue"
 
 export default {
   components: {
     navBar,
     search,
     locale,
-    account
+    account,
+    vBtn
+  },
+  methods: {
+    addPoll() {
+      alert()
+    }
   }
 }
 </script>
@@ -30,6 +37,5 @@ export default {
 <style lang="scss" scoped>
 .Header {
   display: flex;
-  color: $base-color;
 }
 </style>
