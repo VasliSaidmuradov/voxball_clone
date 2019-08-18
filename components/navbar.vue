@@ -1,14 +1,12 @@
 <template>
-  <div>
-    <nav class="nav">
-      <nuxt-link to="/">Опросы</nuxt-link>
-      <nuxt-link to="/">Результаты</nuxt-link>
-      <nuxt-link to="/">Новости</nuxt-link>
-      <nuxt-link to="/">Конкурсы и розыгрыши</nuxt-link>
-      <nuxt-link to="/">Рейтинг</nuxt-link>
-      <nuxt-link to="/">Стать акционером</nuxt-link>
-    </nav>
-  </div>
+  <nav class="nav">
+    <nuxt-link class="nav__item" to="/">Опросы</nuxt-link>
+    <nuxt-link class="nav__item" to="/">Результаты</nuxt-link>
+    <nuxt-link class="nav__item" to="/">Новости</nuxt-link>
+    <nuxt-link class="nav__item" to="/">Конкурсы и розыгрыши</nuxt-link>
+    <nuxt-link class="nav__item" to="/">Рейтинг</nuxt-link>
+    <nuxt-link class="nav__item" to="/">Стать акционером</nuxt-link>
+  </nav>
 </template>
 
 <script>
@@ -23,4 +21,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$text-color: #2b454e;
+.nav {
+  color: #2b454e;
+
+  &__item {
+    font-size: 0.8em;
+    padding: 0 10px;
+    text-decoration: none;
+    color: $text-color;
+  }
+}
 </style>
