@@ -1,4 +1,8 @@
-.input {
-	border: 1px solid gray;
-	border-radius: 15px;
+@import "~/assets/css/bootstrap-grid.scss";
+body,
+html {
+	margin: 0;
+	padding: 0;
+	font-size: 1.2vw;
+	color: #2b454e;
 }

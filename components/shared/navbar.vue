@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import locale from "@/locale"
+import locale from '@/locale'
 export default {
   data() {
     return {
@@ -23,13 +23,15 @@ export default {
 <style lang="scss" scoped>
 $text-color: #2b454e;
 .nav {
-  color: #2b454e;
-
   &__item {
     font-size: 0.8em;
-    padding: 0 10px;
+    padding: 0 0.7em;
     text-decoration: none;
     color: $text-color;
+
+    &:hover {
+      color: $base-color;
+    }
   }
 }
 </style>

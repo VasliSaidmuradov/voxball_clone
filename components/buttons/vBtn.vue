@@ -15,25 +15,25 @@ export default {
   computed: {
     classes() {
       return {
-        "v-btn": true,
-        "v-btn--border": this.border,
-        "v-btn--rounded": this.rounded,
-        "v-btn--disabled": this.disabled,
-        "v-btn--loading": this.loading,
-        "v-btn--link": this.link
+        'v-btn': true,
+        'v-btn--border': this.border,
+        'v-btn--rounded': this.rounded,
+        'v-btn--disabled': this.disabled,
+        'v-btn--loading': this.loading,
+        'v-btn--link': this.link
       }
     },
     styles() {
       return {
-        "min-height": this.minHeight,
-        "min-width": this.minWidth
+        'min-height': this.minHeight,
+        'min-width': this.minWidth
       }
     }
   },
   methods: {
     click() {
       if (this.disabled) return
-      this.$emit("click")
+      this.$emit('click')
     }
   },
   props: {
@@ -50,13 +50,14 @@ export default {
 
 <style lang="scss" scoped>
 //variables
-$v-btn-background: transparent;
-$v-btn-background-hover: green;
-$v-btn-color-hover: #fff;
-$v-btn-background-disabled: #c1c1c1;
-$v-btn-color-disabled: #696969;
-$v-btn-rounded: 15px;
-$v-btn-border: 1px solid #c5c5c5;
+
+$bg: transparent;
+$hover-bg: $base-color;
+$hover-color: #fff;
+$disabled-bg: #c1c1c1;
+$disabled-color: #727272;
+$rounded: 15px;
+$border: 1px solid $border-color;
 
 @mixin reset-btn {
   border: none;
@@ -64,21 +65,30 @@ $v-btn-border: 1px solid #c5c5c5;
 }
 
 @mixin hover-btn {
-  background: $v-btn-background-hover;
-  color: $v-btn-color-hover;
+  background: $hover-bg;
+  color: $hover-color;
 }
 
 .v-btn {
-  background: $v-btn-background;
+  background: $bg;
   display: flex;
   align-items: center;
-  padding: 0.3em 0.8em;
+  padding: 0.2em 0.8em;
   box-sizing: border-box;
   position: relative;
   cursor: pointer;
 
+  &:hover {
+    color: $hover-bg;
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+  }
+
   &--border {
-    border: $v-btn-border;
+    border: $border;
 
     &:hover {
       @include hover-btn;
@@ -86,8 +96,8 @@ $v-btn-border: 1px solid #c5c5c5;
   }
 
   &--rounded {
-    border: $v-btn-border;
-    border-radius: $v-btn-rounded;
+    border: $border;
+    border-radius: $rounded;
 
     &:hover {
       @include hover-btn;
@@ -100,20 +110,20 @@ $v-btn-border: 1px solid #c5c5c5;
     background: transparent !important;
 
     &:hover {
-      color: $v-btn-background-hover;
+      color: $hover-bg;
       background: transparent !important;
     }
   }
 
   &--disabled,
   &--disabled:hover {
-    background: $v-btn-background-disabled;
-    color: $v-btn-color-disabled;
+    background: $disabled-bg;
+    color: $disabled-color;
   }
 
   &--loading,
   &--loading:hover {
-    background: $v-btn-background-disabled;
+    background: $disabled-bg;
 
     .v-btn__content {
       opacity: 0;
@@ -125,7 +135,7 @@ $v-btn-border: 1px solid #c5c5c5;
     width: 1.3em;
     height: 1.3em;
     border-radius: 50%;
-    background: $v-btn-background-disabled;
+    background: $disabled-bg;
     background: -moz-linear-gradient(
       left,
       #ffffff 10%,
@@ -175,7 +185,7 @@ $v-btn-border: 1px solid #c5c5c5;
       content: "";
     }
     &:after {
-      background: $v-btn-background-disabled;
+      background: $disabled-bg;
       width: 75%;
       height: 75%;
       border-radius: 50%;

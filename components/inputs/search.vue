@@ -9,7 +9,7 @@
 export default {
   data() {
     return {
-      text: ""
+      text: ''
     }
   },
   methods: {
@@ -24,13 +24,16 @@ export default {
 .Search {
   position: relative;
   &__input {
-    border: 1px solid gray;
+    border: 1px solid $border-color;
     border-radius: 15px;
     height: 25px;
-    padding: 0 5px;
+    padding: 0.8em;
+    padding-right: 2em;
+    width: 100%;
 
     &:focus {
       outline: none;
+      border: 1px solid $base-color;
     }
   }
   &__icon {

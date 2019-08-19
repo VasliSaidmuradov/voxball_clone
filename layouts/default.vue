@@ -2,13 +2,13 @@
   <div>
     <Header />
     <nuxt />
-    <Footer />
+    <!-- <Footer /> -->
   </div>
 </template>
 
 <script>
-import Header from "@/components/header"
-import Footer from "@/components/footer"
+import Header from '@/components/shared/header'
+import Footer from '@/components/shared/footer'
 export default {
   components: {
     Header,

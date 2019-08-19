@@ -34,8 +34,8 @@
 </template>
 
 <script>
-import navBar from "@/components/navbar.vue"
-import locale from "@/components/locale.vue"
+import navBar from '@/components/shared/navbar.vue'
+import locale from '@/components/inputs/locale.vue'
 
 export default {
   components: {

@@ -1,15 +1,13 @@
 <template>
   <div class="Account">
-    <nuxt-link class="Account__link" to="/">
+    <v-btn>
       <img class="Account__img" src="~/assets/img/human.png" alt="Log in" />
       <p>Войти</p>
-    </nuxt-link>
-    <nuxt-link class="Account__link" to="/">
+    </v-btn>
+    <v-btn>
       <img class="Account__img" src="~/assets/img/edit.png" alt="Sing up" />
-      Регистрация
-    </nuxt-link>
-    <!-- <button class="button secondary">Войти</button> -->
-    <!-- <button class="button secondary">Регистрация</button> -->
+      <p>Регистрация</p>
+    </v-btn>
   </div>
 </template>
 
@@ -27,10 +25,9 @@ $text-color: #000;
   &__link {
     display: flex;
     align-items: center;
-    font-size: 1em;
     padding: 0 10px;
     text-decoration: none;
-    color: $text-color;
+    color: inherit;
   }
   &__img {
     margin-right: 8px;
