@@ -2,11 +2,11 @@
   <div class="Account">
     <v-btn>
       <img class="Account__img" src="~/assets/img/human.png" alt="Log in" />
-      <p>Войти</p>
+      <span>Войти</span>
     </v-btn>
     <v-btn>
       <img class="Account__img" src="~/assets/img/edit.png" alt="Sing up" />
-      <p>Регистрация</p>
+      <span>Регистрация</span>
     </v-btn>
   </div>
 </template>

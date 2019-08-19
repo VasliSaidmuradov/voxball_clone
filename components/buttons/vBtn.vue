@@ -77,6 +77,7 @@ $border: 1px solid $border-color;
   box-sizing: border-box;
   position: relative;
   cursor: pointer;
+  transition: 0.3s;
 
   &:hover {
     color: $hover-bg;

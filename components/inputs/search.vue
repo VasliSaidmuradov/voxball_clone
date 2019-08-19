@@ -1,6 +1,6 @@
 <template>
   <div class="Search">
-    <input @keypress.enter="search()" v-model="text" class="input Search__input" type="text" />
+    <input @keypress.enter="search()" v-model="text" class="Search__input" type="text" />
     <img @click="search()" class="Search__icon" src="~/assets/img/search.png" alt />
   </div>
 </template>
@@ -26,10 +26,10 @@ export default {
   &__input {
     border: 1px solid $border-color;
     border-radius: 15px;
-    height: 25px;
-    padding: 0.8em;
+    padding: 0.4em 0.7em;
     padding-right: 2em;
     width: 100%;
+    transition: 0.5s;
 
     &:focus {
       outline: none;

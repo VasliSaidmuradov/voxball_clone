@@ -1,8 +1,8 @@
 <template>
   <div class="Lang" :class="{'Lang--full': full}">
-    <div class="Lang__arraw Lang__arraw--left"></div>
+    <div class="Lang__arrow Lang__arrow--left"></div>
     <div class="Lang__text">En</div>
-    <div class="Lang__arraw Lang__arraw--right"></div>
+    <div class="Lang__arrow Lang__arrow--right"></div>
   </div>
 </template>
 
@@ -39,7 +39,7 @@ $arrow-color: #8c8c8c;
   &--border {
     border: 1px solid $arrow-color;
   }
-  &__arraw {
+  &__arrow {
     width: 0;
     height: 0;
     border: 0.3em solid transparent;

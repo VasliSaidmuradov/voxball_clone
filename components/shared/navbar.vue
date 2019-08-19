@@ -24,10 +24,11 @@ export default {
 $text-color: #2b454e;
 .nav {
   &__item {
-    font-size: 0.8em;
+    font-size: 0.84em;
     padding: 0 0.7em;
     text-decoration: none;
     color: $text-color;
+    transition: 0.3s;
 
     &:hover {
       color: $base-color;
