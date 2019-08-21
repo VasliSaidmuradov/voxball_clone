@@ -98,7 +98,9 @@
     </section>
     <section class="Top-poll"></section>
     <section class="Advertising"></section>
-    <section class="Top-news"></section>
+    <section class="Top-news">
+      <News-card></News-card>
+    </section>
     <section class="Analitic-articles"></section>
     <section class="Top-competition"></section>
   </div>
@@ -108,11 +110,12 @@
 if (process.browser) {
   var { Carousel, Slide } = require('vue-carousel')
 }
-
+import NewsCard from '../components/cards/newsCard.vue';
 export default {
   components: {
     Carousel,
-    Slide
+    Slide,
+    NewsCard,
   },
   data() {
     return {
