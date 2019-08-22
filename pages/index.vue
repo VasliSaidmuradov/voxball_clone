@@ -14,7 +14,13 @@
       </ul>
     </section>
     <section class="Advertising"></section>
-    <section class="Top-news"></section>
+    <section class="Top-news">
+      <ul class="Top-news__list">
+        <li class="Top-news__item" v-for="(news, index) in 4" :key="index">
+          <news-card></news-card>
+        </li>
+      </ul>
+    </section>
     <section class="Analitic-articles"></section>
     <section class="Top-competition"></section>
   </div>
@@ -26,6 +32,7 @@ import iconBase from '@/components/shared/iconBase.vue'
 import iconArrow from '@/components/icons/iconArrow.vue'
 import Slider from '@/components/slider/slider.vue'
 import sliderItem from '@/components/slider/sliderItem.vue'
+import newsCard from '@/components/cards/newsCard.vue'
 
 export default {
   components: {
