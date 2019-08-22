@@ -40,7 +40,8 @@ export default {
     iconBase,
     iconArrow,
     sliderItem,
-    Slider
+    Slider,
+    newsCard
   },
   data() {
     return {
