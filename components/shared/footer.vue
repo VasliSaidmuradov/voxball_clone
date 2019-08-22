@@ -1,13 +1,12 @@
 <template>
   <div class="Footer">
-    <div class="Footer__first">
+    <div class="Footer__first container">
       <div class="lang-block">
         <p class="Footer__title">Языки:</p>
         <locale :full="true" />
       </div>
       <div class="Footer__menu">
         <p class="Footer__title">Меню:</p>
-        <nav-bar />
       </div>
       <div class="additional">
         <p class="Footer__title">Дополнительно:</p>
@@ -38,6 +37,7 @@ import navBar from '@/components/shared/navbar.vue'
 import locale from '@/components/inputs/locale.vue'
 
 export default {
+  props: {},
   components: {
     navBar,
     locale
@@ -47,6 +47,9 @@ export default {
 
 <style lang="scss" scoped>
 .Footer {
+  border: 1px solid $border-color;
+  border-bottom-color: white;
+
   &__list {
     display: flex;
     flex-wrap: wrap;

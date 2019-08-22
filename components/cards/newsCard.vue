@@ -3,18 +3,18 @@
     <div class="news-card-top">
       <div class="news-card-top__back-block">
         <span class="news-card-top__date">{{ news.date }}</span>
-        <span class="news-card-top__views">
-          <svg class="news-card-top__icon" viewBox="0 0 100 100" fill="none" stroke-width="2" >
-            <path d="M10 50 C 20 90, 80 90, 90 50 C  80 10 20 10 10 50" fill="none" ></path>
-            <circle cx="50" cy="50" r="15" fill="none"/>
-          </svg>  
+        <span class="news-card-top__views"> 
             <span>
+              <svg class="news-card-top__icon" viewBox="0 0 100 100" fill="none" stroke-width="2" >
+                <path d="M10 60 C 20 100, 80 100, 90 60 C  80 20 20 20 10 60" fill="none" ></path>
+                <circle cx="50" cy="60" r="15" fill="none"/>
+              </svg>  
               {{ news.views }}
             </span>
           </span>
       </div>
       <div class="news-card-top__img-wrap">
-        <img class="news-card-top__img" src='~/assets/img/main-news-image-1.png'>
+        <img class="news-card-top__img" src='~/assets/img/main-news-test.png'>
       </div>
     </div>
     <div class="news-card-bottom">
@@ -22,13 +22,6 @@
       <p class="news-card-bottom__title">{{ news.title }}</p>
       <nuxt-link class="news-card-bottom__button" to="/">
         подродбнее
-        <svg class="news-card-bottom__arrow" xmlns="http://www.w3.org/2000/svg" width="22" height="6" viewBox="0 0 22 6">
-                  <g><g>
-                  <path fill="#ffffff" d="M.009 2.875h16.287c-.785-.81-1.175-1.338-1.216-2.058 
-                                            1.786 1.241 4.106 1.888 6.91 2.496-2.804.582-5.022 
-                                            1.293-6.91 2.496.121-.783.446-1.255 1.24-2.116H.01z"/>
-                  </g></g>
-        </svg>
       </nuxt-link>
     </div>
   </div>
@@ -36,7 +29,7 @@
 
 <script>
 export default {
-//   props: ['news'],
+  // props: ['news'],
 
   data() {
   	return {
@@ -64,10 +57,31 @@ $color-blue: #2b454e;
 $family: 'Helvetica';
 
 .news-card {
-  width: 18rem;
-  height: 32rem;
+  height: 30rem;
+  width: 16.875rem;
   display: flex;
   flex-direction: column;
+
+  &:hover &-top__back-block {
+    border-color: $color-green;
+    color: #000000;
+  }
+  &:hover &-top__icon path,
+  &:hover &-top__icon circle{
+    stroke: #000000;
+  }
+  &:hover &-top__img-wrap {
+    border: 0;
+  }
+  &:hover &-bottom__tag {
+    background: $color-green;
+  }
+  &:hover &-bottom__button {
+    color: $color-green;
+  }
+  &:hover &-bottom__button:after {
+    color: $color-green;
+  } 
 
   &-top {
     width: 100%;
@@ -84,10 +98,11 @@ $family: 'Helvetica';
       align-items: flex-start;
       justify-content: space-around;
       position: relative;
+      transition: 1s ease;
+      color: $color-gray_darker;
     }
 
     &__date {
-      color: $color-gray_darker;
       font-size: 0.85rem;
       font-weight: 500;
       width: 40%;
@@ -109,10 +124,10 @@ $family: 'Helvetica';
     }
 
     &__views {
-      color: $color-gray_darker;
       font-size: 0.85rem;
       font-weight: 500;
       display: flex;
+      flex-direction: row;
       align-items: center;
       justify-content: flex-end;
       width: 40%;
@@ -121,11 +136,14 @@ $family: 'Helvetica';
 
     &__icon {
       width: 1rem;
+      height: 100%;
+      padding-top: 10%;
       margin-right: 0.3rem;
       path,
       circle {
         stroke-width: 8px;
         stroke: $color-gray_darker;
+        transition: 1s ease;
       }
     }
 
@@ -138,6 +156,8 @@ $family: 'Helvetica';
       background: #ffffff;
       border-top: 0.425rem solid $color-green;
       border-left: 0.425rem solid $color-green;
+      box-sizing: content-box;
+      transition: 1s ease;
     }
 
     &__img {
@@ -167,6 +187,7 @@ $family: 'Helvetica';
       padding-top: 0.25rem;
       padding-bottom: 0.25rem;
       text-transform: uppercase;
+      transition: 1s ease;
     }
 
     &__title {
@@ -182,21 +203,23 @@ $family: 'Helvetica';
 
     &__button {
       color: $color-blue;
-      font-size: 0.5rem;
+      font-size: 0.7rem;
       font-weight: 700;
       font-family: $family;
       text-transform: uppercase;
       letter-spacing: 0.04rem;
-    }
-    
-    &__arrow {
-      margin-left: 0.5rem;
-
-      path {
-        fill: $color-blue;
+      position: relative;
+      transition: 1s ease;
+      cursor: pointer;
+      &::after {
+        content: '⟶';
+        top: 50%;
+        margin-left: 10px;
+        border: none;
+        position: absolute;
+        transform: translateY(-50%);
       }
     }
-
   }
 }
 </style>
