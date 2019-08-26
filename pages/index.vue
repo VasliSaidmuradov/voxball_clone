@@ -21,7 +21,7 @@
         </li>
       </ul>
     </section>
-    <section class="Analitic-articles container" style="height: 500px;">
+    <section class="Analitic-articles container">
       <div class="col-md-9">
         <div class="grid-container">
           <div class="news-1">
