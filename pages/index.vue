@@ -21,17 +21,7 @@
         </li>
       </ul>
     </section>
-<<<<<<< HEAD
-    <section class="Analitic-articles"></section>
-    <section class="Top-competition">
-      <ul class="Top-competition__list">
-        <li class="Top-competition__item" v-for="(competition, index) in 4" :key="index">
-          <competition-card></competition-card>
-        </li>
-      </ul>
-    </section>
-=======
-    <section class="Analitic-articles container" style="height: 500px;">
+    <section class="Analitic-articles container">
       <div class="col-md-9">
         <div class="grid-container">
           <div class="news-1">
@@ -49,8 +39,13 @@
         </div>
       </div>
     </section>
-    <section class="Top-competition"></section>
->>>>>>> 202662255333127c0cc9b65f57d9c1c1567c9e12
+    <section class="Top-competition">
+      <ul class="Top-competition__list">
+        <li class="Top-competition__item" v-for="(competition, index) in 4" :key="index">
+          <competition-card></competition-card>
+        </li>
+      </ul>
+    </section>
   </div>
 </template>
 
@@ -61,11 +56,8 @@ import iconArrow from '@/components/icons/iconArrow.vue'
 import Slider from '@/components/slider/slider.vue'
 import sliderItem from '@/components/slider/sliderItem.vue'
 import newsCard from '@/components/cards/newsCard.vue'
-<<<<<<< HEAD
 import competitionCard from '@/components/cards/competitionCard.vue'
-=======
 import analyticalCard from '@/components/cards/analyticalCard.vue'
->>>>>>> 202662255333127c0cc9b65f57d9c1c1567c9e12
 
 export default {
   components: {
@@ -75,11 +67,8 @@ export default {
     sliderItem,
     Slider,
     newsCard,
-<<<<<<< HEAD
-    competitionCard
-=======
+    competitionCard,
     analyticalCard
->>>>>>> 202662255333127c0cc9b65f57d9c1c1567c9e12
   },
   data() {
     return {
@@ -119,7 +108,6 @@ $border: 1px solid $color-green;
     width: calc(1 / 5 * 100% - 30px);
   }
 }
-<<<<<<< HEAD
 .Top-news {
   &__list {
     display: flex;
@@ -145,7 +133,8 @@ $border: 1px solid $color-green;
   }
   &__item {
     width: 25%;
-=======
+  }
+}
 .grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -179,9 +168,7 @@ $border: 1px solid $color-green;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
     grid-template-areas: 'news-1' 'news-2' 'news-3' 'news-4';
->>>>>>> 202662255333127c0cc9b65f57d9c1c1567c9e12
   }
 }
+
 </style>
-
-

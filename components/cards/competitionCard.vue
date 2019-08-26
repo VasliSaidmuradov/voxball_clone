@@ -57,7 +57,7 @@ export default {
     border: 1px solid #ffffff;
     color: #ffffff;
     opacity: 0;
-    padding: 0.5rem;
+    padding: 0.5rem 1rem;
     transition: 1s ease;
     &:after {
       content: '⟶';
