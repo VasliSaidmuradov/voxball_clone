@@ -105,7 +105,16 @@
     </section>
     <section class="Advertising"></section>
     <section class="Top-news"></section>
-    <section class="Analitic-articles"></section>
+    <section class="Analitic-articles container" style="height: 500px;">
+      <div class="col-md-9">
+        <div class="grid-container">
+          <div class="news-1"><analytical-card> </analytical-card></div>
+          <div class="news-2"><analytical-card> </analytical-card></div>
+          <div class="news-3"><analytical-card :column="true" > </analytical-card></div>
+          <div class="news-4"><analytical-card> </analytical-card></div>
+        </div>
+      </div>
+    </section>
     <section class="Top-competition"></section>
   </div>
 </template>
@@ -116,12 +125,14 @@ if (process.browser) {
 }
 
 import pollCard from '@/components/cards/pollCard.vue'
+import analyticalCard from '@/components/cards/analyticalCard.vue'
 
 export default {
   components: {
     Carousel,
     Slide,
-    pollCard
+    pollCard,
+    analyticalCard
   },
   data() {
     return {
@@ -138,6 +149,37 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas: "news-1 news-1 news-3" "news-2 news-2 news-3" "news-4 news-4 news-4";
+
+  div {
+    margin: 5px;
+  }
+}
+
+.news-1 { grid-area: news-1; }
+
+.news-2 { grid-area: news-2; }
+
+.news-3 { grid-area: news-3; }
+
+.news-4 { grid-area: news-4; }
+
+@media only screen and (max-width: 1025px) {
+  .grid-container {
+    display: grid;
+    grid-template-columns: 1fr ;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-areas: "news-1" "news-2" "news-3" "news-4";
+  }
+}
+
+
+
 $bg: transparent;
 $color-green: #00b900;
 $color-blue: #2b454e;
