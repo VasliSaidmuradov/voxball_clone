@@ -50,10 +50,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$color-green: #00b900;
-$color-gray: #e8e8e8;
 $color-gray_darker: #bababa;
-$color-blue: #2b454e;
 $family: 'Helvetica';
 
 .news-card {
@@ -63,7 +60,7 @@ $family: 'Helvetica';
   flex-direction: column;
 
   &:hover &-top__back-block {
-    border-color: $color-green;
+    border-color: $base-color;
     color: #000000;
   }
   &:hover &-top__icon path,
@@ -74,13 +71,13 @@ $family: 'Helvetica';
     border: 0;
   }
   &:hover &-bottom__tag {
-    background: $color-green;
+    background: $base-color;
   }
   &:hover &-bottom__button {
-    color: $color-green;
+    color: $base-color;
   }
   &:hover &-bottom__button:after {
-    color: $color-green;
+    color: $base-color;
   } 
 
   &-top {
@@ -93,7 +90,7 @@ $family: 'Helvetica';
       height: 90%;
       padding: 0 10%;
       padding-top: 1rem;
-      border: 0.350rem solid $color-gray;
+      border: 0.350rem solid $border-color;
       display: flex;
       align-items: flex-start;
       justify-content: space-around;
@@ -154,8 +151,8 @@ $family: 'Helvetica';
       bottom: 0;
       right: 0;
       background: #ffffff;
-      border-top: 0.425rem solid $color-green;
-      border-left: 0.425rem solid $color-green;
+      border-top: 0.425rem solid $base-color;
+      border-left: 0.425rem solid $base-color;
       box-sizing: content-box;
       transition: 1s ease;
     }
@@ -177,7 +174,7 @@ $family: 'Helvetica';
     justify-content: center;
 
     &__tag {
-      background: $color-blue;
+      background: $base-text-color;
       color: #ffffff;
       font-size: 0.6rem;
       font-family: $family;
@@ -202,7 +199,7 @@ $family: 'Helvetica';
     }
 
     &__button {
-      color: $color-blue;
+      color: $base-text-color;
       font-size: 0.7rem;
       font-weight: 700;
       font-family: $family;

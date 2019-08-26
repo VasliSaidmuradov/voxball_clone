@@ -22,7 +22,13 @@
       </ul>
     </section>
     <section class="Analitic-articles"></section>
-    <section class="Top-competition"></section>
+    <section class="Top-competition">
+      <ul class="Top-competition__list">
+        <li class="Top-competition__item" v-for="(competition, index) in 4" :key="index">
+          <competition-card></competition-card>
+        </li>
+      </ul>
+    </section>
   </div>
 </template>
 
@@ -33,6 +39,7 @@ import iconArrow from '@/components/icons/iconArrow.vue'
 import Slider from '@/components/slider/slider.vue'
 import sliderItem from '@/components/slider/sliderItem.vue'
 import newsCard from '@/components/cards/newsCard.vue'
+import competitionCard from '@/components/cards/competitionCard.vue'
 
 export default {
   components: {
@@ -41,7 +48,8 @@ export default {
     iconArrow,
     sliderItem,
     Slider,
-    newsCard
+    newsCard,
+    competitionCard
   },
   data() {
     return {
@@ -74,6 +82,33 @@ export default {
     margin: 15px;
     margin-bottom: 0;
     width: calc(1 / 5 * 100% - 30px);
+  }
+}
+.Top-news {
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    list-style: none;
+    margin: 0 15px;
+    padding: 0;
+    font-size: 0.8em;
+  }
+  &__item {
+    width: 20%;
+  }
+}
+.Top-competition {
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    list-style: none;
+    padding: 0;
+    font-size: 0.8em;
+  }
+  &__item {
+    width: 25%;
   }
 }
 </style>

@@ -11,10 +11,9 @@
       </div>
       <div class="Slider-static-bottom">
         <p class="Slider-static-bottom__title text--color-secondary">Стань акционером</p>
-        <p class="Slider-static-bottom__text text-font-1">и получай часть дохода от воксбалла.</p>
-        <p
-          class="Slider-static-bottom__text text-font-2"
-        >Все что нужно, это заработать 5000 коинов, и вы автоматически становитесь акционером.</p>
+        <p class="Slider-static-bottom__text Slider-static-bottom__text_upper">и получай часть дохода от воксбалла.</p>
+        <p class="Slider-static-bottom__text">
+          Все что нужно, это заработать 5000 коинов, и вы автоматически становитесь акционером.</p>
         <v-btn class="p-0" link>
           <nuxt-link class="link-button link-button_green" to="/">
             подробнее
@@ -88,33 +87,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$bg: transparent;
-$color-green: #00b900;
 $color-blue: #2b454e;
-$border: 1px solid $color-green;
-.Top-poll {
-  &__list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    margin: 0 -15px;
-    margin-top: 20px;
-    list-style: none;
-    padding: 0;
-    font-size: 0.8em;
-  }
-  &__item {
-    flex: 0 0 auto;
-    margin: 15px;
-    margin-bottom: 0;
-    width: calc(1 / 5 * 100% - 30px);
-  }
-}
-
-// @mixin reset {
-//   border: none;
-//   background: transparent;
-// }
 
 .Slider {
   display: flex;
@@ -156,7 +129,7 @@ $border: 1px solid $color-green;
       margin: 0;
 
       &_green {
-        color: $color-green;
+        color: $base-color;
       }
     }
   }
@@ -181,16 +154,22 @@ $border: 1px solid $color-green;
       text-transform: uppercase;
 
       &_green {
-        color: $color-green;
+        color: $base-color;
       }
     }
 
     &__text {
-      font-size: 1.3rem;
+      font-size: 0.9rem;
+      font-weight: 600;
       color: $color-blue;
       padding: 0;
       margin: 0;
       margin-bottom: 0.2rem;
+
+      &_upper {
+        font-size: 1rem;
+        text-transform: uppercase;
+      }
     }
   }
 }
@@ -203,16 +182,6 @@ $border: 1px solid $color-green;
   right: 0;
   clip-path: polygon(0% 57%, 10% 0%, 100% 0%, 100% 100%);
   z-index: 2;
-}
-
-.text-font-1 {
-  font-size: 1rem;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-.text-font-2 {
-  font-size: 0.9rem;
 }
 
 .link-button {
@@ -228,9 +197,6 @@ $border: 1px solid $color-green;
     align-self: flex-end;
     margin-top: 1rem;
   }
-}
-.slider-prev {
-  fill: red;
 }
 </style>
 
