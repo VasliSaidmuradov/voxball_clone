@@ -114,6 +114,10 @@ $border: 1px solid $border-color;
       color: $hover-bg;
       background: transparent !important;
     }
+
+    a {
+      color: inherit;
+    }
   }
 
   &--disabled,
@@ -183,14 +187,14 @@ $border: 1px solid $border-color;
       position: absolute;
       top: 0;
       left: 0;
-      content: "";
+      content: '';
     }
     &:after {
       background: $disabled-bg;
       width: 75%;
       height: 75%;
       border-radius: 50%;
-      content: "";
+      content: '';
       margin: auto;
       position: absolute;
       top: 0;
