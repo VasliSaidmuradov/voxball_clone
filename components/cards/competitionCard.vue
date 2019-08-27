@@ -3,7 +3,7 @@
       <div class="competitionCard__img-wrap">
         <img class="competitionCard__img" src="~/assets/img/competition-test.png" alt="competition card image">
         <v-btn class="competitionCard__button" link>
-          <nuxt-link class="link-button link-button_green" to="/">
+          <nuxt-link class="competitionCard__link" to="/">
             подробнее
           </nuxt-link>
         </v-btn>
@@ -63,6 +63,10 @@ export default {
       content: '⟶';
       display: inline-block;
     }
+  }
+
+  &__link{
+    font-size: 1.6em;
   }
   
   &__info {

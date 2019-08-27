@@ -4,14 +4,14 @@
       <div class="news-card-top__back-block">
         <span class="news-card-top__date">{{ news.date }}</span>
         <span class="news-card-top__views"> 
-            <span>
-              <svg class="news-card-top__icon" viewBox="0 0 100 100" fill="none" stroke-width="2" >
-                <path d="M10 60 C 20 100, 80 100, 90 60 C  80 20 20 20 10 60" fill="none" ></path>
-                <circle cx="50" cy="60" r="15" fill="none"/>
-              </svg>  
-              {{ news.views }}
-            </span>
+          <svg class="news-card-top__icon" viewBox="0 0 100 100" fill="none" stroke-width="2" >
+            <path d="M0 50 C 20 100, 80 100, 100 50 C  80 0 20 0 0 50" fill="" ></path>
+            <circle cx="50" cy="50" r="20" fill="none"/>
+          </svg>  
+          <span>
+            {{ news.views }}
           </span>
+        </span>
       </div>
       <div class="news-card-top__img-wrap">
         <img class="news-card-top__img" src='~/assets/img/main-news-test.png'>
@@ -29,7 +29,6 @@
 
 <script>
 export default {
-  // props: ['news'],
 
   data() {
   	return {
@@ -68,7 +67,7 @@ $family: 'Helvetica';
     stroke: #000000;
   }
   &:hover &-top__img-wrap {
-    border: 0;
+    border-width: 0;
   }
   &:hover &-bottom__tag {
     background: $base-color;
@@ -133,9 +132,8 @@ $family: 'Helvetica';
 
     &__icon {
       width: 1rem;
-      height: 100%;
-      padding-top: 10%;
       margin-right: 0.3rem;
+      vertical-align: middle;
       path,
       circle {
         stroke-width: 8px;

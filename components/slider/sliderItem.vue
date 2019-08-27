@@ -13,7 +13,7 @@
         <v-btn class="Slide__link" link>
           <nuxt-link to="/">
             <span>подробнее</span>
-            <icon-base icon-name="arrow">
+            <icon-base icon-name="arrow" class="arrow">
               <icon-arrow />
             </icon-base>
           </nuxt-link>
@@ -59,10 +59,9 @@ export default {
   }
 
   &__link {
-    font-size: 0.8rem;
+    font-size: 0.8em;
     color: #fff;
     padding: 0;
-    text-transform: uppercase;
 
     &:hover {
       color: inherit;
@@ -106,5 +105,10 @@ export default {
   clip-path: polygon(0% 29%, 100% 0%, 100% 100%);
   opacity: 0.7;
   z-index: 2;
+}
+.arrow {
+  margin-bottom: -13px;
+  margin-left: 0.5rem;
+  height: auto;
 }
 </style>

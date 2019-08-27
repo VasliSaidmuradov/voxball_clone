@@ -14,26 +14,12 @@
         <p class="Slider-static-bottom__text Slider-static-bottom__text_upper">и получай часть дохода от воксбалла.</p>
         <p class="Slider-static-bottom__text">
           Все что нужно, это заработать 5000 коинов, и вы автоматически становитесь акционером.</p>
-        <v-btn class="p-0" link>
+        <v-btn class="p-0 link-button_green" link>
           <nuxt-link class="link-button link-button_green" to="/">
             подробнее
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="22"
-              height="6"
-              viewBox="0 0 22 6"
-            >
-              <g>
-                <g>
-                  <path
-                    fill="#00b900"
-                    d="M.009 2.875h16.287c-.785-.81-1.175-1.338-1.216-2.058 
-                                          1.786 1.241 4.106 1.888 6.91 2.496-2.804.582-5.022 
-                                          1.293-6.91 2.496.121-.783.446-1.255 1.24-2.116H.01z"
-                  />
-                </g>
-              </g>
-            </svg>
+            <icon-base icon-name="arrow" class="arrow">
+              <icon-arrow />
+            </icon-base>
           </nuxt-link>
         </v-btn>
       </div>
@@ -54,6 +40,7 @@
 </template>
 
 <script>
+import iconArrow from '@/components/icons/iconArrow.vue'
 if (process.browser) {
   var { Carousel, Slide } = require('vue-carousel')
 }
@@ -80,6 +67,7 @@ export default {
     }
   },
   components: {
+    iconArrow,
     Carousel,
     Slide
   }
@@ -87,7 +75,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$color-blue: #2b454e;
 
 .Slider {
   display: flex;
@@ -127,10 +114,6 @@ $color-blue: #2b454e;
       font-size: 1.3rem;
       padding: 0;
       margin: 0;
-
-      &_green {
-        color: $base-color;
-      }
     }
   }
 
@@ -148,20 +131,16 @@ $color-blue: #2b454e;
     &__title {
       font-size: 1.3rem;
       font-weight: 700;
-      color: $color-blue;
+      color: $secondary-text-color;
       padding: 0;
       margin: 0;
       text-transform: uppercase;
-
-      &_green {
-        color: $base-color;
-      }
     }
 
     &__text {
       font-size: 0.9rem;
       font-weight: 600;
-      color: $color-blue;
+      color: $base-text-color;
       padding: 0;
       margin: 0;
       margin-bottom: 0.2rem;
@@ -177,26 +156,34 @@ $color-blue: #2b454e;
 .Slider-carousel {
   width: 60%;
   background: #ffffff;
-  top: 0;
   position: absolute;
+  top: 0;
   right: 0;
   clip-path: polygon(0% 57%, 10% 0%, 100% 0%, 100% 100%);
   z-index: 2;
 }
 
 .link-button {
-  font-size: 0.8rem;
+  font-size: 0.8em;
   font-weight: 700;
   color: #ffffff;
 
   &_green {
     color: #00b200;
+    &:hover {
+      color: $base-text-color;
+    } 
   }
 
   &_right {
     align-self: flex-end;
     margin-top: 1rem;
   }
+}
+.arrow {
+  margin-bottom: -13px;
+  margin-left: 0.5rem;
+  height: auto;
 }
 </style>
 
