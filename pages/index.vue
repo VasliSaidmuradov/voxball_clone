@@ -46,6 +46,7 @@
         </li>
       </ul>
     </section>
+    <registrationMode />
   </div>
 </template>
 
@@ -58,6 +59,8 @@ import sliderItem from '@/components/slider/sliderItem.vue'
 import newsCard from '@/components/cards/newsCard.vue'
 import competitionCard from '@/components/cards/competitionCard.vue'
 import analyticalCard from '@/components/cards/analyticalCard.vue'
+// import accountType from '@/pages/registration/accountType.vue'
+import registrationMode from '@/pages/registration/registrationMode.vue'
 
 export default {
   components: {
@@ -68,7 +71,8 @@ export default {
     Slider,
     newsCard,
     competitionCard,
-    analyticalCard
+    analyticalCard,
+    registrationMode
   },
   data() {
     return {
