@@ -3,48 +3,43 @@
     <div class="news-card-top">
       <div class="news-card-top__back-block">
         <span class="news-card-top__date">{{ news.date }}</span>
-        <span class="news-card-top__views"> 
-          <svg class="news-card-top__icon" viewBox="0 0 100 100" fill="none" stroke-width="2" >
-            <path d="M0 50 C 20 100, 80 100, 100 50 C  80 0 20 0 0 50" fill="" ></path>
-            <circle cx="50" cy="50" r="20" fill="none"/>
-          </svg>  
-          <span>
-            {{ news.views }}
-          </span>
+        <span class="news-card-top__views">
+          <icon-base stroke-width="8px" viewBox="0 0 120 110" iconColor="none">
+            <icon-eyes></icon-eyes>
+          </icon-base>
+          <span>{{ news.views }}</span>
         </span>
       </div>
       <div class="news-card-top__img-wrap">
-        <img class="news-card-top__img" src='~/assets/img/main-news-test.png'>
+        <img class="news-card-top__img" src="~/assets/img/main-news-test.png" />
       </div>
     </div>
     <div class="news-card-bottom">
-      <span class="news-card-bottom__tag">{{ news.tag }}</span>  
+      <span class="news-card-bottom__tag">{{ news.tag }}</span>
       <p class="news-card-bottom__title">{{ news.title }}</p>
-      <nuxt-link class="news-card-bottom__button" to="/">
-        подродбнее
-      </nuxt-link>
+      <nuxt-link class="news-card-bottom__button" to="/">подробнее</nuxt-link>
     </div>
   </div>
 </template>
 
 <script>
+import iconEyes from '@/components/icons/iconEyes.vue'
 export default {
-
+  components: {
+    iconEyes
+  },
   data() {
-  	return {
-  		news: {
-            title: 'Токаев объявил мораторий на создание новых госкомпаний',
-            tag: 'политика',
-            date: '26.2.2019',
-            views: 125,
-            img: '~/assets/img/main-news-image-1.png'
-        }
-  	}
+    return {
+      news: {
+        title: 'Токаев объявил мораторий на создание новых госкомпаний',
+        tag: 'политика',
+        date: '26.2.2019',
+        views: 125,
+        img: '~/assets/img/main-news-image-1.png'
+      }
+    }
   },
-
-  methods: {
-  	
-  },
+  methods: {}
 }
 </script>
 
@@ -57,14 +52,11 @@ $family: 'Helvetica';
   width: 16.875rem;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 
   &:hover &-top__back-block {
     border-color: $base-color;
     color: #000000;
-  }
-  &:hover &-top__icon path,
-  &:hover &-top__icon circle{
-    stroke: #000000;
   }
   &:hover &-top__img-wrap {
     border-width: 0;
@@ -77,24 +69,24 @@ $family: 'Helvetica';
   }
   &:hover &-bottom__button:after {
     color: $base-color;
-  } 
+  }
 
   &-top {
     width: 100%;
     height: 80%;
     position: relative;
-    
+
     &__back-block {
       width: 75%;
       height: 90%;
       padding: 0 10%;
       padding-top: 1rem;
-      border: 0.350rem solid $border-color;
+      border: 0.35rem solid $border-color;
       display: flex;
       align-items: flex-start;
       justify-content: space-around;
       position: relative;
-      transition: 1s ease;
+      transition: 0.5s ease;
       color: $color-gray_darker;
     }
 
@@ -134,12 +126,6 @@ $family: 'Helvetica';
       width: 1rem;
       margin-right: 0.3rem;
       vertical-align: middle;
-      path,
-      circle {
-        stroke-width: 8px;
-        stroke: $color-gray_darker;
-        transition: 1s ease;
-      }
     }
 
     &__img-wrap {
@@ -152,7 +138,7 @@ $family: 'Helvetica';
       border-top: 0.425rem solid $base-color;
       border-left: 0.425rem solid $base-color;
       box-sizing: content-box;
-      transition: 1s ease;
+      transition: 0.5s ease;
     }
 
     &__img {
@@ -160,7 +146,6 @@ $family: 'Helvetica';
       height: 100%;
       object-fit: cover;
     }
-
   }
 
   &-bottom {
@@ -182,7 +167,7 @@ $family: 'Helvetica';
       padding-top: 0.25rem;
       padding-bottom: 0.25rem;
       text-transform: uppercase;
-      transition: 1s ease;
+      transition: 0.5s ease;
     }
 
     &__title {
@@ -204,7 +189,7 @@ $family: 'Helvetica';
       text-transform: uppercase;
       letter-spacing: 0.04rem;
       position: relative;
-      transition: 1s ease;
+      transition: 0.5s ease;
       cursor: pointer;
       &::after {
         content: '⟶';

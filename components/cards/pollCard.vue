@@ -1,34 +1,41 @@
 <template>
-  <div class="Poll-Card">
-    <div class="Poll-Card__main">
+  <div class="poll-card">
+    <div class="poll-card__main">
       <div>
-        <img class="Poll-Card__img" src="~/assets/img/test-bg.jpg" alt />
+        <img class="poll-card__img" src="~/assets/img/test-bg.jpg" alt />
       </div>
-      <div class="Poll-Card__block">
-        <div class="Poll-Card__content">
-          <nuxt-link to="/" class="Poll-Card__content-item">Бизнес</nuxt-link>
-          <nuxt-link to="/" class="Poll-Card__content-item Poll-Card__content-item--video">Видео</nuxt-link>
+      <div class="poll-card__block">
+        <div class="poll-card__content">
+          <nuxt-link to="/" class="poll-card__content-item">Бизнес</nuxt-link>
+          <nuxt-link to="/" class="poll-card__content-item poll-card__content-item--video">Видео</nuxt-link>
         </div>
-        <div class="Poll-Card__title">хотите ли выполететь в космос?</div>
-        <nuxt-link to="/" class="Poll-Card__link">Подробнее</nuxt-link>
-        <div class="Poll-Card__play-block">
-          <div class="Poll-Card__play"></div>
+        <div class="poll-card__title">хотите ли выполететь в космос?</div>
+        <nuxt-link to="/" class="poll-card__link">Подробнее</nuxt-link>
+        <div class="poll-card__play-block">
+          <div class="poll-card__play"></div>
         </div>
       </div>
     </div>
-    <div class="Poll-Card__footer">
-      <div class="Poll-Card__date">19.19.2019</div>
-      <div class="Poll-Card__poll">
-        <img src="~/assets/img/gramophone.png" alt />
-        <div class="Poll-Card__counter">345</div>
+    <div class="poll-card__footer">
+      <div class="poll-card__date">19.19.2019</div>
+      <div class="views">
+        <icon-base stroke-width="8px" viewBox="0 0 120 110" iconColor="none">
+          <icon-eyes></icon-eyes>
+        </icon-base>
+        <div class="views__count">345</div>
       </div>
     </div>
-    <div class="Poll-Card__green-container"></div>
+    <div class="poll-card__move-out"></div>
   </div>
 </template>
 
 <script>
+import iconEyes from '@/components/icons/iconEyes.vue'
+
 export default {
+  components: {
+    iconEyes
+  },
   props: {
     data: Object
   },
@@ -37,8 +44,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.Poll-Card {
+.poll-card {
   &__main {
+    cursor: pointer;
     position: relative;
     display: block;
     max-height: 330px;
@@ -58,7 +66,7 @@ export default {
   &:hover &__link {
     color: $base-color;
   }
-  &:hover &__green-container::after {
+  &:hover &__move-out::after {
     top: -30px;
   }
 
@@ -93,7 +101,7 @@ export default {
     transform: translate(-50%, -50%);
     border-radius: 50%;
     background: #00b90087;
-    transition: 1s ease;
+    transition: 0.5s ease;
   }
 
   &__title {
@@ -160,17 +168,7 @@ export default {
     background: white;
   }
 
-  &__poll {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  &__counter {
-    margin-left: 10px;
-    color: gray;
-  }
-
-  &__green-container {
+  &__move-out {
     position: relative;
     padding: 0 1em;
 
@@ -183,8 +181,16 @@ export default {
       width: 100%;
       height: 20px;
       background: $base-color;
-      transition: 1s linear;
+      transition: 0.5s linear;
     }
+  }
+}
+.views {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &__count {
+    color: gray;
   }
 }
 </style>
