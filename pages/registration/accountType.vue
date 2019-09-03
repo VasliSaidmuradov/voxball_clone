@@ -1,6 +1,7 @@
 <template>
   <div class="type">
-    <div class="type__form">
+    <detailed-layout />
+    <v-form-layout>
       <label class="type__label">Выберите тип аккаунта</label>
       <v-select 
        class="type__select"
@@ -12,35 +13,40 @@
       >
       </v-select>
       <div class="type__buttons">
-        <v-btn class="type__link-wrap" link>
+        <v-btn class="type__link-wrap left-link">
           <nuxt-link class="type__link" to="/">
             войти
-            <icon-base icon-name="arrow" class="arrow">
+            <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
               <icon-arrow />
             </icon-base>
           </nuxt-link>
         </v-btn>
         <v-btn class="type__link-wrap" border>
-          <nuxt-link class="type__link" to="/">
+          <nuxt-link class="type__link" to="/registration/registrationmode">
             далее
-            <icon-base icon-name="arrow" class="arrow">
+            <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
               <icon-arrow />
             </icon-base>
           </nuxt-link>
         </v-btn>    
       </div>
-    </div>
+    </v-form-layout>
   </div>
 </template>
 
 <script>
 import iconArrow from '@/components/icons/iconArrow.vue';
+import detailedLayout from '@/components/shared/detailedLayout.vue';
+import vFormLayout from '@/components/forms/vFormLayout.vue';
+// v-select
 import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css';
 export default {
   components: {
     iconArrow,
-    vSelect
+    vSelect,
+    detailedLayout,
+    vFormLayout
   },
   data() {
     return {
@@ -52,14 +58,10 @@ export default {
 
 <style lang="scss" scoped>
 .type {
-  width: 25%;
-  min-height: 10rem;
-  margin: 0 auto;
-
-  &__form {
-    box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.2);
-    padding: 3rem 1.5rem;
-  }
+  background-image: url('~assets/img/registration__bg.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  min-height: 40rem;
 
   &__label {
     
@@ -73,38 +75,50 @@ export default {
     display: flex;
     justify-content: space-between;
     margin-top: 1.5rem;
+    margin-bottom: 2rem;
   }
 
   &__link-wrap {
-    display: inline-block;
-    padding: 0.3rem 0rem;
-    &:nth-child(2) {
-      padding: 0.3rem 1rem;
-      border-color: $base-text-color;
+    color: $base-text-color;
+    border-color: $base-text-color;
+    &:hover {
+      color: white;
+      background-color: $secondary-text-color;
+      border-color: $secondary-text-color;
     }
   }
 
   &__link {
-    color: $base-text-color;
+    color: inherit;
     text-decoration: none;
     position: relative;
   }
 
 }
+.left-link {
+  text-decoration: underline;
+  &:hover {
+    text-decoration: none;
+  }
+}
 .arrow {
-  margin-bottom: -13px;
+  margin-bottom: -10px;
   margin-left: 0.5rem;
   height: auto;
 }
-
 </style>
 <style>
 /* for v-select */
 .v-select .vs__dropdown-toggle {
   border-radius: 37px;
+  border-color: #2b454e;
 }
 .v-select .vs__open-indicator {
   fill: #007b00;
+}
+.v-select .vs__search{
+  line-height: 2.0;
+  font-size: 0.8em;
 }
 .v-select .vs__search[placeholder] {
   color: #2b454e;

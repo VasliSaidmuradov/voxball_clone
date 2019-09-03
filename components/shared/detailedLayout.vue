@@ -88,6 +88,7 @@ export default {
 
   &__link {
     text-decoration: none;
+    color: white;
     &:before {
       content: '<';
       vertical-align: middle;

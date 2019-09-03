@@ -1,6 +1,7 @@
 <template>
   <div class="mode">
-    <div class="mode__form">
+    <detailed-layout />
+    <v-form-layout>
       <div class="mode__toggle">
         <a 
          class="mode__type" 
@@ -38,51 +39,55 @@
         <input 
           class="mode__input mode__email"
           type="email" 
-          v-mask="'+7(###) ### ## ##'" 
           v-model="email"
         >
         <label class="mode__label">Создать пароль</label>
         <input 
           class="mode__input mode__password"
           type="text" 
-          v-mask="'+7(###) ### ## ##'" 
           v-model="password"
         >
         <label class="mode__label">Повторить пароль</label>
         <input 
           class="mode__input mode__password"
           type="text" 
-          v-mask="'+7(###) ### ## ##'" 
-          v-model="password" 
+          v-model="passwordCheck" 
         >
       </div>
       <div class="mode__buttons">
-        <v-btn class="mode__link-wrap">
+        <v-btn class="mode__link-wrap left-link">
           <nuxt-link class="mode__link" to="/">
+            <icon-base icon-name="arrow-left" class="arrow" viewBox="0 0 22 18">
+              <icon-arrowleft />
+            </icon-base>
             назад
-            <!-- <icon-base icon-name="arrow" class="arrow">
-              <icon-arrow />
-            </icon-base> -->
           </nuxt-link>
         </v-btn>
-        <v-btn class="mode__link-wrap">
-          <nuxt-link class="mode__link" to="/">
+        <v-btn class="mode__link-wrap" border>
+          <nuxt-link class="mode__link" to="/registration/verification">
             далее
-            <icon-base icon-name="arrow" class="arrow">
+            <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
               <icon-arrow />
             </icon-base>
           </nuxt-link>
         </v-btn>    
       </div>
-    </div>
+      <registration-social />
+    </v-form-layout>
   </div>
 </template>
 
 <script>
 import Vue from 'vue'
 import iconArrow from '@/components/icons/iconArrow.vue';
+import iconArrowleft from '@/components/icons/iconArrowleft.vue';
+import detailedLayout from '@/components/shared/detailedLayout.vue';
+import vFormLayout from '@/components/forms/vFormLayout.vue';
+import registrationSocial from '@/components/registration/registrationSocial.vue';
+// v-select
 import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css';
+// v-mask
 import VueMask from 'v-mask'
 Vue.use(VueMask);
 import { VueMaskDirective } from 'v-mask'
@@ -91,7 +96,11 @@ Vue.directive('mask', VueMaskDirective);
 export default {
   components: {
     iconArrow,
-    vSelect
+    iconArrowleft,
+    vSelect,
+    detailedLayout,
+    vFormLayout,
+    registrationSocial
   },
   data() {
     return {
@@ -105,14 +114,10 @@ export default {
 
 <style lang="scss" scoped>
 .mode {
-  width: 25%;
-  min-height: 10rem;
-  margin: 0 auto;
-
-  &__form {
-    box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.2);
-    padding: 3rem 1.5rem;
-  }
+  background-image: url('~assets/img/registration__bg.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  min-height: 40rem;
 
   &__toggle {
     display: flex;
@@ -143,7 +148,7 @@ export default {
     outline: none;
     margin: 4px 0 0;
     margin-top: 0.5rem;
-    padding: 0 7px;
+    padding: 0 1rem;
     width: 100%;
     color: $base-text-color;
     font-style: normal;
@@ -167,13 +172,16 @@ export default {
     display: flex;
     justify-content: space-between;
     margin-top: 1.5rem;
+    margin-bottom: 2rem;
   }
 
   &__link-wrap {
     color: $base-text-color;
+    border-color: $base-text-color;
     &:hover {
       color: white;
       background-color: $secondary-text-color;
+      border-color: $secondary-text-color;
     }
   }
 
@@ -183,13 +191,20 @@ export default {
     position: relative;
   }
 }
-.isActive {
-  color: $secondary-text-color;
+.left-link {
+  text-decoration: underline;
+  padding-left: 0;
+  &:hover {
+    text-decoration: none;
+  }
 }
 .arrow {
-  margin-bottom: -13px;
+  margin-bottom: -10px;
   margin-left: 0.5rem;
   height: auto;
+}
+.isActive {
+  color: $secondary-text-color;
 }
 </style>
 <style>
