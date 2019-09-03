@@ -6,7 +6,7 @@
         <h1 class="Slider-static-top__title">VOXBALL предлагает Вам</h1>
         <p class="Slider-static-top__text">
           зарегистрироваться на портале, создавать опросы
-          и зарабатывать коины.
+          и зарабатывать коины
         </p>
       </div>
       <div class="Slider-static-bottom">
