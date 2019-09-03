@@ -25,9 +25,10 @@ export default {}
 .competitionCard {
   width: 100%;
   position: relative;
+  overflow: hidden;
 
   &:hover &__img {
-    filter: blur(3px);
+    filter: blur(6px) brightness(0.9);
   }
   &:hover &__button {
     opacity: 1;

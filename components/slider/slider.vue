@@ -11,9 +11,12 @@
       </div>
       <div class="Slider-static-bottom">
         <p class="Slider-static-bottom__title text--color-secondary">Стань акционером</p>
-        <p class="Slider-static-bottom__text Slider-static-bottom__text_upper">и получай часть дохода от воксбалла.</p>
-        <p class="Slider-static-bottom__text">
-          Все что нужно, это заработать 5000 коинов, и вы автоматически становитесь акционером.</p>
+        <p
+          class="Slider-static-bottom__text Slider-static-bottom__text_upper"
+        >и получай часть дохода от воксбалла.</p>
+        <p
+          class="Slider-static-bottom__text"
+        >Все что нужно, это заработать 5000 коинов, и вы автоматически становитесь акционером.</p>
         <v-btn class="p-0 link-button_green" link>
           <nuxt-link class="link-button link-button_green" to="/">
             подробнее
@@ -24,7 +27,7 @@
         </v-btn>
       </div>
     </div>
-    <no-ssr placeholder="Loading">
+    <no-ssr>
       <Carousel
         class="Slider-carousel"
         :navigationEnabled="true"
@@ -75,7 +78,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .Slider {
   display: flex;
   align-items: center;
@@ -172,7 +174,7 @@ export default {
     color: #00b200;
     &:hover {
       color: $base-text-color;
-    } 
+    }
   }
 
   &_right {
