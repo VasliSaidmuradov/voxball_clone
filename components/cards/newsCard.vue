@@ -3,44 +3,42 @@
     <div class="news-card__main">
       <div class="news-card__info">
         <span class="news-card__date">{{ news.date }}</span>
-        <span class="news-card__views"> 
-          <svg class="news-card__icon" viewBox="0 0 100 100" fill="none" stroke-width="2" >
-            <path d="M0 50 C 20 100, 80 100, 100 50 C  80 0 20 0 0 50" fill="" ></path>
-            <circle cx="50" cy="50" r="20" fill="none"/>
-          </svg>  
-          <span>
-            {{ news.views }}
-          </span>
+        <span class="news-card__views">
+          <icon-base stroke-width="8px" viewBox="0 0 120 110" iconColor="none">
+            <icon-eyes></icon-eyes>
+          </icon-base>
+          <span>{{ news.views }}</span>
         </span>
       </div>
       <div class="news-card__img-wrap">
-        <img class="news-card__img" src='~/assets/img/main-news-test.png'>
+        <img class="news-card__img" src="~/assets/img/main-news-test.png" />
       </div>
     </div>
     <div class="news-card__footer">
-      <span class="news-card__tag">{{ news.tag }}</span>  
+      <span class="news-card__tag">{{ news.tag }}</span>
       <p class="news-card__title">{{ news.title }}</p>
-      <nuxt-link class="news-card__button" to="/">
-        подродбнее
-      </nuxt-link>
+      <nuxt-link class="news-card__button" to="/">подродбнее</nuxt-link>
     </div>
   </div>
 </template>
 
 <script>
+import iconEyes from '@/components/icons/iconEyes.vue'
 export default {
-
-  data() {
-  	return {
-  		news: {
-            title: 'Токаев объявил мораторий на создание новых госкомпаний',
-            tag: 'политика',
-            date: '26.2.2019',
-            views: 125,
-            img: '~/assets/img/main-news-image-1.png'
-        }
-  	}
+  components: {
+    iconEyes
   },
+  data() {
+    return {
+      news: {
+        title: 'Токаев объявил мораторий на создание новых госкомпаний',
+        tag: 'политика',
+        date: '26.2.2019',
+        views: 125,
+        img: '~/assets/img/main-news-image-1.png'
+      }
+    }
+  }
 }
 </script>
 
@@ -53,13 +51,14 @@ $family: 'Helvetica';
   min-width: 16.875rem;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 
   &:hover &__info {
     border-color: $base-color;
     color: #000000;
   }
   &:hover &__icon path,
-  &:hover &__icon circle{
+  &:hover &__icon circle {
     stroke: #000000;
   }
   &:hover &__img-wrap:after {
@@ -74,20 +73,20 @@ $family: 'Helvetica';
   }
   &:hover &__button:after {
     color: $base-color;
-  } 
+  }
 
   &__main {
     width: 100%;
     height: 80%;
     position: relative;
   }
-  
+
   &__info {
     width: 75%;
     height: 90%;
     padding: 0 10%;
     padding-top: 1rem;
-    border: 0.350rem solid $border-color;
+    border: 0.35rem solid $border-color;
     display: flex;
     align-items: flex-start;
     justify-content: space-around;
@@ -132,12 +131,6 @@ $family: 'Helvetica';
     width: 1rem;
     margin-right: 0.3rem;
     vertical-align: middle;
-    path,
-    circle {
-      stroke-width: 8px;
-      stroke: $color-gray_darker;
-      transition: stroke 0.5s ease;
-    }
   }
 
   &__img-wrap {
@@ -222,6 +215,6 @@ $family: 'Helvetica';
       position: absolute;
       transform: translateY(-50%);
     }
- }
+  }
 }
 </style>

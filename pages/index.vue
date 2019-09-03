@@ -68,7 +68,7 @@ export default {
     Slider,
     newsCard,
     competitionCard,
-    analyticalCard,
+    analyticalCard
   },
   data() {
     return {
@@ -109,6 +109,8 @@ $border: 1px solid $color-green;
   }
 }
 .Top-news {
+  margin-top: 2em;
+
   &__list {
     display: flex;
     flex-wrap: wrap;
@@ -170,5 +172,4 @@ $border: 1px solid $color-green;
     grid-template-areas: 'news-1' 'news-2' 'news-3' 'news-4';
   }
 }
-
 </style>

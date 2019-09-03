@@ -1,37 +1,37 @@
 <template>
-  <div class="Analytical-Card">
+  <div class="analytical-card">
     <div
-      class="Analytical-Card-wrapper"
-      :class="[column ? 'Analytical-Card-wrapper--column' : 'Analytical-Card-wrapper--row']"
+      class="analytical-card-wrapper"
+      :class="[column ? 'analytical-card-wrapper--column' : 'analytical-card-wrapper--row']"
     >
-      <div class="Analytical-Card__main">
-        <div class="Analytical-Card__info">
-          <div class="Analytical-Card__info-date">12.12.12</div>
-          <div class="Analytical-Card__info-view">
+      <div class="analytical-card__main">
+        <div class="analytical-card__info">
+          <div class="analytical-card__info-date">12.12.12</div>
+          <div class="analytical-card__info-view">
             <!-- <img src="" alt=""> -->
-            <span class="Analytical-Card__info-counter">324</span>
+            <span class="analytical-card__info-counter">324</span>
           </div>
         </div>
-        <h2 class="Analytical-Card__title">Почему блокируют за спойлеры?</h2>
+        <h2 class="analytical-card__title">Почему блокируют за спойлеры?</h2>
         <p
-          class="Analytical-Card__text"
+          class="analytical-card__text"
         >Большинство людей не просто не любят спойлеры – они их боятся. Это связано в первую очередь с тем, что человек хочет почувствовать wow-эффект при первом просмотре фильма или сериала.</p>
-        <nuxt-link class="Analytical-Card__link" to="/">Подробнее</nuxt-link>
+        <nuxt-link class="analytical-card__link" to="/">Подробнее</nuxt-link>
       </div>
       <div
-        class="Analytical-Card__img-container"
-        :class="{'Analytical-Card__img-container--column':column}"
+        class="analytical-card__img-container"
+        :class="{'analytical-card__img-container--column':column}"
       >
-        <div class="Analytical-Card__img-circles">
-          <div class="Analytical-Card__row">
-            <span class="Analytical-Card__img-circle"></span>
-            <span class="Analytical-Card__img-circle"></span>
-            <span class="Analytical-Card__img-circle"></span>
+        <div class="analytical-card__img-circles">
+          <div class="analytical-card__row">
+            <span class="analytical-card__img-circle"></span>
+            <span class="analytical-card__img-circle"></span>
+            <span class="analytical-card__img-circle"></span>
           </div>
 
-          <div class="Analytical-Card__row">
-            <span class="Analytical-Card__img-circle"></span>
-            <span class="Analytical-Card__img-circle"></span>
+          <div class="analytical-card__row">
+            <span class="analytical-card__img-circle"></span>
+            <span class="analytical-card__img-circle"></span>
           </div>
         </div>
       </div>
@@ -60,7 +60,7 @@ export default {
 $text-color: #2b454e;
 $light: #00b900;
 
-.Analytical-Card {
+.analytical-card {
   &__main {
     position: relative;
     display: flex;
@@ -69,11 +69,11 @@ $light: #00b900;
     box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.2);
   }
 
-  &:hover .Analytical-Card-wrapper--column::after {
+  &:hover .analytical-card-wrapper--column::after {
     bottom: 0px;
   }
 
-  &:hover .Analytical-Card-wrapper--row::after {
+  &:hover .analytical-card-wrapper--row::after {
     left: 0px;
   }
 
@@ -163,7 +163,7 @@ $light: #00b900;
   }
 }
 
-.Analytical-Card-wrapper {
+.analytical-card-wrapper {
   display: flex;
   justify-content: space-between;
   position: relative;

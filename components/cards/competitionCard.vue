@@ -1,33 +1,34 @@
 <template>
   <div class="competitionCard">
-      <div class="competitionCard__img-wrap">
-        <img class="competitionCard__img" src="~/assets/img/competition-test.png" alt="competition card image">
-        <v-btn class="competitionCard__button" link>
-          <nuxt-link class="competitionCard__link" to="/">
-            подробнее
-          </nuxt-link>
-        </v-btn>
-      </div>
-      <div class="competitionCard__info">
-        <p class="competitionCard__text">До конца конкурса осталось:</p>
-        <p class="competitionCard__time">2 месяца 25 дней 8 часов</p>
-      </div>
+    <div class="competitionCard__img-wrap">
+      <img
+        class="competitionCard__img"
+        src="~/assets/img/competition-test.png"
+        alt="competition card image"
+      />
+      <v-btn class="competitionCard__button" link>
+        <nuxt-link class="competitionCard__link" to="/">подробнее</nuxt-link>
+      </v-btn>
+    </div>
+    <div class="competitionCard__info">
+      <p class="competitionCard__text">До конца конкурса осталось:</p>
+      <p class="competitionCard__time">2 месяца 25 дней 8 часов</p>
+    </div>
   </div>
 </template>
 
 <script>
-export default {
-
-}
+export default {}
 </script>
 
 <style lang="scss" scoped>
 .competitionCard {
   width: 100%;
   position: relative;
+  overflow: hidden;
 
   &:hover &__img {
-    filter: blur(3px);
+    filter: blur(6px) brightness(0.9);
   }
   &:hover &__button {
     opacity: 1;
@@ -39,14 +40,14 @@ export default {
   &__img-wrap {
     min-width: 10rem;
     min-height: 10rem;
-    transition: 1s ease;
+    transition: 0.5s ease;
     position: relative;
   }
   &__img {
     width: 100%;
     height: 100%;
-    object-fit: cover; 
-    transition: 1s ease;
+    object-fit: cover;
+    transition: 0.5s ease;
   }
 
   &__button {
@@ -58,17 +59,21 @@ export default {
     color: #ffffff;
     opacity: 0;
     padding: 0.5rem 1rem;
-    transition: 1s ease;
+    transition: 0.5s ease;
+
+    &:hover {
+      border: 1px solid $base-color;
+    }
     &:after {
       content: '⟶';
       display: inline-block;
     }
   }
 
-  &__link{
+  &__link {
     font-size: 1.6em;
   }
-  
+
   &__info {
     width: 74%;
     background: #ffffff;
@@ -78,11 +83,11 @@ export default {
     top: -2.5rem;
     box-shadow: 0px 0px 10px -7px black;
     text-align: center;
-    transition: 1s ease;
+    transition: 0.5s ease;
   }
   &__text {
     padding: 0;
-    margin: 0;  
+    margin: 0;
   }
   &__time {
     padding: 0;
