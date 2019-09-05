@@ -49,6 +49,7 @@ $family: 'Helvetica';
 .news-card {
   height: 30rem;
   min-width: 16.875rem;
+  width: 16.875rem;
   display: flex;
   flex-direction: column;
   cursor: pointer;

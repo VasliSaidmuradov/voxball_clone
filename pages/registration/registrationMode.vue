@@ -190,12 +190,14 @@ export default {
     text-decoration: none;
     position: relative;
   }
+
 }
 .left-link {
   text-decoration: underline;
   padding-left: 0;
   &:hover {
-    text-decoration: none;
+    background: none;
+    color: $secondary-text-color;
   }
 }
 .arrow {
@@ -209,16 +211,16 @@ export default {
 </style>
 <style>
 /* for v-select */
-.v-select .vs__dropdown-toggle {
-  border-radius: 37px;
-  border-color: #2b454e;
-}
-.v-select .vs__open-indicator {
-  fill: #007b00;
-}
-.v-select .vs__search[placeholder] {
-  color: #2b454e;
-  opacity: 0.5;
-  font-style: italic;
-}
+  .mode .v-select .vs__dropdown-toggle {
+    border-radius: 37px;
+    border-color: #2b454e;
+  }
+  .mode .v-select .vs__open-indicator {
+    fill: #007b00;
+  }
+  .mode .v-select .vs__search[placeholder] {
+    color: #2b454e;
+    opacity: 0.5;
+    font-style: italic;
+  }
 </style>

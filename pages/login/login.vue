@@ -1,29 +1,32 @@
 <template>
-  <div class="verification">
+   <div class="login">
     <detailed-layout />
     <v-form-layout>
-      <label class="verification__label">
-        Введите код подтверждения
-      </label>
+      <label class="login__label">Введите номер или e-mail</label>
       <input 
-        class="verification__input"
-        type="text" 
-        v-mask="'### ###'"
-        v-model="verificationCode"
+        class="login__input login__email"
+        type="email" 
+        v-loginl="email"
       >
-      <div class="verification__buttons">
-        <v-btn class="verification__link-wrap left-link">
-          <nuxt-link class="verification__link" to="/">
-            <icon-base icon-name="arrow-left" class="arrow" viewBox="0 0 22 18">
-              <icon-arrowleft />
+      <label class="login__label">Пароль</label>
+      <input 
+        class="login__input login__password"
+        type="text" 
+        v-loginl="password"
+      >
+      <div class="login__buttons">
+        <v-btn class="login__link-wrap left-link">
+          <nuxt-link class="login__link" to="/registration/accountType">
+            зарегестрироваться
+            <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
+              <icon-arrow />
             </icon-base>
-            назад
           </nuxt-link>
         </v-btn>
-        <v-btn class="verification__link-wrap" border>
-          <nuxt-link class="verification__link" to="/registration/personalization">
-            далее
-            <icon-base icon-name="arrow" class="arrow" view-box="0 0 22 18">
+        <v-btn class="login__link-wrap" border>
+          <nuxt-link class="login__link" to="/registration/verification">
+            войти
+            <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
               <icon-arrow />
             </icon-base>
           </nuxt-link>
@@ -41,12 +44,6 @@ import iconArrowleft from '@/components/icons/iconArrowleft.vue';
 import detailedLayout from '@/components/shared/detailedLayout.vue';
 import vFormLayout from '@/components/forms/vFormLayout.vue';
 import registrationSocial from '@/components/registration/registrationSocial.vue';
-// v-mask
-import VueMask from 'v-mask'
-Vue.use(VueMask);
-import { VueMaskDirective } from 'v-mask'
-Vue.directive('mask', VueMaskDirective);
-
 export default {
   components: {
     iconArrow,
@@ -55,20 +52,32 @@ export default {
     vFormLayout,
     registrationSocial
   },
-  data() {
-    return {
-      verificationCode: ''
-    }
-  },
 }
 </script>
 
 <style lang="scss" scoped>
-.verification {
+.login {
   background-image: url('~assets/img/registration__bg.png');
   background-size: 100%;
   background-repeat: no-repeat;
   min-height: 40rem;
+
+  &__toggle {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+  }
+
+  &__type {
+    appearance: none;
+    color: $base-text-color;
+    font-size: 0.75em;
+    text-decoration: underline;
+    cursor: pointer;
+    &:hover {
+      color: $secondary-text-color;
+    }
+  }
 
   &__input {
     appearance: none;
@@ -86,6 +95,20 @@ export default {
     width: 100%;
     color: $base-text-color;
     font-style: normal;
+  }
+
+  &__tel {
+    
+  }
+
+  &__email {
+    margin-top: 0.2rem;
+    margin-bottom: 0.6rem;
+  }
+
+  &__password {
+    margin-top: 0.2rem;
+    margin-bottom: 0.6rem;
   }
 
   &__buttons {
@@ -123,5 +146,8 @@ export default {
   margin-bottom: -10px;
   margin-left: 0.5rem;
   height: auto;
+}
+.isActive {
+  color: $secondary-text-color;
 }
 </style>

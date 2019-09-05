@@ -60,6 +60,7 @@ export default {}
     opacity: 0;
     padding: 0.5rem 1rem;
     transition: 0.5s ease;
+    text-decoration: none;
 
     &:hover {
       border: 1px solid $base-color;
@@ -88,12 +89,14 @@ export default {}
   &__text {
     padding: 0;
     margin: 0;
+    font-size: 0.9em;
   }
   &__time {
     padding: 0;
     margin: 0;
     font-weight: 700;
     text-transform: uppercase;
+    font-size: 0.8em;
   }
 }
 </style>
