@@ -2,16 +2,15 @@
   <div class="type">
     <detailed-layout />
     <v-form-layout>
-      <label class="type__label">Выберите тип аккаунта</label>
-      <v-select 
-       class="type__select"
-       :options="options"
-       :searchable="true"
-       :no-drop="false"
-       :multiple="false"
-       :placeholder="options[0]"
-      >
-      </v-select>
+      <label class="type__label">Выберите тип аккаунта {{$t('lang')}}</label>
+      <v-select
+        class="type__select"
+        :options="options"
+        :searchable="true"
+        :no-drop="false"
+        :multiple="false"
+        :placeholder="options[0]"
+      ></v-select>
       <div class="type__buttons">
         <v-btn class="type__link-wrap left-link">
           <nuxt-link class="type__link" to="/">
@@ -28,19 +27,19 @@
               <icon-arrow />
             </icon-base>
           </nuxt-link>
-        </v-btn>    
+        </v-btn>
       </div>
     </v-form-layout>
   </div>
 </template>
 
 <script>
-import iconArrow from '@/components/icons/iconArrow.vue';
-import detailedLayout from '@/components/shared/detailedLayout.vue';
-import vFormLayout from '@/components/forms/vFormLayout.vue';
+import iconArrow from '@/components/icons/iconArrow.vue'
+import detailedLayout from '@/components/shared/detailedLayout.vue'
+import vFormLayout from '@/components/forms/vFormLayout.vue'
 // v-select
 import vSelect from 'vue-select'
-import 'vue-select/dist/vue-select.css';
+import 'vue-select/dist/vue-select.css'
 export default {
   components: {
     iconArrow,
@@ -52,7 +51,7 @@ export default {
     return {
       options: ['Персональный', 'Корпоративный']
     }
-  },
+  }
 }
 </script>
 
@@ -64,7 +63,6 @@ export default {
   min-height: 40rem;
 
   &__label {
-    
   }
 
   &__select {
@@ -93,7 +91,6 @@ export default {
     text-decoration: none;
     position: relative;
   }
-
 }
 .left-link {
   text-decoration: underline;
@@ -116,8 +113,8 @@ export default {
 .v-select .vs__open-indicator {
   fill: #007b00;
 }
-.v-select .vs__search{
-  line-height: 2.0;
+.v-select .vs__search {
+  line-height: 2;
   font-size: 0.8em;
 }
 .v-select .vs__search[placeholder] {

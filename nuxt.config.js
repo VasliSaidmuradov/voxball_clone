@@ -1,9 +1,25 @@
 module.exports = {
-	/*
-	 ** Headers of the page
-	 */
-	modules: ['@nuxtjs/style-resources'],
-	plugins: ['~/plugins/global.js'],
+	modules: [
+		'@nuxtjs/style-resources',
+		[
+			'nuxt-i18n',
+			{
+				lazy: true,
+				locales: [
+					{ name: 'рус', code: 'ru', file: 'ru.js' },
+					{ name: 'қаз', code: 'kk', file: 'kk.js' },
+					{ name: 'eng', code: 'en', file: 'en.js' }
+				],
+				strategy: 'prefix',
+				langDir: 'lang/',
+				defaultLocale: 'ru'
+			}
+		]
+	],
+	router: {
+		middleware: 'test'
+	},
+	plugins: ['~/plugins/global.js', '~/plugins/lang.js'],
 	head: {
 		title: 'voxball',
 		meta: [

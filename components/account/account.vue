@@ -1,18 +1,24 @@
 <template>
   <div class="Account">
-    <v-btn>
+    <v-btn @click="login">
       <img class="Account__img" src="~/assets/img/human.png" alt="Log in" />
       <span>Войти</span>
     </v-btn>
-    <v-btn>
+    <!-- <v-btn>
       <img class="Account__img" src="~/assets/img/edit.png" alt="Sing up" />
       <span>Регистрация</span>
-    </v-btn>
+    </v-btn>-->
   </div>
 </template>
-
+    
 <script>
-export default {}
+export default {
+  methods: {
+    login() {
+      this.$navigate('registration/accountType')
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

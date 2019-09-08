@@ -1,5 +1,5 @@
 <template>
-  <div :style="styles" :class="classes">
+  <div @click="click()" :style="styles" :class="classes">
     <div class="v-btn__content">
       <slot></slot>
     </div>
