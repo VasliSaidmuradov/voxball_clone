@@ -25,29 +25,13 @@ export default {
   margin-bottom: 3rem;
   z-index: 1;
 
-  &:hover .form__back{
-    bottom: 0;
+  &__back {
+    width: calc(100% - 3rem);
+    height: 0.7rem;
+    position: absolute;
+    bottom: -0.7rem;
+    z-index: -2;
+    background-color: $base-color;
   }
-
-  // &__back {
-  //   position: absolute;
-  //   top: 0;
-  //   left: 50%;
-  //   transform: translateX(-50%);
-  //   width: calc(100% - 3rem);
-  //   height: calc(100% + 0.7rem);
-  //   background-color: $base-color;
-  //   z-index: -2;
-  // }
-  
-  // &__back {
-  //   width: calc(100% - 3rem);
-  //   height: 0.7rem;
-  //   position: absolute;
-  //   bottom: -0.7rem;
-  //   z-index: -2;
-  //   background-color: $base-color;
-  //   transition: bottom 0.5s ease;
-  // }
 }
 </style>

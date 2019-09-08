@@ -2,8 +2,13 @@
   <div class="Main">
     <section class="Slider">
       <Slider>
-        <sliderItem></sliderItem>
-        <sliderItem></sliderItem>
+        <Slide>
+          <sliderItem></sliderItem>
+        </Slide>
+        <Slide>
+          <sliderItem></sliderItem>
+        </Slide>
+        <!-- <sliderItem></sliderItem> -->
       </Slider>
     </section>
     <section class="Top-poll container">
@@ -15,11 +20,15 @@
     </section>
     <section class="Advertising"></section>
     <section class="Top-news">
-      <ul class="Top-news__list">
-        <li class="Top-news__item" v-for="(news, index) in 4" :key="index">
+      <carousel
+        class="Top-news__carousel section-carousel"
+        :headerInfo="headerInfoArr[0]"
+        :perPage="4"
+      >
+        <Slide v-for="(news, index) in 6" :key="index">
           <news-card></news-card>
-        </li>
-      </ul>
+        </Slide>
+      </carousel>
     </section>
     <section class="Analitic-articles container">
       <div class="col-md-9">
@@ -40,11 +49,11 @@
       </div>
     </section>
     <section class="Top-competition">
-      <ul class="Top-competition__list">
-        <li class="Top-competition__item" v-for="(competition, index) in 4" :key="index">
+      <carousel class="Top-competition__carousel" :headerInfo="headerInfoArr[1]" :perPage="4">
+        <Slide v-for="(news, index) in 6" :key="index">
           <competition-card></competition-card>
-        </li>
-      </ul>
+        </Slide>
+      </carousel>
     </section>
   </div>
 </template>
@@ -56,8 +65,12 @@ import iconArrow from '@/components/icons/iconArrow.vue'
 import Slider from '@/components/slider/slider.vue'
 import sliderItem from '@/components/slider/sliderItem.vue'
 import newsCard from '@/components/cards/newsCard.vue'
+import carousel from '@/components/carousel/carousel.vue'
 import competitionCard from '@/components/cards/competitionCard.vue'
 import analyticalCard from '@/components/cards/analyticalCard.vue'
+if (process.browser) {
+  var { Slide } = require('vue-carousel')
+}
 
 export default {
   components: {
@@ -67,6 +80,8 @@ export default {
     sliderItem,
     Slider,
     newsCard,
+    carousel,
+    Slide,
     competitionCard,
     analyticalCard
   },
@@ -76,6 +91,17 @@ export default {
       pollCards: [
         {
           name: 'sdfds fdsf dsfsd f '
+        }
+      ],
+      headerInfoArr: [
+        {
+          title: 'Новости, которые сегодня обсуждают',
+          text:
+            'Читайте новости и участвуйте в опросах. Ваш ответ принесёт Вам деньги!'
+        },
+        {
+          title: 'Топ лучших конкурсов на Voxball',
+          text: 'Участвуйте в конкурсах и выигрывайте ценные призы'
         }
       ]
     }
@@ -110,21 +136,16 @@ $border: 1px solid $color-green;
 }
 .Top-news {
   margin-top: 2em;
+  border-top: 1px solid $border-color;
+  padding-top: 0.5rem;
 
-  &__list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    list-style: none;
+  &__carousel {
     margin: 0 15px;
-    padding: 0;
-    font-size: 0.8em;
-  }
-  &__item {
-    width: 20%;
   }
 }
 .Top-competition {
+  border-top: 1px solid $border-color;
+  padding-top: 0.5rem;
   &__list {
     display: flex;
     flex-wrap: wrap;
@@ -172,4 +193,26 @@ $border: 1px solid $color-green;
     grid-template-areas: 'news-1' 'news-2' 'news-3' 'news-4';
   }
 }
+</style>
+<style lang="scss">
+// .section-carousel {
+//   .VueCarousel-navigation {
+//     position: absolute;
+//     top: -3rem;
+//     right: 0;
+//     margin-right: 3rem;
+//   }
+//   .VueCarousel-navigation-button,
+//   .VueCarousel-navigation-prev,
+//   .VueCarousel-navigation-next,
+//   .VueCarousel-navigation--disabled {
+//     appearance: none;
+//     outline: none;
+//     opacity: 1;
+//     color: $base-text-color;
+//   }
+//   .VueCarousel-navigation-button:hover {
+//     color: $secondary-text-color;
+//   }
+// }
 </style>

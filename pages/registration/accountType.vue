@@ -13,7 +13,7 @@
       ></v-select>
       <div class="type__buttons">
         <v-btn class="type__link-wrap left-link">
-          <nuxt-link class="type__link" to="/">
+          <nuxt-link class="type__link" to="/login/login">
             войти
             <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
               <icon-arrow />
@@ -61,7 +61,7 @@ export default {
   background-size: 100%;
   background-repeat: no-repeat;
   min-height: 40rem;
-
+  
   &__label {
   }
 
@@ -95,7 +95,8 @@ export default {
 .left-link {
   text-decoration: underline;
   &:hover {
-    text-decoration: none;
+    background: none;
+    color: $secondary-text-color;
   }
 }
 .arrow {
@@ -105,21 +106,20 @@ export default {
 }
 </style>
 <style>
-/* for v-select */
-.v-select .vs__dropdown-toggle {
-  border-radius: 37px;
-  border-color: #2b454e;
-}
-.v-select .vs__open-indicator {
-  fill: #007b00;
-}
-.v-select .vs__search {
-  line-height: 2;
-  font-size: 0.8em;
-}
-.v-select .vs__search[placeholder] {
-  color: #2b454e;
-  opacity: 0.5;
-  font-style: italic;
-}
+  .type .v-select .vs__dropdown-toggle {
+    border-radius: 37px;
+    border-color: #2b454e;
+  }
+  .type .v-select .vs__open-indicator {
+    fill: #007b00;
+  }
+  .type .v-select .vs__search{
+    line-height: 2.0;
+    font-size: 0.8em;
+  }
+  .type .v-select .vs__search[placeholder] {
+    color: #2b454e;
+    opacity: 0.5;
+    font-style: italic;
+  }
 </style>
