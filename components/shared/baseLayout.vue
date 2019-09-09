@@ -47,7 +47,7 @@ export default {
     width: 60%;
     height: 70.5%;
     box-sizing: border-box;
-    padding: 2% 5%;
+    padding: 2% 2%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -55,12 +55,15 @@ export default {
 
   &__title {
     font-size: 2rem;
+    font-family: 'times new roman psmt';
+    width: 90%;
     padding: 0;
     margin: 0;
   }
 
   &__text {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+    line-height: 1.5rem;
     padding: 0;
     margin: 0;
     width: 80%;

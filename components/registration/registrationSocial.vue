@@ -22,7 +22,7 @@
       </a>
       <a href="#" class="registration-social__item">
         <icon-base 
-          icon-name="vk" 
+          icon-name="twitter" 
           class="twitter"
           viewBox="0 0 512 512">
           <icon-twitter />

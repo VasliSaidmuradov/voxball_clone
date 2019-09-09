@@ -78,7 +78,7 @@ export default {}
   &__info {
     width: 74%;
     background: #ffffff;
-    padding: 1.5rem;
+    padding: 1.2rem 1rem;
     margin: 0 auto;
     position: relative;
     top: -2.5rem;
@@ -89,12 +89,13 @@ export default {}
   &__text {
     padding: 0;
     margin: 0;
-    font-size: 0.9em;
+    margin-bottom: 0.2rem;
+    font-size: 0.8em;
   }
   &__time {
     padding: 0;
     margin: 0;
-    font-weight: 700;
+    font-family: HelveticaNeue-Bold;
     text-transform: uppercase;
     font-size: 0.8em;
   }

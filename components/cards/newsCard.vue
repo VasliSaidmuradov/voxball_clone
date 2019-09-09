@@ -174,7 +174,6 @@ $family: 'Helvetica';
     background-color: $base-text-color;
     color: #ffffff;
     font-size: 0.6rem;
-    font-family: $family;
     font-weight: 500;
     text-align: center;
     width: 32%;
@@ -191,7 +190,6 @@ $family: 'Helvetica';
     margin-bottom: 0.85rem;
     font-size: 0.8rem;
     font-weight: 500;
-    font-family: $family;
     text-transform: uppercase;
   }
 
@@ -199,7 +197,6 @@ $family: 'Helvetica';
     color: $base-text-color;
     font-size: 0.7rem;
     font-weight: 700;
-    font-family: $family;
     text-transform: uppercase;
     letter-spacing: 0.04rem;
     position: relative;

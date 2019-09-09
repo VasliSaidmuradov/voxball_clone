@@ -1,7 +1,7 @@
 <template>
   <div :style="styles" class="advertising">
     <img 
-     src="~assets/img/advertising-1.png" 
+     src="~assets/img/advertising.jpg" 
      class="advertising__banner"
      alt="advertising image">
   </div>

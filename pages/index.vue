@@ -8,8 +8,8 @@
         <pollCard class="Top-poll__card" v-for="(poll, index) in 5" :key="index"></pollCard>
       </polls-list>
     </section>
-    <section class="Advertising">
-      <advertising advWidth="100%" advHeight="9rem" advImage="~assets/img/advertising.jpg"></advertising>
+    <section class="Advertising container">
+      <advertising advWidth="100%" advHeight="9rem" advImage="/assets/img/advertising.jpg"></advertising>
     </section>
     <section class="Top-news container">
       <carousel class="Top-news__carousel section-carousel" :content="topNewsContent" :perPage="4">
@@ -27,18 +27,20 @@
         <div class="col-3">
           <analytical-card class="Analitic-articles__card" column></analytical-card>
         </div>
+        <div class="col-3">
+          <div class="Advertising_m">
+            <advertising advWidth="100%" advHeight="100%" advImage="~assets/img/advertising-1.png"></advertising>
+          </div>
+        </div>
       </div>
       <div class="row">
         <div class="col-9 d-flex flex-column justify-content-between">
           <analytical-card img-width="31%" class="Analitic-articles__card"></analytical-card>
         </div>
-      </div>
-      <div class="col-md-3">
-        <div class="Advertising_m">
-          <advertising advImage="~assets/img/advertising-1.png"></advertising>
-        </div>
-        <div class="Advertising_s">
-          <advertising advImage="~assets/img/advertising-2.png"></advertising>
+        <div class="col-3">
+          <div class="Advertising_s">
+            <advertising advWidth="100%" advHeight="100%" advImage="~assets/img/advertising-2.png"></advertising>
+          </div>
         </div>
       </div>
     </section>
@@ -100,7 +102,7 @@ export default {
           img: '/assets/img/slider-photo-2.png'
         },
         {
-          title: 'Или иди нахуй',
+          title: 'Или участвуйте',
           desc:
             'или создай свои опросы пройдя регистрацию. И зарабатывай коины. Нам важен твой голос.',
           img: '/assets/img/slider-photo-2.png'
@@ -133,31 +135,27 @@ $border: 1px solid $color-green;
   margin-bottom: 0;
   width: calc(1 / 5 * 100% - 30px);
 }
-<<<<<<< HEAD
 .Advertising {
-  margin: 5rem 15px 1rem;
+  margin-top: 2rem;
 
   &_m {
-    height: 66%;
-    padding: 10px 15px 15px;
-    width: 100%;
+    height: 100%;
+    padding: 10px 0 15px 15px;
   }
   &_s {
-    height: 33%;
-    padding: 0 15px 15px;
-    width: 100%;
+    height: 14rem;
+    padding: 10px 0 15px 15px;
   }
 }
-=======
 
->>>>>>> d4e827ff4dc56f452d9b2ed589b9d224143c7aaa
 .Top-news {
-  margin-top: 2em;
+  margin-top: 2rem;
   border-top: 1px solid $border-color;
   padding-top: 0.5rem;
 }
 
 .Top-competition {
+  margin-top: 2rem;
   border-top: 1px solid $border-color;
   padding-top: 0.5rem;
   &__list {
