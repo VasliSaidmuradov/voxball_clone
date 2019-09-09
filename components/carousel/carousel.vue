@@ -14,7 +14,8 @@
      :navigationEnabled="true"
      navigationPrevLabel="⟵"
      navigationNextLabel="⟶"
-     :paginationEnabled="false">
+     :paginationEnabled="false"
+     >
       <slot></slot>
     </Carousel>
   </div>
@@ -29,7 +30,7 @@ if (process.browser) {
 export default {
   props: {
     headerInfo: Object,
-    perPage: String,
+    perPage: Number,
   },
   components: {
     Carousel

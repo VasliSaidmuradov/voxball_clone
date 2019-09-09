@@ -30,15 +30,17 @@
     <no-ssr>
       <Carousel
         class="Slider-carousel"
+        :perPage="1"
         :navigationEnabled="true"
         :navigationPrevLabel="navigationPrevLabel"
         :navigationNextLabel="navigationNextLabel"
-        :perPage="1"
         :paginationEnabled="false"
-      >
+        :loop="true"
+        >  
         <slot></slot>
       </Carousel>
     </no-ssr>
+    <!-- <div class="Slide__green"></div> -->
   </div>
 </template>
 
@@ -48,6 +50,7 @@ if (process.browser) {
   var { Carousel, Slide } = require('vue-carousel')
 }
 export default {
+  props: ['list'],
   data() {
     return {
       pollCards: [
@@ -164,6 +167,17 @@ export default {
   clip-path: polygon(0% 57%, 10% 0%, 100% 0%, 100% 100%);
   z-index: 2;
 }
+.Slide__green {
+  background: $base-color;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 60%;
+  width: 60%;
+  clip-path: polygon(0% 29%, 100% 0%, 100% 100%);
+  opacity: 0.7;
+  z-index: 2;
+}
 
 .link-button {
   font-size: 0.8em;
@@ -189,22 +203,46 @@ export default {
 }
 </style>
 
-<style>
-.VueCarousel-navigation-button {
-  top: 57% !important;
-  width: 2rem;
-}
-.VueCarousel-navigation-prev {
-  left: auto !important;
-  right: 7% !important;
-}
-.VueCarousel-navigation-next {
-  left: auto !important;
-  right: 7% !important;
-}
-.VueCarousel-navigation-next:hover path,
-.VueCarousel-navigation-prev:hover path {
-  fill: #2b454e;
+<style lang="scss">
+.Slider {
+  .VueCarousel-navigation-button {
+    top: 57% !important;
+    width: 2rem;
+  }
+  .VueCarousel-navigation-prev {
+    left: auto !important;
+    right: 7% !important;
+  }
+  .VueCarousel-navigation-next {
+    left: auto !important;
+    right: 7% !important;
+  }
+  .VueCarousel-navigation-next:hover path,
+  .VueCarousel-navigation-prev:hover path {
+    fill: #2b454e;
+  }
+  // .VueCarousel-inner:after {
+  //   content: '';
+  //   background: $base-color;
+  //   position: absolute;
+  //   bottom: 0;
+  //   right: 0;
+  //   height: 60%;
+  //   width: 100%;
+  //   clip-path: polygon(0% 29%, 100% 0%, 100% 100%);
+  //   opacity: 0.7;
+  // }
+  // .VueCarousel-slide:after {
+  //   content: '';
+  //   background: $base-color;
+  //   position: fixed;
+  //   bottom: 0;
+  //   right: 0;
+  //   height: 60%;
+  //   width: 100%;
+  //   clip-path: polygon(0% 29%, 100% 0%, 100% 100%);
+  //   opacity: 0.7;
+  // }
 }
 </style>
 

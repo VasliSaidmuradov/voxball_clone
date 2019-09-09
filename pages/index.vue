@@ -1,9 +1,10 @@
 <template>
   <div class="Main">
-    <section class="Slider">
+    <section>
       <Slider>
-        <sliderItem></sliderItem>
-        <sliderItem></sliderItem>
+        <Slide v-for="(slide, index) in 3" :key="index">
+          <sliderItem></sliderItem>
+        </Slide>
       </Slider>
     </section>
     <section class="Top-poll container">
@@ -13,18 +14,20 @@
         </li>
       </ul>
     </section>
-    <section class="Advertising"></section>
+    <section class="Advertising">
+      <advertising advWidth="100%" advHeight="9rem" advImage="~assets/img/advertising.jpg"></advertising>
+    </section>
     <section class="Top-news">
       <carousel 
        class="Top-news__carousel section-carousel" 
        :headerInfo="headerInfoArr[0]"
-       perPage="4">
+       :perPage="4">
         <Slide v-for="(news, index) in 6" :key="index">
           <news-card></news-card>
         </Slide>
       </carousel>
     </section>
-    <section class="Analitic-articles container">
+    <section class="Analitic-articles container row">
       <div class="col-md-9">
         <div class="grid-container">
           <div class="news-1">
@@ -41,16 +44,27 @@
           </div>
         </div>
       </div>
+      <div class="col-md-3">
+        <div class="Advertising_m">
+          <advertising advImage="~assets/img/advertising-1.png"></advertising>
+        </div>
+        <div class="Advertising_s">
+          <advertising advImage="~assets/img/advertising-2.png"></advertising>
+        </div>
+      </div>
     </section>
     <section class="Top-competition">
       <carousel 
        class="Top-competition__carousel" 
        :headerInfo="headerInfoArr[1]"
-       perPage="4">
+       :perPage="4">
         <Slide v-for="(news, index) in 6" :key="index">
           <competition-card></competition-card>
         </Slide>
       </carousel>
+    </section>
+    <section>
+      <base-layout></base-layout>
     </section>
   </div>
 </template>
@@ -65,6 +79,8 @@ import newsCard from '@/components/cards/newsCard.vue'
 import carousel from '@/components/carousel/carousel.vue'
 import competitionCard from '@/components/cards/competitionCard.vue'
 import analyticalCard from '@/components/cards/analyticalCard.vue'
+import advertising from '@/components/advertising.vue'
+import baseLayout from '@/components/shared/baseLayout.vue'
 if (process.browser) {
   var { Slide } = require('vue-carousel')
 }
@@ -80,7 +96,9 @@ export default {
     carousel,
     Slide,
     competitionCard,
-    analyticalCard
+    analyticalCard,
+    advertising,
+    baseLayout
   },
   data() {
     return {
@@ -98,6 +116,20 @@ export default {
         {
           title: 'Топ лучших конкурсов на Voxball',
           text: 'Участвуйте в конкурсах и выигрывайте ценные призы'
+        }
+      ],
+      sliderList: [
+        {
+          title: 'Участвуй в опросе',
+          text: 'или создай свои опросы пройдя регистрацию.<br />И зарабатывай коины. Нам важен твой голос.'
+        },
+        {
+          title: 'Участвуй в опросе',
+          text: 'или создай свои опросы пройдя регистрацию.<br />И зарабатывай коины. Нам важен твой голос.'
+        },
+        {
+          title: 'Участвуй в опросе',
+          text: 'или создай свои опросы пройдя регистрацию.<br />И зарабатывай коины. Нам важен твой голос.'
         }
       ]
     }
@@ -128,6 +160,20 @@ $border: 1px solid $color-green;
     margin: 15px;
     margin-bottom: 0;
     width: calc(1 / 5 * 100% - 30px);
+  }
+}
+.Advertising {
+  margin: 5rem 15px 1rem;
+
+  &_m {
+    height: 66%;
+    padding: 10px 15px 15px;
+    width: 100%;
+  }
+  &_s {
+    height: 33%;
+    padding: 0 15px 15px;
+    width: 100%;
   }
 }
 .Top-news {

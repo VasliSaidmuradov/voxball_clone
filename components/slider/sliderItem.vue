@@ -1,5 +1,5 @@
 <template>
-  <Slide class="Slide">
+  <Slide class="Slide" @slideclick="handleSlideClick">
     <div class="Slide-top">
       <img class="Slide-top__image" src="~assets/img/slider-photo-2.png" />
     </div>
@@ -27,12 +27,20 @@
 <script>
 import iconArrow from '@/components/icons/iconArrow.vue'
 if (process.browser) {
-  var { Slide } = require('vue-carousel')
+  var { Carousel, Slide } = require('vue-carousel')
 }
 export default {
   components: {
     iconArrow,
     Slide
+  },
+  methods: {
+    onClickButton (event) {
+      this.$emit('clicked', 'someValue')
+    },
+    handleSlideClick (dataset) {
+      console.log('   ',dataset.index, dataset.name)
+    }
   }
 }
 </script>
