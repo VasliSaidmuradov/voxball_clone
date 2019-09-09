@@ -60,9 +60,6 @@
         </Slide>
       </carousel>
     </section>
-    <section>
-      <base-layout></base-layout>
-    </section>
   </div>
 </template>
 
@@ -77,7 +74,6 @@ import carousel from '@/components/carousel/carousel.vue'
 import competitionCard from '@/components/cards/competitionCard.vue'
 import analyticalCard from '@/components/cards/analyticalCard.vue'
 import advertising from '@/components/advertising.vue'
-import baseLayout from '@/components/shared/baseLayout.vue'
 if (process.browser) {
   var { Slide } = require('vue-carousel')
 }
@@ -95,7 +91,6 @@ export default {
     competitionCard,
     analyticalCard,
     advertising,
-    baseLayout
   },
   data() {
     return {
