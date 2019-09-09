@@ -1,58 +1,23 @@
 <template>
   <div class="Main">
-<<<<<<< HEAD
-    <section>
-      <Slider>
-        <Slide v-for="(slide, index) in 3" :key="index">
-          <sliderItem></sliderItem>
-        </Slide>
-      </Slider>
-=======
     <section class="Slider">
       <Slider :sliderInfo="sliderInfo"></Slider>
->>>>>>> d4e827ff4dc56f452d9b2ed589b9d224143c7aaa
     </section>
     <section class="Top-pool container">
       <polls-list>
         <pollCard class="Top-poll__card" v-for="(poll, index) in 5" :key="index"></pollCard>
       </polls-list>
     </section>
-<<<<<<< HEAD
     <section class="Advertising">
       <advertising advWidth="100%" advHeight="9rem" advImage="~assets/img/advertising.jpg"></advertising>
     </section>
-    <section class="Top-news">
-      <carousel 
-       class="Top-news__carousel section-carousel" 
-       :headerInfo="headerInfoArr[0]"
-       :perPage="4">
-=======
-    <section class="Advertising"></section>
     <section class="Top-news container">
       <carousel class="Top-news__carousel section-carousel" :content="topNewsContent" :perPage="4">
->>>>>>> d4e827ff4dc56f452d9b2ed589b9d224143c7aaa
         <Slide v-for="(news, index) in 6" :key="index">
           <news-card></news-card>
         </Slide>
       </carousel>
     </section>
-<<<<<<< HEAD
-    <section class="Analitic-articles container row">
-      <div class="col-md-9">
-        <div class="grid-container">
-          <div class="news-1">
-            <analytical-card></analytical-card>
-          </div>
-          <div class="news-2">
-            <analytical-card></analytical-card>
-          </div>
-          <div class="news-3">
-            <analytical-card :column="true"></analytical-card>
-          </div>
-          <div class="news-4">
-            <analytical-card></analytical-card>
-          </div>
-=======
     <section class="Analitic-articles container">
       <div class="row">
         <div class="col-6 d-flex flex-column justify-content-between">
@@ -66,7 +31,6 @@
       <div class="row">
         <div class="col-9 d-flex flex-column justify-content-between">
           <analytical-card img-width="31%" class="Analitic-articles__card"></analytical-card>
->>>>>>> d4e827ff4dc56f452d9b2ed589b9d224143c7aaa
         </div>
       </div>
       <div class="col-md-3">
@@ -98,12 +62,9 @@ import newsCard from '@/components/cards/newsCard.vue'
 import carousel from '@/components/carousel/carousel.vue'
 import competitionCard from '@/components/cards/competitionCard.vue'
 import analyticalCard from '@/components/cards/analyticalCard.vue'
-<<<<<<< HEAD
 import advertising from '@/components/advertising.vue'
-=======
 import pollsList from '@/components/polls/pollsList.vue'
 
->>>>>>> d4e827ff4dc56f452d9b2ed589b9d224143c7aaa
 if (process.browser) {
   var { Slide } = require('vue-carousel')
 }
@@ -120,11 +81,8 @@ export default {
     Slide,
     competitionCard,
     analyticalCard,
-<<<<<<< HEAD
     advertising,
-=======
     pollsList
->>>>>>> d4e827ff4dc56f452d9b2ed589b9d224143c7aaa
   },
   data() {
     return {
@@ -148,22 +106,6 @@ export default {
           img: '/assets/img/slider-photo-2.png'
         }
       ],
-<<<<<<< HEAD
-      sliderList: [
-        {
-          title: 'Участвуй в опросе',
-          text: 'или создай свои опросы пройдя регистрацию.<br />И зарабатывай коины. Нам важен твой голос.'
-        },
-        {
-          title: 'Участвуй в опросе',
-          text: 'или создай свои опросы пройдя регистрацию.<br />И зарабатывай коины. Нам важен твой голос.'
-        },
-        {
-          title: 'Участвуй в опросе',
-          text: 'или создай свои опросы пройдя регистрацию.<br />И зарабатывай коины. Нам важен твой голос.'
-        }
-      ]
-=======
       topNewsContent: {
         title: 'Новости, которые сегодня обсуждают',
         text:
@@ -173,7 +115,6 @@ export default {
         title: 'Топ лучших конкурсов на Voxball',
         text: 'Участвуйте в конкурсах и выигрывайте ценные призы'
       }
->>>>>>> d4e827ff4dc56f452d9b2ed589b9d224143c7aaa
     }
   },
   methods: {}
