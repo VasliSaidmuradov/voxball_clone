@@ -3,7 +3,7 @@
     <div class="Slide-top">
       <img class="Slide-top__image" src="~assets/img/slider-photo-2.png" />
     </div>
-    <div class="Slide-bottom">
+    <!-- <div class="Slide-bottom">
       <p class="Slide-bottom__title">Участвуй в опросе</p>
       <p class="Slide-bottom__text">
         или создай свои опросы пройдя регистрацию.
@@ -19,8 +19,8 @@
           </nuxt-link>
         </v-btn>
       </div>
-    </div>
-    <div class="Slide__green"></div>
+    </div>-->
+    <!-- <div class="Slide__green-bg"></div> -->
   </Slide>
 </template>
 
@@ -95,7 +95,7 @@ export default {
   }
 }
 
-.Slide__green {
+.Slide__green-bg {
   background: $base-color;
   position: absolute;
   bottom: 0;

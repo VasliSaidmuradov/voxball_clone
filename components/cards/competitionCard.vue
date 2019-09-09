@@ -28,7 +28,7 @@ export default {}
   overflow: hidden;
 
   &:hover &__img {
-    filter: blur(6px) brightness(0.9);
+    filter: blur(8px);
   }
   &:hover &__button {
     opacity: 1;

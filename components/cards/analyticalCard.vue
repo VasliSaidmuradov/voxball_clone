@@ -1,25 +1,20 @@
 <template>
   <div class="analytical-card">
-    <div
-      class="analytical-card-wrapper"
-      :class="[column ? 'analytical-card-wrapper--column' : 'analytical-card-wrapper--row']"
-    >
+    <div class="analytical-card-wrapper" :class="cardWrapper">
       <div class="analytical-card__main">
         <div class="analytical-card__info">
           <div class="analytical-card__info-date">12.12.12</div>
-          <div class="analytical-card__info-view">
-            <!-- <img src="" alt=""> -->
-            <span class="analytical-card__info-counter">324</span>
-          </div>
+          <views class="ml-2"></views>
         </div>
         <h2 class="analytical-card__title">Почему блокируют за спойлеры?</h2>
         <p
           class="analytical-card__text"
-        >Большинство людей не просто не любят спойлеры – они их боятся. Это связано в первую очередь с тем, что человек хочет почувствовать wow-эффект при первом просмотре фильма или сериала.</p>
+        >{{'Большинство людей не просто не любят спойлеры – они их боятся. Это связано в первую очередь с тем, что человек хочет почувствовать wow-эффект при первом просмотре фильма или сериала.'.slice(0,200)}}</p>
         <nuxt-link class="analytical-card__link" to="/">Подробнее</nuxt-link>
       </div>
       <div
         class="analytical-card__img-container"
+        :style="{'min-width': imgWidth}"
         :class="{'analytical-card__img-container--column':column}"
       >
         <div class="analytical-card__img-circles">
@@ -40,19 +35,29 @@
 </template>
 
 <script>
-import vBtn from '@/components/buttons/vBtn.vue'
-
+import views from '@/components/shared/views'
 export default {
   components: {
-    vBtn
+    views
   },
   props: {
     column: {
       type: Boolean,
       default: false
+    },
+    imgWidth: {
+      type: String,
+      default: '40%'
     }
   },
-  created() {}
+  created() {},
+  computed: {
+    cardWrapper() {
+      return this.column
+        ? 'analytical-card-wrapper--column'
+        : 'analytical-card-wrapper--row'
+    }
+  }
 }
 </script>
 
@@ -67,6 +72,7 @@ $light: #00b900;
     flex-direction: column;
     padding: 1em;
     box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.2);
+    width: 100%;
   }
 
   &:hover .analytical-card-wrapper--column::after {
@@ -113,6 +119,8 @@ $light: #00b900;
   }
   &__text {
     font-size: 0.8em;
+    height: 5em;
+    overflow: hidden;
   }
 
   &__link {
@@ -137,7 +145,7 @@ $light: #00b900;
     min-width: 40%;
 
     &--column {
-      height: 250px;
+      height: 14em;
       width: 100%;
     }
   }
@@ -165,13 +173,12 @@ $light: #00b900;
 
 .analytical-card-wrapper {
   display: flex;
-  justify-content: space-between;
   position: relative;
-  // padding: 0 1em;
   background: white;
 
   &--column {
     flex-direction: column-reverse;
+
     &::after {
       content: '';
       position: absolute;
@@ -187,6 +194,8 @@ $light: #00b900;
     }
   }
   &--row {
+    height: 14em;
+
     &::after {
       content: '';
       position: absolute;

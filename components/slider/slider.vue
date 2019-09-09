@@ -17,60 +17,58 @@
         <p
           class="Slider-static-bottom__text"
         >Все что нужно, это заработать 5000 коинов, и вы автоматически становитесь акционером.</p>
-        <v-btn class="p-0 link-button_green" link>
-          <nuxt-link class="link-button link-button_green" to="/">
-            подробнее
-            <icon-base icon-name="arrow" class="arrow">
-              <icon-arrow />
-            </icon-base>
-          </nuxt-link>
-        </v-btn>
+        <v-btn class="p-0" link>подробнее ⟶</v-btn>
       </div>
     </div>
     <no-ssr>
       <Carousel
         class="Slider-carousel"
-        :navigationEnabled="true"
-        :navigationPrevLabel="navigationPrevLabel"
-        :navigationNextLabel="navigationNextLabel"
+        :navigationEnabled="false"
         :perPage="1"
+        :navigateTo="navigateTo"
         :paginationEnabled="false"
+        @pageChange="pageChange($event)"
       >
-        <slot></slot>
+        <Slide v-for="(slide,index) in sliderInfo" :key="index">
+          <img src="@/assets/img/slider-photo-2.png" alt />
+        </Slide>
       </Carousel>
     </no-ssr>
+    <div class="Slider-content">
+      <p class="Slider-content__title">{{sliderInfo[page].title}}</p>
+      <p class="Slider-content__text">{{sliderInfo[page].desc}}</p>
+      <div class="d-flex justify-content-end">
+        <v-btn class="Slider__link" link>
+          <nuxt-link to="/">
+            <span>подробнее ⟶</span>
+          </nuxt-link>
+        </v-btn>
+      </div>
+    </div>
+    <div class="Slider__green-bg"></div>
   </div>
 </template>
 
 <script>
-import iconArrow from '@/components/icons/iconArrow.vue'
 if (process.browser) {
   var { Carousel, Slide } = require('vue-carousel')
 }
 export default {
   data() {
     return {
-      pollCards: [
-        {
-          name: 'sdfds fdsf dsfsd f '
-        }
-      ],
-      navigationPrevLabel: `<svg class="slider-prev" xmlns="http://www.w3.org/2000/svg" width="24" height="16" viewBox="0 0 24 16">
-                                                                 <g><g>
-                                                                 <path fill="#ffffff" d="M24.11 6.467H6.664c.841-2.503 1.26-4.135 1.303-6.359C6.053 
-                                                                                         3.943 3.568 5.94.564 7.818c3.004 1.799 5.38 3.993 7.402 
-                                                                                         7.712-.13-2.417-.478-3.877-1.329-6.538h17.474z"/>
-                                                                 </g></g></svg>`,
-      navigationNextLabel: `<svg class="slider-next" xmlns="http://www.w3.org/2000/svg" width="24" height="16" viewBox="0 0 24 16">
-                                                                 <g><g>
-                                                                 <path fill="#ffffff" d="M-.112 6.467h17.448c-.84-2.503-1.26-4.135-1.302-6.359 
-                                                                                      1.912 3.835 4.398 5.832 7.402 7.71-3.004 1.799-5.38 
-                                                                                      3.993-7.402 7.712.129-2.417.477-3.877 1.328-6.538H-.112z"/>
-                                                                 </g></g></svg>`
+      page: 0,
+      navigateTo: 0
     }
   },
+  methods: {
+    pageChange(page) {
+      this.page = page
+    }
+  },
+  props: {
+    sliderInfo: Array
+  },
   components: {
-    iconArrow,
     Carousel,
     Slide
   }
@@ -187,24 +185,40 @@ export default {
   margin-left: 0.5rem;
   height: auto;
 }
+.Slider__green-bg {
+  background: $base-color;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 60%;
+  width: 100%;
+  clip-path: polygon(0% 29%, 100% 0%, 100% 100%);
+  opacity: 0.7;
+  z-index: 2;
+}
+.Slider-content {
+  width: 24%;
+  font-size: 1rem;
+  position: absolute;
+  bottom: 14%;
+  right: 3%;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  z-index: 8;
+
+  &__title {
+    text-transform: uppercase;
+    margin: 0;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+  }
+  &__text {
+    font-size: 0.9rem;
+    margin: 0;
+    font-weight: 600;
+  }
+}
 </style>
 
-<style>
-.VueCarousel-navigation-button {
-  top: 57% !important;
-  width: 2rem;
-}
-.VueCarousel-navigation-prev {
-  left: auto !important;
-  right: 7% !important;
-}
-.VueCarousel-navigation-next {
-  left: auto !important;
-  right: 7% !important;
-}
-.VueCarousel-navigation-next:hover path,
-.VueCarousel-navigation-prev:hover path {
-  fill: #2b454e;
-}
-</style>
 
