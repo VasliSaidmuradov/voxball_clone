@@ -19,6 +19,10 @@
       </carousel>
     </section>
     <section class="Analitic-articles container">
+      <div class="Analitic-articles__header">
+        <h2 class="Analitic-articles__title">Аналитические статьи</h2>
+        <p class="Analitic-articles__text">Мнения и факты авторитетных журналистов и популярных блогеров</p>
+      </div>
       <div class="row">
         <div class="col-6 d-flex flex-column justify-content-between">
           <analytical-card class="Analitic-articles__card"></analytical-card>
@@ -171,7 +175,24 @@ $border: 1px solid $color-green;
   }
 }
 
-.Analitic-articles__card {
-  margin: 10px 0;
+.Analitic-articles {
+  border-top: 1px solid $border-color;
+  &__card{
+    margin: 10px 0;
+  }
+  &__header {
+    margin: 1rem 0;
+  }
+  &__title {
+    font-size: 1.6rem;
+    font-family: 'times new roman psmt';
+    text-transform: uppercase;
+    margin: 0;
+  }
+  &__text {
+    font-size: 1rem;
+    color: $secondary-text-color;
+    margin: 0;
+  }
 }
 </style>
