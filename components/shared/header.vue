@@ -9,7 +9,12 @@
           <nav-bar />
         </div>
         <div class="Header__search">
-          <search />
+          <search
+            label="name"
+            @input="myVal = $event"
+            @selectItem="myVal = $event.name"
+            :results="searchResults"
+          />
         </div>
         <div class="add-poll Header__add-poll">
           <v-btn rounded min-width="5.3em" @click="addPoll()">+ Опрос</v-btn>
@@ -32,7 +37,7 @@ import navBar from '@/components/shared/navbar.vue'
 import search from '@/components/inputs/search.vue'
 import langSwitcher from '@/components/inputs/langSwitcher.vue'
 import account from '@/components/account/account.vue'
-
+const find = (str, name) => new RegExp(str.replace(/\s/g, '|'), 'i').test(name)
 export default {
   components: {
     navBar,
@@ -43,6 +48,34 @@ export default {
   methods: {
     addPoll() {
       alert()
+    }
+  },
+  data() {
+    return {
+      sections: [
+        {
+          id: 1,
+          name: 'asd'
+        },
+        {
+          id: 2,
+          name: 'sasdasd'
+        },
+        {
+          id: 3,
+          name: 'gggg'
+        },
+        {
+          id: 4,
+          name: 'eeeeeeeeee'
+        }
+      ],
+      myVal: ''
+    }
+  },
+  computed: {
+    searchResults() {
+      return this.sections.filter(item => find(this.myVal, item.name))
     }
   }
 }
