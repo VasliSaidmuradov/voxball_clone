@@ -4,14 +4,14 @@
       <p class="carousel__title">{{ content.title }}</p>
       <p class="carousel__text">{{ content.text }}</p>
     </div>
-    <Carousel
-      :loop="true"
-      :per-page="perPage"
-      :navigationEnabled="true"
-      navigationPrevLabel="⟵"
-      navigationNextLabel="⟶"
-      :paginationEnabled="false"
-    >
+    <Carousel 
+     :loop="true"
+     :per-page="perPage" 
+     :navigationEnabled="true"
+     navigationPrevLabel="⟵"
+     navigationNextLabel="⟶"
+     :paginationEnabled="false"
+     >
       <slot></slot>
     </Carousel>
   </div>

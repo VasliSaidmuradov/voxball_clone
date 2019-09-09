@@ -8,7 +8,9 @@
         <pollCard class="Top-poll__card" v-for="(poll, index) in 5" :key="index"></pollCard>
       </polls-list>
     </section>
-    <section class="Advertising"></section>
+    <section class="Advertising">
+      <advertising advWidth="100%" advHeight="9rem" advImage="~assets/img/advertising.jpg"></advertising>
+    </section>
     <section class="Top-news container">
       <carousel class="Top-news__carousel section-carousel" :content="topNewsContent" :perPage="4">
         <Slide v-for="(news, index) in 6" :key="index">
@@ -29,6 +31,14 @@
       <div class="row">
         <div class="col-9 d-flex flex-column justify-content-between">
           <analytical-card img-width="31%" class="Analitic-articles__card"></analytical-card>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="Advertising_m">
+          <advertising advImage="~assets/img/advertising-1.png"></advertising>
+        </div>
+        <div class="Advertising_s">
+          <advertising advImage="~assets/img/advertising-2.png"></advertising>
         </div>
       </div>
     </section>
@@ -52,6 +62,7 @@ import newsCard from '@/components/cards/newsCard.vue'
 import carousel from '@/components/carousel/carousel.vue'
 import competitionCard from '@/components/cards/competitionCard.vue'
 import analyticalCard from '@/components/cards/analyticalCard.vue'
+import advertising from '@/components/advertising.vue'
 import pollsList from '@/components/polls/pollsList.vue'
 
 if (process.browser) {
@@ -70,6 +81,7 @@ export default {
     Slide,
     competitionCard,
     analyticalCard,
+    advertising,
     pollsList
   },
   data() {
@@ -121,7 +133,24 @@ $border: 1px solid $color-green;
   margin-bottom: 0;
   width: calc(1 / 5 * 100% - 30px);
 }
+<<<<<<< HEAD
+.Advertising {
+  margin: 5rem 15px 1rem;
 
+  &_m {
+    height: 66%;
+    padding: 10px 15px 15px;
+    width: 100%;
+  }
+  &_s {
+    height: 33%;
+    padding: 0 15px 15px;
+    width: 100%;
+  }
+}
+=======
+
+>>>>>>> d4e827ff4dc56f452d9b2ed589b9d224143c7aaa
 .Top-news {
   margin-top: 2em;
   border-top: 1px solid $border-color;
