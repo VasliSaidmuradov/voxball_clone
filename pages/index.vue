@@ -1,19 +1,23 @@
 <template>
   <div class="Main">
+<<<<<<< HEAD
     <section>
       <Slider>
         <Slide v-for="(slide, index) in 3" :key="index">
           <sliderItem></sliderItem>
         </Slide>
       </Slider>
+=======
+    <section class="Slider">
+      <Slider :sliderInfo="sliderInfo"></Slider>
+>>>>>>> d4e827ff4dc56f452d9b2ed589b9d224143c7aaa
     </section>
-    <section class="Top-poll container">
-      <ul class="Top-poll__list">
-        <li class="Top-poll__item" v-for="(poll, index) in 5" :key="index">
-          <poll-card></poll-card>
-        </li>
-      </ul>
+    <section class="Top-pool container">
+      <polls-list>
+        <pollCard class="Top-poll__card" v-for="(poll, index) in 5" :key="index"></pollCard>
+      </polls-list>
     </section>
+<<<<<<< HEAD
     <section class="Advertising">
       <advertising advWidth="100%" advHeight="9rem" advImage="~assets/img/advertising.jpg"></advertising>
     </section>
@@ -22,11 +26,17 @@
        class="Top-news__carousel section-carousel" 
        :headerInfo="headerInfoArr[0]"
        :perPage="4">
+=======
+    <section class="Advertising"></section>
+    <section class="Top-news container">
+      <carousel class="Top-news__carousel section-carousel" :content="topNewsContent" :perPage="4">
+>>>>>>> d4e827ff4dc56f452d9b2ed589b9d224143c7aaa
         <Slide v-for="(news, index) in 6" :key="index">
           <news-card></news-card>
         </Slide>
       </carousel>
     </section>
+<<<<<<< HEAD
     <section class="Analitic-articles container row">
       <div class="col-md-9">
         <div class="grid-container">
@@ -42,6 +52,21 @@
           <div class="news-4">
             <analytical-card></analytical-card>
           </div>
+=======
+    <section class="Analitic-articles container">
+      <div class="row">
+        <div class="col-6 d-flex flex-column justify-content-between">
+          <analytical-card class="Analitic-articles__card"></analytical-card>
+          <analytical-card class="Analitic-articles__card"></analytical-card>
+        </div>
+        <div class="col-3">
+          <analytical-card class="Analitic-articles__card" column></analytical-card>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-9 d-flex flex-column justify-content-between">
+          <analytical-card img-width="31%" class="Analitic-articles__card"></analytical-card>
+>>>>>>> d4e827ff4dc56f452d9b2ed589b9d224143c7aaa
         </div>
       </div>
       <div class="col-md-3">
@@ -53,8 +78,8 @@
         </div>
       </div>
     </section>
-    <section class="Top-competition">
-      <carousel class="Top-competition__carousel" :headerInfo="headerInfoArr[1]" :perPage="4">
+    <section class="Top-competition container">
+      <carousel class="Top-competition__carousel" :content="topCompetitionContent" :perPage="4">
         <Slide v-for="(news, index) in 6" :key="index">
           <competition-card></competition-card>
         </Slide>
@@ -73,7 +98,12 @@ import newsCard from '@/components/cards/newsCard.vue'
 import carousel from '@/components/carousel/carousel.vue'
 import competitionCard from '@/components/cards/competitionCard.vue'
 import analyticalCard from '@/components/cards/analyticalCard.vue'
+<<<<<<< HEAD
 import advertising from '@/components/advertising.vue'
+=======
+import pollsList from '@/components/polls/pollsList.vue'
+
+>>>>>>> d4e827ff4dc56f452d9b2ed589b9d224143c7aaa
 if (process.browser) {
   var { Slide } = require('vue-carousel')
 }
@@ -90,7 +120,11 @@ export default {
     Slide,
     competitionCard,
     analyticalCard,
+<<<<<<< HEAD
     advertising,
+=======
+    pollsList
+>>>>>>> d4e827ff4dc56f452d9b2ed589b9d224143c7aaa
   },
   data() {
     return {
@@ -100,17 +134,21 @@ export default {
           name: 'sdfds fdsf dsfsd f '
         }
       ],
-      headerInfoArr: [
+      sliderInfo: [
         {
-          title: 'Новости, которые сегодня обсуждают',
-          text:
-            'Читайте новости и участвуйте в опросах. Ваш ответ принесёт Вам деньги!'
+          title: 'Участвуй в опросе',
+          desc:
+            'или создай свои опросы пройдя регистрацию. И зарабатывай коины. Нам важен твой голос.',
+          img: '/assets/img/slider-photo-2.png'
         },
         {
-          title: 'Топ лучших конкурсов на Voxball',
-          text: 'Участвуйте в конкурсах и выигрывайте ценные призы'
+          title: 'Или иди нахуй',
+          desc:
+            'или создай свои опросы пройдя регистрацию. И зарабатывай коины. Нам важен твой голос.',
+          img: '/assets/img/slider-photo-2.png'
         }
       ],
+<<<<<<< HEAD
       sliderList: [
         {
           title: 'Участвуй в опросе',
@@ -125,6 +163,17 @@ export default {
           text: 'или создай свои опросы пройдя регистрацию.<br />И зарабатывай коины. Нам важен твой голос.'
         }
       ]
+=======
+      topNewsContent: {
+        title: 'Новости, которые сегодня обсуждают',
+        text:
+          'Читайте новости и участвуйте в опросах. Ваш ответ принесёт Вам деньги!'
+      },
+      topCompetitionContent: {
+        title: 'Топ лучших конкурсов на Voxball',
+        text: 'Участвуйте в конкурсах и выигрывайте ценные призы'
+      }
+>>>>>>> d4e827ff4dc56f452d9b2ed589b9d224143c7aaa
     }
   },
   methods: {}
@@ -137,24 +186,13 @@ $color-green: #00b900;
 $color-blue: #2b454e;
 $border: 1px solid $color-green;
 
-.Top-poll {
-  &__list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    margin: 0 -15px;
-    margin-top: 20px;
-    list-style: none;
-    padding: 0;
-    font-size: 0.8em;
-  }
-  &__item {
-    flex: 0 0 auto;
-    margin: 15px;
-    margin-bottom: 0;
-    width: calc(1 / 5 * 100% - 30px);
-  }
+.Top-poll__card {
+  flex: 0 0 auto;
+  margin: 15px;
+  margin-bottom: 0;
+  width: calc(1 / 5 * 100% - 30px);
 }
+<<<<<<< HEAD
 .Advertising {
   margin: 5rem 15px 1rem;
 
@@ -169,15 +207,15 @@ $border: 1px solid $color-green;
     width: 100%;
   }
 }
+=======
+
+>>>>>>> d4e827ff4dc56f452d9b2ed589b9d224143c7aaa
 .Top-news {
   margin-top: 2em;
   border-top: 1px solid $border-color;
   padding-top: 0.5rem;
-
-  &__carousel {
-    margin: 0 15px;
-  }
 }
+
 .Top-competition {
   border-top: 1px solid $border-color;
   padding-top: 0.5rem;
@@ -193,61 +231,8 @@ $border: 1px solid $color-green;
     width: 25%;
   }
 }
-.grid-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  grid-template-areas: 'news-1 news-1 news-3' 'news-2 news-2 news-3' 'news-4 news-4 news-4';
 
-  div {
-    margin: 5px;
-  }
+.Analitic-articles__card {
+  margin: 10px 0;
 }
-
-.news-1 {
-  grid-area: news-1;
-}
-
-.news-2 {
-  grid-area: news-2;
-}
-
-.news-3 {
-  grid-area: news-3;
-}
-
-.news-4 {
-  grid-area: news-4;
-}
-
-@media only screen and (max-width: 1025px) {
-  .grid-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
-    grid-template-areas: 'news-1' 'news-2' 'news-3' 'news-4';
-  }
-}
-</style>
-<style lang="scss">
-// .section-carousel {
-//   .VueCarousel-navigation {
-//     position: absolute;
-//     top: -3rem;
-//     right: 0;
-//     margin-right: 3rem;
-//   }
-//   .VueCarousel-navigation-button,
-//   .VueCarousel-navigation-prev,
-//   .VueCarousel-navigation-next,
-//   .VueCarousel-navigation--disabled {
-//     appearance: none;
-//     outline: none;
-//     opacity: 1;
-//     color: $base-text-color;
-//   }
-//   .VueCarousel-navigation-button:hover {
-//     color: $secondary-text-color;
-//   }
-// }
 </style>

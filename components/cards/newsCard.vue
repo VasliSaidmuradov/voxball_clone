@@ -2,13 +2,10 @@
   <div class="news-card">
     <div class="news-card__main">
       <div class="news-card__info">
-        <span class="news-card__date">{{ news.date }}</span>
-        <span class="news-card__views">
-          <icon-base stroke-width="8px" viewBox="0 0 120 110" iconColor="none">
-            <icon-eyes></icon-eyes>
-          </icon-base>
-          <span>{{ news.views }}</span>
-        </span>
+        <div class="d-flex align-items-center justify-content-between w-100">
+          <span class="news-card__date">{{ news.date }}</span>
+          <views></views>
+        </div>
       </div>
       <div class="news-card__img-wrap">
         <img class="news-card__img" src="~/assets/img/main-news-test.png" />
@@ -23,10 +20,11 @@
 </template>
 
 <script>
-import iconEyes from '@/components/icons/iconEyes.vue'
+import views from '@/components/shared/views'
+
 export default {
   components: {
-    iconEyes
+    views
   },
   data() {
     return {
@@ -109,7 +107,6 @@ $family: 'Helvetica';
     content: '';
     display: block;
     position: absolute;
-    top: 7%;
     left: 54%;
     transform: translateX(-50%);
     width: 1px;

@@ -2,31 +2,27 @@
   <div class="type">
     <detailed-layout />
     <v-form-layout>
-      <label class="type__label">Выберите тип аккаунта {{$t('lang')}}</label>
+      <label class="type__label">Выберите тип аккаунта</label>
       <v-select
         class="type__select"
         :options="options"
-        :searchable="true"
+        :searchable="false"
         :no-drop="false"
         :multiple="false"
         :placeholder="options[0]"
       ></v-select>
       <div class="type__buttons">
         <v-btn class="type__link-wrap left-link">
-          <nuxt-link class="type__link" to="/login/login">
-            войти
-            <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
-              <icon-arrow />
-            </icon-base>
-          </nuxt-link>
+          войти
+          <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
+            <icon-arrow />
+          </icon-base>
         </v-btn>
-        <v-btn class="type__link-wrap" border>
-          <nuxt-link class="type__link" to="/registration/registrationmode">
-            далее
-            <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
-              <icon-arrow />
-            </icon-base>
-          </nuxt-link>
+        <v-btn @click="$navigate('registration/registrationmode')" class="type__link-wrap" border>
+          далее
+          <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
+            <icon-arrow />
+          </icon-base>
         </v-btn>
       </div>
     </v-form-layout>
@@ -61,7 +57,7 @@ export default {
   background-size: 100%;
   background-repeat: no-repeat;
   min-height: 40rem;
-  
+
   &__label {
   }
 
@@ -106,20 +102,20 @@ export default {
 }
 </style>
 <style>
-  .type .v-select .vs__dropdown-toggle {
-    border-radius: 37px;
-    border-color: #2b454e;
-  }
-  .type .v-select .vs__open-indicator {
-    fill: #007b00;
-  }
-  .type .v-select .vs__search{
-    line-height: 2.0;
-    font-size: 0.8em;
-  }
-  .type .v-select .vs__search[placeholder] {
-    color: #2b454e;
-    opacity: 0.5;
-    font-style: italic;
-  }
+.type .v-select .vs__dropdown-toggle {
+  border-radius: 37px;
+  border-color: #2b454e;
+}
+.type .v-select .vs__open-indicator {
+  fill: #007b00;
+}
+.type .v-select .vs__search {
+  line-height: 2;
+  font-size: 0.8em;
+}
+.type .v-select .vs__search[placeholder] {
+  color: #2b454e;
+  opacity: 0.5;
+  font-style: italic;
+}
 </style>
