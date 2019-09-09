@@ -1,12 +1,8 @@
 <template>
   <div class="carousel">
     <div class="carousel__header">
-      <p class="carousel__title">
-        {{ headerInfo.title }}
-      </p>
-      <p class="carousel__text">
-        {{ headerInfo.text }}
-      </p>
+      <p class="carousel__title">{{ headerInfo.title }}</p>
+      <p class="carousel__text">{{ headerInfo.text }}</p>
     </div>
     <Carousel 
      :loop="true"
@@ -30,7 +26,7 @@ if (process.browser) {
 export default {
   props: {
     headerInfo: Object,
-    perPage: Number,
+    perPage: Number
   },
   components: {
     Carousel

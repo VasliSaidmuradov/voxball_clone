@@ -54,10 +54,7 @@
       </div>
     </section>
     <section class="Top-competition">
-      <carousel 
-       class="Top-competition__carousel" 
-       :headerInfo="headerInfoArr[1]"
-       :perPage="4">
+      <carousel class="Top-competition__carousel" :headerInfo="headerInfoArr[1]" :perPage="4">
         <Slide v-for="(news, index) in 6" :key="index">
           <competition-card></competition-card>
         </Slide>
@@ -111,7 +108,8 @@ export default {
       headerInfoArr: [
         {
           title: 'Новости, которые сегодня обсуждают',
-          text: 'Читайте новости и участвуйте в опросах. Ваш ответ принесёт Вам деньги!'
+          text:
+            'Читайте новости и участвуйте в опросах. Ваш ответ принесёт Вам деньги!'
         },
         {
           title: 'Топ лучших конкурсов на Voxball',
@@ -237,24 +235,24 @@ $border: 1px solid $color-green;
 }
 </style>
 <style lang="scss">
-  // .section-carousel {
-  //   .VueCarousel-navigation {
-  //     position: absolute;
-  //     top: -3rem;
-  //     right: 0;
-  //     margin-right: 3rem;
-  //   }
-  //   .VueCarousel-navigation-button,
-  //   .VueCarousel-navigation-prev,
-  //   .VueCarousel-navigation-next,
-  //   .VueCarousel-navigation--disabled {
-  //     appearance: none;
-  //     outline: none;
-  //     opacity: 1;
-  //     color: $base-text-color;
-  //   }
-  //   .VueCarousel-navigation-button:hover {
-  //     color: $secondary-text-color;
-  //   }
-  // }
+// .section-carousel {
+//   .VueCarousel-navigation {
+//     position: absolute;
+//     top: -3rem;
+//     right: 0;
+//     margin-right: 3rem;
+//   }
+//   .VueCarousel-navigation-button,
+//   .VueCarousel-navigation-prev,
+//   .VueCarousel-navigation-next,
+//   .VueCarousel-navigation--disabled {
+//     appearance: none;
+//     outline: none;
+//     opacity: 1;
+//     color: $base-text-color;
+//   }
+//   .VueCarousel-navigation-button:hover {
+//     color: $secondary-text-color;
+//   }
+// }
 </style>

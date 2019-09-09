@@ -1,21 +1,18 @@
 <template>
   <nav class="nav">
-    <nuxt-link class="nav__item" to="/">Опросы</nuxt-link>
-    <nuxt-link class="nav__item" to="/">Результаты</nuxt-link>
-    <nuxt-link class="nav__item" to="/">Новости</nuxt-link>
-    <nuxt-link class="nav__item" to="/">Конкурсы и розыгрыши</nuxt-link>
-    <nuxt-link class="nav__item" to="/">Рейтинг</nuxt-link>
-    <nuxt-link class="nav__item" to="/">Стать акционером</nuxt-link>
+    <nuxt-link class="nav__item" to="/">{{ $t('nav.pools') }}</nuxt-link>
+    <nuxt-link class="nav__item" to="/">{{ $t('nav.results') }}</nuxt-link>
+    <nuxt-link class="nav__item" to="/">{{ $t('nav.news') }}</nuxt-link>
+    <nuxt-link class="nav__item" to="/">{{ $t('nav.competitions') }}</nuxt-link>
+    <nuxt-link class="nav__item" to="/">{{ $t('nav.rating') }}</nuxt-link>
+    <nuxt-link class="nav__item" to="/">{{ $t('nav.become_shareholders') }}</nuxt-link>
   </nav>
 </template>
 
 <script>
-import locale from '@/locale'
 export default {
   data() {
-    return {
-      locale: locale
-    }
+    return {}
   }
 }
 </script>
@@ -24,7 +21,7 @@ export default {
 $text-color: #2b454e;
 .nav {
   &__item {
-    font-size: 0.84em;
+    font-size: 0.84rem;
     padding: 0 0.7em;
     text-decoration: none;
     color: $text-color;
