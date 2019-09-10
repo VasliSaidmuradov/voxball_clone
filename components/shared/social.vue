@@ -74,9 +74,8 @@ export default {
 .social {
   display: flex;
   align-items: center;
-  justify-content: center;
-  min-width: 300px;
-  width: 20rem;
+  justify-content: space-around;
+  min-width: 210px;
   &__title {
     color: #565656;
   }

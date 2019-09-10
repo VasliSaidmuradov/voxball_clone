@@ -1,6 +1,6 @@
 <template>
   <div class="verification">
-    <detailed-layout />
+    <detailed-layout :title="'Регистрация'"/>
     <v-form-layout>
       <label class="verification__label">Введите код подтверждения</label>
       <input class="verification__input" type="text" v-mask="'### ###'" v-model="verificationCode" />

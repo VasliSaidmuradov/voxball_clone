@@ -1,23 +1,23 @@
 <template>
-  <div class="poll-card">
-    <div class="poll-card__main">
+  <div class="poll-item">
+    <div class="poll-item__main">
       <div>
-        <img class="poll-card__img" src="~/assets/img/test-bg.jpg" alt />
+        <img class="poll-item__img" src="~/assets/img/test-bg.jpg" alt />
       </div>
-      <div class="poll-card__block">
-        <div class="poll-card__content">
-          <nuxt-link to="/" class="poll-card__content-item">Бизнес</nuxt-link>
-          <nuxt-link to="/" class="poll-card__content-item poll-card__content-item--video">Видео</nuxt-link>
+      <div class="poll-item__block">
+        <div class="poll-item__content">
+          <nuxt-link to="/" class="poll-item__content-item">Бизнес</nuxt-link>
+          <nuxt-link to="/" class="poll-item__content-item poll-item__content-item--video">Видео</nuxt-link>
         </div>
-        <div class="poll-card__title">хотите ли выполететь в космос?</div>
-        <nuxt-link to="/" class="poll-card__link">Подробнее</nuxt-link>
-        <div class="poll-card__play-block">
-          <div class="poll-card__play"></div>
+        <div class="poll-item__title">хотите ли выполететь в космос?</div>
+        <nuxt-link to="/" class="poll-item__link">Подробнее</nuxt-link>
+        <div class="poll-item__play-block">
+          <div class="poll-item__play"></div>
         </div>
       </div>
     </div>
-    <div class="poll-card__footer">
-      <div class="poll-card__date">19.19.2019</div>
+    <div class="poll-item__footer">
+      <div class="poll-item__date">19.19.2019</div>
       <div class="views">
         <icon-base stroke-width="8px" viewBox="0 0 120 110" iconColor="none">
           <icon-eyes></icon-eyes>
@@ -25,7 +25,7 @@
         <div class="views__count">345</div>
       </div>
     </div>
-    <div class="poll-card__move-out"></div>
+    <div class="poll-item__move-out"></div>
   </div>
 </template>
 
@@ -44,7 +44,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.poll-card {
+.poll-item {
   &__main {
     cursor: pointer;
     position: relative;

@@ -1,6 +1,6 @@
 <template>
   <div class="mode">
-    <detailed-layout />
+    <detailed-layout :title="'Регистрация'"/>
     <v-form-layout>
       <div class="mode__toggle">
         <a
