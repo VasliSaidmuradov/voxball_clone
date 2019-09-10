@@ -1,8 +1,8 @@
 <template>
   <div class="Lang" :class="{'Lang--full': full}">
-    <div class="Lang__arrow Lang__arrow--left"></div>
-    <div class="Lang__text">En</div>
-    <div class="Lang__arrow Lang__arrow--right"></div>
+    <div @click="changeLang('prev')" class="Lang__arrow Lang__arrow--left"></div>
+    <div class="Lang__text">{{$i18n.locale}}</div>
+    <div @click="changeLang('next')" class="Lang__arrow Lang__arrow--right"></div>
   </div>
 </template>
 
@@ -12,6 +12,27 @@ export default {
     full: {
       type: Boolean
       // default: true
+    },
+    langs: {
+      type: Array
+    }
+  },
+  data() {
+    return {}
+  },
+  methods: {
+    changeLang(direction) {
+      const localeCodes = this.langs.map(item => item.code)
+      const currentlocaleIndex = localeCodes.indexOf(this.$i18n.locale)
+      if (direction === 'next' && currentlocaleIndex < localeCodes.length - 1) {
+        this.$router.push(
+          this.switchLocalePath(localeCodes[currentlocaleIndex + 1])
+        )
+      } else if (direction === 'prev' && currentlocaleIndex > 0) {
+        this.$router.push(
+          this.switchLocalePath(localeCodes[currentlocaleIndex - 1])
+        )
+      }
     }
   }
 }
@@ -34,6 +55,7 @@ $arrow-color: #8c8c8c;
 
   &__text {
     padding: 0 8px;
+    text-transform: uppercase;
   }
 
   &--border {

@@ -3,74 +3,56 @@
     <detailed-layout />
     <v-form-layout>
       <div class="mode__toggle">
-        <a 
-         class="mode__type" 
-         :class="{ isActive : phone }" 
-         @click="phone=!phone">
-          Регистрация через номер
-        </a>
-        <a 
-         class="mode__type" 
-         :class="{ isActive : !phone }" 
-         @click="phone=!phone">
-          Регистрация через e-mail
-        </a>
+        <a
+          class="mode__type"
+          :class="{ isActive : phone }"
+          @click="phone=!phone"
+        >Регистрация через номер</a>
+        <a
+          class="mode__type"
+          :class="{ isActive : !phone }"
+          @click="phone=!phone"
+        >Регистрация через e-mail</a>
       </div>
       <div v-if="phone">
-        <v-select 
+        <v-select
           class="mode__select"
           :options="options"
           :searchable="true"
           :no-drop="false"
           :multiple="false"
           placeholder="Выберите страну"
-        >
-        </v-select>
-        <input 
+        ></v-select>
+        <input
           class="mode__input mode__tel"
-          type="tel" 
-          v-mask="'+7(###) ### ## ##'" 
-          v-model="tel" 
+          type="tel"
+          v-mask="'+7(###) ### ## ##'"
+          v-model="tel"
           placeholder="+7(___) ___ __ __"
-        >
+        />
       </div>
       <div v-if="phone==false">
         <label class="mode__label">Адрес электронной почты</label>
-        <input 
-          class="mode__input mode__email"
-          type="email" 
-          v-model="email"
-        >
+        <input class="mode__input mode__email" type="email" v-model="email" />
         <label class="mode__label">Создать пароль</label>
-        <input 
-          class="mode__input mode__password"
-          type="text" 
-          v-model="password"
-        >
+        <input class="mode__input mode__password" type="text" v-model="password" />
         <label class="mode__label">Повторить пароль</label>
-        <input 
-          class="mode__input mode__password"
-          type="text" 
-          v-model="passwordCheck" 
-        >
+        <input class="mode__input mode__password" type="text" v-model="passwordCheck" />
       </div>
       <div class="mode__buttons">
         <v-btn class="mode__link-wrap left-link">
           <nuxt-link class="mode__link" to="/">
             <icon-base icon-name="arrow-left" class="arrow" viewBox="0 0 22 18">
               <icon-arrowleft />
-            </icon-base>
-            назад
+            </icon-base>назад
           </nuxt-link>
         </v-btn>
-        <v-btn class="mode__link-wrap" border>
-          <nuxt-link class="mode__link" to="/registration/verification">
-            далее
-            <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
-              <icon-arrow />
-            </icon-base>
-          </nuxt-link>
-        </v-btn>    
+        <v-btn class="mode__link-wrap" @click="$navigate('registration/verification')" border>
+          далее
+          <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
+            <icon-arrow />
+          </icon-base>
+        </v-btn>
       </div>
       <registration-social />
     </v-form-layout>
@@ -79,19 +61,19 @@
 
 <script>
 import Vue from 'vue'
-import iconArrow from '@/components/icons/iconArrow.vue';
-import iconArrowleft from '@/components/icons/iconArrowleft.vue';
-import detailedLayout from '@/components/shared/detailedLayout.vue';
-import vFormLayout from '@/components/forms/vFormLayout.vue';
-import registrationSocial from '@/components/registration/registrationSocial.vue';
+import iconArrow from '@/components/icons/iconArrow.vue'
+import iconArrowleft from '@/components/icons/iconArrowleft.vue'
+import detailedLayout from '@/components/shared/detailedLayout.vue'
+import vFormLayout from '@/components/forms/vFormLayout.vue'
+import registrationSocial from '@/components/registration/registrationSocial.vue'
 // v-select
 import vSelect from 'vue-select'
-import 'vue-select/dist/vue-select.css';
+import 'vue-select/dist/vue-select.css'
 // v-mask
 import VueMask from 'v-mask'
-Vue.use(VueMask);
+Vue.use(VueMask)
 import { VueMaskDirective } from 'v-mask'
-Vue.directive('mask', VueMaskDirective);
+Vue.directive('mask', VueMaskDirective)
 
 export default {
   components: {
@@ -108,7 +90,7 @@ export default {
       phone: true,
       tel: ''
     }
-  },
+  }
 }
 </script>
 
@@ -143,7 +125,7 @@ export default {
     border: 1px solid $base-text-color;
     border-radius: 37px;
     white-space: normal;
-    line-height: 2.0;
+    line-height: 2;
     font-size: 1em;
     outline: none;
     margin: 4px 0 0;
@@ -155,7 +137,6 @@ export default {
   }
 
   &__tel {
-    
   }
 
   &__email {
@@ -195,7 +176,8 @@ export default {
   text-decoration: underline;
   padding-left: 0;
   &:hover {
-    text-decoration: none;
+    background: none;
+    color: $secondary-text-color;
   }
 }
 .arrow {
@@ -209,14 +191,14 @@ export default {
 </style>
 <style>
 /* for v-select */
-.v-select .vs__dropdown-toggle {
+.mode .v-select .vs__dropdown-toggle {
   border-radius: 37px;
   border-color: #2b454e;
 }
-.v-select .vs__open-indicator {
+.mode .v-select .vs__open-indicator {
   fill: #007b00;
 }
-.v-select .vs__search[placeholder] {
+.mode .v-select .vs__search[placeholder] {
   color: #2b454e;
   opacity: 0.5;
   font-style: italic;

@@ -28,7 +28,7 @@ export default {}
   overflow: hidden;
 
   &:hover &__img {
-    filter: blur(6px) brightness(0.9);
+    filter: blur(8px);
   }
   &:hover &__button {
     opacity: 1;
@@ -60,6 +60,7 @@ export default {}
     opacity: 0;
     padding: 0.5rem 1rem;
     transition: 0.5s ease;
+    text-decoration: none;
 
     &:hover {
       border: 1px solid $base-color;
@@ -77,7 +78,7 @@ export default {}
   &__info {
     width: 74%;
     background: #ffffff;
-    padding: 1.5rem;
+    padding: 1.2rem 1rem;
     margin: 0 auto;
     position: relative;
     top: -2.5rem;
@@ -88,12 +89,15 @@ export default {}
   &__text {
     padding: 0;
     margin: 0;
+    margin-bottom: 0.2rem;
+    font-size: 0.8em;
   }
   &__time {
     padding: 0;
     margin: 0;
-    font-weight: 700;
+    font-family: HelveticaNeue-Bold;
     text-transform: uppercase;
+    font-size: 0.8em;
   }
 }
 </style>

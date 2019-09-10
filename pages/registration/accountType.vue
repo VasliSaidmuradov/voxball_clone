@@ -3,44 +3,39 @@
     <detailed-layout />
     <v-form-layout>
       <label class="type__label">Выберите тип аккаунта</label>
-      <v-select 
-       class="type__select"
-       :options="options"
-       :searchable="true"
-       :no-drop="false"
-       :multiple="false"
-       :placeholder="options[0]"
-      >
-      </v-select>
+      <v-select
+        class="type__select"
+        :options="options"
+        :searchable="false"
+        :no-drop="false"
+        :multiple="false"
+        :placeholder="options[0]"
+      ></v-select>
       <div class="type__buttons">
         <v-btn class="type__link-wrap left-link">
-          <nuxt-link class="type__link" to="/">
-            войти
-            <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
-              <icon-arrow />
-            </icon-base>
-          </nuxt-link>
+          войти
+          <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
+            <icon-arrow />
+          </icon-base>
         </v-btn>
-        <v-btn class="type__link-wrap" border>
-          <nuxt-link class="type__link" to="/registration/registrationmode">
-            далее
-            <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
-              <icon-arrow />
-            </icon-base>
-          </nuxt-link>
-        </v-btn>    
+        <v-btn @click="$navigate('registration/registrationmode')" class="type__link-wrap" border>
+          далее
+          <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
+            <icon-arrow />
+          </icon-base>
+        </v-btn>
       </div>
     </v-form-layout>
   </div>
 </template>
 
 <script>
-import iconArrow from '@/components/icons/iconArrow.vue';
-import detailedLayout from '@/components/shared/detailedLayout.vue';
-import vFormLayout from '@/components/forms/vFormLayout.vue';
+import iconArrow from '@/components/icons/iconArrow.vue'
+import detailedLayout from '@/components/shared/detailedLayout.vue'
+import vFormLayout from '@/components/forms/vFormLayout.vue'
 // v-select
 import vSelect from 'vue-select'
-import 'vue-select/dist/vue-select.css';
+import 'vue-select/dist/vue-select.css'
 export default {
   components: {
     iconArrow,
@@ -52,7 +47,7 @@ export default {
     return {
       options: ['Персональный', 'Корпоративный']
     }
-  },
+  }
 }
 </script>
 
@@ -64,7 +59,6 @@ export default {
   min-height: 40rem;
 
   &__label {
-    
   }
 
   &__select {
@@ -93,12 +87,12 @@ export default {
     text-decoration: none;
     position: relative;
   }
-
 }
 .left-link {
   text-decoration: underline;
   &:hover {
-    text-decoration: none;
+    background: none;
+    color: $secondary-text-color;
   }
 }
 .arrow {
@@ -108,19 +102,18 @@ export default {
 }
 </style>
 <style>
-/* for v-select */
-.v-select .vs__dropdown-toggle {
+.type .v-select .vs__dropdown-toggle {
   border-radius: 37px;
   border-color: #2b454e;
 }
-.v-select .vs__open-indicator {
+.type .v-select .vs__open-indicator {
   fill: #007b00;
 }
-.v-select .vs__search{
-  line-height: 2.0;
+.type .v-select .vs__search {
+  line-height: 2;
   font-size: 0.8em;
 }
-.v-select .vs__search[placeholder] {
+.type .v-select .vs__search[placeholder] {
   color: #2b454e;
   opacity: 0.5;
   font-style: italic;

@@ -1,9 +1,9 @@
 <template>
-  <Slide class="Slide">
+  <Slide class="Slide" @slideclick="handleSlideClick">
     <div class="Slide-top">
       <img class="Slide-top__image" src="~assets/img/slider-photo-2.png" />
     </div>
-    <div class="Slide-bottom">
+    <!-- <div class="Slide-bottom">
       <p class="Slide-bottom__title">Участвуй в опросе</p>
       <p class="Slide-bottom__text">
         или создай свои опросы пройдя регистрацию.
@@ -19,20 +19,28 @@
           </nuxt-link>
         </v-btn>
       </div>
-    </div>
-    <div class="Slide__green"></div>
+    </div>-->
+    <!-- <div class="Slide__green-bg"></div> -->
   </Slide>
 </template>
 
 <script>
 import iconArrow from '@/components/icons/iconArrow.vue'
 if (process.browser) {
-  var { Slide } = require('vue-carousel')
+  var { Carousel, Slide } = require('vue-carousel')
 }
 export default {
   components: {
     iconArrow,
     Slide
+  },
+  methods: {
+    onClickButton (event) {
+      this.$emit('clicked', 'someValue')
+    },
+    handleSlideClick (dataset) {
+      console.log('   ',dataset.index, dataset.name)
+    }
   }
 }
 </script>
@@ -95,7 +103,7 @@ export default {
   }
 }
 
-.Slide__green {
+.Slide__green-bg {
   background: $base-color;
   position: absolute;
   bottom: 0;

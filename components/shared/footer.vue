@@ -3,7 +3,7 @@
     <div class="Footer__first container">
       <div class="lang-block">
         <p class="Footer__title">Языки:</p>
-        <locale :full="true" />
+        <lang-switcher :langs="$i18n.locales"></lang-switcher>
       </div>
       <div class="Footer__menu">
         <p class="Footer__title">Меню:</p>
@@ -30,12 +30,12 @@
       </div>
       <div class="apps">
         <p class="Footer__title">Приложения</p>
-        <div class="Footer__list"> 
+        <div class="Footer__list">
           <nuxt-link class="Footer__item" to="/">
-            <img src="~/assets/img/android.png" alt="android icon">
+            <img src="~/assets/img/android.png" alt="android icon" />
           </nuxt-link>
           <nuxt-link class="Footer__item" to="/">
-            <img src="~/assets/img/ios.png" alt="ios icon">
+            <img src="~/assets/img/ios.png" alt="ios icon" />
           </nuxt-link>
         </div>
       </div>
@@ -43,10 +43,10 @@
         <p>Способы оплаты</p>
         <div class="Footer__list">
           <nuxt-link class="Footer__item" to="/">
-            <img src="~/assets/img/visa.png" alt="visa icon">
+            <img src="~/assets/img/visa.png" alt="visa icon" />
           </nuxt-link>
           <nuxt-link class="Footer__item" to="/">
-            <img src="~/assets/img/master-card.png" alt="mastercard icon">
+            <img src="~/assets/img/master-card.png" alt="mastercard icon" />
           </nuxt-link>
         </div>
       </div>
@@ -56,7 +56,7 @@
     <div class="Footer__second">
       <div class="developed">
         <a href="/" target="_blank">
-            <img src="~/assets/img/maint.png" alt="maint logo">
+          <img src="~/assets/img/maint.png" alt="maint logo" />
         </a>
       </div>
     </div>
@@ -65,13 +65,13 @@
 
 <script>
 import navBar from '@/components/shared/navbar.vue'
-import locale from '@/components/inputs/locale.vue'
+import langSwitcher from '@/components/inputs/langSwitcher.vue'
 
 export default {
   props: {},
   components: {
     navBar,
-    locale
+    langSwitcher
   }
 }
 </script>
@@ -84,7 +84,7 @@ $border-color: #e8e8e8;
 .Footer {
   border-top: 1px solid $border-color;
   border-bottom: 1px solid $border-color;
-  
+
   &__first {
     display: flex;
     justify-content: space-between;

@@ -17,14 +17,7 @@
         <p
           class="Slider-static-bottom__text"
         >Все что нужно, это заработать 5000 коинов, и вы автоматически становитесь акционером.</p>
-        <v-btn class="p-0 link-button_green" link>
-          <nuxt-link class="link-button link-button_green" to="/">
-            подробнее
-            <icon-base icon-name="arrow" class="arrow">
-              <icon-arrow />
-            </icon-base>
-          </nuxt-link>
-        </v-btn>
+        <v-btn class="Slider-static-bottom__button p-0" link>подробнее ⟶</v-btn>
       </div>
     </div>
     <no-ssr>
@@ -34,27 +27,41 @@
         :navigationPrevLabel="navigationPrevLabel"
         :navigationNextLabel="navigationNextLabel"
         :perPage="1"
+        :navigateTo="navigateTo"
         :paginationEnabled="false"
+        loop
+        @pageChange="pageChange($event)"
       >
-        <slot></slot>
+        <Slide v-for="(slide,index) in sliderInfo" :key="index">
+          <img class="Slider-carousel__image" src="@/assets/img/slider-photo-3.png" alt />
+        </Slide>
       </Carousel>
     </no-ssr>
+    <div class="Slider-content">
+      <p class="Slider-content__title">{{sliderInfo[page].title}}</p>
+      <p class="Slider-content__text">{{sliderInfo[page].desc}}</p>
+      <div class="d-flex justify-content-end">
+        <v-btn class="Slider__link" link>
+          <nuxt-link to="/">
+            <span>подробнее ⟶</span>
+          </nuxt-link>
+        </v-btn>
+      </div>
+    </div>
+    <div class="Slider__green-bg"></div>
   </div>
 </template>
 
 <script>
-import iconArrow from '@/components/icons/iconArrow.vue'
 if (process.browser) {
   var { Carousel, Slide } = require('vue-carousel')
 }
 export default {
+  props: ['list'],
   data() {
     return {
-      pollCards: [
-        {
-          name: 'sdfds fdsf dsfsd f '
-        }
-      ],
+      page: 0,
+      navigateTo: 0,
       navigationPrevLabel: `<svg class="slider-prev" xmlns="http://www.w3.org/2000/svg" width="24" height="16" viewBox="0 0 24 16">
                                                                  <g><g>
                                                                  <path fill="#ffffff" d="M24.11 6.467H6.664c.841-2.503 1.26-4.135 1.303-6.359C6.053 
@@ -69,11 +76,18 @@ export default {
                                                                  </g></g></svg>`
     }
   },
+  methods: {
+    pageChange(page) {
+      this.page = page
+    }
+  },
+  props: {
+    sliderInfo: Array
+  },
   components: {
-    iconArrow,
     Carousel,
     Slide
-  }
+  },
 }
 </script>
 
@@ -108,12 +122,15 @@ export default {
 
     &__title {
       font-size: 2rem;
+      font-family: 'times new roman psmt';
       padding: 0;
       margin: 0;
     }
 
     &__text {
-      font-size: 1.3rem;
+      width: 90%;
+      font-size: 1.2rem;
+      font-family: HelveticaNeue-Medium;
       padding: 0;
       margin: 0;
     }
@@ -132,6 +149,7 @@ export default {
 
     &__title {
       font-size: 1.3rem;
+      font-family: 'times new roman psmt';
       font-weight: 700;
       color: $secondary-text-color;
       padding: 0;
@@ -140,7 +158,7 @@ export default {
     }
 
     &__text {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       font-weight: 600;
       color: $base-text-color;
       padding: 0;
@@ -152,16 +170,36 @@ export default {
         text-transform: uppercase;
       }
     }
+    &__button {
+      // text-decoration: none;
+    }
   }
 }
 
 .Slider-carousel {
   width: 60%;
+  height: 21rem;
   background: #ffffff;
   position: absolute;
   top: 0;
   right: 0;
   clip-path: polygon(0% 57%, 10% 0%, 100% 0%, 100% 100%);
+  z-index: 2;
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+.Slide__green {
+  background: $base-color;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 60%;
+  width: 60%;
+  clip-path: polygon(0% 29%, 100% 0%, 100% 100%);
+  opacity: 0.7;
   z-index: 2;
 }
 
@@ -189,22 +227,95 @@ export default {
 }
 </style>
 
-<style>
-.VueCarousel-navigation-button {
-  top: 57% !important;
-  width: 2rem;
+<style lang="scss">
+.Slider {
+  .VueCarousel .VueCarousel-navigation {
+    position: absolute;
+    bottom: 47%;
+    right: 3rem;
+  }
+  .VueCarousel .VueCarousel-inner {
+    height: 100% !important;
+  }
+  .VueCarousel-navigation-button {
+    top: 57% !important;
+    width: 2rem;
+    &:focus {
+      outline: none;
+    }
+  }
+  .VueCarousel-navigation-prev {
+    left: auto !important;
+  }
+  .VueCarousel-navigation-next {
+    left: auto !important;
+    right: 7% !important;
+  }
+  .VueCarousel-navigation-next:hover path,
+  .VueCarousel-navigation-prev:hover path {
+    fill: #2b454e;
+  }
+  .VueCarousel-wrapper {
+    height: 100%;
+  }
+  .VueCarousel-wrapper:after {
+    content: '';
+    background: $base-color;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 60%;
+    width: 100%;
+    clip-path: polygon(0% 29%, 100% 0%, 100% 100%);
+    opacity: 0.9;
+  }
 }
-.VueCarousel-navigation-prev {
-  left: auto !important;
-  right: 7% !important;
+.Slider__green-bg {
+  display: none;
+  background: $base-color;
+  position: absolute;
+  bottom: -1rem;
+  right: 0;
+  height: 60%;
+  width: 60%;
+  clip-path: polygon(0% 25%, 100% 0%, 100% 100%);
+  opacity: 0.7;
+  z-index: 2;
 }
-.VueCarousel-navigation-next {
-  left: auto !important;
-  right: 7% !important;
-}
-.VueCarousel-navigation-next:hover path,
-.VueCarousel-navigation-prev:hover path {
-  fill: #2b454e;
+.Slider-content {
+  width: 24%;
+  font-size: 1rem;
+  position: absolute;
+  bottom: 18%;
+  right: 8%;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  z-index: 8;
+
+  &__title {
+    text-transform: uppercase;
+    font-family: 'times new roman psmt';
+    font-size: 1.4rem;
+    margin: 0;
+    font-weight: 700;
+  }
+  &__text {
+    font-family: 'times new roman psmt';
+    font-size: 0.9rem;
+    margin: 0;
+  }
+  .v-btn {
+    text-decoration: none;
+  }
+  .v-btn--link a {
+    color: white;
+    &:hover {
+      color: white;
+      text-decoration: none;
+    }
+  }
 }
 </style>
+
 

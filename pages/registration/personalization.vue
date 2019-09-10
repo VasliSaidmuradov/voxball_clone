@@ -1,7 +1,6 @@
 <template>
   <div class="person">
     <detailed-layout />
-    <!-- <div class="person__form"> -->
     <v-form-layout>
       <label class="person__label">Ваше имя</label>
       <input 
@@ -143,11 +142,13 @@ export default {
     position: relative;
   }
 }
+
 .left-link {
   text-decoration: underline;
   padding-left: 0;
   &:hover {
-    text-decoration: none;
+    background: none;
+    color: $secondary-text-color;
   }
 }
 .arrow {
@@ -157,26 +158,25 @@ export default {
 }
 </style>
 <style>
-/* for v-select */
-.v-select .vs__dropdown-toggle {
-  border-radius: 37px;
-  border-color: #2b454e;
-}
-.v-select .vs__open-indicator {
-  fill: #007b00;
-}
-.v-select .vs__search{
-  line-height: 2.0;
-  font-size: auto;
-}
-.v-select .vs__search[placeholder] {
-  color: #2b454e;
-  padding-left: 1rem;
-  font-size: 0.8em;
-  opacity: 0.5;
-  font-style: italic;
-}
-.v-select .vs__actions {
-  padding-right: 1rem;
-}
+  .person .v-select .vs__dropdown-toggle {
+    border-radius: 37px;
+    border-color: #2b454e;
+  }
+  .person .v-select .vs__open-indicator {
+    fill: #007b00;
+  }
+  .person .v-select .vs__search{
+    line-height: 2.0;
+    font-size: auto;
+  }
+  .person .v-select .vs__search[placeholder] {
+    color: #2b454e;
+    padding-left: 1rem;
+    font-size: 0.8em;
+    opacity: 0.5;
+    font-style: italic;
+  }
+  .person .v-select .vs__actions {
+    padding-right: 1rem;
+  }
 </style>

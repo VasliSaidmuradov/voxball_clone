@@ -1,3 +1,39 @@
+@font-face {
+  font-family: HelveticaNeue-Black;
+  font-display: fallback;
+  src: url(../fonts/HelveticaNeueCyr-Black.ttf) format("ttf");
+  src: local("?"), url(../fonts/HelveticaNeueCyr-Black.woff) format("woff");
+  unicode-range: U+000-5FF, U+1e00-1fff, U+2000-2300;
+}
+@font-face {
+  font-family: HelveticaNeue-Thin;
+  font-display: fallback;
+  src: url(../fonts/HelveticaNeueCyr-Thin.ttf) format("ttf");
+  src: local("?"), url(../fonts/HelveticaNeueCyr-Thin.woff) format("woff");
+  unicode-range: U+000-5FF, U+1e00-1fff, U+2000-2300;
+}
+@font-face {
+  font-family: HelveticaNeue-Medium;
+  font-display: fallback;
+  src: url(../fonts/HelveticaNeueCyr-Medium.ttf) format("ttf");
+  src: local("?"), url(../fonts/HelveticaNeueCyr-Medium.woff) format("woff");
+  unicode-range: U+000-5FF, U+1e00-1fff, U+2000-2300;
+}
+@font-face {
+  font-family: HelveticaNeue-Bold;
+  font-display: fallback;
+  src: url(../fonts/HelveticaNeueCyr-Bold.ttf) format("ttf");
+  src: local("?"), url(../fonts/HelveticaNeueCyr-Bold.woff) format("woff");
+  unicode-range: U+000-5FF, U+1e00-1fff, U+2000-2300;
+}
+@font-face {
+  font-family: HelveticaNeue-Roman;
+  font-display: fallback;
+  src: url(../fonts/HelveticaNeueCyr-Roman.ttf) format("ttf");
+  src: local("?"), url(../fonts/HelveticaNeueCyr-Roman.woff) format("woff");
+  unicode-range: U+000-5FF, U+1e00-1fff, U+2000-2300;
+}
+
 .text {
 	&--color {
 		&-base {
