@@ -1,7 +1,7 @@
 <template>
-  <carousel class="Top-news__carousel section-carousel" :content="topNewsContent" :perPage="4">
-    <Slide v-for="(news, index) in 6" :key="index">
-        <top-news-item  />
+  <carousel class="top-news__carousel" :content="content" :perPage="4">
+    <Slide v-for="(newsItem, index) in newsArr" :key="index">
+      <topNewsItem :news="newsItem"></topNewsItem>
     </Slide>
   </carousel>
 </template>
@@ -15,23 +15,20 @@ if (process.browser) {
 }
 
 export default {
-  componetns: {
+  components: {
     carousel,
-    topNewsItem
+    topNewsItem,
+    Slide,
   },
-  props: ['newsArr'],
-  data() {
-    newsArray: [
-      {title: 'Токаев объявил мораторий на создание новых госкомпаний', date: '26.2.2019', category: 'политика', views: 345},
-      {title: 'Токаев объявил мораторий на создание новых госкомпаний', date: '26.2.2019', category: 'политика', views: 345},
-      {title: 'Токаев объявил мораторий на создание новых госкомпаний', date: '26.2.2019', category: 'политика', views: 345},
-      {title: 'Токаев объявил мораторий на создание новых госкомпаний', date: '26.2.2019', category: 'политика', views: 345},
-      {title: 'Токаев объявил мораторий на создание новых госкомпаний', date: '26.2.2019', category: 'политика', views: 345},
-    ]
+  props: {
+    content: Object,
+    newsArr: Array
   }
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+.top-news {
 
+}
 </style>
