@@ -1,6 +1,6 @@
 <template>
   <div class="person">
-    <detailed-layout />
+    <detailed-layout :title="'Регистрация'"/>
     <v-form-layout>
       <label class="person__label">Ваше имя</label>
       <input 

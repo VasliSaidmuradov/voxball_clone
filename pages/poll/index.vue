@@ -4,7 +4,7 @@
     <section class="poll-top">
       <ul class="poll-top__list">
         <li class="poll-top__item" v-for="(poll, index) in 5" :key="index">
-          <poll-card></poll-card>
+          <poll-item></poll-item>
         </li>
       </ul>
     </section>
@@ -35,7 +35,7 @@
       <div class="poll-main__content ">
         <ul class="poll-main__list">
           <li class="poll-main__item" v-for="(poll, index) in 5" :key="index">
-            <poll-card></poll-card>
+            <poll-item></poll-item>
           </li>
         </ul>
         <ul class="poll-main__list">
@@ -60,14 +60,14 @@
 
 <script>
 import baseLayout from '@/components/shared/baseLayout.vue'
-import pollCard from '@/components/cards/pollCard.vue'
+import pollItem from '@/components/polls/pollItem.vue'
 import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css';
 import iconArrow from '@/components/icons/iconArrow.vue'
 export default {
   components: {
     baseLayout,
-    pollCard,
+    pollItem,
     vSelect,
     iconArrow,
   },
