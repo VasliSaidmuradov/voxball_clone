@@ -1,39 +1,40 @@
 <template>
-   <div class="login">
-    <detailed-layout />
-    <v-form-layout>
-      <label class="login__label">Введите номер или e-mail</label>
-      <input 
-        class="login__input login__email"
-        type="email" 
-        v-loginl="email"
-      >
-      <label class="login__label">Пароль</label>
-      <input 
-        class="login__input login__password"
-        type="text" 
-        v-loginl="password"
-      >
-      <div class="login__buttons">
-        <v-btn class="login__link-wrap left-link">
-          <nuxt-link class="login__link" to="/registration/accountType">
-            зарегестрироваться
-            <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
-              <icon-arrow />
-            </icon-base>
-          </nuxt-link>
-        </v-btn>
-        <v-btn class="login__link-wrap" border>
-          <nuxt-link class="login__link" to="/registration/verification">
-            войти
-            <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
-              <icon-arrow />
-            </icon-base>
-          </nuxt-link>
-        </v-btn>    
-      </div>
-      <registration-social />
-    </v-form-layout>
+   <div class="login" :title="'Вход'">
+    <detailed-layout>
+      <v-form-layout>
+        <label class="login__label">Введите номер или e-mail</label>
+        <input 
+          class="login__input login__email"
+          type="email" 
+          v-loginl="email"
+        >
+        <label class="login__label">Пароль</label>
+        <input 
+          class="login__input login__password"
+          type="text" 
+          v-loginl="password"
+        >
+        <div class="login__buttons">
+          <v-btn class="login__link-wrap left-link">
+            <nuxt-link class="login__link" to="/registration/accountType">
+              зарегестрироваться
+              <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
+                <icon-arrow />
+              </icon-base>
+            </nuxt-link>
+          </v-btn>
+          <v-btn class="login__link-wrap" border>
+            <nuxt-link class="login__link" to="/registration/verification">
+              войти
+              <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
+                <icon-arrow />
+              </icon-base>
+            </nuxt-link>
+          </v-btn>    
+        </div>
+        <registration-social />
+      </v-form-layout>
+    </detailed-layout>
   </div>
 </template>
 
@@ -41,7 +42,7 @@
 import Vue from 'vue'
 import iconArrow from '@/components/icons/iconArrow.vue';
 import iconArrowleft from '@/components/icons/iconArrowleft.vue';
-import detailedLayout from '@/components/shared/detailedLayout.vue';
+import detailedLayout from '@/components/layouts/detailedLayout.vue';
 import vFormLayout from '@/components/forms/vFormLayout.vue';
 import registrationSocial from '@/components/registration/registrationSocial.vue';
 export default {

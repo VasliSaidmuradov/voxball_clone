@@ -1,37 +1,38 @@
 <template>
   <div class="type">
-    <detailed-layout :title="'Регистрация'"/>
-    <v-form-layout>
-      <label class="type__label">Выберите тип аккаунта</label>
-      <v-select
-        class="type__select"
-        :options="options"
-        :searchable="false"
-        :no-drop="false"
-        :multiple="false"
-        :placeholder="options[0]"
-      ></v-select>
-      <div class="type__buttons">
-        <v-btn class="type__link-wrap left-link">
-          войти
-          <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
-            <icon-arrow />
-          </icon-base>
-        </v-btn>
-        <v-btn @click="$navigate('registration/registrationmode')" class="type__link-wrap" border>
-          далее
-          <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
-            <icon-arrow />
-          </icon-base>
-        </v-btn>
-      </div>
-    </v-form-layout>
+    <detailed-layout :title="'Регистрация'">
+      <v-form-layout>
+        <label class="type__label">Выберите тип аккаунта</label>
+        <v-select
+          class="type__select"
+          :options="options"
+          :searchable="false"
+          :no-drop="false"
+          :multiple="false"
+          :placeholder="options[0]"
+        ></v-select>
+        <div class="type__buttons">
+          <v-btn class="type__link-wrap left-link">
+            войти
+            <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
+              <icon-arrow />
+            </icon-base>
+          </v-btn>
+          <v-btn @click="$navigate('registration/registrationmode')" class="type__link-wrap" border>
+            далее
+            <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
+              <icon-arrow />
+            </icon-base>
+          </v-btn>
+        </div>
+      </v-form-layout>
+    </detailed-layout>
   </div>
 </template>
 
 <script>
 import iconArrow from '@/components/icons/iconArrow.vue'
-import detailedLayout from '@/components/shared/detailedLayout.vue'
+import detailedLayout from '@/components/layouts/detailedLayout.vue'
 import vFormLayout from '@/components/forms/vFormLayout.vue'
 // v-select
 import vSelect from 'vue-select'
