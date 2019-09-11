@@ -10,11 +10,7 @@
       <advertising advWidth="100%" advHeight="9rem" advImage="/assets/img/advertising.jpg"></advertising>
     </section>
     <section class="Top-news container">
-      <carousel class="Top-news__carousel section-carousel" :content="topNewsContent" :perPage="4">
-        <Slide v-for="(news, index) in 6" :key="index">
-          <news-card></news-card>
-        </Slide>
-      </carousel>
+      <topNewsList :content="topNewsContent" :newsArr="newsArray" />
     </section>
     <section class="Analitic-articles container">
       <div class="Analitic-articles__header">
@@ -64,7 +60,8 @@ import iconBase from '@/components/shared/iconBase.vue'
 import iconArrow from '@/components/icons/iconArrow.vue'
 import Slider from '@/components/slider/slider.vue'
 import sliderItem from '@/components/slider/sliderItem.vue'
-import newsCard from '@/components/cards/newsCard.vue'
+// import newsCard from '@/components/cards/newsCard.vue'
+import topNewsList from '@/components/news/topNews/topNewsList.vue'
 import carousel from '@/components/carousel/carousel.vue'
 import competitionCard from '@/components/cards/competitionCard.vue'
 import analyticalCard from '@/components/cards/analyticalCard.vue'
@@ -80,7 +77,7 @@ export default {
     iconArrow,
     sliderItem,
     Slider,
-    newsCard,
+    topNewsList,
     carousel,
     Slide,
     competitionCard,
