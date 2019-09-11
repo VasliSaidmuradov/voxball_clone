@@ -8,7 +8,7 @@
         <pollCard class="Top-poll__card" v-for="(poll, index) in 5" :key="index"></pollCard>
       </polls-list>
     </section>
-    <section class="Advertising container">
+    <section class="Advertising container mt-5">
       <advertising advWidth="100%" advHeight="9rem" advImage="/assets/img/advertising.jpg"></advertising>
     </section>
     <section class="Top-news container">
@@ -19,30 +19,8 @@
       </carousel>
     </section>
     <section class="Analitic-articles container">
-      <div class="row">
-        <div class="col-6 d-flex flex-column justify-content-between">
-          <analytical-card class="Analitic-articles__card"></analytical-card>
-          <analytical-card class="Analitic-articles__card"></analytical-card>
-        </div>
-        <div class="col-3">
-          <analytical-card class="Analitic-articles__card" column></analytical-card>
-        </div>
-        <div class="col-3">
-          <div class="Advertising_m">
-            <advertising advWidth="100%" advHeight="100%" advImage="~assets/img/advertising-1.png"></advertising>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-9 d-flex flex-column justify-content-between">
-          <analytical-card img-width="31%" class="Analitic-articles__card"></analytical-card>
-        </div>
-        <div class="col-3">
-          <div class="Advertising_s">
-            <advertising advWidth="100%" advHeight="100%" advImage="~assets/img/advertising-2.png"></advertising>
-          </div>
-        </div>
-      </div>
+      <analyticalArticles></analyticalArticles>
+      <!-- <analytical-articles></analytical-articles> -->
     </section>
     <section class="Top-competition container">
       <carousel class="Top-competition__carousel" :content="topCompetitionContent" :perPage="4">
@@ -66,6 +44,7 @@ import competitionCard from '@/components/cards/competitionCard.vue'
 import analyticalCard from '@/components/cards/analyticalCard.vue'
 import advertising from '@/components/advertising.vue'
 import pollsList from '@/components/polls/pollsList.vue'
+import analyticalArticles from '@/components/articles/analyticalArticles.vue'
 
 if (process.browser) {
   var { Slide } = require('vue-carousel')
@@ -84,7 +63,8 @@ export default {
     competitionCard,
     analyticalCard,
     advertising,
-    pollsList
+    pollsList,
+    analyticalArticles
   },
   data() {
     return {
@@ -135,18 +115,6 @@ $border: 1px solid $color-green;
   margin-bottom: 0;
   width: calc(1 / 5 * 100% - 30px);
 }
-.Advertising {
-  margin-top: 2rem;
-
-  &_m {
-    height: 100%;
-    padding: 10px 0 15px 15px;
-  }
-  &_s {
-    height: 14rem;
-    padding: 10px 0 15px 15px;
-  }
-}
 
 .Top-news {
   margin-top: 2rem;
@@ -169,9 +137,5 @@ $border: 1px solid $color-green;
   &__item {
     width: 25%;
   }
-}
-
-.Analitic-articles__card {
-  margin: 10px 0;
 }
 </style>

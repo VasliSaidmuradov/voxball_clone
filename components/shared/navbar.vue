@@ -1,11 +1,11 @@
 <template>
   <nav class="nav">
-    <nuxt-link class="nav__item" to="/">{{ $t('nav.pools') }}</nuxt-link>
-    <nuxt-link class="nav__item" to="/">{{ $t('nav.results') }}</nuxt-link>
-    <nuxt-link class="nav__item" to="/">{{ $t('nav.news') }}</nuxt-link>
-    <nuxt-link class="nav__item" to="/">{{ $t('nav.competitions') }}</nuxt-link>
-    <nuxt-link class="nav__item" to="/">{{ $t('nav.rating') }}</nuxt-link>
-    <nuxt-link class="nav__item" to="/">{{ $t('nav.become_shareholders') }}</nuxt-link>
+    <a class="nav__item" @click="$navigate('/polls')">{{ $t('nav.polls') }}</a>
+    <a class="nav__item" to="/">{{ $t('nav.results') }}</a>
+    <a class="nav__item" to="/">{{ $t('nav.news') }}</a>
+    <a class="nav__item" to="/">{{ $t('nav.competitions') }}</a>
+    <a class="nav__item" to="/">{{ $t('nav.rating') }}</a>
+    <a class="nav__item" to="/">{{ $t('nav.become_shareholders') }}</a>
   </nav>
 </template>
 
@@ -26,6 +26,7 @@ $text-color: #2b454e;
     text-decoration: none;
     color: $text-color;
     transition: 0.3s;
+    cursor: pointer;
 
     &:hover {
       color: $base-color;

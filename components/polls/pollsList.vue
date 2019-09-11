@@ -1,6 +1,6 @@
 <template>
-  <div class="pools">
-    <div class="pools__list">
+  <div class="poll">
+    <div class="poll__list">
       <slot></slot>
     </div>
   </div>
@@ -11,7 +11,7 @@ export default {}
 </script>
 
 <style lang="scss" scoped>
-.pools__list {
+.poll__list {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;

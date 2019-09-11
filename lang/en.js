@@ -2,7 +2,7 @@ export default context => {
 	return new Promise(resolve => {
 		resolve({
 			nav: {
-				pools: 'Pools',
+				polls: 'polls',
 				results: 'Results',
 				news: 'News',
 				competitions: 'Competitions',

@@ -15,7 +15,7 @@
 export default {
   methods: {
     login() {
-      this.$navigate('registration/accountType')
+      this.$navigate('/registration/accountType')
     }
   }
 }

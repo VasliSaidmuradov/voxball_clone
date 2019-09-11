@@ -19,7 +19,7 @@ module.exports = {
 	router: {
 		middleware: 'test'
 	},
-	plugins: ['~/plugins/global.js', '~/plugins/lang.js'],
+	plugins: ['~/plugins/global.js', '~/plugins/navigate.js'],
 	head: {
 		title: 'voxball',
 		meta: [

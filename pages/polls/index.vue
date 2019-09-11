@@ -10,36 +10,34 @@
     </section>
     <section class="poll-main">
       <div class="poll-main__header">
-        <h2 class="poll-main__title">Все опросы</h2> 
+        <h2 class="poll-main__title">Все опросы</h2>
         <div class="poll-main__options">
-          <v-select 
+          <v-select
             class="poll-main__select"
             :options="options"
             :searchable="true"
             :no-drop="false"
             :multiple="false"
             placeholder="Популярное"
-          >
-          </v-select>
-          <v-select 
+          ></v-select>
+          <v-select
             class="poll-main__select"
             :options="options"
             :searchable="true"
             :no-drop="false"
             :multiple="false"
             placeholder="Категории"
-          >
-        </v-select>
+          ></v-select>
         </div>
       </div>
-      <div class="poll-main__content ">
+      <div class="poll-main__content">
         <ul class="poll-main__list">
-          <li class="poll-main__item" v-for="(poll, index) in 5" :key="index">
-            <poll-card></poll-card>
-          </li>
-        </ul>
-        <ul class="poll-main__list">
-          <li class="poll-main__item" v-for="(poll, index) in 5" :key="index">
+          <li
+            @click="$navigate('/polls/123')"
+            class="poll-main__item"
+            v-for="(poll, index) in 10"
+            :key="index"
+          >
             <poll-card></poll-card>
           </li>
         </ul>
@@ -62,18 +60,18 @@
 import baseLayout from '@/components/shared/baseLayout.vue'
 import pollCard from '@/components/cards/pollCard.vue'
 import vSelect from 'vue-select'
-import 'vue-select/dist/vue-select.css';
+import 'vue-select/dist/vue-select.css'
 import iconArrow from '@/components/icons/iconArrow.vue'
 export default {
   components: {
     baseLayout,
     pollCard,
     vSelect,
-    iconArrow,
+    iconArrow
   },
   data() {
     return {
-      options: ['Казахстан', 'Россия', 'Китай'],     
+      options: ['Казахстан', 'Россия', 'Китай']
     }
   }
 }
@@ -133,6 +131,7 @@ export default {
       width: 12.5rem;
       margin-right: 1rem;
       background: white;
+      font-size: 0.8rem;
     }
     &__list {
       display: flex;
@@ -161,7 +160,7 @@ export default {
       &:hover {
         border-color: $base-color;
       }
-      &:hover .poll-main__link{
+      &:hover .poll-main__link {
         color: white;
       }
     }

@@ -87,7 +87,7 @@ export default {
   components: {
     Carousel,
     Slide
-  },
+  }
 }
 </script>
 
@@ -171,7 +171,7 @@ export default {
       }
     }
     &__button {
-      // text-decoration: none;
+      // font-size: 0.7rem;
     }
   }
 }

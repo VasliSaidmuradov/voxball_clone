@@ -145,7 +145,7 @@ $light: #00b900;
     min-width: 40%;
 
     &--column {
-      height: 14em;
+      height: 13em;
       width: 100%;
     }
   }
@@ -194,7 +194,7 @@ $light: #00b900;
     }
   }
   &--row {
-    height: 14em;
+    height: 13em;
 
     &::after {
       content: '';

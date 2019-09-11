@@ -26,6 +26,7 @@ export default {}
   width: 100%;
   position: relative;
   overflow: hidden;
+  font-size: 0.8rem;
 
   &:hover &__img {
     filter: blur(8px);
@@ -61,6 +62,7 @@ export default {}
     padding: 0.5rem 1rem;
     transition: 0.5s ease;
     text-decoration: none;
+    font-size: 0.9rem;
 
     &:hover {
       border: 1px solid $base-color;
@@ -69,10 +71,6 @@ export default {}
       content: '⟶';
       display: inline-block;
     }
-  }
-
-  &__link {
-    font-size: 1.6em;
   }
 
   &__info {
@@ -90,14 +88,12 @@ export default {}
     padding: 0;
     margin: 0;
     margin-bottom: 0.2rem;
-    font-size: 0.8em;
   }
   &__time {
     padding: 0;
     margin: 0;
     font-family: HelveticaNeue-Bold;
     text-transform: uppercase;
-    font-size: 0.8em;
   }
 }
 </style>

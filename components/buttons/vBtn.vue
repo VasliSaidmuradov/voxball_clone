@@ -109,6 +109,9 @@ $border: 1px solid $border-color;
     text-decoration: underline;
     border: none;
     background: transparent !important;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 0.7rem;
 
     &:hover {
       color: $hover-bg;
