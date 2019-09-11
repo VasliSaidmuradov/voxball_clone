@@ -1,28 +1,29 @@
 <template>
   <div class="verification">
-    <detailed-layout :title="'Регистрация'"/>
-    <v-form-layout>
-      <label class="verification__label">Введите код подтверждения</label>
-      <input class="verification__input" type="text" v-mask="'### ###'" v-model="verificationCode" />
-      <div class="verification__buttons">
-        <v-btn class="verification__link-wrap left-link">
-          <nuxt-link class="verification__link" to="/">
-            <icon-base icon-name="arrow-left" class="arrow" viewBox="0 0 22 18">
-              <icon-arrowleft />
-            </icon-base>назад
-          </nuxt-link>
-        </v-btn>
-        <v-btn class="verification__link-wrap" border>
-          <nuxt-link class="verification__link" to="/registration/personalization">
-            далее
-            <icon-base icon-name="arrow" class="arrow" view-box="0 0 22 18">
-              <icon-arrow />
-            </icon-base>
-          </nuxt-link>
-        </v-btn>
-      </div>
-      <registration-social />
-    </v-form-layout>
+    <detailed-layout :title="'Регистрация'">
+      <v-form-layout>
+        <label class="verification__label">Введите код подтверждения</label>
+        <input class="verification__input" type="text" v-mask="'### ###'" v-model="verificationCode" />
+        <div class="verification__buttons">
+          <v-btn class="verification__link-wrap left-link">
+            <nuxt-link class="verification__link" to="/">
+              <icon-base icon-name="arrow-left" class="arrow" viewBox="0 0 22 18">
+                <icon-arrowleft />
+              </icon-base>назад
+            </nuxt-link>
+          </v-btn>
+          <v-btn class="verification__link-wrap" border>
+            <nuxt-link class="verification__link" to="/registration/personalization">
+              далее
+              <icon-base icon-name="arrow" class="arrow" view-box="0 0 22 18">
+                <icon-arrow />
+              </icon-base>
+            </nuxt-link>
+          </v-btn>
+        </div>
+        <registration-social />
+      </v-form-layout>
+    </detailed-layout>
   </div>
 </template>
 
@@ -30,7 +31,7 @@
 import Vue from 'vue'
 import iconArrow from '@/components/icons/iconArrow.vue'
 import iconArrowleft from '@/components/icons/iconArrowleft.vue'
-import detailedLayout from '@/components/shared/detailedLayout.vue'
+import detailedLayout from '@/components/layouts/detailedLayout.vue'
 import vFormLayout from '@/components/forms/vFormLayout.vue'
 import registrationSocial from '@/components/registration/registrationSocial.vue'
 // v-mask

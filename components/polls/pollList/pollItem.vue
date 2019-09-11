@@ -6,10 +6,25 @@
       </div>
       <div class="poll-item__block">
         <div class="poll-item__content">
-          <nuxt-link to="/" class="poll-item__content-item">Бизнес</nuxt-link>
-          <nuxt-link to="/" class="poll-item__content-item poll-item__content-item--video">Видео</nuxt-link>
+          <nuxt-link to="/" class="poll-item__content-item">
+            <!-- Бизнес -->
+            {{ pollData.category }}
+          </nuxt-link>
+          <nuxt-link to="/" class="poll-item__content-item poll-item__content-item--video">
+            <!-- Видео -->
+            {{ pollData.video }}
+          </nuxt-link>
         </div>
-        <div class="poll-item__title">хотите ли выполететь в космос?</div>
+        <div class="poll-item__title">
+          <!-- хотите ли выполететь в космос? -->
+          {{ pollData.title }}
+        </div>
+        <div v-if="pollData.complete" class="poll-item__complete">
+          <icon-base stroke-width="2px" viewBox="0 0 20 20" width="10" height="10" iconColor="none">
+            <icon-complete></icon-complete>
+          </icon-base>
+          Завершен
+        </div>
         <nuxt-link to="/" class="poll-item__link">Подробнее</nuxt-link>
         <div class="poll-item__play-block">
           <div class="poll-item__play"></div>
@@ -17,12 +32,18 @@
       </div>
     </div>
     <div class="poll-item__footer">
-      <div class="poll-item__date">19.19.2019</div>
+      <div class="poll-item__date">
+        <!-- 19.19.2019 -->
+        {{ pollData.date }}
+      </div>
       <div class="views">
         <icon-base stroke-width="8px" viewBox="0 0 120 110" iconColor="none">
           <icon-eyes></icon-eyes>
         </icon-base>
-        <div class="views__count">345</div>
+        <div class="views__count">
+          <!-- 345 -->
+          {{ pollData.views }}
+        </div>
       </div>
     </div>
     <div class="poll-item__move-out"></div>
@@ -31,14 +52,14 @@
 
 <script>
 import iconEyes from '@/components/icons/iconEyes.vue'
+import iconComplete from '@/components/icons/iconComplete.vue'
 
 export default {
   components: {
-    iconEyes
+    iconEyes,
+    iconComplete
   },
-  props: {
-    data: Object
-  },
+  props: ['data','pollData'],
   created() {}
 }
 </script>
@@ -49,6 +70,7 @@ export default {
     cursor: pointer;
     position: relative;
     display: block;
+    max-width: 225px;
     max-height: 330px;
     height: 100vh;
     overflow: hidden;
@@ -110,6 +132,17 @@ export default {
     color: white;
   }
 
+  &__complete {
+    position: absolute;
+    font-size: 0.8rem;
+    text-transform: capitalize;
+    left: 1em;
+    bottom: 10px;
+    padding: 0.6em 0.6em 0.1em;
+    color: white;
+    background: #009700;
+  }
+
   &__block {
     position: absolute;
     left: 0;
@@ -129,7 +162,7 @@ export default {
 
   &__content-item {
     display: inline-block;
-    padding: 0.1em 1.3em;
+    padding: 0.4em 1.3em 0.1em;
     background: $base-color;
     color: white;
     text-decoration: none;
@@ -142,18 +175,19 @@ export default {
 
   &__link {
     position: absolute;
-    right: 35px;
+    font-size: 0.8rem;
+    right: 23px;
     bottom: 10px;
-    padding: 0.2em 1em;
+    padding: 0.1em 0.5em;
     color: white;
 
     &::after {
       content: '⟶';
       top: 50%;
-      margin-left: 10px;
+      margin-left: 6px;
       border: none;
       position: absolute;
-      transform: translateY(-50%);
+      transform: translateY(-60%);
     }
   }
 

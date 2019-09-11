@@ -18,6 +18,7 @@
         </nuxt-link>
       </v-btn>  
     </div>
+    <slot></slot>
   </div>
 </template>
 

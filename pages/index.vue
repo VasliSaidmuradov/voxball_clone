@@ -3,10 +3,8 @@
     <section class="Slider">
       <Slider :sliderInfo="sliderInfo"></Slider>
     </section>
-    <section class="Top-pool container">
-      <polls-list>
-        <poll-item class="Top-poll__item" v-for="(poll, index) in 5" :key="index"></poll-item>
-      </polls-list>
+    <section class="Top-poll container">
+      <poll-list :pollArr="pollsArray" />
     </section>
     <section class="Advertising container">
       <advertising advWidth="100%" advHeight="9rem" advImage="/assets/img/advertising.jpg"></advertising>
@@ -55,15 +53,11 @@
         </Slide>
       </carousel>
     </section>
-    <section>
-      <poll-info></poll-info>
-      <poll-card></poll-card>
-    </section>
   </div>
 </template>
 
 <script>
-import pollItem from '@/components/polls/pollItem.vue'
+import pollList from '@/components/polls/pollList/pollList.vue'
 import iconBase from '@/components/shared/iconBase.vue'
 import iconArrow from '@/components/icons/iconArrow.vue'
 import Slider from '@/components/slider/slider.vue'
@@ -73,9 +67,6 @@ import carousel from '@/components/carousel/carousel.vue'
 import competitionCard from '@/components/cards/competitionCard.vue'
 import analyticalCard from '@/components/cards/analyticalCard.vue'
 import advertising from '@/components/advertising.vue'
-import pollsList from '@/components/polls/pollsList.vue'
-import pollInfo from '@/components/polls/pollInfo.vue'
-import pollCard from '@/components/polls/pollCard.vue'
 
 if (process.browser) {
   var { Slide } = require('vue-carousel')
@@ -83,7 +74,6 @@ if (process.browser) {
 
 export default {
   components: {
-    pollItem,
     iconBase,
     iconArrow,
     sliderItem,
@@ -94,9 +84,7 @@ export default {
     competitionCard,
     analyticalCard,
     advertising,
-    pollsList,
-    pollInfo,
-    pollCard
+    pollList,
   },
   data() {
     return {
@@ -128,7 +116,14 @@ export default {
       topCompetitionContent: {
         title: 'Топ лучших конкурсов на Voxball',
         text: 'Участвуйте в конкурсах и выигрывайте ценные призы'
-      }
+      },
+      pollsArray: [
+        {category: 'Бизнес', video: 'Видео', title: 'хотите ли выполететь в космос?', date:'19.19.2019', views: 345},
+        {category: 'Бизнес', video: 'Видео', title: 'хотите ли выполететь в космос?', date:'19.19.2019', views: 345},
+        {category: 'Бизнес', video: 'Видео', title: 'хотите ли выполететь в космос?', date:'19.19.2019', views: 345},
+        {category: 'Бизнес', video: 'Видео', title: 'хотите ли выполететь в космос?', date:'19.19.2019', views: 345},
+        {category: 'Бизнес', video: 'Видео', title: 'хотите ли выполететь в космос?', date:'19.19.2019', views: 345}
+      ]
     }
   },
   methods: {}
@@ -141,11 +136,8 @@ $color-green: #00b900;
 $color-blue: #2b454e;
 $border: 1px solid $color-green;
 
-.Top-poll__item {
-  flex: 0 0 auto;
-  margin: 15px;
-  margin-bottom: 0;
-  width: calc(1 / 5 * 100% - 30px);
+.Top-poll {
+  padding-top: 2rem;
 }
 .Advertising {
   margin-top: 2rem;

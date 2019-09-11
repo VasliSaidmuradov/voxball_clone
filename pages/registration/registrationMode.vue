@@ -1,61 +1,62 @@
 <template>
   <div class="mode">
-    <detailed-layout :title="'Регистрация'"/>
-    <v-form-layout>
-      <div class="mode__toggle">
-        <a
-          class="mode__type"
-          :class="{ isActive : phone }"
-          @click="phone=!phone"
-        >Регистрация через номер</a>
-        <a
-          class="mode__type"
-          :class="{ isActive : !phone }"
-          @click="phone=!phone"
-        >Регистрация через e-mail</a>
-      </div>
-      <div v-if="phone">
-        <v-select
-          class="mode__select"
-          :options="options"
-          :searchable="true"
-          :no-drop="false"
-          :multiple="false"
-          placeholder="Выберите страну"
-        ></v-select>
-        <input
-          class="mode__input mode__tel"
-          type="tel"
-          v-mask="'+7(###) ### ## ##'"
-          v-model="tel"
-          placeholder="+7(___) ___ __ __"
-        />
-      </div>
-      <div v-if="phone==false">
-        <label class="mode__label">Адрес электронной почты</label>
-        <input class="mode__input mode__email" type="email" v-model="email" />
-        <label class="mode__label">Создать пароль</label>
-        <input class="mode__input mode__password" type="text" v-model="password" />
-        <label class="mode__label">Повторить пароль</label>
-        <input class="mode__input mode__password" type="text" v-model="passwordCheck" />
-      </div>
-      <div class="mode__buttons">
-        <v-btn class="mode__link-wrap left-link">
-          <nuxt-link class="mode__link" to="/">
-            <icon-base icon-name="arrow-left" class="arrow" viewBox="0 0 22 18">
-              <icon-arrowleft />
-            </icon-base>назад
-          </nuxt-link>
-        </v-btn>
-        <v-btn class="mode__link-wrap" @click="$navigate('registration/verification')" border>
-          далее
-          <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
-            <icon-arrow />
-          </icon-base>
-        </v-btn>
-      </div>
-      <registration-social />
-    </v-form-layout>
+    <detailed-layout :title="'Регистрация'">
+      <v-form-layout>
+        <div class="mode__toggle">
+          <a
+            class="mode__type"
+            :class="{ isActive : phone }"
+            @click="phone=!phone"
+          >Регистрация через номер</a>
+          <a
+            class="mode__type"
+            :class="{ isActive : !phone }"
+            @click="phone=!phone"
+          >Регистрация через e-mail</a>
+        </div>
+        <div v-if="phone">
+          <v-select
+            class="mode__select"
+            :options="options"
+            :searchable="true"
+            :no-drop="false"
+            :multiple="false"
+            placeholder="Выберите страну"
+          ></v-select>
+          <input
+            class="mode__input mode__tel"
+            type="tel"
+            v-mask="'+7(###) ### ## ##'"
+            v-model="tel"
+            placeholder="+7(___) ___ __ __"
+          />
+        </div>
+        <div v-if="phone==false">
+          <label class="mode__label">Адрес электронной почты</label>
+          <input class="mode__input mode__email" type="email" v-model="email" />
+          <label class="mode__label">Создать пароль</label>
+          <input class="mode__input mode__password" type="text" v-model="password" />
+          <label class="mode__label">Повторить пароль</label>
+          <input class="mode__input mode__password" type="text" v-model="passwordCheck" />
+        </div>
+        <div class="mode__buttons">
+          <v-btn class="mode__link-wrap left-link">
+            <nuxt-link class="mode__link" to="/">
+              <icon-base icon-name="arrow-left" class="arrow" viewBox="0 0 22 18">
+                <icon-arrowleft />
+              </icon-base>назад
+            </nuxt-link>
+          </v-btn>
+          <v-btn class="mode__link-wrap" @click="$navigate('registration/verification')" border>
+            далее
+            <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
+              <icon-arrow />
+            </icon-base>
+          </v-btn>
+        </div>
+        <registration-social />
+      </v-form-layout>
+    </detailed-layout>
   </div>
 </template>
 
@@ -63,7 +64,7 @@
 import Vue from 'vue'
 import iconArrow from '@/components/icons/iconArrow.vue'
 import iconArrowleft from '@/components/icons/iconArrowleft.vue'
-import detailedLayout from '@/components/shared/detailedLayout.vue'
+import detailedLayout from '@/components/layouts/detailedLayout.vue'
 import vFormLayout from '@/components/forms/vFormLayout.vue'
 import registrationSocial from '@/components/registration/registrationSocial.vue'
 // v-select
