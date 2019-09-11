@@ -1,25 +1,66 @@
 <template>
   <div class="container">
-    <section class="section">
-      <div class="section__header">
-        <h2 class="section__title">Аналитические статьи</h2>
-        <p class="section__text">Мнения и факты авторитетных журналистов и популярных блогеров</p>
-      </div>
-    </section>
-
-    <news-list v-for="(neww, index) in news" :key="index" :news="neww"></news-list>
+    <base-layout
+      title="Будьте в курсе актуальных новостей."
+      text="Читайте свежие новости на портале Voxball"
+    >
+      <poll-list :pollArr="pollsArray" />
+      <section class="poll-main">
+        <div class="poll-main__header">
+          <h2 class="poll-main__title">Все опросы</h2>
+          <div class="poll-main__options">
+            <v-select
+              class="poll-main__select"
+              :options="options"
+              :searchable="true"
+              :no-drop="false"
+              :multiple="false"
+              placeholder="Популярное"
+            ></v-select>
+            <v-select
+              class="poll-main__select"
+              :options="options"
+              :searchable="true"
+              :no-drop="false"
+              :multiple="false"
+              placeholder="Категории"
+            ></v-select>
+          </div>
+        </div>
+        <div class="poll-main__content">
+          <news-list v-for="(neww, index) in news" :key="index" :news="neww"></news-list>
+        </div>
+        <div class="poll-main__footer">
+          <v-btn class="poll-main__button" border>
+            <nuxt-link class="poll-main__link" to="/">
+              <span>Загрузить еще</span>
+              <icon-base icon-name="arrow" class="arrow">
+                <icon-arrow />
+              </icon-base>
+            </nuxt-link>
+          </v-btn>
+        </div>
+      </section>
+    </base-layout>
   </div>
 </template>
 
 <script>
 import newsList from '@/components/news/newsList/newsList.vue'
+import baseLayout from '@/components/layouts/baseLayout.vue'
+import pollList from '@/components/polls/pollList/pollList.vue'
+import vSelect from 'vue-select'
 
 export default {
   components: {
-    newsList
+    newsList,
+    baseLayout,
+    pollList,
+    vSelect
   },
   data() {
     return {
+      options: ['Казахстан', 'Россия', 'Китай'],
       news: [
         [
           {
@@ -49,6 +90,43 @@ export default {
             name: 'dsfsdfdsfsdf'
           }
         ]
+      ],
+      pollsArray: [
+        {
+          category: 'Бизнес',
+          video: 'Видео',
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345
+        },
+        {
+          category: 'Бизнес',
+          video: 'Видео',
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345
+        },
+        {
+          category: 'Бизнес',
+          video: 'Видео',
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345
+        },
+        {
+          category: 'Бизнес',
+          video: 'Видео',
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345
+        },
+        {
+          category: 'Бизнес',
+          video: 'Видео',
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345
+        }
       ]
     }
   }
