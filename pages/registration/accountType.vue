@@ -1,6 +1,6 @@
 <template>
   <div class="type">
-    <detailed-layout />
+    <detailed-layout :title="'Регистрация'"/>
     <v-form-layout>
       <label class="type__label">Выберите тип аккаунта</label>
       <v-select

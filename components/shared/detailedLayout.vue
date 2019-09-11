@@ -3,8 +3,8 @@
     <div class="detailed-main">
       <div class="detailed-main__left">
         <h1 class="detailed-main__title">
-          <!-- {{ title }} -->
-          Регистарция
+          {{ title }}
+          <!-- Регистарция -->
         </h1>
       </div>
       <div class="detailed-main__right">
@@ -46,6 +46,7 @@ export default {
     &__title {
       text-transform: uppercase;
       font-size: 2rem;
+      font-family: "Times New Roman PSMT";
       color: $base-text-color;
     }
 

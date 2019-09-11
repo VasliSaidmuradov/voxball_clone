@@ -5,7 +5,7 @@
     </section>
     <section class="Top-pool container">
       <polls-list>
-        <pollCard class="Top-poll__card" v-for="(poll, index) in 5" :key="index"></pollCard>
+        <poll-item class="Top-poll__item" v-for="(poll, index) in 5" :key="index"></poll-item>
       </polls-list>
     </section>
     <section class="Advertising container mt-5">
@@ -29,11 +29,15 @@
         </Slide>
       </carousel>
     </section>
+    <section>
+      <poll-info></poll-info>
+      <poll-card></poll-card>
+    </section>
   </div>
 </template>
 
 <script>
-import pollCard from '@/components/cards/pollCard.vue'
+import pollItem from '@/components/polls/pollItem.vue'
 import iconBase from '@/components/shared/iconBase.vue'
 import iconArrow from '@/components/icons/iconArrow.vue'
 import Slider from '@/components/slider/slider.vue'
@@ -45,6 +49,8 @@ import analyticalCard from '@/components/cards/analyticalCard.vue'
 import advertising from '@/components/advertising.vue'
 import pollsList from '@/components/polls/pollsList.vue'
 import analyticalArticles from '@/components/articles/analyticalArticles.vue'
+import pollInfo from '@/components/polls/pollInfo.vue'
+import pollCard from '@/components/polls/pollCard.vue'
 
 if (process.browser) {
   var { Slide } = require('vue-carousel')
@@ -52,7 +58,7 @@ if (process.browser) {
 
 export default {
   components: {
-    pollCard,
+    pollItem,
     iconBase,
     iconArrow,
     sliderItem,
@@ -64,7 +70,9 @@ export default {
     analyticalCard,
     advertising,
     pollsList,
-    analyticalArticles
+    analyticalArticles,
+    pollInfo,
+    pollCard
   },
   data() {
     return {
@@ -109,7 +117,7 @@ $color-green: #00b900;
 $color-blue: #2b454e;
 $border: 1px solid $color-green;
 
-.Top-poll__card {
+.Top-poll__item {
   flex: 0 0 auto;
   margin: 15px;
   margin-bottom: 0;
