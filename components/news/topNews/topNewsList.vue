@@ -21,9 +21,18 @@ export default {
     Slide,
   },
   props: {
+    // slider: Boolean,
     content: Object,
     newsArr: Array
-  }
+  },
+  // render: function (createElement) {
+  //   if( slider ){
+  //     return createElement( 
+  //       carousel,   // имя тега
+  //       this.$slots.default // массив дочерних элементов
+  //     )
+  //   }
+  // },
 }
 </script>
 
