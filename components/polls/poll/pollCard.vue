@@ -5,12 +5,9 @@
       на музыкальной вершине?
     </h2>
     <div class="poll-card__answer">
-      <ul class="answer__list">
-        <li class="answer__item" v-for='(item, index) in 4' :key='index'>
-          Ответ №{{ index+1 }}
-          <div class="answer__check"></div>
-        </li>
-      </ul>
+      <div class="answer__list">
+        <answerItem v-for='(item, index) in answers' :key='index' :answer="item"></answerItem>
+      </div>
     </div>
     <div class="poll-card__button-wrap">
       <div class="poll-card__pay">
@@ -34,9 +31,11 @@
 
 <script>
 import iconArrow from '@/components/icons/iconArrow.vue'
+import answerItem from '@/components/polls/poll/answerItem.vue'
 export default {
   components: {
     iconArrow,
+    answerItem
   },
   data() {
     return {
@@ -44,7 +43,10 @@ export default {
         votes: 11,
         date: '9 дней',
         shares: 15
-      }
+      },
+      answers: [
+        {title: 'Yes'}, {title: 'No'}, {title: 'Maybe'}, {title: 'Yes, No, Maybe'}
+      ]
     }
   }
 }

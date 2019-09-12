@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import newItem from '@/components/news/newslist/newsItem.vue'
+import newItem from '@/components/news/newsList/newsItem.vue'
 import advertising from '@/components/advertising.vue'
 
 export default {
