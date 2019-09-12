@@ -1,0 +1,26 @@
+@import 'vue-select/dist/vue-select.css';
+
+.v-select {
+	width: 14em;
+	background: #fff;
+	font-size: 0.9rem;
+}
+.v-select .vs__dropdown-toggle {
+	border-radius: 37px;
+	border-color: #d0d0d0;
+}
+.v-select .vs__open-indicator {
+	fill: #c4c4c4;
+}
+.v-select .vs__search[placeholder] {
+	color: #2b454e;
+	text-transform: uppercase;
+	padding: 0.3em 0;
+	padding-left: 1.5em;
+}
+.v-select .vs__selected {
+	font-size: 1rem;
+	text-transform: uppercase;
+	padding: 0.4rem 0 0.2rem;
+	padding-left: 1.5rem;
+}

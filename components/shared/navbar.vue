@@ -1,8 +1,8 @@
 <template>
   <nav class="nav">
     <a class="nav__item" @click="$navigate('/polls')">{{ $t('nav.polls') }}</a>
-    <a class="nav__item" to="/">{{ $t('nav.results') }}</a>
-    <a class="nav__item" to="/">{{ $t('nav.news') }}</a>
+    <a class="nav__item" @click="$navigate('/results')" to="/">{{ $t('nav.results') }}</a>
+    <a class="nav__item" @click="$navigate('/news')" to="/">{{ $t('nav.news') }}</a>
     <a class="nav__item" to="/">{{ $t('nav.competitions') }}</a>
     <a class="nav__item" to="/">{{ $t('nav.rating') }}</a>
     <a class="nav__item" to="/">{{ $t('nav.become_shareholders') }}</a>

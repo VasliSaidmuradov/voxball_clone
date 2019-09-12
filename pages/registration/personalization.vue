@@ -1,68 +1,69 @@
 <template>
   <div class="person">
-    <detailed-layout :title="'Регистрация'"/>
-    <v-form-layout>
-      <label class="person__label">Ваше имя</label>
-      <input 
-        class="person__input person__name"
-        type="text" 
-        v-model="name"
-      >
-      <label class="person__label">Подписаться на 3 категории</label>
-      <v-select 
-       class="person__select"
-       :options="options"
-       :searchable="true"
-       :no-drop="false"
-       :multiple="false"
-       :placeholder="options[0]"
-      >
-      </v-select>
-      <v-select 
-       class="person__select"
-       :options="options"
-       :searchable="true"
-       :no-drop="false"
-       :multiple="false"
-       :placeholder="options[1]"
-      >
-      </v-select>
-      <v-select 
-       class="person__select"
-       :options="options"
-       :searchable="true"
-       :no-drop="false"
-       :multiple="false"
-       :placeholder="options[2]"
-      >
-      </v-select>
-      <div class="person__buttons">
-        <v-btn class="person__link-wrap left-link">
-          <nuxt-link class="person__link" to="/">
-            <icon-base icon-name="arrow-left" class="arrow" viewBox="0 0 22 18">
-              <icon-arrowleft />
-            </icon-base>
-            назад
-          </nuxt-link>
-        </v-btn>
-        <v-btn class="person__link-wrap" border>
-          <nuxt-link class="person__link" to="/">
-            зарегистрироваться
-            <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
-              <icon-arrow />
-            </icon-base>
-          </nuxt-link>
-        </v-btn>    
-      </div>
-      <registration-social />
-    </v-form-layout>
+    <detailed-layout :title="'Регистрация'">
+      <v-form-layout>
+        <label class="person__label">Ваше имя</label>
+        <input 
+          class="person__input person__name"
+          type="text" 
+          v-model="name"
+        >
+        <label class="person__label">Подписаться на 3 категории</label>
+        <v-select 
+        class="person__select"
+        :options="options"
+        :searchable="true"
+        :no-drop="false"
+        :multiple="false"
+        :placeholder="options[0]"
+        >
+        </v-select>
+        <v-select 
+        class="person__select"
+        :options="options"
+        :searchable="true"
+        :no-drop="false"
+        :multiple="false"
+        :placeholder="options[1]"
+        >
+        </v-select>
+        <v-select 
+        class="person__select"
+        :options="options"
+        :searchable="true"
+        :no-drop="false"
+        :multiple="false"
+        :placeholder="options[2]"
+        >
+        </v-select>
+        <div class="person__buttons">
+          <v-btn class="person__link-wrap left-link">
+            <nuxt-link class="person__link" to="/">
+              <icon-base icon-name="arrow-left" class="arrow" viewBox="0 0 22 18">
+                <icon-arrowleft />
+              </icon-base>
+              назад
+            </nuxt-link>
+          </v-btn>
+          <v-btn class="person__link-wrap" border>
+            <nuxt-link class="person__link" to="/">
+              зарегистрироваться
+              <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
+                <icon-arrow />
+              </icon-base>
+            </nuxt-link>
+          </v-btn>    
+        </div>
+        <registration-social />
+      </v-form-layout>
+    </detailed-layout>
   </div>
 </template>
 
 <script>
 import iconArrow from '@/components/icons/iconArrow.vue';
 import iconArrowleft from '@/components/icons/iconArrowleft.vue';
-import detailedLayout from '@/components/shared/detailedLayout.vue';
+import detailedLayout from '@/components/layouts/detailedLayout.vue';
 import vFormLayout from '@/components/forms/vFormLayout.vue';
 import registrationSocial from '@/components/registration/registrationSocial.vue';
 // v-select

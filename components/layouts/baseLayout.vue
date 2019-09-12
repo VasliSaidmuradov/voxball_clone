@@ -3,14 +3,10 @@
     <div class="base-layout__left">
       <div class="base-layout__header">
         <h1 class="base-layout__title">
-          <!-- {{ title }} -->
-          Участвуйте в on-line опросах
-          от Voxball.
+          {{ title }}
         </h1>
         <p class="base-layout__text">
-          <!-- {{ text }} -->
-          Активно отвечайте на вопросы, выражайте
-          свое мнение и зарабатывайте на этом деньги
+          {{ text }}
         </p>
       </div>
       <div class="base-layout__footer">
@@ -21,19 +17,20 @@
         <img class="base-layout__image" src="~assets/img/base__image.png" alt="">
       </div>
     </div>
+    <slot></slot>
   </div>
 </template>
 
 <script>
 export default {
-
+  props: ['title','text']
 }
 </script>
 
 <style lang="scss" scoped>
 .base-layout {
   position: relative;
-  
+
   &__left {
     width: 80%;
     margin: 0;
@@ -54,8 +51,9 @@ export default {
   }
 
   &__title {
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-family: 'times new roman psmt';
+    text-transform: uppercase;
     width: 90%;
     padding: 0;
     margin: 0;
