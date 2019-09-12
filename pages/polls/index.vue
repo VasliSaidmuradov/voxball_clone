@@ -35,12 +35,10 @@
         </div>
         <div class="poll-main__footer">
           <v-btn class="poll-main__button" border>
-            <nuxt-link class="poll-main__link" to="/">
-              <span>Загрузить еще</span>
-              <icon-base icon-name="arrow" class="arrow">
-                <icon-arrow />
-              </icon-base>
-            </nuxt-link>
+            <span>Загрузить еще</span>
+            <span>
+              <icon-arrow class="arrow" />
+            </span>
           </v-btn>
         </div>
       </section>
@@ -203,9 +201,8 @@ export default {
   }
 }
 .arrow {
-  margin-bottom: -10px;
+  width: 1.3em;
   margin-left: 0.5rem;
-  height: auto;
 }
 </style>
 <style>

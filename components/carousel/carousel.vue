@@ -4,22 +4,20 @@
       <p class="carousel__title">{{ content.title }}</p>
       <p class="carousel__text">{{ content.text }}</p>
     </div>
-    <Carousel 
-     :loop="true"
-     :per-page="perPage" 
-     :navigationEnabled="true"
-     :navigationPrevLabel="navigationPrevLabel"
-     :navigationNextLabel="navigationNextLabel"
-     :paginationEnabled="false"
-     >
+    <Carousel
+      :loop="true"
+      :per-page="perPage"
+      :navigationEnabled="true"
+      :navigationPrevLabel="navigationPrevLabel"
+      :navigationNextLabel="navigationNextLabel"
+      :paginationEnabled="false"
+    >
       <slot></slot>
     </Carousel>
   </div>
 </template>
 
 <script>
-import iconArrow from '@/components/icons/iconArrow.vue'
-import iconArrowleft from '@/components/icons/iconArrowleft.vue'
 if (process.browser) {
   var { Carousel } = require('vue-carousel')
 }
@@ -32,7 +30,7 @@ export default {
     Carousel
   },
   data() {
-    return  {
+    return {
       navigationPrevLabel: `<svg class="carousel-button" xmlns="http://www.w3.org/2000/svg" width="24" height="16" viewBox="0 0 24 16">
                                                                  <g><g>
                                                                  <path d="M24.11 6.467H6.664c.841-2.503 1.26-4.135 1.303-6.359C6.053 

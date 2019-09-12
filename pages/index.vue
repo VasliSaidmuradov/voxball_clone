@@ -57,8 +57,6 @@
 
 <script>
 import pollList from '@/components/polls/pollList/pollList.vue'
-import iconBase from '@/components/shared/iconBase.vue'
-import iconArrow from '@/components/icons/iconArrow.vue'
 import Slider from '@/components/slider/slider.vue'
 import sliderItem from '@/components/slider/sliderItem.vue'
 // import newsCard from '@/components/cards/newsCard.vue'
@@ -74,8 +72,6 @@ if (process.browser) {
 
 export default {
   components: {
-    iconBase,
-    iconArrow,
     sliderItem,
     Slider,
     topNewsList,
@@ -151,6 +147,38 @@ export default {
           video: 'Видео',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
+          views: 345
+        }
+      ],
+      newsArray: [
+        {
+          title: 'Токаев объявил мораторий на создание новых госкомпаний',
+          date: '26.2.2019',
+          category: 'политика',
+          views: 341
+        },
+        {
+          title: 'Токаев объявил мораторий на создание новых госкомпаний',
+          date: '26.2.2019',
+          category: 'политика',
+          views: 342
+        },
+        {
+          title: 'Токаев объявил мораторий на создание новых госкомпаний',
+          date: '26.2.2019',
+          category: 'политика',
+          views: 343
+        },
+        {
+          title: 'Токаев объявил мораторий на создание новых госкомпаний',
+          date: '26.2.2019',
+          category: 'политика',
+          views: 349
+        },
+        {
+          title: 'Токаев объявил мораторий на создание новых госкомпаний',
+          date: '26.2.2019',
+          category: 'политика',
           views: 345
         }
       ]

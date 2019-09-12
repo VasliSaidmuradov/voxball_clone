@@ -25,21 +25,19 @@
 </template>
 
 <script>
-import iconArrow from '@/components/icons/iconArrow.vue'
 if (process.browser) {
   var { Carousel, Slide } = require('vue-carousel')
 }
 export default {
   components: {
-    iconArrow,
     Slide
   },
   methods: {
-    onClickButton (event) {
+    onClickButton(event) {
       this.$emit('clicked', 'someValue')
     },
-    handleSlideClick (dataset) {
-      console.log('   ',dataset.index, dataset.name)
+    handleSlideClick(dataset) {
+      console.log('   ', dataset.index, dataset.name)
     }
   }
 }

@@ -3,56 +3,46 @@
     <detailed-layout :title="'Регистрация'">
       <v-form-layout>
         <label class="person__label">Ваше имя</label>
-        <input 
-          class="person__input person__name"
-          type="text" 
-          v-model="name"
-        >
+        <input class="person__input person__name" type="text" v-model="name" />
         <label class="person__label">Подписаться на 3 категории</label>
-        <v-select 
-        class="person__select"
-        :options="options"
-        :searchable="true"
-        :no-drop="false"
-        :multiple="false"
-        :placeholder="options[0]"
-        >
-        </v-select>
-        <v-select 
-        class="person__select"
-        :options="options"
-        :searchable="true"
-        :no-drop="false"
-        :multiple="false"
-        :placeholder="options[1]"
-        >
-        </v-select>
-        <v-select 
-        class="person__select"
-        :options="options"
-        :searchable="true"
-        :no-drop="false"
-        :multiple="false"
-        :placeholder="options[2]"
-        >
-        </v-select>
+        <v-select
+          class="person__select"
+          :options="options"
+          :searchable="true"
+          :no-drop="false"
+          :multiple="false"
+          :placeholder="options[0]"
+        ></v-select>
+        <v-select
+          class="person__select"
+          :options="options"
+          :searchable="true"
+          :no-drop="false"
+          :multiple="false"
+          :placeholder="options[1]"
+        ></v-select>
+        <v-select
+          class="person__select"
+          :options="options"
+          :searchable="true"
+          :no-drop="false"
+          :multiple="false"
+          :placeholder="options[2]"
+        ></v-select>
         <div class="person__buttons">
-          <v-btn class="person__link-wrap left-link">
-            <nuxt-link class="person__link" to="/">
-              <icon-base icon-name="arrow-left" class="arrow" viewBox="0 0 22 18">
-                <icon-arrowleft />
-              </icon-base>
-              назад
-            </nuxt-link>
+          <v-btn class="left-link" link>
+            <span>
+              <icon-arrow class="arrow" style="transform: rotate(180deg);" />
+              <!-- Пока просто перевернул иконку -->
+            </span>
+            <span class="ml-2">назад</span>
           </v-btn>
           <v-btn class="person__link-wrap" border>
-            <nuxt-link class="person__link" to="/">
-              зарегистрироваться
-              <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
-                <icon-arrow />
-              </icon-base>
-            </nuxt-link>
-          </v-btn>    
+            <span>зарегистрироваться</span>
+            <span>
+              <icon-arrow class="arrow" />
+            </span>
+          </v-btn>
         </div>
         <registration-social />
       </v-form-layout>
@@ -61,14 +51,14 @@
 </template>
 
 <script>
-import iconArrow from '@/components/icons/iconArrow.vue';
-import iconArrowleft from '@/components/icons/iconArrowleft.vue';
-import detailedLayout from '@/components/layouts/detailedLayout.vue';
-import vFormLayout from '@/components/forms/vFormLayout.vue';
-import registrationSocial from '@/components/registration/registrationSocial.vue';
+import iconArrow from '@/components/icons/iconArrow.vue'
+import iconArrowleft from '@/components/icons/iconArrowleft.vue'
+import detailedLayout from '@/components/layouts/detailedLayout.vue'
+import vFormLayout from '@/components/forms/vFormLayout.vue'
+import registrationSocial from '@/components/registration/registrationSocial.vue'
 // v-select
 import vSelect from 'vue-select'
-import 'vue-select/dist/vue-select.css';
+import 'vue-select/dist/vue-select.css'
 export default {
   components: {
     iconArrow,
@@ -80,7 +70,7 @@ export default {
   },
   data() {
     return {
-      options: ['Еда','Развлечения','Политика'],
+      options: ['Еда', 'Развлечения', 'Политика'],
       name: ''
     }
   }
@@ -101,7 +91,7 @@ export default {
     border: 1px solid $base-text-color;
     border-radius: 37px;
     white-space: normal;
-    line-height: 2.0;
+    line-height: 2;
     font-size: 1em;
     outline: none;
     margin-bottom: 1rem;
@@ -153,31 +143,30 @@ export default {
   }
 }
 .arrow {
-  margin-bottom: -10px;
+  width: 1.3rem;
   margin-left: 0.5rem;
-  height: auto;
 }
 </style>
 <style>
-  .person .v-select .vs__dropdown-toggle {
-    border-radius: 37px;
-    border-color: #2b454e;
-  }
-  .person .v-select .vs__open-indicator {
-    fill: #007b00;
-  }
-  .person .v-select .vs__search{
-    line-height: 2.0;
-    font-size: auto;
-  }
-  .person .v-select .vs__search[placeholder] {
-    color: #2b454e;
-    padding-left: 1rem;
-    font-size: 0.8em;
-    opacity: 0.5;
-    font-style: italic;
-  }
-  .person .v-select .vs__actions {
-    padding-right: 1rem;
-  }
+.person .v-select .vs__dropdown-toggle {
+  border-radius: 37px;
+  border-color: #2b454e;
+}
+.person .v-select .vs__open-indicator {
+  fill: #007b00;
+}
+.person .v-select .vs__search {
+  line-height: 2;
+  font-size: auto;
+}
+.person .v-select .vs__search[placeholder] {
+  color: #2b454e;
+  padding-left: 1rem;
+  font-size: 0.8em;
+  opacity: 0.5;
+  font-style: italic;
+}
+.person .v-select .vs__actions {
+  padding-right: 1rem;
+}
 </style>

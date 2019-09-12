@@ -1,52 +1,36 @@
 <template>
   <div class="registration-social">
-    <p class="registration-social__title">
-      Регистрироваться через другие социальные сети
-    </p>
+    <p class="registration-social__title">Регистрироваться через другие социальные сети</p>
     <div class="registration-social__list">
       <a href="#" class="registration-social__item">
-        <icon-base 
-          icon-name="vk" 
-          class="vk"
-          viewBox="0 0 548.358 548.358">
+        <span class="registration-social__icon-wrap">
           <icon-vk />
-        </icon-base>
+        </span>
       </a>
       <a href="#" class="registration-social__item">
-        <icon-base 
-          icon-name="facebook" 
-          class="facebook"
-          viewBox="0 0 96.124 96.123">
+        <span class="registration-social__icon-wrap">
           <icon-facebook />
-        </icon-base>
+        </span>
       </a>
       <a href="#" class="registration-social__item">
-        <icon-base 
-          icon-name="twitter" 
-          class="twitter"
-          viewBox="0 0 512 512">
+        <span class="registration-social__icon-wrap">
           <icon-twitter />
-        </icon-base>
+        </span>
       </a>
       <a href="#" class="registration-social__item">
-        <icon-base 
-          icon-name="google" 
-          class="google"
-          width="65"
-          height="20"
-          viewBox="100 0 100 100">
+        <span class="registration-social__icon-wrap google">
           <icon-google />
-        </icon-base>
+        </span>
       </a>
     </div>
   </div>
 </template>
 
 <script>
-import iconVk from '@/components/icons/iconVk.vue';
-import iconFacebook from '@/components/icons/iconFacebook.vue';
-import iconTwitter from '@/components/icons/iconTwitter.vue';
-import iconGoogle from '@/components/icons/iconGoogle.vue';
+import iconVk from '@/components/icons/iconVk.vue'
+import iconFacebook from '@/components/icons/iconFacebook.vue'
+import iconTwitter from '@/components/icons/iconTwitter.vue'
+import iconGoogle from '@/components/icons/iconGoogle.vue'
 
 export default {
   components: {
@@ -54,7 +38,7 @@ export default {
     iconFacebook,
     iconTwitter,
     iconGoogle
-  },
+  }
 }
 </script>
 
@@ -78,16 +62,23 @@ export default {
   }
 
   &__item {
-    margin: 0 0.1rem;
+    margin: 0 0.3rem;
+    display: flex;
+    align-items: center;
     svg {
       fill: $base-text-color;
     }
-    &:hover svg{
+    &:hover svg {
       fill: $base-color;
     }
   }
+
+  &__icon-wrap {
+    width: 1.3rem;
+    display: inline-block;
+  }
 }
 .google {
-  vertical-align: -0.4em;
+  width: 3.6rem;
 }
 </style>

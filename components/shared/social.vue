@@ -1,63 +1,42 @@
 <template>
   <div class="social">
-    <p class="social__title">
-      Поделиться:
-    </p>
+    <p class="social__title">Поделиться:</p>
     <div class="social__list">
       <a href="#" class="social__item">
-        <icon-base 
-          icon-name="vk" 
-          class="vk"
-          viewBox="0 0 548.358 548.358">
+        <span class="social__icon-wrap">
           <icon-vk />
-        </icon-base>
+        </span>
       </a>
       <a href="#" class="social__item">
-        <icon-base 
-          icon-name="facebook" 
-          class="facebook"
-          viewBox="0 0 96.124 96.123">
+        <span class="social__icon-wrap">
           <icon-facebook />
-        </icon-base>
+        </span>
       </a>
       <a href="#" class="social__item">
-        <icon-base 
-          icon-name="twitter" 
-          class="twitter"
-          viewBox="0 0 512 512">
+        <span class="social__icon-wrap">
           <icon-twitter />
-        </icon-base>
+        </span>
       </a>
       <a href="#" class="social__item">
-        <icon-base 
-          icon-name="telegram" 
-          class="telegram"
-          width="18"
-          height="20"
-          viewBox="0 0 24 24">
+        <span class="social__icon-wrap">
           <icon-telegram />
-        </icon-base>
+        </span>
       </a>
       <a href="#" class="social__item">
-        <icon-base 
-          icon-name="whatsapp" 
-          class="whatsapp"
-          width="18"
-          height="20"
-          viewBox="0 0 512 512">
+        <span class="social__icon-wrap">
           <icon-whatsapp />
-        </icon-base>
+        </span>
       </a>
     </div>
   </div>
 </template>
 
 <script>
-import iconVk from '@/components/icons/iconVk.vue';
-import iconFacebook from '@/components/icons/iconFacebook.vue';
-import iconTwitter from '@/components/icons/iconTwitter.vue';
-import iconTelegram from '@/components/icons/iconTelegram.vue';
-import iconWhatsapp from '@/components/icons/iconWhatsapp.vue';
+import iconVk from '@/components/icons/iconVk.vue'
+import iconFacebook from '@/components/icons/iconFacebook.vue'
+import iconTwitter from '@/components/icons/iconTwitter.vue'
+import iconTelegram from '@/components/icons/iconTelegram.vue'
+import iconWhatsapp from '@/components/icons/iconWhatsapp.vue'
 
 export default {
   components: {
@@ -89,9 +68,13 @@ export default {
     svg {
       fill: $base-text-color;
     }
-    &:hover svg{
+    &:hover svg {
       fill: $base-color;
     }
+  }
+  &__icon-wrap {
+    display: inline-block;
+    width: 1.1rem;
   }
 }
 </style>

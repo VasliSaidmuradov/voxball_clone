@@ -1,11 +1,11 @@
 <template>
-  <div class="container">
+  <div class="news container">
     <base-layout
       title="Будьте в курсе актуальных новостей."
       text="Читайте свежие новости на портале Voxball"
     >
       <poll-list :pollArr="pollsArray" />
-      <section class="Section">
+      <section class="Section mt-5 mb-1">
         <div class="Section__header">
           <h2 class="Section__title">Все опросы</h2>
           <div class="Section__options">
@@ -26,20 +26,16 @@
             ></v-select>
           </div>
         </div>
-        <div class="poll-main__content">
-          <news-list v-for="(neww, index) in news" :key="index" :news="neww"></news-list>
-        </div>
-        <div class="poll-main__footer">
-          <v-btn class="poll-main__button" border>
-            <nuxt-link class="poll-main__link" to="/">
-              <span>Загрузить еще</span>
-              <icon-base icon-name="arrow" class="arrow">
-                <icon-arrow />
-              </icon-base>
-            </nuxt-link>
-          </v-btn>
-        </div>
       </section>
+      <news-list class="mb-4" v-for="(neww, index) in news" :key="index" :news="neww"></news-list>
+      <div class="news__container">
+        <v-btn class="news__button" rounded>
+          <span>Загрузить еще</span>
+          <span>
+            <icon-arrow class="news__icon" />
+          </span>
+        </v-btn>
+      </div>
     </base-layout>
   </div>
 </template>
@@ -48,6 +44,7 @@
 import newsList from '@/components/news/newsList/newsList.vue'
 import baseLayout from '@/components/layouts/baseLayout.vue'
 import pollList from '@/components/polls/pollList/pollList.vue'
+import iconArrow from '@/components/icons/iconArrow.vue'
 import vSelect from 'vue-select'
 
 export default {
@@ -55,7 +52,8 @@ export default {
     newsList,
     baseLayout,
     pollList,
-    vSelect
+    vSelect,
+    iconArrow
   },
   data() {
     return {
@@ -70,17 +68,6 @@ export default {
           },
           {
             name: 'dsfsdfdsfsdf'
-          },
-          {
-            name: 'dsfsdfdsfsdf'
-          },
-          {
-            name: 'dsfsdfdsfsdf'
-          }
-        ],
-        [
-          {
-            name: 'dsfsdfdsf'
           },
           {
             name: 'dsfsdfdsfsdf'
@@ -135,4 +122,20 @@ export default {
 <style lang="scss">
 @import '@/assets/css/section.scss';
 @import '@/assets/css/vSelect.scss';
+
+.news {
+  &__container {
+    margin: 3vw;
+    display: flex;
+    justify-content: center;
+  }
+  &__button {
+    width: fit-content;
+    padding: 0.4rem 1rem 0.2rem;
+  }
+  &__icon {
+    width: 1.3em;
+    margin-left: 0.5rem;
+  }
+}
 </style>

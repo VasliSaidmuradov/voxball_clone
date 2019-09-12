@@ -6,26 +6,24 @@
       </section>
       <section class="results-main">
         <div class="results-main__header">
-          <h2 class="results-main__title">Все опросы</h2> 
+          <h2 class="results-main__title">Все опросы</h2>
           <div class="results-main__options">
-            <v-select 
+            <v-select
               class="results-main__select"
               :options="options"
               :searchable="true"
               :no-drop="false"
               :multiple="false"
               placeholder="Популярное"
-            >
-            </v-select>
-            <v-select 
+            ></v-select>
+            <v-select
               class="results-main__select"
               :options="options"
               :searchable="true"
               :no-drop="false"
               :multiple="false"
               placeholder="Категории"
-            >
-          </v-select>
+            ></v-select>
           </div>
         </div>
         <div class="results-main__content">
@@ -33,13 +31,11 @@
           <poll-list :pollArr="pollsArray" />
         </div>
         <div class="results-main__footer">
-          <v-btn class="results-main__button" border>
-            <nuxt-link class="results-main__link" to="/">
-              <span>Загрузить еще</span>
-              <icon-base icon-name="arrow" class="arrow">
-                <icon-arrow />
-              </icon-base>
-            </nuxt-link>
+          <v-btn class="results-main__button" rounded>
+            <span>Загрузить еще</span>
+            <span>
+              <icon-arrow class="arrow" />
+            </span>
           </v-btn>
         </div>
       </section>
@@ -52,24 +48,59 @@ import baseLayout from '@/components/layouts/baseLayout.vue'
 import pollItem from '@/components/polls/pollList/pollItem.vue'
 import pollList from '@/components/polls/pollList/pollList.vue'
 import vSelect from 'vue-select'
-import 'vue-select/dist/vue-select.css';
+import 'vue-select/dist/vue-select.css'
 import iconArrow from '@/components/icons/iconArrow.vue'
 export default {
   components: {
     baseLayout,
     pollList,
     vSelect,
-    iconArrow,
+    iconArrow
   },
   data() {
     return {
-      options: ['Казахстан', 'Россия', 'Китай'],     
+      options: ['Казахстан', 'Россия', 'Китай'],
       pollsArray: [
-        {category: 'Бизнес', video: 'Видео', complete: true, title: 'хотите ли выполететь в космос?', date:'19.19.2019', views: 345},
-        {category: 'Бизнес', video: 'Видео', complete: true, title: 'хотите ли выполететь в космос?', date:'19.19.2019', views: 345},
-        {category: 'Бизнес', video: 'Видео', complete: true, title: 'хотите ли выполететь в космос?', date:'19.19.2019', views: 345},
-        {category: 'Бизнес', video: 'Видео', complete: true, title: 'хотите ли выполететь в космос?', date:'19.19.2019', views: 345},
-        {category: 'Бизнес', video: 'Видео', complete: true, title: 'хотите ли выполететь в космос?', date:'19.19.2019', views: 345}
+        {
+          category: 'Бизнес',
+          video: 'Видео',
+          complete: true,
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345
+        },
+        {
+          category: 'Бизнес',
+          video: 'Видео',
+          complete: true,
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345
+        },
+        {
+          category: 'Бизнес',
+          video: 'Видео',
+          complete: true,
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345
+        },
+        {
+          category: 'Бизнес',
+          video: 'Видео',
+          complete: true,
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345
+        },
+        {
+          category: 'Бизнес',
+          video: 'Видео',
+          complete: true,
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345
+        }
       ]
     }
   }
@@ -158,7 +189,7 @@ export default {
       &:hover {
         border-color: $base-color;
       }
-      &:hover .results-main__link{
+      &:hover .results-main__link {
         color: white;
       }
     }
@@ -172,9 +203,8 @@ export default {
   }
 }
 .arrow {
-  margin-bottom: -10px;
+  width: 1.2rem;
   margin-left: 0.5rem;
-  height: auto;
 }
 </style>
 <style>

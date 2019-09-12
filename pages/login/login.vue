@@ -1,36 +1,25 @@
 <template>
-   <div class="login" :title="'Вход'">
+  <div class="login" :title="'Вход'">
     <detailed-layout>
       <v-form-layout>
         <label class="login__label">Введите номер или e-mail</label>
-        <input 
-          class="login__input login__email"
-          type="email" 
-          v-loginl="email"
-        >
+        <input class="login__input login__email" type="email" v-loginl="email" />
         <label class="login__label">Пароль</label>
-        <input 
-          class="login__input login__password"
-          type="text" 
-          v-loginl="password"
-        >
+        <input class="login__input login__password" type="text" v-loginl="password" />
         <div class="login__buttons">
-          <v-btn class="login__link-wrap left-link">
-            <nuxt-link class="login__link" to="/registration/accountType">
-              зарегестрироваться
-              <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
-                <icon-arrow />
-              </icon-base>
-            </nuxt-link>
+          <v-btn @click="$navigate('/registration/accountType')" class="left-link">
+            зарегестрироваться
+            <span>
+              <icon-arrow class="arrow" />
+            </span>
           </v-btn>
-          <v-btn class="login__link-wrap" border>
-            <nuxt-link class="login__link" to="/registration/verification">
-              войти
-              <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
-                <icon-arrow />
-              </icon-base>
-            </nuxt-link>
-          </v-btn>    
+
+          <v-btn @click="$navigate('/registration/verification')" class="login__link-wrap" border>
+            войти
+            <span>
+              <icon-arrow class="arrow" />
+            </span>
+          </v-btn>
         </div>
         <registration-social />
       </v-form-layout>
@@ -40,19 +29,18 @@
 
 <script>
 import Vue from 'vue'
-import iconArrow from '@/components/icons/iconArrow.vue';
-import iconArrowleft from '@/components/icons/iconArrowleft.vue';
-import detailedLayout from '@/components/layouts/detailedLayout.vue';
-import vFormLayout from '@/components/forms/vFormLayout.vue';
-import registrationSocial from '@/components/registration/registrationSocial.vue';
+import iconArrow from '@/components/icons/iconArrow.vue'
+import detailedLayout from '@/components/layouts/detailedLayout.vue'
+import vFormLayout from '@/components/forms/vFormLayout.vue'
+import registrationSocial from '@/components/registration/registrationSocial.vue'
+
 export default {
   components: {
     iconArrow,
-    iconArrowleft,
     detailedLayout,
     vFormLayout,
     registrationSocial
-  },
+  }
 }
 </script>
 
@@ -87,7 +75,7 @@ export default {
     border: 1px solid $base-text-color;
     border-radius: 37px;
     white-space: normal;
-    line-height: 2.0;
+    line-height: 2;
     font-size: 1em;
     outline: none;
     margin: 4px 0 0;
@@ -99,7 +87,6 @@ export default {
   }
 
   &__tel {
-    
   }
 
   &__email {
@@ -128,12 +115,6 @@ export default {
       border-color: $secondary-text-color;
     }
   }
-
-  &__link {
-    color: inherit;
-    text-decoration: none;
-    position: relative;
-  }
 }
 .left-link {
   text-decoration: underline;
@@ -144,9 +125,8 @@ export default {
   }
 }
 .arrow {
-  margin-bottom: -10px;
+  width: 1.3em;
   margin-left: 0.5rem;
-  height: auto;
 }
 .isActive {
   color: $secondary-text-color;

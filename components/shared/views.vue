@@ -1,9 +1,9 @@
 <template>
   <div>
     <span class="views">
-      <icon-base stroke-width="8px" :height="15" :width="20" viewBox="0 0 110 115" iconColor="none">
-        <icon-eyes></icon-eyes>
-      </icon-base>
+      <span class="views__icon mr-1">
+        <icon-eyes />
+      </span>
       <span class="views__count">{{count}}</span>
     </span>
   </div>
@@ -31,6 +31,10 @@ export default {
 
   &__count {
     margin-left: 3px;
+  }
+
+  &__icon {
+    width: 0.9rem;
   }
 }
 </style>

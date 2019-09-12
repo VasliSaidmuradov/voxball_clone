@@ -1,5 +1,5 @@
 <template>
-  <section class="container">
+  <section>
     <div class="row">
       <div class="col-6 d-flex flex-column justify-content-between">
         <new-item v-if="news[0]" :data="news[0]"></new-item>

@@ -20,10 +20,10 @@
           {{ pollData.title }}
         </div>
         <div v-if="pollData.complete" class="poll-item__complete">
-          <icon-base stroke-width="2px" viewBox="0 0 20 20" width="10" height="10" iconColor="none">
-            <icon-complete></icon-complete>
-          </icon-base>
-          Завершен
+          <span class="poll-item__icon-complete mr-2">
+            <icon-complete />
+          </span>
+          <span>Завершен</span>
         </div>
         <nuxt-link to="/" class="poll-item__link">Подробнее</nuxt-link>
         <div class="poll-item__play-block">
@@ -37,9 +37,10 @@
         {{ pollData.date }}
       </div>
       <div class="views">
-        <icon-base stroke-width="8px" viewBox="0 0 120 110" iconColor="none">
-          <icon-eyes></icon-eyes>
-        </icon-base>
+        <span class="poll-item__icon-eyes mr-1">
+          <icon-eyes />
+        </span>
+
         <div class="views__count">
           <!-- 345 -->
           {{ pollData.views }}
@@ -59,7 +60,7 @@ export default {
     iconEyes,
     iconComplete
   },
-  props: ['data','pollData'],
+  props: ['data', 'pollData'],
   created() {}
 }
 </script>
@@ -141,6 +142,8 @@ export default {
     padding: 0.6em 0.6em 0.1em;
     color: white;
     background: #009700;
+    display: flex;
+    align-items: center;
   }
 
   &__block {
@@ -217,6 +220,13 @@ export default {
       background: $base-color;
       transition: 0.5s linear;
     }
+  }
+
+  &__icon-complete {
+    width: 0.6rem;
+  }
+  &__icon-eyes {
+    width: 0.9rem;
   }
 }
 .views {

@@ -12,17 +12,21 @@
           :placeholder="options[0]"
         ></v-select>
         <div class="type__buttons">
-          <v-btn class="type__link-wrap left-link">
+          <v-btn class="type__link-wrap left-link" link>
             войти
-            <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
-              <icon-arrow />
-            </icon-base>
+            <span>
+              <icon-arrow class="arrow" />
+            </span>
           </v-btn>
-          <v-btn @click="$navigate('registration/registrationmode')" class="type__link-wrap" border>
+          <v-btn
+            @click="$navigate('/registration/registrationmode')"
+            class="type__link-wrap"
+            border
+          >
             далее
-            <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
-              <icon-arrow />
-            </icon-base>
+            <span>
+              <icon-arrow class="arrow" />
+            </span>
           </v-btn>
         </div>
       </v-form-layout>
@@ -37,6 +41,7 @@ import vFormLayout from '@/components/forms/vFormLayout.vue'
 // v-select
 import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css'
+
 export default {
   components: {
     iconArrow,
@@ -97,9 +102,8 @@ export default {
   }
 }
 .arrow {
-  margin-bottom: -10px;
+  width: 1.3em;
   margin-left: 0.5rem;
-  height: auto;
 }
 </style>
 <style>

@@ -6,7 +6,7 @@
     </h2>
     <div class="poll-card__answer">
       <ul class="answer__list">
-        <li class="answer__item" v-for='(item, index) in 4' :key='index'>
+        <li class="answer__item" v-for="(item, index) in 4" :key="index">
           Ответ №{{ index+1 }}
           <div class="answer__check"></div>
         </li>
@@ -14,14 +14,14 @@
     </div>
     <div class="poll-card__button-wrap">
       <div class="poll-card__pay">
-        +1 
-        <img class="poll-card__coin-image" src="~assets/img/poll-card__coin.png" alt="">
+        +1
+        <img class="poll-card__coin-image" src="~assets/img/poll-card__coin.png" alt />
       </div>
       <v-btn class="poll-card__button" border>
         голосовать
-        <icon-base icon-name="arrow" class="arrow" width="22" height="20" viewBox="0 0 22 18">
-          <icon-arrow />
-        </icon-base>
+        <span>
+          <icon-arrow class="poll-card__arrow" />
+        </span>
       </v-btn>
     </div>
     <div class="poll-card__footer">
@@ -36,7 +36,7 @@
 import iconArrow from '@/components/icons/iconArrow.vue'
 export default {
   components: {
-    iconArrow,
+    iconArrow
   },
   data() {
     return {
@@ -85,7 +85,7 @@ export default {
     &:hover {
       background-color: $base-color;
       border-color: $base-color;
-    } 
+    }
   }
   &__pay {
     display: flex;
@@ -103,6 +103,10 @@ export default {
     justify-content: space-between;
     border-top: 1px solid $border-color;
     padding-top: 2rem;
+  }
+  &__arrow {
+    width: 1.3em;
+    margin-left: 0.5rem;
   }
 }
 .answer {

@@ -40,18 +40,18 @@
           <input class="mode__input mode__password" type="text" v-model="passwordCheck" />
         </div>
         <div class="mode__buttons">
-          <v-btn class="mode__link-wrap left-link">
-            <nuxt-link class="mode__link" to="/">
-              <icon-base icon-name="arrow-left" class="arrow" viewBox="0 0 22 18">
-                <icon-arrowleft />
-              </icon-base>назад
-            </nuxt-link>
+          <v-btn class="mode__link-wrap left-link" link>
+            <span>
+              <icon-arrow class="arrow" style="transform: rotate(180deg);" />
+              <!-- Пока просто перевернул иконку -->
+            </span>
+            <span class="ml-2">назад</span>
           </v-btn>
-          <v-btn class="mode__link-wrap" @click="$navigate('registration/verification')" border>
-            далее
-            <icon-base icon-name="arrow" class="arrow" viewBox="0 0 22 18">
-              <icon-arrow />
-            </icon-base>
+          <v-btn class="mode__link-wrap" @click="$navigate('/registration/verification')" border>
+            <span>далее</span>
+            <span>
+              <icon-arrow class="arrow" />
+            </span>
           </v-btn>
         </div>
         <registration-social />
@@ -182,9 +182,8 @@ export default {
   }
 }
 .arrow {
-  margin-bottom: -10px;
+  width: 1.2rem;
   margin-left: 0.5rem;
-  height: auto;
 }
 .isActive {
   color: $secondary-text-color;
