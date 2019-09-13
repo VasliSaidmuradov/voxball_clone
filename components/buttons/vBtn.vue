@@ -26,7 +26,8 @@ export default {
     styles() {
       return {
         'min-height': this.minHeight,
-        'min-width': this.minWidth
+        'min-width': this.minWidth,
+        'width': this.width
       }
     }
   },
@@ -43,7 +44,11 @@ export default {
     link: Boolean,
     minWidth: String,
     minHeight: String,
-    disabled: Boolean
+    disabled: Boolean,
+    width: {
+      type: String,
+      default: 'max-content'
+    }
   }
 }
 </script>

@@ -34,11 +34,9 @@
           <poll-list :pollArr="pollsArray" />
         </div>
         <div class="poll-main__footer">
-          <v-btn class="poll-main__button" border>
+          <v-btn class="m-auto" rounded border>
             <span>Загрузить еще</span>
-            <span>
-              <icon-arrow class="arrow" />
-            </span>
+            <icon-arrow class="arrow" />
           </v-btn>
         </div>
       </section>
@@ -178,19 +176,18 @@ export default {
     &__footer {
       padding: 2rem;
     }
-    &__button {
-      border-color: $base-text-color;
-      border-radius: 30px;
-      width: fit-content;
-      margin: 0 auto;
-      padding: 0.4rem 1rem 0.2rem;
-      &:hover {
-        border-color: $base-color;
-      }
-      &:hover .poll-main__link {
-        color: white;
-      }
-    }
+    // &__button {
+    //   border-color: $base-text-color;
+    //   border-radius: 30px;
+    //   width: fit-content;
+    //   margin: 0 auto;
+    //   &:hover {
+    //     border-color: $base-color;
+    //   }
+    //   &:hover .poll-main__link {
+    //     color: white;
+    //   }
+    // }
     &__link {
       color: $base-text-color;
       text-decoration: none;
