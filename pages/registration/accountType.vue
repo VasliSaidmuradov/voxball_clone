@@ -1,7 +1,7 @@
 <template>
   <div class="type">
     <detailed-layout :title="'Регистрация'">
-      <v-form-layout>
+      <v-form-layout class="mt-5 mb-5">
         <label class="type__label">Выберите тип аккаунта</label>
         <v-select
           class="type__select"
@@ -12,7 +12,7 @@
           :placeholder="options[0]"
         ></v-select>
         <div class="type__buttons">
-          <v-btn class="type__link-wrap left-link" link>
+          <v-btn @click="$navigate('/login/login')" class="type__link-wrap left-link" link>
             войти
             <span>
               <icon-arrow class="arrow" />
@@ -40,7 +40,7 @@ import detailedLayout from '@/components/layouts/detailedLayout.vue'
 import vFormLayout from '@/components/forms/vFormLayout.vue'
 // v-select
 import vSelect from 'vue-select'
-import 'vue-select/dist/vue-select.css'
+import '@/assets/css/vSelect.scss';
 
 export default {
   components: {
@@ -107,8 +107,10 @@ export default {
 }
 </style>
 <style>
+.type .v-select{
+  width: 100%;
+}
 .type .v-select .vs__dropdown-toggle {
-  border-radius: 37px;
   border-color: #2b454e;
 }
 .type .v-select .vs__open-indicator {
@@ -119,7 +121,6 @@ export default {
   font-size: 0.8em;
 }
 .type .v-select .vs__search[placeholder] {
-  color: #2b454e;
   opacity: 0.5;
   font-style: italic;
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="verification">
     <detailed-layout :title="'Регистрация'">
-      <v-form-layout>
+      <v-form-layout class="mt-5 mb-5">
         <label class="verification__label">Введите код подтверждения</label>
         <input
           class="verification__input"

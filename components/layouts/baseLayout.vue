@@ -54,7 +54,7 @@ export default {
     font-size: 1.6rem;
     font-family: 'times new roman psmt';
     text-transform: uppercase;
-    width: 90%;
+    width: 80%;
     padding: 0;
     margin: 0;
   }

@@ -46,6 +46,7 @@ import baseLayout from '@/components/layouts/baseLayout.vue'
 import pollList from '@/components/polls/pollList/pollList.vue'
 import iconArrow from '@/components/icons/iconArrow.vue'
 import vSelect from 'vue-select'
+import '@/assets/css/vSelect.scss';
 
 export default {
   components: {
@@ -121,7 +122,6 @@ export default {
 
 <style lang="scss">
 @import '@/assets/css/section.scss';
-@import '@/assets/css/vSelect.scss';
 
 .news {
   &__container {

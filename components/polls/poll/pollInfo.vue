@@ -18,6 +18,12 @@
       </div>
       <div class="poll-info__img-wrap">
         <img class="poll-info__img" src="~assets/img/poll-info-image.png" alt />
+        <div v-if="poll.complete" class="poll-info__complete">
+          <span class="poll-info__icon-complete mr-2">
+            <icon-complete />
+          </span>
+          <span>Завершен</span>
+        </div>
       </div>
     </div>
     <div class="poll-info__main">
@@ -59,25 +65,21 @@ import iconArrow from '@/components/icons/iconArrow.vue'
 import views from '@/components/shared/views.vue'
 import tags from '@/components/shared/tags.vue'
 import social from '@/components/shared/social.vue'
+import iconComplete from '@/components/icons/iconComplete.vue'
 
 export default {
   components: {
     iconArrow,
+    iconComplete,
     views,
     tags,
     social
   },
+  props: {
+    poll: Object
+  },
   data() {
     return {
-      poll: {
-        title: '',
-        category: 'бизнес',
-        date: '26.2.2019',
-        views: 123,
-        img: '~/assets/img/main-news-image-1.png',
-        name: 'Иванов Иван',
-        shared: 15
-      },
       arrTags: [
         'hello',
         'world',
@@ -165,6 +167,26 @@ export default {
     height: 86%;
     position: absolute;
     bottom: 0;
+  }
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  &__complete {
+    position: absolute;
+    font-size: 0.8rem;
+    text-transform: capitalize;
+    left: 0;
+    bottom: 0;
+    padding: 0.8em 1.4em 0.4em;
+    color: white;
+    background: #009700;
+    display: flex;
+    align-items: center;
+  }
+  &__icon-complete {
+    width: 0.6rem;
   }
   &__main {
   }

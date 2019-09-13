@@ -4,15 +4,14 @@
       :title="'Участвуйте в on-line опросах от Voxball.'"
       :text="'Активно отвечайте на вопросы, выражайте свое мнение и зарабатывайте на этом деньги'"
     >
-      <section class="poll-top">
+      <section class="poll-top mt-4 ml-5 mr-5">
         <poll-list :pollArr="pollsArray" />
       </section>
-      <section class="poll-main">
-        <div class="poll-main__header">
-          <h2 class="poll-main__title">Все опросы</h2>
-          <div class="poll-main__options">
+      <section class="Section mt-4 mb-1 ml-5 mr-5">
+        <div class="Section__header">
+          <h2 class="Section__title">Все опросы</h2>
+          <div class="Section__options">
             <v-select
-              class="poll-main__select"
               :options="options"
               :searchable="true"
               :no-drop="false"
@@ -20,7 +19,7 @@
               placeholder="Популярное"
             ></v-select>
             <v-select
-              class="poll-main__select"
+              class="ml-5"
               :options="options"
               :searchable="true"
               :no-drop="false"
@@ -29,7 +28,7 @@
             ></v-select>
           </div>
         </div>
-        <div class="poll-main__content">
+        <div class="poll-main__content mb-4">
           <poll-list :pollArr="pollsArray" />
           <poll-list :pollArr="pollsArray" />
         </div>
@@ -52,7 +51,8 @@ import pollItem from '@/components/polls/pollList/pollItem.vue'
 import pollList from '@/components/polls/pollList/pollList.vue'
 import vSelect from 'vue-select'
 import iconArrow from '@/components/icons/iconArrow.vue'
-import 'vue-select/dist/vue-select.css'
+import '@/assets/css/vSelect.scss';
+
 export default {
   components: {
     baseLayout,
@@ -106,75 +106,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/css/section.scss';
+
 .poll {
-  &-top {
-    margin: 0 15px;
-    margin-top: 2rem;
-    &__list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-start;
-      margin: 0 -15px;
-      list-style: none;
-      padding: 0;
-      font-size: 0.8em;
-    }
-    &__item {
-      flex: 0 0 auto;
-      margin: 15px;
-      margin-bottom: 0;
-      width: calc(1 / 5 * 100% - 30px);
-    }
-  }
   &-main {
-    margin: 0 15px;
-    margin-top: 3rem;
-    &__header {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-    }
-    &__title {
-      display: inline-block;
-      text-transform: uppercase;
-      width: 20%;
-    }
-    &__options {
-      display: flex;
-      align-items: center;
-      width: 80%;
-      position: relative;
-      &:after {
-        content: '';
-        height: 1px;
-        width: 100%;
-        background-color: #c2c2c2;
-        position: absolute;
-        top: 50%;
-        left: 0;
-        z-index: -1;
-      }
-    }
-    &__select {
-      width: 12.5rem;
-      margin-right: 1rem;
-      background: white;
-    }
-    &__list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-start;
-      margin: 0 -15px;
-      list-style: none;
-      padding: 0;
-      font-size: 0.8em;
-    }
-    &__item {
-      flex: 0 0 auto;
-      margin: 15px;
-      margin-bottom: 0;
-      width: calc(1 / 5 * 100% - 30px);
-    }
     &__footer {
       padding: 2rem;
     }
@@ -187,42 +122,11 @@ export default {
       &:hover {
         border-color: $base-color;
       }
-      &:hover .poll-main__link {
-        color: white;
-      }
-    }
-    &__link {
-      color: $base-text-color;
-      text-decoration: none;
-      text-transform: uppercase;
-      font-size: 0.9em;
-      transition: color 0.3s ease;
     }
   }
 }
 .arrow {
   width: 1.3em;
   margin-left: 0.5rem;
-}
-</style>
-<style>
-.poll .v-select .vs__dropdown-toggle {
-  border-radius: 37px;
-  border-color: #d0d0d0;
-}
-.poll .v-select .vs__open-indicator {
-  fill: #c4c4c4;
-}
-.poll .v-select .vs__search[placeholder] {
-  color: #2b454e;
-  text-transform: uppercase;
-  padding: 0.3rem 0;
-  padding-left: 1.5rem;
-}
-.poll .v-select .vs__selected {
-  font-size: 1rem;
-  text-transform: uppercase;
-  padding: 0.4rem 0 0.2rem;
-  padding-left: 1.5rem;
 }
 </style>

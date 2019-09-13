@@ -1,7 +1,7 @@
 <template>
   <div class="person">
     <detailed-layout :title="'Регистрация'">
-      <v-form-layout>
+      <v-form-layout class="mt-5 mb-5">
         <label class="person__label">Ваше имя</label>
         <input class="person__input person__name" type="text" v-model="name" />
         <label class="person__label">Подписаться на 3 категории</label>
@@ -58,7 +58,7 @@ import vFormLayout from '@/components/forms/vFormLayout.vue'
 import registrationSocial from '@/components/registration/registrationSocial.vue'
 // v-select
 import vSelect from 'vue-select'
-import 'vue-select/dist/vue-select.css'
+import '@/assets/css/vSelect.scss';
 export default {
   components: {
     iconArrow,
@@ -148,8 +148,10 @@ export default {
 }
 </style>
 <style>
+.person .v-select{
+  width: 100%;
+}
 .person .v-select .vs__dropdown-toggle {
-  border-radius: 37px;
   border-color: #2b454e;
 }
 .person .v-select .vs__open-indicator {
@@ -157,12 +159,9 @@ export default {
 }
 .person .v-select .vs__search {
   line-height: 2;
-  font-size: auto;
+  font-size: 0.8em;
 }
 .person .v-select .vs__search[placeholder] {
-  color: #2b454e;
-  padding-left: 1rem;
-  font-size: 0.8em;
   opacity: 0.5;
   font-style: italic;
 }

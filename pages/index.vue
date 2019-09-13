@@ -130,19 +130,19 @@ export default {
           title: 'Токаев объявил мораторий на создание новых госкомпаний',
           date: '26.2.2019',
           category: 'политика',
-          views: 345
+          views: 349
         },
         {
           title: 'Токаев объявил мораторий на создание новых госкомпаний',
           date: '26.2.2019',
           category: 'политика',
-          views: 345
+          views: 341
         },
         {
           title: 'Токаев объявил мораторий на создание новых госкомпаний',
           date: '26.2.2019',
           category: 'политика',
-          views: 345
+          views: 342
         }
       ],
       pollsArray: [
@@ -151,35 +151,48 @@ export default {
           video: 'Видео',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345
+          views: 345,
+          complete: false
         },
         {
           category: 'Бизнес',
           video: 'Видео',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345
+          views: 345,
+          complete: false
         },
         {
           category: 'Бизнес',
           video: 'Видео',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345
+          views: 345,
+          complete: false
         },
         {
           category: 'Бизнес',
           video: 'Видео',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345
+          views: 345,
+          complete: false
         },
         {
           category: 'Бизнес',
           video: 'Видео',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345
+          views: 345,
+          complete: false
+        },
+        {
+          category: 'Бизнес',
+          video: 'Видео',
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345,
+          complete: true
         }
       ]
     }

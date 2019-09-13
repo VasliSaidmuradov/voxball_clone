@@ -25,14 +25,9 @@ export default {
     content: Object,
     newsArr: Array
   },
-  // render: function (createElement) {
-  //   if( slider ){
-  //     return createElement( 
-  //       carousel,   // имя тега
-  //       this.$slots.default // массив дочерних элементов
-  //     )
-  //   }
-  // },
+  render: function (createElement) {
+    return createElement('carousel', this.blogTitle)
+  }
 }
 </script>
 

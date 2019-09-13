@@ -28,7 +28,7 @@ export default {
         img: '~/assets/img/main-news-image-1.png',
         name: 'Иванов Иван',
         shared: 15,
-        complete: false
+        complete: true
       }
     }
   }
