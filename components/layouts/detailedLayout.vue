@@ -48,6 +48,7 @@ export default {
       text-transform: uppercase;
       font-size: 2rem;
       font-family: "Times New Roman PSMT";
+      font-weight: normal;
       color: $base-text-color;
     }
 

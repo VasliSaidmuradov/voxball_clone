@@ -1,8 +1,8 @@
 <template>
   <div class="poll-id">
     <detailed-layout :title="'Мои Опросы'">
-      <poll-info class="mt-5" :poll="pollData"></poll-info>
-      <poll-card class="mb-5"></poll-card>
+      <poll-info :poll="pollData"></poll-info>
+      <poll-card></poll-card>
     </detailed-layout>
   </div>
 </template>
@@ -28,7 +28,7 @@ export default {
         img: '~/assets/img/main-news-image-1.png',
         name: 'Иванов Иван',
         shared: 15,
-        complete: false
+        complete: true
       }
     }
   }

@@ -27,7 +27,7 @@ export default {
       return {
         'min-height': this.minHeight,
         'min-width': this.minWidth,
-        'width': this.width
+        width: this.width
       }
     }
   },
@@ -111,8 +111,10 @@ $border: 1px solid $border-color;
   }
 
   &--link {
-    text-decoration: underline;
-    border: none;
+    padding: 0;
+    padding-bottom: 2px;
+    border-bottom: 1px solid #fff;
+    border-color: inherit;
     background: transparent !important;
     text-transform: uppercase;
     font-weight: 600;

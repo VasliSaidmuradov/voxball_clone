@@ -1,26 +1,30 @@
 <template>
-  <div class="poll-id">
-    <detailed-layout :title="'Мои Опросы'">
-      <poll-info class="mt-5" :poll="pollData"></poll-info>
-      <poll-card class="mb-5"></poll-card>
+  <div class="news-id">
+    <detailed-layout :title="'Будьте в курсе актуальных новостей'">
+      <news-info :poll="newsData"></news-info>
+      <news-card v-if="news.type!=='anal'"></news-card>
     </detailed-layout>
   </div>
 </template>
 
 <script>
 import detailedLayout from '@/components/layouts/detailedLayout.vue'
-import pollInfo from '@/components/polls/poll/pollInfo.vue'
-import pollCard from '@/components/polls/poll/pollCard.vue'
+import newsInfo from '@/components/polls/poll/pollInfo.vue'
+import newsCard from '@/components/polls/poll/pollCard.vue'
 
 export default {
+//   props: ['news'],
   components: {
     detailedLayout,
-    pollInfo,
-    pollCard
+    newsInfo,
+    newsCard
   },
   data() {
     return {
-      pollData: {
+      news: {
+        type: 'anal'
+      },
+      newsData: {
         title: '',
         category: 'бизнес',
         date: '26.2.2019',

@@ -1,15 +1,14 @@
 <template>
   <div class="results">
     <base-layout :title="'Завершенные Опросы'">
-      <section class="results-top">
+      <section class="results-top mt-4 ml-5 mr-5">
         <poll-list :pollArr="pollsArray" />
       </section>
-      <section class="results-main">
-        <div class="results-main__header">
-          <h2 class="results-main__title">Все опросы</h2>
-          <div class="results-main__options">
+      <section class="Section mt-4 mb-1 ml-5 mr-5">
+        <div class="Section__header">
+          <h2 class="Section__title">Все опросы</h2>
+          <div class="Section__options">
             <v-select
-              class="results-main__select"
               :options="options"
               :searchable="true"
               :no-drop="false"
@@ -17,7 +16,7 @@
               placeholder="Популярное"
             ></v-select>
             <v-select
-              class="results-main__select"
+              class="ml-5"
               :options="options"
               :searchable="true"
               :no-drop="false"
@@ -27,15 +26,13 @@
           </div>
         </div>
         <div class="results-main__content">
-          <poll-list :pollArr="pollsArray" />
-          <poll-list :pollArr="pollsArray" />
+          <polls-list :pollArr="pollsArray" />
+          <polls-list :pollArr="pollsArray" />
         </div>
         <div class="results-main__footer">
           <v-btn class="results-main__button" rounded>
             <span>Загрузить еще</span>
-            <span>
-              <icon-arrow class="arrow" />
-            </span>
+            <icon-arrow class="ml-2" />
           </v-btn>
         </div>
       </section>
@@ -45,15 +42,16 @@
 
 <script>
 import baseLayout from '@/components/layouts/baseLayout.vue'
-import pollItem from '@/components/polls/pollList/pollItem.vue'
-import pollList from '@/components/polls/pollList/pollList.vue'
+import pollItem from '@/components/polls/pollsList/pollItem.vue'
+import pollsList from '@/components/polls/pollsList/pollsList.vue'
 import vSelect from 'vue-select'
-import 'vue-select/dist/vue-select.css'
 import iconArrow from '@/components/icons/iconArrow.vue'
+import '@/assets/css/vSelect.scss'
+
 export default {
   components: {
     baseLayout,
-    pollList,
+    pollsList,
     vSelect,
     iconArrow
   },
@@ -108,75 +106,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/css/section.scss';
+
 .results {
-  &-top {
-    margin: 0 15px;
-    margin-top: 2rem;
-    &__list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-start;
-      margin: 0 -15px;
-      list-style: none;
-      padding: 0;
-      font-size: 0.8em;
-    }
-    &__item {
-      flex: 0 0 auto;
-      margin: 15px;
-      margin-bottom: 0;
-      width: calc(1 / 5 * 100% - 30px);
-    }
-  }
   &-main {
-    margin: 0 15px;
-    margin-top: 3rem;
-    &__header {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-    }
-    &__title {
-      display: inline-block;
-      text-transform: uppercase;
-      width: 20%;
-    }
-    &__options {
-      display: flex;
-      align-items: center;
-      width: 80%;
-      position: relative;
-      &:after {
-        content: '';
-        height: 1px;
-        width: 100%;
-        background-color: #c2c2c2;
-        position: absolute;
-        top: 50%;
-        left: 0;
-        z-index: -1;
-      }
-    }
-    &__select {
-      width: 12.5rem;
-      margin-right: 1rem;
-      background: white;
-    }
-    &__list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-start;
-      margin: 0 -15px;
-      list-style: none;
-      padding: 0;
-      font-size: 0.8em;
-    }
-    &__item {
-      flex: 0 0 auto;
-      margin: 15px;
-      margin-bottom: 0;
-      width: calc(1 / 5 * 100% - 30px);
-    }
     &__footer {
       padding: 2rem;
     }
@@ -185,46 +118,15 @@ export default {
       border-radius: 30px;
       width: fit-content;
       margin: 0 auto;
-      padding: 0.4rem 1rem 0.2rem;
+      padding: 0.4rem 1rem;
       &:hover {
         border-color: $base-color;
       }
-      &:hover .results-main__link {
-        color: white;
-      }
-    }
-    &__link {
-      color: $base-text-color;
-      text-decoration: none;
-      text-transform: uppercase;
-      font-size: 0.9em;
-      transition: color 0.3s ease;
     }
   }
 }
 .arrow {
   width: 1.2rem;
   margin-left: 0.5rem;
-}
-</style>
-<style>
-.results .v-select .vs__dropdown-toggle {
-  border-radius: 37px;
-  border-color: #d0d0d0;
-}
-.results .v-select .vs__open-indicator {
-  fill: #c4c4c4;
-}
-.results .v-select .vs__search[placeholder] {
-  color: #2b454e;
-  text-transform: uppercase;
-  padding: 0.3rem 0;
-  padding-left: 1.5rem;
-}
-.results .v-select .vs__selected {
-  font-size: 1rem;
-  text-transform: uppercase;
-  padding: 0.4rem 0 0.2rem;
-  padding-left: 1.5rem;
 }
 </style>

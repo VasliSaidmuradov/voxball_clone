@@ -1,33 +1,48 @@
 <template>
-  <div class="competitionCard">
-    <div class="competitionCard__img-wrap">
+  <div class="competition-item">
+    <div class="competition-item__img-wrap">
       <img
-        class="competitionCard__img"
+        class="competition-item__img"
         src="~/assets/img/competition-test.png"
-        alt="competition card image"
+        alt="competition item image"
       />
-      <v-btn class="competitionCard__button" link>
+      <v-btn class="competition-item__button" link>
         подробнее
       </v-btn>
+      <div v-if="data.complete" class="competition-item__complete">
+        <span class="competition-item__icon-complete mr-2">
+          <icon-complete />
+        </span>
+        <span>Завершен</span>
+      </div>
     </div>
-    <div class="competitionCard__info">
-      <p class="competitionCard__text">До конца конкурса осталось:</p>
-      <p class="competitionCard__time">2 месяца 25 дней 8 часов</p>
+    <div v-if="!data.complete" class="competition-item__info">
+      <p class="competition-item__text">Дата окончания:</p>
+      <p class="competition-item__time">{{ data.date }}</p>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+import iconComplete from '@/components/icons/iconComplete.vue'
+export default {
+  props: {
+    data: Object,
+  },
+  components: {
+    iconComplete
+  }
+}
 </script>
 
 <style lang="scss" scoped>
-.competitionCard {
-  min-width: 14rem;
-  max-width: 100%;
+.competition-item {
+  min-width: 10rem;
+  max-width: 24%;
   position: relative;
   overflow: hidden;
   font-size: 0.8rem;
+  margin-right: 0.5rem;
 
   &:hover &__img {
     filter: blur(8px);
@@ -71,6 +86,23 @@ export default {}
       content: '⟶';
       display: inline-block;
     }
+  }
+
+  &__complete {
+    position: absolute;
+    font-size: 0.8rem;
+    text-transform: capitalize;
+    right: 0;
+    top: 0;
+    padding: 0.4rem 0.6em 0.2em;
+    color: white;
+    background: #009700;
+    display: flex;
+    align-items: center;
+  }
+
+  &__icon-complete {
+    width: 0.6rem;
   }
 
   &__info {

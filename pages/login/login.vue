@@ -1,11 +1,11 @@
 <template>
   <div class="login" :title="'Вход'">
     <detailed-layout>
-      <v-form-layout>
+      <v-form-layout class="mt-5 mb-5">
         <label class="login__label">Введите номер или e-mail</label>
-        <input class="login__input login__email" type="email" v-loginl="email" />
+        <input class="login__input login__email" type="email" v-loginl="'email'" />
         <label class="login__label">Пароль</label>
-        <input class="login__input login__password" type="text" v-loginl="password" />
+        <input class="login__input login__password" type="text" v-loginl="'password'" />
         <div class="login__buttons">
           <v-btn @click="$navigate('/registration/accountType')" class="left-link">
             зарегестрироваться

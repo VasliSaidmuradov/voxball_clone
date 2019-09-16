@@ -10,6 +10,7 @@ html {
 	font-family: HelveticaNeue-Roman;
 	overflow-x: hidden;
 }
+
 .section {
 	border-top: 1px solid $border-color;
 	&__header {
@@ -32,9 +33,13 @@ html {
 	width: 100%;
 }
 
-
 svg {
 	display: inline-block;
 	vertical-align: baseline;
 	fill: currentColor;
+}
+
+.icon {
+	width: 17px;
+	height: 17px;
 }

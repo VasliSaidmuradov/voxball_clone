@@ -4,14 +4,13 @@
       <Slider :sliderInfo="sliderInfo"></Slider>
     </section>
     <section class="Top-poll container">
-      <!-- polls -->
-      <poll-list :pollArr="pollsArray" />
+      <polls-list :pollArr="pollsArray" />
     </section>
     <section class="Advertising container">
       <advertising advWidth="100%" advHeight="9rem" advImage="/assets/img/advertising.jpg"></advertising>
     </section>
     <section class="Top-news container">
-      <topNewsList :content="topNewsContent" :newsArr="newsArray" />
+      <top-news-list :content="topNewsContent" :newsArr="newsArray" />
     </section>
     <section class="Analitic-articles container">
       <div class="Analitic-articles__header">
@@ -56,10 +55,9 @@
 </template>
 
 <script>
-import pollList from '@/components/polls/pollList/pollList.vue'
+import pollsList from '@/components/polls/pollsList/pollsList.vue'
 import Slider from '@/components/slider/slider.vue'
 import sliderItem from '@/components/slider/sliderItem.vue'
-// import newsCard from '@/components/cards/newsCard.vue'
 import topNewsList from '@/components/news/topNews/topNewsList.vue'
 import carousel from '@/components/carousel/carousel.vue'
 import competitionCard from '@/components/cards/competitionCard.vue'
@@ -80,7 +78,7 @@ export default {
     competitionCard,
     analyticalCard,
     advertising,
-    pollList
+    pollsList
   },
   data() {
     return {
@@ -130,19 +128,19 @@ export default {
           title: 'Токаев объявил мораторий на создание новых госкомпаний',
           date: '26.2.2019',
           category: 'политика',
-          views: 345
+          views: 349
         },
         {
           title: 'Токаев объявил мораторий на создание новых госкомпаний',
           date: '26.2.2019',
           category: 'политика',
-          views: 345
+          views: 341
         },
         {
           title: 'Токаев объявил мораторий на создание новых госкомпаний',
           date: '26.2.2019',
           category: 'политика',
-          views: 345
+          views: 342
         }
       ],
       pollsArray: [
@@ -151,35 +149,40 @@ export default {
           video: 'Видео',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345
+          views: 345,
+          complete: false
         },
         {
           category: 'Бизнес',
           video: 'Видео',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345
+          views: 345,
+          complete: false
         },
         {
           category: 'Бизнес',
           video: 'Видео',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345
+          views: 345,
+          complete: false
         },
         {
           category: 'Бизнес',
           video: 'Видео',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345
+          views: 345,
+          complete: false
         },
         {
           category: 'Бизнес',
           video: 'Видео',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345
+          views: 345,
+          complete: false
         }
       ]
     }

@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import pollItem from '@/components/polls/pollList/pollItem.vue'
+import pollItem from '@/components/polls/pollsList/pollItem.vue'
 
 export default {
   props: ['pollArr'],

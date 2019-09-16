@@ -17,7 +17,10 @@
         <p
           class="Slider-static-bottom__text"
         >Все что нужно, это заработать 5000 коинов, и вы автоматически становитесь акционером.</p>
-        <v-btn class="Slider-static-bottom__button p-0" link>подробнее ⟶</v-btn>
+        <v-btn link class="Slider__btn--green">
+          подробнее
+          <icon-arrow class="ml-2"></icon-arrow>
+        </v-btn>
       </div>
     </div>
     <no-ssr>
@@ -41,10 +44,9 @@
       <p class="Slider-content__title">{{sliderInfo[page].title}}</p>
       <p class="Slider-content__text">{{sliderInfo[page].desc}}</p>
       <div class="d-flex justify-content-end">
-        <v-btn class="Slider__link" link>
-          <nuxt-link to="/">
-            <span>подробнее ⟶</span>
-          </nuxt-link>
+        <v-btn link class="Slider__btn mt-2">
+          подробнее
+          <icon-arrow class="ml-2"></icon-arrow>
         </v-btn>
       </div>
     </div>
@@ -53,6 +55,7 @@
 </template>
 
 <script>
+import iconArrow from '@/components/icons/iconArrow'
 if (process.browser) {
   var { Carousel, Slide } = require('vue-carousel')
 }
@@ -86,7 +89,8 @@ export default {
   },
   components: {
     Carousel,
-    Slide
+    Slide,
+    iconArrow
   }
 }
 </script>
@@ -101,6 +105,15 @@ export default {
   position: relative;
   cursor: pointer;
   transition: 0.3s;
+
+  &__btn:hover {
+    color: #fff;
+  }
+
+  &__btn--green,
+  &__btn--green:hover {
+    color: $base-color;
+  }
 }
 
 .Slider-static {
@@ -170,9 +183,6 @@ export default {
         text-transform: uppercase;
       }
     }
-    &__button {
-      // font-size: 0.7rem;
-    }
   }
 }
 
@@ -191,39 +201,42 @@ export default {
     object-fit: cover;
   }
 }
-.Slide__green {
+
+.Slider__green-bg {
+  display: none;
   background: $base-color;
   position: absolute;
-  bottom: 0;
+  bottom: -1rem;
   right: 0;
   height: 60%;
   width: 60%;
-  clip-path: polygon(0% 29%, 100% 0%, 100% 100%);
+  clip-path: polygon(0% 25%, 100% 0%, 100% 100%);
   opacity: 0.7;
   z-index: 2;
 }
+.Slider-content {
+  width: 24%;
+  font-size: 1rem;
+  position: absolute;
+  bottom: 18%;
+  right: 8%;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  z-index: 8;
 
-.link-button {
-  font-size: 0.8em;
-  font-weight: 700;
-  color: #ffffff;
-
-  &_green {
-    color: #00b200;
-    &:hover {
-      color: $base-text-color;
-    }
+  &__title {
+    text-transform: uppercase;
+    font-family: 'times new roman psmt';
+    font-size: 1.4rem;
+    margin: 0;
+    font-weight: 700;
   }
-
-  &_right {
-    align-self: flex-end;
-    margin-top: 1rem;
+  &__text {
+    font-family: 'times new roman psmt';
+    font-size: 0.9rem;
+    margin: 0;
   }
-}
-.arrow {
-  margin-bottom: -13px;
-  margin-left: 0.5rem;
-  height: auto;
 }
 </style>
 
@@ -268,52 +281,6 @@ export default {
     width: 100%;
     clip-path: polygon(0% 29%, 100% 0%, 100% 100%);
     opacity: 0.9;
-  }
-}
-.Slider__green-bg {
-  display: none;
-  background: $base-color;
-  position: absolute;
-  bottom: -1rem;
-  right: 0;
-  height: 60%;
-  width: 60%;
-  clip-path: polygon(0% 25%, 100% 0%, 100% 100%);
-  opacity: 0.7;
-  z-index: 2;
-}
-.Slider-content {
-  width: 24%;
-  font-size: 1rem;
-  position: absolute;
-  bottom: 18%;
-  right: 8%;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  z-index: 8;
-
-  &__title {
-    text-transform: uppercase;
-    font-family: 'times new roman psmt';
-    font-size: 1.4rem;
-    margin: 0;
-    font-weight: 700;
-  }
-  &__text {
-    font-family: 'times new roman psmt';
-    font-size: 0.9rem;
-    margin: 0;
-  }
-  .v-btn {
-    text-decoration: none;
-  }
-  .v-btn--link a {
-    color: white;
-    &:hover {
-      color: white;
-      text-decoration: none;
-    }
   }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="mode">
     <detailed-layout :title="'Регистрация'">
-      <v-form-layout>
+      <v-form-layout class="mt-5 mb-5">
         <div class="mode__toggle">
           <a
             class="mode__type"
@@ -69,7 +69,7 @@ import vFormLayout from '@/components/forms/vFormLayout.vue'
 import registrationSocial from '@/components/registration/registrationSocial.vue'
 // v-select
 import vSelect from 'vue-select'
-import 'vue-select/dist/vue-select.css'
+import '@/assets/css/vSelect.scss';
 // v-mask
 import VueMask from 'v-mask'
 Vue.use(VueMask)
@@ -189,17 +189,23 @@ export default {
   color: $secondary-text-color;
 }
 </style>
+
 <style>
 /* for v-select */
+.mode .v-select{
+  width: 100%;
+}
 .mode .v-select .vs__dropdown-toggle {
-  border-radius: 37px;
   border-color: #2b454e;
 }
 .mode .v-select .vs__open-indicator {
   fill: #007b00;
 }
+.mode .v-select .vs__search {
+  line-height: 2;
+  font-size: 0.8em;
+}
 .mode .v-select .vs__search[placeholder] {
-  color: #2b454e;
   opacity: 0.5;
   font-style: italic;
 }

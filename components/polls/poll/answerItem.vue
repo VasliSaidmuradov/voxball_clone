@@ -1,7 +1,12 @@
 <template>
   <div class="answerItem">
-    {{ answer.title }}
-    <input type="checkbox" :value="answer.title" class="answerItem__check" v-model="answers">
+    {{ answer.label }}
+    <input
+      type="checkbox"
+      :value="answer.label"
+      class="answerItem__check"
+      v-model="answers"
+    />
   </div>
 </template>
 

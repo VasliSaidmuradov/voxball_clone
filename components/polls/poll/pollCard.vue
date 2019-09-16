@@ -6,7 +6,7 @@
     </h2>
     <div class="poll-card__answer">
       <div class="answer__list">
-        <answerItem v-for="(item, index) in answers" :key="index" :answer="item"></answerItem>
+        <answers-list multiple @selectedAnswers="selectedAnswers($event)" :answersList="answers"></answers-list>
       </div>
     </div>
     <div class="poll-card__button-wrap">
@@ -16,9 +16,7 @@
       </div>
       <v-btn class="poll-card__button" border>
         голосовать
-        <span>
-          <icon-arrow class="poll-card__arrow" />
-        </span>
+        <icon-arrow class="ml-2" />
       </v-btn>
     </div>
     <div class="poll-card__footer">
@@ -31,11 +29,12 @@
 
 <script>
 import iconArrow from '@/components/icons/iconArrow.vue'
-import answerItem from '@/components/polls/poll/answerItem.vue'
+import answersList from '@/components/polls/poll/answersList/answersList.vue'
+
 export default {
   components: {
     iconArrow,
-    answerItem
+    answersList
   },
   data() {
     return {
@@ -45,11 +44,16 @@ export default {
         shares: 15
       },
       answers: [
-        { title: 'Yes' },
-        { title: 'No' },
-        { title: 'Maybe' },
-        { title: 'Yes, No, Maybe' }
+        { label: 'Yes' },
+        { label: 'No' },
+        { label: 'Maybe' },
+        { label: 'Yes, No, Maybe' }
       ]
+    }
+  },
+  methods: {
+    selectedAnswers(selectedAnswers) {
+      console.log(selectedAnswers)
     }
   }
 }
@@ -84,7 +88,7 @@ export default {
     align-items: center;
   }
   &__button {
-    padding: 0.7rem 1.5rem 0.5rem;
+    padding: 0.7rem 1.5rem;
     border-color: $base-text-color;
     text-transform: uppercase;
     &:hover {

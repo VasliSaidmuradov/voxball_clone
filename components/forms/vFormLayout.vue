@@ -16,13 +16,11 @@ export default {
 .form {
   box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.2);
   padding: 2rem 1.5rem 0.5rem;
-  width: 25%;
+  width: 28%;
   min-height: 10rem;
   margin: 0 auto;
   background: white;
   position: relative;
-  margin-top: 3rem;
-  margin-bottom: 3rem;
   z-index: 1;
 
   &__back {

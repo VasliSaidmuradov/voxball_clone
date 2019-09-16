@@ -1,50 +1,42 @@
 <template>
-  <div class="poll-item">
+  <div @click="$navigate('/polls/123')" class="poll-item">
     <div class="poll-item__main">
       <div>
         <img class="poll-item__img" src="~/assets/img/test-bg.jpg" alt />
       </div>
       <div class="poll-item__block">
         <div class="poll-item__content">
-          <nuxt-link to="/" class="poll-item__content-item">
-            <!-- Бизнес -->
-            {{ pollData.category }}
-          </nuxt-link>
-          <nuxt-link to="/" class="poll-item__content-item poll-item__content-item--video">
-            <!-- Видео -->
-            {{ pollData.video }}
-          </nuxt-link>
+          <nuxt-link to="/" class="poll-item__content-item">{{ pollData.category }}</nuxt-link>
+          <nuxt-link
+            to="/"
+            class="poll-item__content-item poll-item__content-item--video"
+          >{{ pollData.video }}</nuxt-link>
         </div>
-        <div class="poll-item__title">
-          <!-- хотите ли выполететь в космос? -->
-          {{ pollData.title }}
+        <div class="poll-item__title">{{ pollData.title }}</div>
+        <div class="d-flex">
+          <div v-if="pollData.complete" class="poll-item__complete">
+            <span class="poll-item__icon-complete mr-2">
+              <icon-complete />
+            </span>
+            <span>Завершен</span>
+          </div>
+          <v-btn link class="poll-item__link">
+            Подробнее
+            <icon-arrow class="ml-2"></icon-arrow>
+          </v-btn>
         </div>
-        <div v-if="pollData.complete" class="poll-item__complete">
-          <span class="poll-item__icon-complete mr-2">
-            <icon-complete />
-          </span>
-          <span>Завершен</span>
-        </div>
-        <nuxt-link to="/" class="poll-item__link">Подробнее</nuxt-link>
         <div class="poll-item__play-block">
           <div class="poll-item__play"></div>
         </div>
       </div>
     </div>
     <div class="poll-item__footer">
-      <div class="poll-item__date">
-        <!-- 19.19.2019 -->
-        {{ pollData.date }}
-      </div>
+      <div class="poll-item__date">{{ pollData.date }}</div>
       <div class="views">
         <span class="poll-item__icon-eyes mr-1">
           <icon-eyes />
         </span>
-
-        <div class="views__count">
-          <!-- 345 -->
-          {{ pollData.views }}
-        </div>
+        <div class="views__count">{{ pollData.views }}</div>
       </div>
     </div>
     <div class="poll-item__move-out"></div>
@@ -53,10 +45,12 @@
 
 <script>
 import iconEyes from '@/components/icons/iconEyes.vue'
+import iconArrow from '@/components/icons/iconArrow.vue'
 import iconComplete from '@/components/icons/iconComplete.vue'
 
 export default {
   components: {
+    iconArrow,
     iconEyes,
     iconComplete
   },
@@ -135,13 +129,12 @@ export default {
 
   &__complete {
     position: absolute;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     text-transform: capitalize;
-    left: 1em;
-    bottom: 10px;
-    padding: 0.6em 0.6em 0.1em;
+    bottom: 9px;
+    padding: 0.4em;
     color: white;
-    background: #009700;
+    background: $base-color;
     display: flex;
     align-items: center;
   }
@@ -165,7 +158,7 @@ export default {
 
   &__content-item {
     display: inline-block;
-    padding: 0.4em 1.3em 0.1em;
+    padding: 0.3em 1.3em;
     background: $base-color;
     color: white;
     text-decoration: none;
@@ -178,20 +171,10 @@ export default {
 
   &__link {
     position: absolute;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     right: 23px;
     bottom: 10px;
-    padding: 0.1em 0.5em;
     color: white;
-
-    &::after {
-      content: '⟶';
-      top: 50%;
-      margin-left: 6px;
-      border: none;
-      position: absolute;
-      transform: translateY(-60%);
-    }
   }
 
   &__footer {
