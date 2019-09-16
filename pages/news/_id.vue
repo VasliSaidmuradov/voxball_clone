@@ -1,8 +1,8 @@
 <template>
   <div class="news-id">
     <detailed-layout :title="'Будьте в курсе актуальных новостей'">
-      <news-info :poll="newsData"></news-info>
-      <news-card v-if="news.type!=='anal'"></news-card>
+      <news-info  class="mt-5" :poll="newsData"></news-info>
+      <news-card  class="mb-5" v-if="news.type!=='anal'"></news-card>
     </detailed-layout>
   </div>
 </template>

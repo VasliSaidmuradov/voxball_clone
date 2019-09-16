@@ -1,8 +1,8 @@
 <template>
   <div class="poll-id">
     <detailed-layout :title="'Мои Опросы'">
-      <poll-info :poll="pollData"></poll-info>
-      <poll-card></poll-card>
+      <poll-info class="mt-5" :poll="pollData"></poll-info>
+      <poll-card class="mb-5" :answers="answers"></poll-card>
     </detailed-layout>
   </div>
 </template>
@@ -29,7 +29,21 @@ export default {
         name: 'Иванов Иван',
         shared: 15,
         complete: true
-      }
+      },
+      answers: [
+        { label: 'Yes',
+          percentage: 20
+        },
+        { label: 'No',
+          percentage: 40
+        },
+        { label: 'Maybe',
+          percentage: 25
+        },
+        { label: 'Yes, No, Maybe',
+          percentage: 10
+        }
+      ]
     }
   }
 }

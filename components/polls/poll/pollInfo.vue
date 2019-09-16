@@ -206,8 +206,8 @@ export default {
     margin: 1rem 0;
     line-height: 1.3rem;
     // height: 6rem;
-    // overflow: hidden;
-    // overflow-y: scroll;
+    overflow: hidden;
+    overflow-y: scroll;
   }
   &__footer {
     height: 6rem;

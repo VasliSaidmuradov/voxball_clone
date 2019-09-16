@@ -2,7 +2,7 @@
   <div class="poll-id">
     <detailed-layout :title="'Мои Опросы'">
       <poll-info class="mt-5" :poll="pollData"></poll-info>
-      <poll-card class="mb-5"></poll-card>
+      <poll-card class="mb-5" :answers="answers"></poll-card>
     </detailed-layout>
   </div>
 </template>
@@ -29,7 +29,13 @@ export default {
         name: 'Иванов Иван',
         shared: 15,
         complete: false
-      }
+      },
+      answers: [
+        { label: 'Yes' },
+        { label: 'No' },
+        { label: 'Maybe' },
+        { label: 'Yes, No, Maybe' }
+      ]
     }
   }
 }

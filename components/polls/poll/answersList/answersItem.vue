@@ -3,13 +3,26 @@
     <div
       :class="{
         'answer-item': true, 
-        'answer-item--checked': checked
+        'answer-item--checked': checked,
       }"
       @click="$emit('click')"
-    >{{label}}</div>
-    <div class="answer-item__checkbox">
+    >
+      <span 
+       class="answer-item__percent"
+       v-if="percentage" 
+      >
+        {{ percentage }}%
+      </span>
+      {{label}}
+    </div>
+    <div v-if="!percentage" class="answer-item__checkbox">
       <iconComplete v-if="checked" class="answer-item__complete-icon"></iconComplete>
     </div>
+    <span
+     v-if="percentage"
+     class='answer-item__percent-bg'
+     :style="{ width: percentage + '%' }">
+    </span>
   </div>
 </template>
 
@@ -19,6 +32,7 @@ import iconComplete from '@/components/icons/iconComplete.vue'
 export default {
   props: {
     label: String,
+    percentage: Number,
     checked: Boolean
   },
   components: {
@@ -71,6 +85,19 @@ export default {
 
   &--checked {
     border-color: $base-color;
+  }
+
+  &__percent-bg {
+    height: 70%;
+    background-color: $base-text-color;
+    opacity: 0.2;
+    position: absolute;
+    top: 15%;
+    left: 2.5%;
+    z-index: -1;
+    padding: 0.8rem;
+    border-top-left-radius: 1.3rem;
+    border-bottom-left-radius: 1.3rem;
   }
 
   &-wrapper {

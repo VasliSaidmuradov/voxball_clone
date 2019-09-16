@@ -6,6 +6,7 @@
       :key="index"
       @click="selectAnswer(index)"
       :label="answer.label"
+      :percentage="answer.percentage"
     ></answers-item>
   </div>
 </template>

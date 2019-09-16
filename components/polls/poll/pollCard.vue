@@ -6,7 +6,7 @@
     </h2>
     <div class="poll-card__answer">
       <div class="answer__list">
-        <answers-list multiple @selectedAnswers="selectedAnswers($event)" :answersList="answers"></answers-list>
+        <answers-list multiple @selectedAnswers="selectedAnswers($event)" :answersList="answers" :percent="[25,15,50,10]"></answers-list>
       </div>
     </div>
     <div class="poll-card__button-wrap">
@@ -36,19 +36,16 @@ export default {
     iconArrow,
     answersList
   },
+  props: {
+    answers: Array
+  },
   data() {
     return {
       poll: {
         votes: 11,
         date: '9 дней',
         shares: 15
-      },
-      answers: [
-        { label: 'Yes' },
-        { label: 'No' },
-        { label: 'Maybe' },
-        { label: 'Yes, No, Maybe' }
-      ]
+      }
     }
   },
   methods: {
