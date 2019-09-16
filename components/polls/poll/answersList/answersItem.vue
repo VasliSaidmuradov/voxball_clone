@@ -5,7 +5,7 @@
         'answer-item': true, 
         'answer-item--checked': checked,
       }"
-      @click="$emit('click')"
+      @click="selectAnswer()"
     >
       <span 
        class="answer-item__percent"
@@ -43,7 +43,12 @@ export default {
       // checked: this.value
     }
   },
-  methods: {}
+  methods: {
+    selectAnswer(){
+      if (this.percentage) return
+      this.$emit('click')
+    }
+  }
 }
 </script>
 

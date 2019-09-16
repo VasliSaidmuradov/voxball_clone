@@ -1,5 +1,5 @@
 <template>
-  <div @click="$navigate('/polls/123')" class="poll-item">
+  <div @click="goToDetailed(pollData.complete)" class="poll-item">
     <div class="poll-item__main">
       <div>
         <img class="poll-item__img" src="~/assets/img/test-bg.jpg" alt />
@@ -55,7 +55,15 @@ export default {
     iconComplete
   },
   props: ['data', 'pollData'],
-  created() {}
+  created() {},
+  methods: {
+    goToDetailed(data) {
+      if (data) {
+        return this.$navigate('/results/123');
+      }
+      return this.$navigate('/polls/123');
+    }
+  }
 }
 </script>
 

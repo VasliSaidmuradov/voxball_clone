@@ -1,5 +1,5 @@
 <template>
-  <div class="competition-item">
+  <div class="competition-item" :style="styles">
     <div class="competition-item__img-wrap">
       <img
         class="competition-item__img"
@@ -28,9 +28,25 @@ import iconComplete from '@/components/icons/iconComplete.vue'
 export default {
   props: {
     data: Object,
+    pagew: {
+      type: Number,
+      default: 5
+    },
+    gap: {
+      type: String,
+      default: '0' 
+    }
   },
   components: {
     iconComplete
+  },
+  computed: {
+    styles() {
+      if( this.gap ) {
+        return 'width: calc(100% /' + this.pagew + ' - ' + this.gap + 'px); margin-right:'+ this.gap + 'px;'
+      } else
+      return 'width: calc(100% /' + this.pagew + ');'
+    }
   }
 }
 </script>
@@ -38,11 +54,9 @@ export default {
 <style lang="scss" scoped>
 .competition-item {
   min-width: 10rem;
-  max-width: 24%;
   position: relative;
   overflow: hidden;
   font-size: 0.8rem;
-  margin-right: 0.5rem;
 
   &:hover &__img {
     filter: blur(8px);
