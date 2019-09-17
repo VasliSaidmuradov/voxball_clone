@@ -19,13 +19,13 @@
           </div>
         </div>
         <!-- memberList -->
-        <memberList class="" :members="members"/> 
+        <memberList class="" :members="members" @open="openModal"/> 
         <v-btn class="m-auto mt-4 mb-5" rounded border>
           <span>Загрузить еще</span>
           <icon-arrow class="ml-2" />
         </v-btn>
       </section>
-      <v-modal :title="modalData.title" :showModal="modalData.modalShow">
+      <v-modal :title="modalData.title" :showModal="modalData.modalShow" @close="closeModal">
         <template v-slot:body>
         </template>
         <template v-slot:footer>
@@ -56,12 +56,20 @@ export default {
     iconArrow,
     vModal 
   },
+  methods: {
+    openModal() {
+      this.modalData.modalShow = true;
+    },
+    closeModal(data) {
+      this.modalData.modalShow = data;
+    }
+  },
   data() {
     return {
       options: ['Казахстан', 'Россия', 'Китай'],
       modalData: {
         title: 'Проголосовать',
-        modalShow: false
+        modalShow: true
       },
       competitionData: {
         title: '«Мое идеальное лето»',

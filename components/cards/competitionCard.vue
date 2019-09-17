@@ -6,7 +6,7 @@
         src="~/assets/img/competition-test.png"
         alt="competition card image"
       />
-      <v-btn class="competitionCard__button" border>
+      <v-btn class="competitionCard__button" @click="$navigate('/competitions/123')" border>
         подробнее
         <icon-arrow  class="ml-2"/>
       </v-btn>
@@ -69,6 +69,7 @@ export default {
     transition: 0.5s ease;
     font-size: 0.9rem;
     &:hover {
+      background-color: transparent;
       border: 1px solid $base-color;
     }
   }

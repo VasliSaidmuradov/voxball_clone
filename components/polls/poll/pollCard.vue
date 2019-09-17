@@ -29,7 +29,7 @@
 
 <script>
 import iconArrow from '@/components/icons/iconArrow.vue'
-import answersList from '@/components/polls/poll/answersList/answersList.vue'
+import answersList from '@/components/polls/answersList/answersList.vue'
 
 export default {
   components: {

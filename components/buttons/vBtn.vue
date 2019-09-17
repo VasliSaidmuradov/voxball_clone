@@ -113,7 +113,8 @@ $border: 1px solid $border-color;
   &--link {
     padding: 0;
     padding-bottom: 2px;
-    border-bottom: 1px solid #fff;
+    // border-bottom: 1px solid #fff;
+    text-decoration: underline;
     border-color: inherit;
     background: transparent !important;
     text-transform: uppercase;

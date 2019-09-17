@@ -6,7 +6,7 @@
         src="~/assets/img/competition-test.png"
         alt="competition item image"
       />
-      <v-btn class="competition-item__button" border>
+      <v-btn class="competition-item__button" @click="$navigate('/competitions/123')" border>
         подробнее
         <icon-arrow class="ml-2"/>
       </v-btn>
@@ -29,15 +29,7 @@ import iconComplete from '@/components/icons/iconComplete.vue'
 import iconArrow from '@/components/icons/iconArrow.vue'
 export default {
   props: {
-    data: Object,
-    pagew: {
-      type: Number,
-      default: 5
-    },
-    gap: {
-      type: String,
-      default: '0' 
-    }
+    data: Object
   },
   components: {
     iconComplete,
@@ -87,6 +79,7 @@ export default {
     transition: 0.5s ease;
     font-size: 0.9rem;
     &:hover {
+      background-color: transparent;
       border: 1px solid $base-color;
     }
   }

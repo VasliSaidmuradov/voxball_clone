@@ -11,7 +11,10 @@
         <p
           class="news-card__text"
         >{{'Большинство людей не просто не любят спойлеры – они их боятся. Это связано в первую очередь с тем, что человек хочет почувствовать wow-эффект при первом просмотре фильма или сериала.'.slice(0,200)}}</p>
-        <nuxt-link class="news-card__link" to="/">Подробнее</nuxt-link>
+        <v-btn link class="news-item__link" @click="$navigate('/news/123')">
+          подробнее
+          <icon-arrow class="ml-2"></icon-arrow>
+        </v-btn>
       </div>
       <div
         class="news-card__img-container"
@@ -37,9 +40,11 @@
 
 <script>
 import views from '@/components/shared/views'
+import iconArrow from '@/components/icons/iconArrow.vue'
 export default {
   components: {
-    views
+    views,
+    iconArrow
   },
   props: {
     data: Object,
@@ -130,15 +135,6 @@ $light: #00b900;
   &__link {
     position: relative;
     color: $text-color;
-
-    &::after {
-      content: '⟶';
-      top: 50%;
-      margin-left: 10px;
-      border: none;
-      position: absolute;
-      transform: translateY(-50%);
-    }
   }
 
   &__img-container {
