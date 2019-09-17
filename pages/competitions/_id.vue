@@ -1,6 +1,12 @@
 <template>
   <div class="competition-id">
     <detailed-layout :title="'Конкурс'">
+      <template v-slot:left>
+        <v-btn class="competition-id-layout__button mt-2" border @click="$navigate('/competitions/participate')">
+          <span class="competition-id-layout__text">принять участие</span>
+          <icon-arrow class="ml-2"/>
+        </v-btn>
+      </template>
       <competition-info class="mr-4 ml-4" :competition='competitionData' />
       <section class="Section mt-5 mb-2 ml-4 mr-4">
         <div class="Section__header competition-id-section__header">
@@ -29,8 +35,9 @@
         <template v-slot:body>
         </template>
         <template v-slot:footer>
-          <v-btn>
-            Голосовать
+          <v-btn border>
+            <span>Голосовать</span>
+            <icon-arrow class="ml-2" />
           </v-btn>
         </template>
       </v-modal>
@@ -69,7 +76,7 @@ export default {
       options: ['Казахстан', 'Россия', 'Китай'],
       modalData: {
         title: 'Проголосовать',
-        modalShow: true
+        modalShow: false
       },
       competitionData: {
         title: '«Мое идеальное лето»',
@@ -147,6 +154,22 @@ export default {
   display: flex;
   &-section__header {
     margin-bottom: 2.5rem
+  }
+  &-layout{
+    &__button {
+      border-color: $base-text-color;
+      text-transform: uppercase;
+      font-size: 0.8em;
+      &:hover {
+        background-color: white;
+        border-color: $base-color;
+        color: $base-color;
+      }
+    }
+    &__text {
+      text-transform: uppercase;
+      font-size: 0.8em;
+    }
   }
   &__header {
     display: flex;

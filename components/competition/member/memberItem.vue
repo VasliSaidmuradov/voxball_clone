@@ -18,7 +18,7 @@
           <span class="member-item__votes">{{ data.votes }}</span> 
         </div>
         <div>
-          <v-btn class="member-item__button" @click="$emit('open')">
+          <v-btn class="member-item__button" @click="$emit('openItem')">
             <icon-megaphon class="member-item__icon"/>
             <span class="member-item__button-text">Голосовать</span>
           </v-btn>

@@ -4,8 +4,9 @@
       <div class="detailed-main__left">
         <h1 class="detailed-main__title">
           {{ title }}
-          <!-- Регистарция -->
         </h1>
+        <slot name="left">
+        </slot>
       </div>
       <div class="detailed-main__right">
         <img class="detailed-main__img" src="~assets/img/registration.png">
@@ -40,7 +41,9 @@ export default {
     
     &__left {
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
       padding-left: 2rem;
     }
     
@@ -50,6 +53,7 @@ export default {
       font-family: "Times New Roman PSMT";
       font-weight: normal;
       color: $base-text-color;
+      margin: 0;
     }
 
     &__right {
