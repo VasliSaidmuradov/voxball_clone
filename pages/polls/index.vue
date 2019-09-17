@@ -1,10 +1,10 @@
 <template>
-  <div class="poll">
+  <div class="polls">
     <base-layout
       :title="'Участвуйте в on-line опросах от Voxball.'"
       :text="'Активно отвечайте на вопросы, выражайте свое мнение и зарабатывайте на этом деньги'"
     >
-      <section class="poll-top mt-4 ml-5 mr-5">
+      <section class="polls-top mt-4 ml-5 mr-5">
         <poll-list :pollArr="pollsArray" />
       </section>
       <section class="Section mt-4 mb-1 ml-5 mr-5">
@@ -28,16 +28,14 @@
             ></v-select>
           </div>
         </div>
-        <div class="poll-main__content mb-4">
+        <div class="polls-main__content mb-4">
           <poll-list :pollArr="pollsArray" />
           <poll-list :pollArr="pollsArray" />
         </div>
-        <div class="poll-main__footer">
-          <v-btn class="m-auto" rounded border>
-            <span>Загрузить еще</span>
-            <icon-arrow class="ml-2" />
-          </v-btn>
-        </div>
+        <v-btn class="ml-auto mr-auto mb-5 mt-4" rounded border>
+          <span>Загрузить еще</span>
+          <icon-arrow class="ml-2" />
+        </v-btn>
       </section>
     </base-layout>
   </div>
@@ -106,21 +104,8 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/css/section.scss';
 
-.poll {
+.polls {
   &-main {
-    &__footer {
-      padding: 2rem;
-    }
-    &__button {
-      border-color: $base-text-color;
-      border-radius: 30px;
-      width: fit-content;
-      margin: 0 auto;
-      padding: 0.4rem 1rem 0.2rem;
-      &:hover {
-        border-color: $base-color;
-      }
-    }
   }
 }
 </style>

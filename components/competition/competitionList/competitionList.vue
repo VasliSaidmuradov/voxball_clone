@@ -1,6 +1,6 @@
 <template>
   <div class="competition-list">
-    <competitionItem v-for="(item, index) in list" :pagew="page" :gap="gap" :key="index" :data="item"></competitionItem>
+    <competitionItem :style="styles" v-for="(item, index) in list" :key="index" :data="item"></competitionItem>
   </div>
 </template>
 
@@ -10,14 +10,19 @@ export default {
   props: {
     list: Array,
     gap: String,
-    page: Number
+    perPage: Number
   },
   components: {
     competitionItem
   },
   computed: {
-    
-  },
+    styles() {
+      return {
+        'width': this.gap ? `calc(100% / ${this.perPage} - ${this.gap}px)` :  `calc(100% / ${this.perPage})`,
+        'margin-right': this.gap ? `${this.gap}px` : '0px',
+      }
+    }
+  }
 }
 </script>
 

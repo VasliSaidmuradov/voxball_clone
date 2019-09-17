@@ -6,8 +6,9 @@
         src="~/assets/img/competition-test.png"
         alt="competition card image"
       />
-      <v-btn class="competitionCard__button" link>
+      <v-btn class="competitionCard__button" border>
         подробнее
+        <icon-arrow  class="ml-2"/>
       </v-btn>
     </div>
     <div class="competitionCard__info">
@@ -18,7 +19,12 @@
 </template>
 
 <script>
-export default {}
+import iconArrow from '@/components/icons/iconArrow.vue'
+export default {
+  components: {
+    iconArrow
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -57,19 +63,13 @@ export default {}
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border: 1px solid #ffffff;
     color: #ffffff;
     opacity: 0;
     padding: 0.5rem 1rem;
     transition: 0.5s ease;
-    text-decoration: none;
     font-size: 0.9rem;
     &:hover {
       border: 1px solid $base-color;
-    }
-    &:after {
-      content: '⟶';
-      display: inline-block;
     }
   }
 

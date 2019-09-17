@@ -4,19 +4,17 @@
      title="Топ лучших конкурсов на VoxBall"
      text="Подборка конкурсов от наших партнеров">
       <section class="competition__header mt-5 ml-4 mr-4">
-        <competitionList :list="topCompetitionArr" :gap="'0'" :page="3"></competitionList>
+        <competitionList :list="topCompetitionArr" :gap="'0'" :perPage="3"></competitionList>
       </section>
       <section class="competition-section mt-3 pl-3 pr-3">
         <div class="Section__header competition-section__header">
           <h2 class="competition-section__title">Самые новые конкурсы на любой вкус</h2>
           <p class="competition-section__text">Выбирайте конкурсы, соответствующие Вашим интересам</p>
         </div>
-        <competitionList :list="competitionArr" :gap="'20'" :page="4"></competitionList>
-        <v-btn class="competition-section__button" border>
+        <competitionList :list="competitionArr" :gap="'20'" :perPage="4"></competitionList>
+        <v-btn class="mr-auto ml-auto mt-4 mb-5" rounded border>
           <span>Загрузить еще</span>
-          <span>
-            <icon-arrow class="arrow" />
-          </span>
+          <icon-arrow class="ml-2" />
         </v-btn>
       </section>
       <section class="competition-section mt-5 pl-3 pr-3"> 
@@ -24,12 +22,10 @@
           <h2 class="competition-section__title">Архив завершенных конкурсов</h2>
           <p class="competition-section__text">Узнайте результаты завершенных конкурсов</p>
         </div>
-        <competitionList :list="completeCompetitionArr" :gap="'10'" :page="4"></competitionList>
-        <v-btn class="competition-section__button mt-4 mb-5" border>
+        <competitionList :list="completeCompetitionArr" :gap="'10'" :perPage="4"></competitionList>
+        <v-btn class="mr-auto ml-auto mt-4 mb-5" rounded border>
           <span>Загрузить еще</span>
-          <span>
-            <icon-arrow class="arrow" />
-          </span>
+          <icon-arrow class="ml-2" />
         </v-btn>
       </section>
     </base-layout>
@@ -96,16 +92,6 @@ export default {
     &__text {
       color: $secondary-text-color;
       margin: 0;
-    }
-    &__button {
-      border-color: $base-text-color;
-      border-radius: 30px;
-      width: fit-content;
-      margin: 0 auto;
-      padding: 0.4rem 1rem 0.2rem;
-      &:hover {
-        border-color: $base-color;
-      }
     }
   }
 }

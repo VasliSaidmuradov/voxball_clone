@@ -18,14 +18,22 @@
             ></v-select>
           </div>
         </div>
+        <!-- memberList -->
         <memberList class="" :members="members"/> 
-        <div class="competition-id__button mt-4 mb-5">
-          <v-btn class="m-auto" rounded border>
-            <span>Загрузить еще</span>
-            <icon-arrow class="ml-2" />
-          </v-btn>
-        </div>
+        <v-btn class="m-auto mt-4 mb-5" rounded border>
+          <span>Загрузить еще</span>
+          <icon-arrow class="ml-2" />
+        </v-btn>
       </section>
+      <v-modal :title="modalData.title" :showModal="modalData.modalShow">
+        <template v-slot:body>
+        </template>
+        <template v-slot:footer>
+          <v-btn>
+            Голосовать
+          </v-btn>
+        </template>
+      </v-modal>
     </detailed-layout>
   </div>
 </template>
@@ -37,6 +45,7 @@ import memberList from '@/components/competition/member/memberList.vue'
 import iconArrow from '@/components/icons/iconArrow.vue'
 import vSelect from 'vue-select'
 import '@/assets/css/vSelect.scss'
+import vModal from '@/components/forms/vModal.vue'
 
 export default {
   components: {
@@ -44,11 +53,16 @@ export default {
     competitionInfo,
     memberList,
     vSelect,
-    iconArrow
+    iconArrow,
+    vModal 
   },
   data() {
     return {
       options: ['Казахстан', 'Россия', 'Китай'],
+      modalData: {
+        title: 'Проголосовать',
+        modalShow: false
+      },
       competitionData: {
         title: '«Мое идеальное лето»',
         description: 'Конкурс фотографий среди зарегистрированных пользователей портала Voxball.',
@@ -58,7 +72,7 @@ export default {
           {text: 'Загрузите фото на сайт'},
           {text: 'Приглашайте своих друзей проголосовать за Ваше фото'}
         ],
-        img: '~/assets/img/main-news-image-1.png',
+        src: '',
         complete: false
       },
       members: [

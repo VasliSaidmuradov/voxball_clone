@@ -2,7 +2,7 @@
   <div class="results">
     <base-layout :title="'Завершенные Опросы'">
       <section class="results-top mt-4 ml-5 mr-5">
-        <poll-list :pollArr="pollsArray" />
+        <polls-list :pollArr="pollsArray" />
       </section>
       <section class="Section mt-4 mb-1 ml-5 mr-5">
         <div class="Section__header">
@@ -29,12 +29,10 @@
           <polls-list :pollArr="pollsArray" />
           <polls-list :pollArr="pollsArray" />
         </div>
-        <div class="results-main__footer">
-          <v-btn class="results-main__button" rounded>
-            <span>Загрузить еще</span>
-            <icon-arrow class="ml-2" />
-          </v-btn>
-        </div>
+        <v-btn class="ml-auto mr-auto mb-5 mt-4" rounded border>
+          <span>Загрузить еще</span>
+          <icon-arrow class="ml-2" />
+        </v-btn>
       </section>
     </base-layout>
   </div>
@@ -110,19 +108,7 @@ export default {
 
 .results {
   &-main {
-    &__footer {
-      padding: 2rem;
-    }
-    &__button {
-      border-color: $base-text-color;
-      border-radius: 30px;
-      width: fit-content;
-      margin: 0 auto;
-      padding: 0.4rem 1rem;
-      &:hover {
-        border-color: $base-color;
-      }
-    }
+
   }
 }
 .arrow {

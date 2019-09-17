@@ -122,7 +122,6 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    // min-height: 5rem;
   }
   &__votes-wrap {
     font-size: 0.65em;

@@ -1,13 +1,14 @@
 <template>
-  <div class="competition-item" :style="styles">
+  <div class="competition-item">
     <div class="competition-item__img-wrap">
       <img
         class="competition-item__img"
         src="~/assets/img/competition-test.png"
         alt="competition item image"
       />
-      <v-btn class="competition-item__button" link>
+      <v-btn class="competition-item__button" border>
         подробнее
+        <icon-arrow class="ml-2"/>
       </v-btn>
       <div v-if="data.complete" class="competition-item__complete">
         <span class="competition-item__icon-complete mr-2">
@@ -25,6 +26,7 @@
 
 <script>
 import iconComplete from '@/components/icons/iconComplete.vue'
+import iconArrow from '@/components/icons/iconArrow.vue'
 export default {
   props: {
     data: Object,
@@ -38,15 +40,8 @@ export default {
     }
   },
   components: {
-    iconComplete
-  },
-  computed: {
-    styles() {
-      if( this.gap ) {
-        return 'width: calc(100% /' + this.pagew + ' - ' + this.gap + 'px); margin-right:'+ this.gap + 'px;'
-      } else
-      return 'width: calc(100% /' + this.pagew + ');'
-    }
+    iconComplete,
+    iconArrow 
   }
 }
 </script>
@@ -86,19 +81,13 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border: 1px solid #ffffff;
     color: #ffffff;
     opacity: 0;
     padding: 0.5rem 1rem;
     transition: 0.5s ease;
-    text-decoration: none;
     font-size: 0.9rem;
     &:hover {
       border: 1px solid $base-color;
-    }
-    &:after {
-      content: '⟶';
-      display: inline-block;
     }
   }
 
