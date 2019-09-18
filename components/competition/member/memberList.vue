@@ -1,6 +1,6 @@
 <template>
   <div class="member-list">
-    <member-item v-for="(member, index) in members" :data="member" :key="index" />
+    <member-item v-for="(member, index) in members" :data="member" :key="index" @openItem="open"/>
   </div>
 </template>
 
@@ -12,6 +12,11 @@ export default {
   },
   props: {
     members: Array
+  },
+  methods: {
+    open() {
+      this.$emit('open');
+    }
   }
 }
 </script>

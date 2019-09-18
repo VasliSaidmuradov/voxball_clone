@@ -1,6 +1,12 @@
 <template>
   <div class="competition-id">
     <detailed-layout :title="'Конкурс'">
+      <template v-slot:left>
+        <v-btn class="competition-id-layout__button mt-2" border @click="$navigate('/competitions/participate')">
+          <span class="competition-id-layout__text">принять участие</span>
+          <icon-arrow class="ml-2"/>
+        </v-btn>
+      </template>
       <competition-info class="mr-4 ml-4" :competition='competitionData' />
       <section class="Section mt-5 mb-2 ml-4 mr-4">
         <div class="Section__header competition-id-section__header">
@@ -18,14 +24,23 @@
             ></v-select>
           </div>
         </div>
-        <memberList class="" :members="members"/> 
-        <div class="competition-id__button mt-4 mb-5">
-          <v-btn class="m-auto" rounded border>
-            <span>Загрузить еще</span>
+        <!-- memberList -->
+        <memberList class="" :members="members" @open="openModal"/> 
+        <v-btn class="m-auto mt-4 mb-5" rounded border>
+          <span>Загрузить еще</span>
+          <icon-arrow class="ml-2" />
+        </v-btn>
+      </section>
+      <v-modal :title="modalData.title" :showModal="modalData.modalShow" @close="closeModal">
+        <template v-slot:body>
+        </template>
+        <template v-slot:footer>
+          <v-btn border>
+            <span>Голосовать</span>
             <icon-arrow class="ml-2" />
           </v-btn>
-        </div>
-      </section>
+        </template>
+      </v-modal>
     </detailed-layout>
   </div>
 </template>
@@ -37,6 +52,7 @@ import memberList from '@/components/competition/member/memberList.vue'
 import iconArrow from '@/components/icons/iconArrow.vue'
 import vSelect from 'vue-select'
 import '@/assets/css/vSelect.scss'
+import vModal from '@/components/forms/vModal.vue'
 
 export default {
   components: {
@@ -44,11 +60,24 @@ export default {
     competitionInfo,
     memberList,
     vSelect,
-    iconArrow
+    iconArrow,
+    vModal 
+  },
+  methods: {
+    openModal() {
+      this.modalData.modalShow = true;
+    },
+    closeModal(data) {
+      this.modalData.modalShow = data;
+    }
   },
   data() {
     return {
       options: ['Казахстан', 'Россия', 'Китай'],
+      modalData: {
+        title: 'Проголосовать',
+        modalShow: false
+      },
       competitionData: {
         title: '«Мое идеальное лето»',
         description: 'Конкурс фотографий среди зарегистрированных пользователей портала Voxball.',
@@ -58,7 +87,7 @@ export default {
           {text: 'Загрузите фото на сайт'},
           {text: 'Приглашайте своих друзей проголосовать за Ваше фото'}
         ],
-        img: '~/assets/img/main-news-image-1.png',
+        src: '',
         complete: false
       },
       members: [
@@ -125,6 +154,22 @@ export default {
   display: flex;
   &-section__header {
     margin-bottom: 2.5rem
+  }
+  &-layout{
+    &__button {
+      border-color: $base-text-color;
+      text-transform: uppercase;
+      font-size: 0.8em;
+      &:hover {
+        background-color: white;
+        border-color: $base-color;
+        color: $base-color;
+      }
+    }
+    &__text {
+      text-transform: uppercase;
+      font-size: 0.8em;
+    }
   }
   &__header {
     display: flex;

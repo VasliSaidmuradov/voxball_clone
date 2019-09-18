@@ -14,16 +14,22 @@
     <div class="news-item__footer">
       <span class="news-item__tag">{{ news.category }}</span>
       <p class="news-item__title">{{ news.title }}</p>
-      <nuxt-link class="news-item__button" to="/">подродбнее</nuxt-link>
+      <v-btn link class="news-item__button" @click="$navigate('/news/123')">
+        Подробнее
+        <icon-arrow class="ml-2"></icon-arrow>
+      </v-btn>
     </div>
   </div>
 </template>
 
 <script>
 import views from '@/components/shared/views'
+import iconArrow from '@/components/icons/iconArrow.vue'
+
 export default {
   components: {
-    views
+    views,
+    iconArrow
   },
   props: {
     news: {
@@ -76,9 +82,6 @@ $family: 'Helvetica';
     background-color: $base-color;
   }
   &:hover &__button {
-    color: $base-color;
-  }
-  &:hover &__button:after {
     color: $base-color;
   }
 
@@ -210,14 +213,6 @@ $family: 'Helvetica';
     position: relative;
     transition: color 0.5s ease;
     cursor: pointer;
-    &::after {
-      content: '⟶';
-      top: 50%;
-      margin-left: 10px;
-      border: none;
-      position: absolute;
-      transform: translateY(-50%);
-    }
   }
 }
 </style>

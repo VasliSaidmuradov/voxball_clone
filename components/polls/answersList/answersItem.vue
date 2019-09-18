@@ -1,10 +1,7 @@
 <template>
   <div class="answer-item-wrapper">
     <div
-      :class="{
-        'answer-item': true, 
-        'answer-item--checked': checked,
-      }"
+      :class="classes"
       @click="selectAnswer()"
     >
       <span 
@@ -47,6 +44,14 @@ export default {
     selectAnswer(){
       if (this.percentage) return
       this.$emit('click')
+    }
+  },
+  computed: {
+    classes() {
+      return {
+        'answer-item': true, 
+        'answer-item--checked': this.checked,
+      }
     }
   }
 }

@@ -18,7 +18,7 @@
           <span class="member-item__votes">{{ data.votes }}</span> 
         </div>
         <div>
-          <v-btn class="member-item__button">
+          <v-btn class="member-item__button" @click="$emit('openItem')">
             <icon-megaphon class="member-item__icon"/>
             <span class="member-item__button-text">Голосовать</span>
           </v-btn>
@@ -122,7 +122,6 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    // min-height: 5rem;
   }
   &__votes-wrap {
     font-size: 0.65em;

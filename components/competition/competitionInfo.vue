@@ -1,6 +1,6 @@
 <template>
   <div class="competition-info mt-5 mb-5">
-    <div class="competition-info__header">
+    <div class="competition-info__header mr-4" v-if="competition.src">
       <div class="competition-info__info">
         <div class="competition-info__info-wrap">
           Срок окончания:
@@ -57,7 +57,7 @@ export default {
   justify-content: space-between;
   &__header {
     display: flex;
-    width: 45%;
+    flex: 1;
     min-height: 13rem;
     position: relative;
   }
@@ -132,10 +132,9 @@ export default {
     width: 0.6rem;
   }
   &__main {
-    width: 50%;
-    // overflow: hidden;
-    // overflow-y: scroll;
-    border-bottom: 1px solid $border-color
+    flex: 1;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid $border-color;
   }
   &__title {
     width: 70%;
@@ -166,8 +165,7 @@ export default {
   &__text {
     margin: 0;
     width: 80%;
-    overflow: hidden;
-    overflow-y: scroll;
+    line-height: 1.2;
   }
   &__rules {
     margin: 0;
@@ -177,6 +175,7 @@ export default {
   }
   &__rule {
     margin: 0;
+    line-height: 1.2;
   }
 }
 ::-webkit-scrollbar {

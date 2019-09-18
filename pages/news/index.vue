@@ -5,7 +5,7 @@
       text="Читайте свежие новости на портале Voxball"
     >
       <div class="container">
-        <poll-list :pollArr="pollsArray" />
+        <polls-list :pollArr="pollsArray" />
         <section class="Section mt-5 mb-1">
           <div class="Section__header">
             <h2 class="Section__title">Все опросы</h2>
@@ -30,11 +30,9 @@
         </section>
         <news-list class="mb-4" v-for="(neww, index) in news" :key="index" :news="neww"></news-list>
         <div class="news__container">
-          <v-btn class="news__button" rounded>
+          <v-btn class="ml-auto mr-auto mb-5 mt-4" rounded border>
             <span>Загрузить еще</span>
-            <span>
-              <icon-arrow class="news__icon" />
-            </span>
+            <icon-arrow class="ml-2" />
           </v-btn>
         </div>
       </div>
