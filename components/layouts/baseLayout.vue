@@ -8,6 +8,8 @@
         <p class="base-layout__text">
           {{ text }}
         </p>
+        <slot name="action">
+        </slot>
       </div>
       <div class="base-layout__footer">
       </div>
@@ -42,7 +44,7 @@ export default {
     background-repeat: no-repeat;
     background-size: 100%;
     width: 60%;
-    height: 70.5%;
+    height: 75%;
     box-sizing: border-box;
     padding: 2% 2%;
     display: flex;
@@ -61,8 +63,9 @@ export default {
 
   &__text {
     font-size: 1.2rem;
-    line-height: 1.5rem;
+    line-height: 1.1;
     padding: 0;
+    padding-top: 0.1rem;
     margin: 0;
     width: 80%;
   }
@@ -72,7 +75,7 @@ export default {
     background-repeat: no-repeat;
     background-size: 110% 100%;
     width: 100%;
-    padding: 3% 5%;
+    height: 20.5%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -85,13 +88,13 @@ export default {
     top: 0;
     right: 0;
     z-index: 2;
-    height: 16rem;
-    clip-path: polygon(0% 75%, 10% 0%, 100% 0%, 100% 100%);
+    height: 17rem;
+    clip-path: polygon(0% 70.5%, 10% 0%, 100% 0%, 100% 100%);
     &:after {
       content: '';
-      clip-path: polygon(0 100% ,0% 44%, 100% 0%, 100% 100%);
+      clip-path: polygon(0 100% ,0% 51%, 100% 0%, 100% 100%);
       width: 100%;
-      height: 45%;
+      height: 60%;
       position: absolute;
       bottom: 0;
       right: 0;  

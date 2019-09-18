@@ -4,7 +4,7 @@
     <a class="nav__item" @click="$navigate('/results')">{{ $t('nav.results') }}</a>
     <a class="nav__item" @click="$navigate('/news')">{{ $t('nav.news') }}</a>
     <a class="nav__item" @click="$navigate('/competitions')">{{ $t('nav.competitions') }}</a>
-    <a class="nav__item">{{ $t('nav.rating') }}</a>
+    <a class="nav__item" @click="$navigate('/ratings')">{{ $t('nav.rating') }}</a>
     <a class="nav__item">{{ $t('nav.become_shareholders') }}</a>
   </nav>
 </template>

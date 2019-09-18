@@ -80,7 +80,8 @@ export default {
     font-size: 0.9rem;
     &:hover {
       background-color: transparent;
-      border: 1px solid $base-color;
+      border-color: $base-color;
+      color: $base-color;
     }
   }
 

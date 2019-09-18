@@ -75,7 +75,6 @@ export default {
     display: flex;
     justify-content: space-between;
     margin-top: 1.5rem;
-    margin-bottom: 2rem;
   }
 
   &__link-wrap {
