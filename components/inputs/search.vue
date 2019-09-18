@@ -4,22 +4,25 @@
       <input
         @focus="focus()"
         @input="$emit('input', $event.target.value)"
-        v-model="text"
-        class="Search__input"
+        @keyup.enter="search($event.target.value)"
+        :value="value"
+        :class="classes"
         type="text"
       />
       <img @click="$event('search')" class="Search__icon" src="~/assets/img/search.png" alt />
     </div>
-    <div v-if="results.length && isFocus" class="Search__results">
-      <div
-        @click="selectItem(res)"
-        v-for="(res, index) in results"
-        :key="index"
-        class="Search__results-item"
-      >{{res[label]}}</div>
-    </div>
-    <div v-if="!results.length && isFocus" class="Search__results">
-      <div class="Search__results-item">Ничего не найдено</div>
+    <div v-if="!hideResults" class="Search__results">
+      <div v-if="results.length && isFocus">
+        <div
+          @click="selectItem(res)"
+          v-for="(res, index) in results"
+          :key="index"
+          class="Search__results-item"
+        >{{res[label]}}</div>
+      </div>
+      <div v-if="!results.length && isFocus">
+        <div class="Search__results-item">Ничего не найдено</div>
+      </div>
     </div>
   </div>
 </template>
@@ -33,20 +36,27 @@ export default {
     }
   },
   methods: {
-    search() {
-      this.$emit('search', item)
+    search(val) {
+      this.$emit('search', val)
       console.log(this.text)
     },
     focus() {
       this.isFocus = true
     },
     selectItem(item) {
-      this.text = item[this.label]
-      this.isFocus = false
       this.$emit('selectItem', item)
+      this.isFocus = false
     },
     onClickOutside(event) {
       this.isFocus = false
+    }
+  },
+  computed: {
+    classes() {
+      return {
+        Search__input: true,
+        'Search__input--focus': !this.hideResults && this.isFocus
+      }
     }
   },
   props: {
@@ -57,7 +67,12 @@ export default {
     label: {
       type: String,
       default: 'name'
-    }
+    },
+    hideResults: {
+      type: Boolean,
+      default: false
+    },
+    value: String
   }
 }
 </script>
@@ -77,9 +92,9 @@ export default {
     width: 100%;
     transition: border 0.5s;
     font-size: inherit;
+    outline: none;
 
-    &:focus {
-      outline: none;
+    &--focus {
       border: 1px solid $base-color;
       border-bottom-right-radius: 0px;
       border-bottom-left-radius: 0px;
