@@ -5,17 +5,8 @@
         <nuxt-link :to="'/'+$i18n.locale">
           <img class="Header__logo" src="~/assets/img/logo.png" alt />
         </nuxt-link>
-        <div class="Header__nav">
-          <nav-bar />
-        </div>
-        <div class="Header__search">
-          <search
-            label="name"
-            @input="myVal = $event"
-            @selectItem="myVal = $event.name"
-            :results="searchResults"
-          />
-        </div>
+        <nav-bar class="Header__nav" />
+        <search v-model="myVal" @search="search()" class="Header__search" hideResults />
         <div class="add-poll Header__add-poll">
           <v-btn rounded min-width="5.3em" @click="addPoll()">+ Опрос</v-btn>
         </div>
@@ -48,34 +39,16 @@ export default {
   methods: {
     addPoll() {
       alert()
+    },
+    search() {
+      if (this.myVal) {
+        this.$navigate(`/search?query=${this.myVal}`)
+      }
     }
   },
   data() {
     return {
-      sections: [
-        {
-          id: 1,
-          name: 'asd'
-        },
-        {
-          id: 2,
-          name: 'sasdasd'
-        },
-        {
-          id: 3,
-          name: 'gggg'
-        },
-        {
-          id: 4,
-          name: 'eeeeeeeeee'
-        }
-      ],
       myVal: ''
-    }
-  },
-  computed: {
-    searchResults() {
-      return this.sections.filter(item => find(this.myVal, item.name))
     }
   }
 }
@@ -99,7 +72,7 @@ export default {
   }
 
   &__search {
-    width: 10em;
+    width: 14em;
   }
 
   &__logo {

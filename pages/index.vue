@@ -1,7 +1,9 @@
 <template>
   <div class="Main">
     <section class="Slider">
-      <Slider :sliderInfo="sliderInfo"></Slider>
+      <no-ssr>
+        <Slider :sliderInfo="sliderInfo"></Slider>
+      </no-ssr>
     </section>
     <section class="Top-poll container mt-4">
       <polls-list :pollArr="pollsArray" />
@@ -10,7 +12,9 @@
       <advertising advWidth="100%" advHeight="9rem" advImage="/assets/img/advertising.jpg"></advertising>
     </section>
     <section class="Top-news container">
-      <top-news-list :content="topNewsContent" :newsArr="newsArray" />
+      <no-ssr>
+        <top-news-list :content="topNewsContent" :newsArr="newsArray" />
+      </no-ssr>
     </section>
     <section class="Analitic-articles container">
       <div class="Analitic-articles__header">
@@ -45,11 +49,13 @@
       </div>
     </section>
     <section class="Top-competition container">
-      <carousel class="Top-competition__carousel" :content="topCompetitionContent" :perPage="4">
-        <Slide v-for="(news, index) in 6" :key="index">
-          <competition-card></competition-card>
-        </Slide>
-      </carousel>
+      <no-ssr>
+        <carousel class="Top-competition__carousel" :content="topCompetitionContent" :perPage="4">
+          <Slide v-for="(news, index) in 6" :key="index">
+            <competition-card></competition-card>
+          </Slide>
+        </carousel>
+      </no-ssr>
     </section>
   </div>
 </template>
@@ -63,7 +69,6 @@ import carousel from '@/components/carousel/carousel.vue'
 import competitionCard from '@/components/cards/competitionCard.vue'
 import analyticalCard from '@/components/cards/analyticalCard.vue'
 import advertising from '@/components/advertising.vue'
-
 if (process.browser) {
   var { Slide } = require('vue-carousel')
 }
