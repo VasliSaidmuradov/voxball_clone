@@ -1,7 +1,7 @@
 <template>
   <div class="member-item mt-3 mb-3">
     <div class="member-item__wrap">
-      <div class="member-item__image-wrap">
+      <div class="member-item__header">
         <img class="member-item__image" src="~assets/img/member-image.png" alt="">
         <div v-if="data.video" class="member-item__play-wrap">
           <div class="member-item__play-block">
@@ -83,7 +83,7 @@ export default {
       transition: background-color 0.5s ease;
     }
   }
-  &__image-wrap {
+  &__header {
     height: 62%;
     position: relative;
   }

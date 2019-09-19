@@ -4,10 +4,15 @@
       Как вы считаете, долго ли Димаш будет
       на музыкальной вершине?
     </h2>
-    <div class="poll-card__answer">
+    <div v-if="polltype == 'poll'" class="poll-card__answer">
       <div class="answer__list">
         <answers-list multiple @selectedAnswers="selectedAnswers($event)" :answersList="answers" :percent="[25,15,50,10]"></answers-list>
       </div>
+    </div>
+    <div v-if="polltype == 'rating'" class="poll-card__ratings ml-auto mr-auto">
+      <no-ssr>
+        <star-rating v-model="rating"></star-rating>
+      </no-ssr>
     </div>
     <div class="poll-card__button-wrap">
       <div class="poll-card__pay">
@@ -30,14 +35,23 @@
 <script>
 import iconArrow from '@/components/icons/iconArrow.vue'
 import answersList from '@/components/polls/answersList/answersList.vue'
+import StarRating from 'vue-star-rating'
+// if (process.browser) {
+//   var  StarRating   = require('vue-star-rating')
+// }
 
 export default {
   components: {
     iconArrow,
-    answersList
+    answersList,
+    StarRating
   },
   props: {
-    answers: Array
+    answers: Array,
+    polltype: {
+      type: String,
+      default: 'poll'
+    }
   },
   data() {
     return {
@@ -45,7 +59,8 @@ export default {
         votes: 11,
         date: '9 дней',
         shares: 15
-      }
+      },
+      rating: 0
     }
   },
   methods: {
@@ -75,6 +90,10 @@ export default {
   }
   &__answer {
     padding: 2rem 0;
+  }
+  &__ratings {
+    padding: 1.5rem 0;
+    padding-bottom: 2rem;
   }
   &__button-wrap {
     width: 40%;

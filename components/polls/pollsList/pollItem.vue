@@ -1,16 +1,16 @@
 <template>
   <div @click="goToDetailed(pollData.complete)" class="poll-item">
     <div class="poll-item__main">
-      <div>
-        <img class="poll-item__img" src="~/assets/img/test-bg.jpg" alt />
+      <div class="poll-item__img-wrap">
+        <img class="poll-item__img" src="~/assets/img/poll__image.png" alt />
       </div>
       <div class="poll-item__block">
         <div class="poll-item__content">
-          <nuxt-link to="/" class="poll-item__content-item">{{ pollData.category }}</nuxt-link>
-          <nuxt-link
-            to="/"
-            class="poll-item__content-item poll-item__content-item--video"
-          >{{ pollData.video }}</nuxt-link>
+          <div class="poll-item__content-item">{{ pollData.category }}</div>
+          <div
+           v-if="pollData.video" 
+           class="poll-item__content-item poll-item__content-item--video ml-2"
+          >{{ pollData.video }}</div>
         </div>
         <div class="poll-item__title">{{ pollData.title }}</div>
         <div class="d-flex">
@@ -25,9 +25,7 @@
             <icon-arrow class="ml-2"></icon-arrow>
           </v-btn>
         </div>
-        <div class="poll-item__play-block">
-          <div class="poll-item__play"></div>
-        </div>
+        <play v-if="pollData.video"/>
       </div>
     </div>
     <div class="poll-item__footer">
@@ -47,12 +45,14 @@
 import iconEyes from '@/components/icons/iconEyes.vue'
 import iconArrow from '@/components/icons/iconArrow.vue'
 import iconComplete from '@/components/icons/iconComplete.vue'
+import play from '@/components/buttons/play.vue'
 
 export default {
   components: {
     iconArrow,
     iconEyes,
-    iconComplete
+    iconComplete,
+    play
   },
   props: ['data', 'pollData'],
   created() {},
@@ -73,20 +73,20 @@ export default {
     cursor: pointer;
     position: relative;
     display: block;
-    max-width: 225px;
-    max-height: 330px;
-    height: 100vh;
+    width: 15rem;
+    height: 22.5rem;
     overflow: hidden;
     background: #000;
     text-transform: uppercase;
+    box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.17);
   }
 
   &:hover &__img {
     opacity: 0.5;
   }
   &:hover &__play-block {
-    width: 6vw;
-    height: 6vw;
+    width: 6rem;
+    height: 6rem;
   }
   &:hover &__link {
     color: $base-color;
@@ -95,43 +95,55 @@ export default {
     top: -30px;
   }
 
-  &__play {
-    position: absolute;
-    width: 3vw;
-    height: 3vw;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    background: $base-color;
-    &::after {
-      content: '▶︎';
-      font-size: 1.5em;
-      display: flex;
-      align-items: center;
-      width: 3vw;
-      height: 3vw;
-      justify-content: center;
-      color: white;
-      border-left: 0.4vw solid transparent;
-    }
+  &__img-wrap {
+    width: 100%;
+    height: 100%;
   }
 
-  &__play-block {
-    position: absolute;
-    width: 4.5vw;
-    height: 4.5vw;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    background: #00b90087;
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  
     transition: 0.5s ease;
   }
 
+  // &__play {
+  //   position: absolute;
+  //   width: 3rem;
+  //   height: 3rem;
+  //   top: 50%;
+  //   left: 50%;
+  //   transform: translate(-50%, -50%);
+  //   border-radius: 50%;
+  //   background: $base-color;
+  //   &::after {
+  //     content: '▶︎';
+  //     font-size: 1.5em;
+  //     display: flex;
+  //     align-items: center;
+  //     width: 3rem;
+  //     height: 3rem;
+  //     justify-content: center;
+  //     color: white;
+  //     border-left: 0.4vw solid transparent;
+  //   }
+  // }
+
+  // &__play-block {
+  //   position: absolute;
+  //   width: 4.5rem;
+  //   height: 4.5rem;
+  //   top: 50%;
+  //   left: 50%;
+  //   transform: translate(-50%, -50%);
+  //   border-radius: 50%;
+  //   background: #00b90087;
+  //   transition: 0.5s ease;
+  // }
+
   &__title {
-    padding: 1em;
-    font-size: 1.1em;
+    padding: 1rem;
+    font-size: 1rem;
     color: white;
   }
 
@@ -159,20 +171,21 @@ export default {
   &__content {
     padding: 1em;
     height: auto;
-    min-height: 32px;
+    min-height: 2rem;
     font-size: 1em;
     line-height: 1.2;
+    display: flex;
   }
 
   &__content-item {
     display: inline-block;
-    padding: 0.3em 1.3em;
+    padding: 0.3rem 1rem;
     background: $base-color;
     color: white;
     text-decoration: none;
 
     &--video {
-      color: black;
+      color: $base-text-color;
       background: white;
     }
   }
@@ -191,14 +204,14 @@ export default {
     justify-content: space-between;
     align-items: center;
     z-index: 5;
-    padding: 0.5em 1em;
+    padding: 0.5rem 1rem;
     box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.2);
     background: white;
   }
 
   &__move-out {
     position: relative;
-    padding: 0 1em;
+    padding: 0 12%;
 
     &::after {
       content: '';
@@ -207,7 +220,7 @@ export default {
       top: 0;
 
       width: 100%;
-      height: 20px;
+      height: 0.9rem;
       background: $base-color;
       transition: 0.5s linear;
     }

@@ -3,7 +3,7 @@
     <section class="Slider">
       <Slider :sliderInfo="sliderInfo"></Slider>
     </section>
-    <section class="Top-poll container">
+    <section class="Top-poll container mt-4">
       <polls-list :pollArr="pollsArray" />
     </section>
     <section class="Advertising container">
@@ -146,7 +146,7 @@ export default {
       pollsArray: [
         {
           category: 'Бизнес',
-          video: 'Видео',
+          video: '',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
           views: 345,
@@ -154,7 +154,7 @@ export default {
         },
         {
           category: 'Бизнес',
-          video: 'Видео',
+          video: '',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
           views: 345,
@@ -162,7 +162,7 @@ export default {
         },
         {
           category: 'Бизнес',
-          video: 'Видео',
+          video: '',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
           views: 345,
