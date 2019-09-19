@@ -113,7 +113,7 @@ export default {
     display: flex;
     flex-direction: column;
     min-width: 50rem;
-    width: 50%;
+    width: 100%;
     height: 28rem;
     position: relative;
   }

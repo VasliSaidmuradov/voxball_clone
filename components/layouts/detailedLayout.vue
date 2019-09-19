@@ -5,7 +5,10 @@
         <h1 class="detailed-main__title">
           {{ title }}
         </h1>
-        <slot name="left">
+        <p class="detailed-main__text">
+          {{ text }}
+        </p>
+        <slot name="action">
         </slot>
       </div>
       <div class="detailed-main__right">
@@ -25,7 +28,13 @@
 
 <script>
 export default {
-  props: ['title']
+  props: {
+    title: String,
+    text: {
+      type: String,
+      default: ''
+    }
+  }
 }
 </script>
 
@@ -54,6 +63,14 @@ export default {
       font-weight: normal;
       color: $base-text-color;
       margin: 0;
+    }
+
+    &__text {
+      font-size: 1.2rem;
+      line-height: 1.5rem;
+      padding: 0;
+      margin: 0;
+      width: 80%;
     }
 
     &__right {

@@ -91,8 +91,7 @@ export default {
   &__buttons {
     display: flex;
     justify-content: space-between;
-    margin-top: 1.5rem;
-    margin-bottom: 2rem;
+    padding: 1.5rem 0 2rem;
   }
 
   &__link-wrap {
@@ -121,7 +120,6 @@ export default {
 }
 .arrow {
   width: 1.2rem;
-
   margin-left: 0.5rem;
 }
 </style>

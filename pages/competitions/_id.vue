@@ -1,7 +1,7 @@
 <template>
   <div class="competition-id">
-    <detailed-layout :title="'Конкурс'">
-      <template v-slot:left>
+    <detailed-layout :title="'Участвуйтеу в конкурсах,'" :text="'проявляя свои таланты и возможности'">
+      <template v-slot:action>
         <v-btn class="competition-id-layout__button mt-2" border @click="$navigate('/competitions/participate')">
           <span class="competition-id-layout__text">принять участие</span>
           <icon-arrow class="ml-2"/>
@@ -31,7 +31,7 @@
           <icon-arrow class="ml-2" />
         </v-btn>
       </section>
-      <v-modal :title="modalData.title" :showModal="modalData.modalShow" @close="closeModal">
+      <v-modal :title="competitionModalData.title" :showModal="competitionModalData.modalShow" @close="closeModal">
         <template v-slot:body>
         </template>
         <template v-slot:footer>
@@ -52,7 +52,7 @@ import memberList from '@/components/competition/member/memberList.vue'
 import iconArrow from '@/components/icons/iconArrow.vue'
 import vSelect from 'vue-select'
 import '@/assets/css/vSelect.scss'
-import vModal from '@/components/forms/vModal.vue'
+import vModal from '@/components/modals/vModal.vue'
 
 export default {
   components: {
@@ -65,16 +65,16 @@ export default {
   },
   methods: {
     openModal() {
-      this.modalData.modalShow = true;
+      this.competitionModalData.modalShow = true;
     },
     closeModal(data) {
-      this.modalData.modalShow = data;
+      this.competitionModalData.modalShow = data;
     }
   },
   data() {
     return {
       options: ['Казахстан', 'Россия', 'Китай'],
-      modalData: {
+      competitionModalData: {
         title: 'Проголосовать',
         modalShow: false
       },
@@ -94,52 +94,62 @@ export default {
         {
           name: 'Асия Курманалиева', 
           title:'Принцесса лета', 
-          votes: '369'
+          votes: '369',
+          video: ''
         },
         {
           name: 'Асия Курманалиева', 
           title:'Принцесса лета', 
-          votes: '369'
+          votes: '369',
+          video: ''
         },
         {
           name: 'Асия Курманалиева', 
           title:'Принцесса лета', 
-          votes: '369'
+          votes: '369',
+          video: 'src'
         },
         {
           name: 'Асия Курманалиева', 
           title:'Принцесса лета', 
-          votes: '369'
+          votes: '369',
+          video: ''
         },
         {
           name: 'Асия Курманалиева', 
           title:'Принцесса лета', 
-          votes: '369'
+          votes: '369',
+          video: ''
         },
         {
           name: 'Асия Курманалиева', 
           title:'Принцесса лета', 
-          votes: '369'
+          votes: '369',
+          video: ''
         },
         {
           name: 'Асия Курманалиева', 
           title:'Принцесса лета', 
-          votes: '369'
+          votes: '369',
+          video: ''
         },
         {
           name: 'Асия Курманалиева', 
           title:'Принцесса лета', 
-          votes: '369'
+          votes: '369',
+          video: ''
         },
         {
           name: 'Асия Курманалиева', 
           title:'Принцесса лета', 
-          votes: '369'
+          votes: '369',
+          video: 'src'
         },
         {
           name: 'Асия Курманалиева', 
           title:'Принцесса лета', 
-          votes: '369'
+          votes: '369',
+          video: ''
         }
       ]
     }

@@ -161,7 +161,7 @@ export default {
     height: auto;
     min-height: 32px;
     font-size: 1em;
-    line-height: 21px;
+    line-height: 1.2;
   }
 
   &__content-item {

@@ -3,6 +3,11 @@
     <div class="member-item__wrap">
       <div class="member-item__image-wrap">
         <img class="member-item__image" src="~assets/img/member-image.png" alt="">
+        <div v-if="data.video" class="member-item__play-wrap">
+          <div class="member-item__play-block">
+            <div class="member-item__play"></div>
+          </div>
+        </div>
       </div>
       <div class="member-item__main">
         <div class="member-item__name">
@@ -56,6 +61,10 @@ export default {
   &:hover .member-item__wrap:after {
     background-color: $base-color;
   }
+  &:hover &__play-block {
+    width: 6vw;
+    height: 6vw;
+  }
 
   &__wrap {
     height: calc(100% - 1rem);
@@ -76,11 +85,53 @@ export default {
   }
   &__image-wrap {
     height: 62%;
+    position: relative;
   }
   &__image {
     height: 100%;
     width: 100%;
     object-fit: cover;
+  }
+  &__play-wrap {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  &__play {
+    position: absolute;
+    width: 3vw;
+    height: 3vw;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: $base-color;
+    &::after {
+      content: '▶︎';
+      font-size: 1.5em;
+      display: flex;
+      align-items: center;
+      width: 3vw;
+      height: 3vw;
+      justify-content: center;
+      color: white;
+      border-left: 0.4vw solid transparent;
+    }
+  }
+  &__play-block {
+    position: absolute;
+    width: 4.5vw;
+    height: 4.5vw;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: #00b90087;
+    transition: 0.5s ease;
+    cursor: pointer;
   }
   &__main {
     display: flex;
