@@ -1,10 +1,10 @@
 <template>
   <div class="v-modal" v-show="showModal">
-    <div class="v-modal__wrap" @click="$emit('close', false)">
+    <div class="v-modal__wrap">
       <h3 class="v-modal__title">
         {{ title }}
       </h3>
-      <div class="v-modal__close-btn" >
+      <div class="v-modal__close-btn" @click="$emit('close')">
         <icon-close class="v-modal__close-icon" />
       </div>
       <section>
@@ -13,7 +13,7 @@
         </slot>
       </section>
       <section class="v-modal__footer">
-        <v-btn @click="$emit('close', false)" border>
+        <v-btn v-if="abort" @click="$emit('close')" border>
           <span>Отмена</span>
         </v-btn>
         <slot name="footer">
@@ -31,8 +31,15 @@ export default {
     iconClose
   },
   props: {
-    title: String,
-    showModal: Boolean
+    title: {
+      type: String,
+      default: ''
+    },
+    showModal: Boolean,
+    abort: {
+      type: Boolean,
+      default: true
+    }
   }
 }
 </script>

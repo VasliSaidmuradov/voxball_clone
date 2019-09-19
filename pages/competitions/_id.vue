@@ -25,19 +25,28 @@
           </div>
         </div>
         <!-- memberList -->
-        <memberList class="" :members="members" @open="openModal"/> 
+        <memberList class="" :members="members" @open="openCompetitionModal"/> 
         <v-btn class="m-auto mt-4 mb-5" rounded border>
           <span>Загрузить еще</span>
           <icon-arrow class="ml-2" />
         </v-btn>
       </section>
-      <v-modal :title="competitionModalData.title" :showModal="competitionModalData.modalShow" @close="closeModal">
+      <v-modal :title="competitionModalData.title" :showModal="competitionModalData.modalShow" @close="closeCompetition()" >
         <template v-slot:body>
         </template>
         <template v-slot:footer>
-          <v-btn border>
+          <v-btn @click="openThanksModal()" border>
             <span>Голосовать</span>
             <icon-arrow class="ml-2" />
+          </v-btn>
+        </template>
+      </v-modal>
+      <v-modal :abort="false" :title="thanksModalData.title" :showModal="thanksModalData.modalShow" @close="closeThanks()">
+        <template v-slot:body>
+        </template>
+        <template v-slot:footer>
+          <v-btn @click="closeThanks()" border>
+            <span>ОК</span>
           </v-btn>
         </template>
       </v-modal>
@@ -64,18 +73,29 @@ export default {
     vModal 
   },
   methods: {
-    openModal() {
+    openCompetitionModal() {
       this.competitionModalData.modalShow = true;
     },
-    closeModal(data) {
-      this.competitionModalData.modalShow = data;
-    }
+    openThanksModal() {
+      this.closeCompetition();
+      this.thanksModalData.modalShow = true;
+    },
+    closeCompetition() {
+      this.competitionModalData.modalShow = false;
+    },
+    closeThanks() {
+      this.thanksModalData.modalShow = false;
+    },
   },
   data() {
     return {
       options: ['Казахстан', 'Россия', 'Китай'],
       competitionModalData: {
         title: 'Проголосовать',
+        modalShow: false
+      },
+      thanksModalData: {
+        title: 'Спасибо за ваш голос',
         modalShow: false
       },
       competitionData: {

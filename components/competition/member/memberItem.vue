@@ -2,12 +2,23 @@
   <div class="member-item mt-3 mb-3">
     <div class="member-item__wrap">
       <div class="member-item__header">
-        <img class="member-item__image" src="~assets/img/member-image.png" alt="">
+        <img 
+         class="member-item__image" 
+         src="~assets/img/member-image.png" 
+         alt="member image"
+         @click="openImageModal()">
         <div v-if="data.video" class="member-item__play-wrap">
           <div class="member-item__play-block">
             <div class="member-item__play"></div>
           </div>
         </div>
+        <v-modal :abort="false" :showModal="imageModal.modalShow" @close="closeImageModal()" >
+          <template v-slot:body>
+            <img class="member-item__modal-img" src="~assets/img/member-image.png" @click="closeImageModal()">
+          </template>
+          <template v-slot:footer>
+          </template>
+        </v-modal>
       </div>
       <div class="member-item__main">
         <div class="member-item__name">
@@ -34,13 +45,30 @@
 </template>
 
 <script>
+import vModal from '@/components/modals/vModal.vue'
 import iconMegaphon from '@/components/icons/iconMegaphon.vue'
 export default {
   components: {
+    vModal,
     iconMegaphon
   },
   props: {
     data: Object
+  },
+  data() {
+    return {
+      imageModal: {
+        modalShow: false
+      }
+    }
+  },
+  methods: {
+    openImageModal() {
+      this.imageModal.modalShow = true;
+    },
+    closeImageModal() {
+      this.imageModal.modalShow = false;
+    }
   }
 }
 </script>
@@ -90,6 +118,12 @@ export default {
   &__image {
     height: 100%;
     width: 100%;
+    object-fit: cover;
+    cursor: pointer;
+  }
+  &__modal-img {
+    width: 30rem;
+    height: 30rem;
     object-fit: cover;
   }
   &__play-wrap {
