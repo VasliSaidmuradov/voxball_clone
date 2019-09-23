@@ -29,7 +29,7 @@ export default {
 				if(index+1 > arr.length/2) {
 					item.arrow = '180';
 				}
-				if(index == arr.length/2) {
+				if(index+1 == arr.length) {
 					item.arrow = '';
 				}
 				return item;
@@ -43,7 +43,7 @@ export default {
 .shareholder-list {
 	display: flex;
 	flex-wrap: wrap;
-	/* justify-content: space-between; */
+	justify-content: space-between; 
 	&__item {
 		margin-bottom: 4rem;
 	}

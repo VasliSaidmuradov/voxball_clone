@@ -10,10 +10,14 @@
 			</div>
 		</div>
 		<div v-if="step.arrow && step.arrow!='90'" class="icon-wrap">
-			<icon-arrow class="icon" :style="`transform: rotate(${step.arrow}deg);`"></icon-arrow>
+			<div class="icon-position">
+				<icon-arrow class="icon" :style="`transform: rotate(${step.arrow}deg);`"></icon-arrow>
+			</div>
 		</div>
 		<div v-if="step.arrow == '90'" class="icon-wrap_bottom">
-			<icon-arrow class="icon" :style="`transform: rotate(${step.arrow}deg);`"></icon-arrow>
+			<div class="icon-position">
+				<icon-arrow class="icon" :style="`transform: rotate(${step.arrow}deg);`"></icon-arrow>
+			</div>
 		</div>
   </div>
 </template>
@@ -90,20 +94,24 @@ export default {
 	}
 }
 .icon-wrap {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	position: relative;
 	width: 6rem;
 	&_bottom {
 		position: absolute;
-		bottom: -3rem;
-		right: 0;
+		bottom: -2rem;
+    right: 2rem;
 	}
+}
+.icon-position {
+	
+	position: absolute;
+	top: 50%;
+	left: 60%;
+	transform: translate(-50%, -50%);
 }
 .icon {
 	width: 3rem;
-	position: relative;
-	top: -0.5rem;
+	height: auto;
 	color: $base-color;
 }
 </style>
