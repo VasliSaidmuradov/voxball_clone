@@ -59,7 +59,7 @@ export default {
       pollsArray: [
         {
           category: 'Бизнес',
-          video: 'Видео',
+          video: '',
           complete: true,
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
@@ -75,7 +75,7 @@ export default {
         },
         {
           category: 'Бизнес',
-          video: 'Видео',
+          video: '',
           complete: true,
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
@@ -83,7 +83,7 @@ export default {
         },
         {
           category: 'Бизнес',
-          video: 'Видео',
+          video: '',
           complete: true,
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
@@ -91,7 +91,7 @@ export default {
         },
         {
           category: 'Бизнес',
-          video: 'Видео',
+          video: '',
           complete: true,
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',

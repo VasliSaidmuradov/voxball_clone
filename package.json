@@ -19,6 +19,7 @@
     "v-mask": "^2.0.2",
     "vue-carousel": "^0.18.0",
     "vue-select": "^3.1.0",
+    "vue-star-rating": "^1.6.1",
     "vue-upload-component": "^2.8.20"
   },
   "devDependencies": {

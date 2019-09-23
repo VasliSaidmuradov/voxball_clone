@@ -18,6 +18,11 @@
         </span>
       </a>
       <a href="#" class="registration-social__item">
+        <span class="registration-social__icon-wrap">
+          <icon-instagram />
+        </span>
+      </a>
+      <a href="#" class="registration-social__item">
         <span class="registration-social__icon-wrap google">
           <icon-google />
         </span>
@@ -31,13 +36,15 @@ import iconVk from '@/components/icons/iconVk.vue'
 import iconFacebook from '@/components/icons/iconFacebook.vue'
 import iconTwitter from '@/components/icons/iconTwitter.vue'
 import iconGoogle from '@/components/icons/iconGoogle.vue'
+import iconInstagram from '@/components/icons/iconInstagram.vue'
 
 export default {
   components: {
     iconVk,
     iconFacebook,
     iconTwitter,
-    iconGoogle
+    iconGoogle,
+    iconInstagram
   }
 }
 </script>
