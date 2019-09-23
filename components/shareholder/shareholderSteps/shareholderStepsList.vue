@@ -45,7 +45,7 @@ export default {
 	flex-wrap: wrap;
 	justify-content: space-between; 
 	&__item {
-		margin-bottom: 4rem;
+		margin: 2rem 0;
 	}
 }
 </style>

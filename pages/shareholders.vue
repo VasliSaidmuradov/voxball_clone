@@ -23,11 +23,27 @@
 			</div>
 			<shareholder-steps-list :steps="stepsArr"></shareholder-steps-list> 
 		</section>
-		<section class="shareholders-section">
-			<div class="shareholders-section__header">
+		<section class="shareholders-section shareholders-section_wide">
+			<div class="shareholders-section__header shareholders-section__header_wide">
 				<h2 class="shareholders-section__title">Успешные акционеры</h2>
 				<p class="shareholders-section__text">на Voxball</p>
 			</div>
+			<div class="shareholders-table">
+				<v-table :items="items" :fields="fields" class="ml-auto mr-auto">
+				 <div class="shareholders-table__header">
+					<h2 class="shareholders-table__title">
+						Свои дивиденды получают уже 
+						<span class="shareholders-table__text">1936</span> 
+						пользователей.  Осталось всего 
+						<span class="shareholders-table__text">2025</span> мест.
+					</h2>
+				 </div>
+				</v-table>
+			</div>
+			<v-btn class="shareholders-section__button ml-auto mr-auto mt-5" rounded border>
+				стать акционером
+				<icon-arrow class="ml-2" />
+      </v-btn>
 		</section>
 		</base-layout>
   </div>
@@ -38,12 +54,15 @@ import baseLayout from '@/components/layouts/baseLayout.vue'
 import iconArrow from '@/components/icons/iconArrow.vue'
 import proposalList from '@/components/shareholder/proposal/proposalList.vue'
 import shareholderStepsList from '@/components/shareholder/shareholderSteps/shareholderStepsList.vue'
+import vTable from '@/components/tables/vTable.vue'
+
 export default {
 	components: {
 		baseLayout,
 		iconArrow,
 		proposalList,
-		shareholderStepsList 
+		shareholderStepsList,
+		vTable
 	},
 	data() {
 		return {
@@ -114,6 +133,32 @@ export default {
 					text: 'Получайте свой процент от прибыли портала ежегодно',
 					src: '',
 				},
+			],
+			items: [
+				{
+					name: 'Nurbek'
+				},
+				{
+					name: 'Nurbek2'
+				},
+				{
+					name: 'Nurbek3'
+				},
+				{
+					name: 'Nurbek'
+				},
+				{
+					name: 'Nurbek2'
+				},
+				{
+					name: 'Nurbek3'
+				}
+			], 
+			fields: [
+				{
+					field: 'name', 
+					label: 'Акционер'
+				}
 			]
 		}
 	}
@@ -153,8 +198,16 @@ export default {
 		padding: 0 12.5%;
 		padding-bottom: 4rem;
 		border-top: 1px solid $border-color;
+		&_wide {
+			padding-right: 0;
+			padding-left: 0;
+		}
 		&__header {
 			padding: 1.8rem 0;
+			&_wide {
+				padding-right: 12.5%;
+				padding-left: 12.5%;
+			}
 		}
 		&__title {
 			color: #555557;
@@ -166,6 +219,25 @@ export default {
 		&__text {
 			color: $secondary-text-color;
 			margin: 0;
+		}
+		&__button {
+		}
+	}
+	&-table {
+		background-image: url('~assets/img/registration__bg.png');
+		background-size: 100%;
+		background-repeat: no-repeat;
+		&__header {
+			text-align: center;
+			color: #565656;
+		}
+		&__title {
+			font-size: 1rem;
+			margin: 0;
+			padding: 1rem 0;
+		}
+		&__text {
+			color: $secondary-text-color;
 		}
 	}
 }
