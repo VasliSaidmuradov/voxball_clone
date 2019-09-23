@@ -8,7 +8,7 @@
       />
       <v-btn class="competition-item__button" @click="$navigate('/competitions/123')" border>
         подробнее
-        <icon-arrow class="ml-2"/>
+        <icon-arrow class="ml-2" />
       </v-btn>
       <div v-if="data.complete" class="competition-item__complete">
         <span class="competition-item__icon-complete mr-2">
@@ -33,7 +33,7 @@ export default {
   },
   components: {
     iconComplete,
-    iconArrow 
+    iconArrow
   }
 }
 </script>
@@ -78,6 +78,7 @@ export default {
     padding: 0.5rem 1rem;
     transition: 0.5s ease;
     font-size: 0.9rem;
+    border-color: #fff;
     &:hover {
       background-color: transparent;
       border-color: $base-color;
