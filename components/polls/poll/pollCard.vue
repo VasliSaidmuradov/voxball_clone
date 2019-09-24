@@ -135,37 +135,37 @@ export default {
   }
 }
 .answer {
-  &__list {
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-  &__item {
-    width: 48%;
-    border: 1px solid $border-color;
-    border-radius: 30px;
-    padding: 1rem;
-    margin-bottom: 1.5rem;
-    position: relative;
-  }
-  &__check {
-    width: 2rem;
-    height: 2rem;
-    border: 1px solid $border-color;
-    border-radius: 50%;
-    position: absolute;
-    right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-  }
+	&__list {
+		padding: 0;
+		margin: 0;
+		list-style-type: none;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+	}
+	&__item {
+		width: 48%;
+		border: 1px solid $border-color;
+		border-radius: 30px;
+		padding: 1rem;
+		margin-bottom: 1.5rem;
+		position: relative;
+	}
+	&__check {
+		width: 2rem;
+		height: 2rem;
+		border: 1px solid $border-color;
+		border-radius: 50%;
+		position: absolute;
+		right: 1rem;
+		top: 50%;
+		transform: translateY(-50%);
+		cursor: pointer;
+	}
 }
 .arrow {
-  margin-bottom: -0.4rem;
-  margin-left: 0.5rem;
-  height: auto;
+	margin-bottom: -0.4rem;
+	margin-left: 0.5rem;
+	height: auto;
 }
 </style>

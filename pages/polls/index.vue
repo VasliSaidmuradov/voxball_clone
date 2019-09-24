@@ -2,7 +2,9 @@
   <div class="polls">
     <base-layout
       :title="'Участвуйте в on-line опросах от Voxball.'"
-      :text="'Активно отвечайте на вопросы, выражайте свое мнение и зарабатывайте на этом деньги'"
+      :text="
+				'Активно отвечайте на вопросы, выражайте свое мнение и зарабатывайте на этом деньги'
+			"
     >
       <section class="polls-top mt-4 ml-5 mr-5">
         <poll-list :pollArr="pollsArray" />
@@ -29,8 +31,7 @@
           </div>
         </div>
         <div class="polls-main__content mb-4">
-          <poll-list :pollArr="pollsArray" />
-          <poll-list :pollArr="pollsArray" />
+          <poll-list :pollArr="pollsList" />
         </div>
         <v-btn class="ml-auto mr-auto mb-5 mt-4" rounded border>
           <span>Загрузить еще</span>
@@ -103,9 +104,4 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/css/section.scss';
-
-.polls {
-  &-main {
-  }
-}
 </style>

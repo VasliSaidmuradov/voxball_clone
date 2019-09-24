@@ -68,6 +68,7 @@ export default {
     padding: 0.5rem 1rem;
     transition: 0.5s ease;
     font-size: 0.9rem;
+    border-color: #fff;
     &:hover {
       background-color: transparent;
       border-color: $base-color;

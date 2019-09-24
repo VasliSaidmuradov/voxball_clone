@@ -200,11 +200,11 @@ export default {
   }
 }
 .views {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  &__count {
-    color: gray;
-  }
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	&__count {
+		color: gray;
+	}
 }
 </style>

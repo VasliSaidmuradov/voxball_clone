@@ -1,31 +1,43 @@
 <template>
-  <div class="polls">
-    <div class="polls__list">
-      <poll-item v-for="(pollItemData, index) in pollArr" :key="index" :pollData="pollItemData" />
-    </div>
-  </div>
+	<div class="polls">
+		<div class="polls__list">
+			<poll-item
+				v-for="(pollItemData, index) in pollArr"
+				:key="index"
+				:pollData="pollItemData"
+				@click="pollItemClick(pollItemData)"
+			/>
+		</div>
+	</div>
 </template>
 
 <script>
 import pollItem from '@/components/polls/pollsList/pollItem.vue'
 
 export default {
-  props: ['pollArr'],
-  components: {
-    pollItem
-  }
+	props: ['pollArr', 'url'],
+	components: {
+		pollItem
+	},
+	methods: {
+		pollItemClick(item) {
+			if (item.onclick) {
+				item.onclick()
+			}
+		}
+	}
 }
 </script>
 
 <style lang="scss" scoped>
 .polls__list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 0 auto;
-  margin-top: 20px;
-  list-style: none;
-  padding: 0;
-  font-size: 0.8em;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin: 0 auto;
+	margin-top: 20px;
+	list-style: none;
+	padding: 0;
+	font-size: 0.8em;
 }
 </style>

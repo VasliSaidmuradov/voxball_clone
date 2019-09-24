@@ -91,7 +91,7 @@ $border: 1px solid $border-color;
 	&__content {
 		display: flex;
 		align-items: center;
-		line-height: 1;
+		line-height: 1em;
 	}
 
 	&--border {
