@@ -1,45 +1,45 @@
 <template>
   <div class="ratings">
-		<base-layout :title="layoutData.title" :text="layoutData.text">
-		<template v-slot:action>
-			<v-btn class="ratings-layout__button mt-2" border @click="$navigate('/ratings/123')">
-				<span class="ratings-layout__text">создать рейтинг</span>
-				<icon-arrow class="ml-2"/>
-			</v-btn>
-		</template>
-		<section class="Section mt-5 mb-1 ml-4 mr-4">
-			<div class="Section__header">
-				<h2 class="Section__title">Все опросы</h2>
-				<div class="Section__options">
-					<v-select
-						:options="options"
-						:searchable="true"
-						:no-drop="false"
-						:multiple="false"
-						placeholder="Лучшие по рейтингу"
-					></v-select>
-					<v-select
-						class="ml-5"
-						:options="options"
-						:searchable="true"
-						:no-drop="false"
-						:multiple="false"
-						placeholder="Сфера деятельности"
-					></v-select>
-				</div>
-			</div>
-		</section>
-		<section class="ratings-main mb-4 ml-4 mr-4">
-			<div class="ratings-main__content mb-4">
-        <polls-list :pollArr="ratingsArray" />
-        <polls-list :pollArr="ratingsArray" />
-      </div>
-			<v-btn class="ml-auto mr-auto mb-5 mt-5" rounded border>
-        <span>Загрузить еще</span>
-        <icon-arrow class="ml-2" />
-      </v-btn>
-		</section>
-		</base-layout>	
+    <base-layout :title="layoutData.title" :text="layoutData.text">
+      <template v-slot:action>
+        <v-btn class="ratings-layout__button mt-2" border @click="$navigate('/ratings/123')">
+          <span class="ratings-layout__text">создать рейтинг</span>
+          <icon-arrow class="ml-2" />
+        </v-btn>
+      </template>
+      <section class="Section mt-5 mb-1 ml-4 mr-4">
+        <div class="Section__header">
+          <h2 class="Section__title">Все опросы</h2>
+          <div class="Section__options">
+            <v-select
+              :options="options"
+              :searchable="true"
+              :no-drop="false"
+              :multiple="false"
+              placeholder="Лучшие по рейтингу"
+            ></v-select>
+            <v-select
+              class="ml-5"
+              :options="options"
+              :searchable="true"
+              :no-drop="false"
+              :multiple="false"
+              placeholder="Сфера деятельности"
+            ></v-select>
+          </div>
+        </div>
+      </section>
+      <section class="ratings-main mb-4 ml-4 mr-4">
+        <div class="ratings-main__content mb-4">
+          <polls-list :pollArr="ratingsArray" />
+          <polls-list :pollArr="ratingsArray" />
+        </div>
+        <v-btn class="ml-auto mr-auto mb-5 mt-5" rounded border>
+          <span>Загрузить еще</span>
+          <icon-arrow class="ml-2" />
+        </v-btn>
+      </section>
+    </base-layout>
   </div>
 </template>
 
@@ -51,19 +51,20 @@ import vSelect from 'vue-select'
 import '@/assets/css/vSelect.scss'
 
 export default {
-	components: {
-		baseLayout,
-		iconArrow,
-		pollsList,
-		vSelect
-	},
-	data() {
-		return {
-			layoutData: {
-				title: 'Принимайте участие',
-				text: 'в рейтингах и опросах, получая за это v-coins на личный счет. Узнайте, что думают люди о Вашей компании, создавая собственные рейтинги.'
-			},
-			options: ['Казахстан', 'Россия', 'Китай'],
+  components: {
+    baseLayout,
+    iconArrow,
+    pollsList,
+    vSelect
+  },
+  data() {
+    return {
+      layoutData: {
+        title: 'Принимайте участие',
+        text:
+          'в рейтингах и опросах, получая за это v-coins на личный счет. Узнайте, что думают люди о Вашей компании, создавая собственные рейтинги.'
+      },
+      options: ['Казахстан', 'Россия', 'Китай'],
       ratingsArray: [
         {
           category: 'Бизнес',
@@ -100,9 +101,9 @@ export default {
           date: '19.19.2019',
           views: 345
         }
-			]
-		}
-	}
+      ]
+    }
+  }
 }
 </script>
 
@@ -110,7 +111,7 @@ export default {
 @import '@/assets/css/section.scss';
 
 .ratings {
-	&-layout{
+  &-layout {
     &__button {
       border-color: $base-text-color;
       text-transform: uppercase;
@@ -125,6 +126,6 @@ export default {
       text-transform: uppercase;
       font-size: 0.8em;
     }
-	}
+  }
 }
 </style>

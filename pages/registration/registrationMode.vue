@@ -69,7 +69,7 @@ import vFormLayout from '@/components/forms/vFormLayout.vue'
 import registrationSocial from '@/components/registration/registrationSocial.vue'
 // v-select
 import vSelect from 'vue-select'
-import '@/assets/css/vSelect.scss';
+import '@/assets/css/vSelect.scss'
 // v-mask
 import VueMask from 'v-mask'
 Vue.use(VueMask)
@@ -131,7 +131,8 @@ export default {
     outline: none;
     margin: 4px 0 0;
     margin-top: 0.5rem;
-    padding: 0 1rem;
+    padding: 0.4rem 0;
+    padding-left: 1.5rem;
     width: 100%;
     color: $base-text-color;
     font-style: normal;
@@ -191,7 +192,7 @@ export default {
 
 <style>
 /* for v-select */
-.mode .v-select{
+.mode .v-select {
   width: 100%;
 }
 .mode .v-select .vs__dropdown-toggle {

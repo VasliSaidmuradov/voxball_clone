@@ -19,7 +19,9 @@ export default {
 	},
 	computed: {
 		stepsArr() {
-			return this.steps.map((item, index, arr) => {
+			let halfArr = this.steps.slice(this.steps.length/2).reverse();
+			let arr = this.steps.slice(0, this.steps.length/2).concat(halfArr);
+			return arr.map((item, index, arr) => {
 				if(index+1 < arr.length/2) {
 					item.arrow = '0';
 				}

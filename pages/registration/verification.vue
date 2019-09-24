@@ -82,7 +82,8 @@ export default {
     outline: none;
     margin: 4px 0 0;
     margin-top: 0.5rem;
-    padding: 0 1rem;
+    padding: 0.4rem 0;
+    padding-left: 1.5rem;
     width: 100%;
     color: $base-text-color;
     font-style: normal;
