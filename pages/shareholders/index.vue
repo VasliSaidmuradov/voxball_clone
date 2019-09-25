@@ -14,14 +14,14 @@
           <h2 class="shareholders-section__title">Voxball делает</h2>
           <p class="shareholders-section__text">предложение каждому пользователю:</p>
         </div>
-        <proposal-list :proposalArr="proposals"></proposal-list>
+        <proposal-list :proposalsList="proposals"></proposal-list>
       </section>
       <section class="shareholders-section">
         <div class="shareholders-section__header">
           <h2 class="shareholders-section__title">6 шагов</h2>
           <p class="shareholders-section__text">к статусу «держатель акций»:</p>
         </div>
-        <shareholder-steps-list :steps="stepsArr"></shareholder-steps-list>
+        <shareholder-steps-list :stepsList="stepsArr"></shareholder-steps-list>
       </section>
       <section class="shareholders-section shareholders-section_wide">
         <div class="shareholders-section__header shareholders-section__header_wide">
@@ -29,24 +29,21 @@
           <p class="shareholders-section__text">на Voxball</p>
         </div>
         <div class="shareholders-table">
-          <!-- <v-form-layout> -->
-          <v-table :items="items" :fields="fields" class="ml-auto mr-auto">
-            <template v-slot:header>
-              <div class="shareholders-table__header">
-                <h2 class="shareholders-table__title">
-                  Свои дивиденды получают уже
-                  <span class="shareholders-table__text">1936</span>
-                  пользователей. Осталось всего
-                  <span
-                    class="shareholders-table__text"
-                  >2025</span> мест.
-                </h2>
-              </div>
-            </template>
-          </v-table>
-          <!-- </v-form-layout> -->
+          <v-form-layout class="shareholders-table__layout">
+            <div class="shareholders-table__header">
+              <h2 class="shareholders-table__title">
+                Свои дивиденды получают уже
+                <span class="shareholders-table__text">1936</span>
+                пользователей. Осталось всего
+                <span
+                  class="shareholders-table__text"
+                >2025</span> мест.
+              </h2>
+            </div>
+            <v-table :items="items" :fields="fields"></v-table>
+          </v-form-layout>
         </div>
-        <v-btn class="shareholders-section__button ml-auto mr-auto mt-5" rounded border>
+        <v-btn class="Section__button mt-5" rounded border>
           стать акционером
           <icon-arrow class="ml-2" />
         </v-btn>
@@ -150,29 +147,52 @@ export default {
       ],
       items: [
         {
-          name: 'Nurbek'
+          id: '1',
+          name: 'Nurbek',
+          button: 'купить'
         },
         {
+          id: '2',
           name: 'Nurbek2'
         },
         {
+          id: '3',
           name: 'Nurbek3'
         },
         {
+          id: '4',
           name: 'Nurbek'
         },
         {
+          id: '5',
           name: 'Nurbek2'
         },
         {
+          id: '6',
           name: 'Nurbek3'
         }
       ],
       fields: [
         {
+          field: 'id',
+          label: '№'
+        },
+        {
           field: 'name',
           label: 'Акционер'
         }
+        // {
+        //   field: 'age',
+        //   label: 'Возраст'
+        // },
+        // {
+        //   field: 'city',
+        //   label: 'Город'
+        // },
+        // {
+        //   field: 'button',
+        //   label: ''
+        // }
       ]
     }
   }
@@ -180,6 +200,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/css/section.scss';
+
 .shareholders {
   &-layout {
     &__undertitle {
@@ -241,6 +263,11 @@ export default {
     background-image: url('~assets/img/registration__bg.png');
     background-size: 100%;
     background-repeat: no-repeat;
+    &__layout {
+      width: 50%;
+      padding: 0;
+      padding-top: 1rem;
+    }
     &__header {
       text-align: center;
       color: #565656;
@@ -248,11 +275,16 @@ export default {
     &__title {
       font-size: 1rem;
       margin: 0;
-      padding: 1rem 0;
+      padding-bottom: 1rem;
     }
     &__text {
       color: $secondary-text-color;
     }
   }
+}
+</style>
+<style lang="scss">
+.shareholders .table-thead__th:first-child {
+  width: 10%;
 }
 </style>

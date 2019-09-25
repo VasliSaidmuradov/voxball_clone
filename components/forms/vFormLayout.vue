@@ -1,8 +1,7 @@
 <template>
   <div class="form">
     <slot></slot>
-    <div v-if="bottomLine" class="form__back">
-    </div>
+    <div v-if="bottomLine" class="form__back"></div>
   </div>
 </template>
 
@@ -21,7 +20,8 @@ export default {
 .form {
   box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.2);
   padding: 2rem 1.5rem;
-  width: 28%;
+  min-width: 28%;
+  width: fit-content;
   min-height: 10rem;
   margin: 0 auto;
   background: white;
@@ -33,6 +33,8 @@ export default {
     height: 0.7rem;
     position: absolute;
     bottom: -0.7rem;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: -2;
     background-color: $base-color;
   }

@@ -2,25 +2,18 @@
   <div class="detailed">
     <div class="detailed-main">
       <div class="detailed-main__left">
-        <h1 class="detailed-main__title">
-          {{ title }}
-        </h1>
-        <p class="detailed-main__text">
-          {{ text }}
-        </p>
-        <slot name="action">
-        </slot>
+        <h1 class="detailed-main__title">{{ title }}</h1>
+        <p class="detailed-main__text">{{ text }}</p>
+        <slot name="action"></slot>
       </div>
       <div class="detailed-main__right">
-        <img class="detailed-main__img" src="~assets/img/registration.png">
+        <img class="detailed-main__img" src="~assets/img/registration.png" />
       </div>
     </div>
     <div class="detailed__button">
       <v-btn class="detailed__link-wrap">
-        <nuxt-link class="detailed__link" to="/">
-          назад
-        </nuxt-link>
-      </v-btn>  
+        <nuxt-link class="detailed__link" to="/">назад</nuxt-link>
+      </v-btn>
     </div>
     <slot></slot>
   </div>
@@ -41,13 +34,13 @@ export default {
 <style lang="scss" scoped>
 .detailed {
   width: 100%;
-  
+
   &-main {
     display: flex;
     justify-content: space-between;
     height: 8.5rem;
     box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.2);
-    
+
     &__left {
       display: flex;
       flex-direction: column;
@@ -55,11 +48,11 @@ export default {
       justify-content: center;
       padding-left: 2rem;
     }
-    
+
     &__title {
       text-transform: uppercase;
-      font-size: 2rem;
-      font-family: "Times New Roman PSMT";
+      font-size: 1.8rem;
+      font-family: 'Times New Roman PSMT';
       font-weight: normal;
       color: $base-text-color;
       margin: 0;
@@ -104,7 +97,7 @@ export default {
       background-color: $base-text-color;
     }
   }
-  
+
   &__link-wrap {
     padding-left: 2rem;
     color: white;
