@@ -2,21 +2,15 @@
   <div class="base-layout">
     <div class="base-layout__left">
       <div class="base-layout__header">
-        <h1 class="base-layout__title">
-          {{ title }}
-        </h1>
-        <p class="base-layout__text">
-          {{ text }}
-        </p>
-        <slot name="action">
-        </slot>
+        <h1 class="base-layout__title">{{ title }}</h1>
+        <p class="base-layout__text">{{ text }}</p>
+        <slot name="action"></slot>
       </div>
-      <div class="base-layout__footer">
-      </div>
+      <div class="base-layout__footer"></div>
     </div>
     <div class="base-layout__right">
       <div class="base-layout__rigth-wrapper">
-        <img class="base-layout__image" src="~assets/img/base__image.png" alt="">
+        <img class="base-layout__image" src="~assets/img/base__image.png" alt />
       </div>
     </div>
     <slot></slot>
@@ -25,7 +19,7 @@
 
 <script>
 export default {
-  props: ['title','text']
+  props: ['title', 'text']
 }
 </script>
 
@@ -40,13 +34,13 @@ export default {
   }
 
   &__header {
-    background-image: url('~assets/img/main-page-slider__bg-top.png');
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAr4AAADsBAMAAABgcLiTAAAAAXNSR…pa9bXqa9XXqq9VX6u+Vn2t+lr1tepr1deqr1Vfq75Wfa1/2ytni6sjK0MAAAAASUVORK5CYII=);
     background-repeat: no-repeat;
     background-size: 100%;
-    width: 60%;
-    height: 75%;
+    width: 44em;
+    height: 11.94em;
     box-sizing: border-box;
-    padding: 2% 2%;
+    padding: 2em 2em;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -54,7 +48,7 @@ export default {
   }
 
   &__title {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     font-family: 'times new roman psmt';
     text-transform: uppercase;
     width: 80%;
@@ -63,11 +57,10 @@ export default {
   }
 
   &__text {
-    font-size: 1.2rem;
     line-height: 1.1;
     padding: 0;
     padding-top: 0.1rem;
-    margin: 0;
+    margin-top: 0;
     width: 80%;
   }
 
@@ -93,12 +86,12 @@ export default {
     clip-path: polygon(0% 70.5%, 10% 0%, 100% 0%, 100% 100%);
     &:after {
       content: '';
-      clip-path: polygon(0 100% ,0% 51%, 100% 0%, 100% 100%);
+      clip-path: polygon(0 100%, 0% 51%, 100% 0%, 100% 100%);
       width: 100%;
       height: 60%;
       position: absolute;
       bottom: 0;
-      right: 0;  
+      right: 0;
       background-color: green;
       opacity: 0.7;
     }

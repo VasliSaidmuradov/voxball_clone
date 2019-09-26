@@ -2,7 +2,7 @@
   <div class="ratings">
     <base-layout :title="layoutData.title" :text="layoutData.text">
       <template v-slot:action>
-        <v-btn class="ratings-layout__button mt-2" border @click="$navigate('/ratings/123')">
+        <v-btn class="ratings-layout__button mt-1" border @click="$navigate('/ratings/123')">
           <span class="ratings-layout__text">создать рейтинг</span>
           <icon-arrow class="ml-2" />
         </v-btn>
