@@ -11,9 +11,7 @@
       </div>
     </div>
     <div class="detailed__button">
-      <v-btn class="detailed__link-wrap">
-        <nuxt-link class="detailed__link" to="/">назад</nuxt-link>
-      </v-btn>
+      <v-btn class="detailed__link">назад</v-btn>
     </div>
     <slot></slot>
   </div>
@@ -39,7 +37,7 @@ export default {
     display: flex;
     justify-content: space-between;
     height: 8.5rem;
-    box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 6px 5px 0px rgba(0, 0, 0, 0.2);
 
     &__left {
       display: flex;
@@ -98,18 +96,15 @@ export default {
     }
   }
 
-  &__link-wrap {
-    padding-left: 2rem;
-    color: white;
-  }
-
   &__link {
     text-decoration: none;
     color: white;
+    margin-left: 1em;
     &:before {
       content: '<';
       vertical-align: middle;
       display: inline-block;
+      margin-right: 0.5em;
     }
   }
 }
