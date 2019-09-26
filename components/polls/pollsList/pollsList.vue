@@ -35,7 +35,6 @@ export default {
   flex-wrap: wrap;
   justify-content: space-between;
   margin: 0 auto;
-  margin-top: 20px;
   list-style: none;
   padding: 0;
   font-size: 0.8em;
