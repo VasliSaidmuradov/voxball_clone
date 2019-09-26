@@ -90,9 +90,10 @@ export default {
     position: absolute;
     font-size: 0.8rem;
     text-transform: capitalize;
+    line-height: 0;
     right: 0;
     top: 0;
-    padding: 0.4rem 0.6em 0.2em;
+    padding: 0.4em 0.6em;
     color: white;
     background: #009700;
     display: flex;
