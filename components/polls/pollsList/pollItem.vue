@@ -13,7 +13,7 @@
           >{{ pollData.video }}</div>
         </div>
         <div class="poll-item__title">{{ pollData.title }}</div>
-        <div class="d-flex">
+        <div class="poll-item__main-footer">
           <div v-if="pollData.complete" class="poll-item__complete">
             <span class="poll-item__icon-complete mr-2">
               <icon-complete />
@@ -69,7 +69,6 @@ export default {
 
 <style lang="scss" scoped>
 .poll-item {
-  padding-bottom: 1rem;
   &__main {
     cursor: pointer;
     position: relative;
@@ -80,6 +79,22 @@ export default {
     background: #000;
     text-transform: uppercase;
     box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.17);
+
+    &-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      font-size: 0.7rem;
+      color: #fff;
+      font-weight: 300;
+    }
+  }
+
+  &__link {
+    margin: 0 1em;
   }
 
   &:hover &__img {
@@ -117,12 +132,7 @@ export default {
   }
 
   &__complete {
-    position: absolute;
-    font-size: 0.7rem;
-    text-transform: capitalize;
-    bottom: 9px;
     padding: 0.4em;
-    color: white;
     background: $base-color;
     display: flex;
     align-items: center;
@@ -158,14 +168,6 @@ export default {
       color: $base-text-color;
       background: white;
     }
-  }
-
-  &__link {
-    position: absolute;
-    font-size: 0.7rem;
-    right: 23px;
-    bottom: 10px;
-    color: white;
   }
 
   &__footer {
