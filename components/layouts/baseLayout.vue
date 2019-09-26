@@ -50,7 +50,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    box-shadow: 1px 1px 38px 1px rgba(0, 0, 0, 0.23);
+    box-shadow: 0px 7px 7px 0px rgba(0, 0, 0, 0.23);
   }
 
   &__title {
