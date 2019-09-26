@@ -8,8 +8,8 @@
         <div class="poll-item__content">
           <div class="poll-item__content-item">{{ pollData.category }}</div>
           <div
-           v-if="pollData.video" 
-           class="poll-item__content-item poll-item__content-item--video ml-2"
+            v-if="pollData.video"
+            class="poll-item__content-item poll-item__content-item--video ml-2"
           >{{ pollData.video }}</div>
         </div>
         <div class="poll-item__title">{{ pollData.title }}</div>
@@ -25,13 +25,13 @@
             <icon-arrow class="ml-2"></icon-arrow>
           </v-btn>
         </div>
-        <play v-if="pollData.video"/>
+        <play v-if="pollData.video" />
       </div>
     </div>
     <div class="poll-item__footer">
       <div class="poll-item__date">{{ pollData.date }}</div>
       <div class="views">
-        <span class="poll-item__icon-eyes mr-1">
+        <span class="poll-item__icon-eyes mr-2">
           <icon-eyes />
         </span>
         <div class="views__count">{{ pollData.views }}</div>
@@ -59,9 +59,9 @@ export default {
   methods: {
     goToDetailed(data) {
       if (data) {
-        return this.$navigate('/results/123');
+        return this.$navigate('/results/123')
       }
-      return this.$navigate('/polls/123');
+      return this.$navigate('/polls/123')
     }
   }
 }
@@ -69,12 +69,13 @@ export default {
 
 <style lang="scss" scoped>
 .poll-item {
+  padding-bottom: 1rem;
   &__main {
     cursor: pointer;
     position: relative;
     display: block;
-    width: 15rem;
-    height: 22.5rem;
+    width: 13.5rem;
+    height: 21.5rem;
     overflow: hidden;
     background: #000;
     text-transform: uppercase;
@@ -103,13 +104,15 @@ export default {
   &__img {
     width: 100%;
     height: 100%;
-    object-fit: cover;  
+    object-fit: cover;
     transition: 0.5s ease;
   }
-  
+
   &__title {
     padding: 1rem;
-    font-size: 1rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.3;
     color: white;
   }
 
@@ -135,10 +138,11 @@ export default {
   }
 
   &__content {
-    padding: 1em;
+    padding: 1rem;
+    padding-bottom: 0;
     height: auto;
     min-height: 2rem;
-    font-size: 1em;
+    font-size: 0.7rem;
     line-height: 1.2;
     display: flex;
   }
@@ -200,11 +204,11 @@ export default {
   }
 }
 .views {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	&__count {
-		color: gray;
-	}
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &__count {
+    color: gray;
+  }
 }
 </style>

@@ -1,10 +1,10 @@
 <template>
   <div class="results">
     <base-layout :title="'Завершенные Опросы'">
-      <section class="results-top mt-4 ml-5 mr-5">
+      <section class="results-top container mt-5">
         <polls-list :pollArr="pollsArray" />
       </section>
-      <section class="Section mt-4 mb-1 ml-5 mr-5">
+      <section class="Section container mt-4">
         <div class="Section__header">
           <h2 class="Section__title">Все опросы</h2>
           <div class="Section__options">
@@ -29,7 +29,7 @@
           <polls-list :pollArr="pollsArray" />
           <polls-list :pollArr="pollsArray" />
         </div>
-        <v-btn class="ml-auto mr-auto mb-5 mt-4" rounded border>
+        <v-btn class="Section__button mb-5 mt-4" rounded border>
           <span>Загрузить еще</span>
           <icon-arrow class="ml-2" />
         </v-btn>
@@ -108,7 +108,6 @@ export default {
 
 .results {
   &-main {
-
   }
 }
 .arrow {

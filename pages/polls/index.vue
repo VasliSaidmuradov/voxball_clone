@@ -6,10 +6,10 @@
 				'Активно отвечайте на вопросы, выражайте свое мнение и зарабатывайте на этом деньги'
 			"
     >
-      <section class="polls-top mt-4 ml-5 mr-5">
+      <section class="polls-top container mt-5">
         <poll-list :pollArr="pollsArray" />
       </section>
-      <section class="Section mt-4 mb-1 ml-5 mr-5">
+      <section class="Section container mt-5">
         <div class="Section__header">
           <h2 class="Section__title">Все опросы</h2>
           <div class="Section__options">
@@ -31,9 +31,10 @@
           </div>
         </div>
         <div class="polls-main__content mb-4">
-          <poll-list :pollArr="pollsList" />
+          <poll-list :pollArr="pollsArray" />
+          <poll-list :pollArr="pollsArray" />
         </div>
-        <v-btn class="ml-auto mr-auto mb-5 mt-4" rounded border>
+        <v-btn class="Section__button mb-5 mt-4" rounded border>
           <span>Загрузить еще</span>
           <icon-arrow class="ml-2" />
         </v-btn>

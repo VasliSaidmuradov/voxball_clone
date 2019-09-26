@@ -7,7 +7,7 @@
           <icon-arrow class="ml-2" />
         </v-btn>
       </template>
-      <section class="Section mt-5 mb-1 ml-4 mr-4">
+      <section class="container mt-5">
         <div class="Section__header">
           <h2 class="Section__title">Все опросы</h2>
           <div class="Section__options">
@@ -29,12 +29,12 @@
           </div>
         </div>
       </section>
-      <section class="ratings-main mb-4 ml-4 mr-4">
+      <section class="ratings-main container">
         <div class="ratings-main__content mb-4">
           <polls-list :pollArr="ratingsArray" />
           <polls-list :pollArr="ratingsArray" />
         </div>
-        <v-btn class="ml-auto mr-auto mb-5 mt-5" rounded border>
+        <v-btn class="Section__button mb-5 mt-5" rounded border>
           <span>Загрузить еще</span>
           <icon-arrow class="ml-2" />
         </v-btn>

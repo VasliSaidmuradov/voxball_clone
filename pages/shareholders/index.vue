@@ -208,7 +208,7 @@ export default {
       font-size: 1.4rem;
       font-family: 'times new roman psmt';
       margin: 0;
-      padding-bottom: 1.3rem;
+      padding-bottom: 0.7rem;
     }
     &__text {
       font-size: 1rem;

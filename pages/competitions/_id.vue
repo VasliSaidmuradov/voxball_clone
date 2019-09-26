@@ -1,13 +1,18 @@
 <template>
   <div class="competition-id">
-    <detailed-layout :title="'Участвуйтеу в конкурсах,'" :text="'проявляя свои таланты и возможности'">
+    <detailed-layout :title="'Участвуйтеу в конкурсах,'">
       <template v-slot:action>
-        <v-btn class="competition-id-layout__button mt-2" border @click="$navigate('/competitions/participate')">
+        <p class="competition-id-layout__undertitle">проявляя свои таланты и возможности</p>
+        <v-btn
+          class="competition-id-layout__button mt-2"
+          border
+          @click="$navigate('/competitions/participate')"
+        >
           <span class="competition-id-layout__text">принять участие</span>
-          <icon-arrow class="ml-2"/>
+          <icon-arrow class="ml-2" />
         </v-btn>
       </template>
-      <competition-info class="mr-4 ml-4" :competition='competitionData' />
+      <competition-info class="mr-4 ml-4" :competition="competitionData" />
       <section class="Section mt-5 mb-2 ml-4 mr-4">
         <div class="Section__header competition-id-section__header">
           <div class="competition-id__header">
@@ -25,15 +30,18 @@
           </div>
         </div>
         <!-- memberList -->
-        <memberList class="" :members="members" @open="openCompetitionModal"/> 
-        <v-btn class="m-auto mt-4 mb-5" rounded border>
+        <memberList class :members="members" @open="openCompetitionModal" />
+        <v-btn class="Section__button competition-id__button mt-4 mb-5" rounded border>
           <span>Загрузить еще</span>
           <icon-arrow class="ml-2" />
         </v-btn>
       </section>
-      <v-modal :title="competitionModalData.title" :showModal="competitionModalData.modalShow" @close="closeCompetition()" >
-        <template v-slot:body>
-        </template>
+      <v-modal
+        :title="competitionModalData.title"
+        :showModal="competitionModalData.modalShow"
+        @close="closeCompetition()"
+      >
+        <template v-slot:body></template>
         <template v-slot:footer>
           <v-btn @click="openThanksModal()" border>
             <span>Голосовать</span>
@@ -41,9 +49,13 @@
           </v-btn>
         </template>
       </v-modal>
-      <v-modal :abort="false" :title="thanksModalData.title" :showModal="thanksModalData.modalShow" @close="closeThanks()">
-        <template v-slot:body>
-        </template>
+      <v-modal
+        :abort="false"
+        :title="thanksModalData.title"
+        :showModal="thanksModalData.modalShow"
+        @close="closeThanks()"
+      >
+        <template v-slot:body></template>
         <template v-slot:footer>
           <v-btn @click="closeThanks()" border>
             <span>ОК</span>
@@ -70,22 +82,22 @@ export default {
     memberList,
     vSelect,
     iconArrow,
-    vModal 
+    vModal
   },
   methods: {
     openCompetitionModal() {
-      this.competitionModalData.modalShow = true;
+      this.competitionModalData.modalShow = true
     },
     openThanksModal() {
-      this.closeCompetition();
-      this.thanksModalData.modalShow = true;
+      this.closeCompetition()
+      this.thanksModalData.modalShow = true
     },
     closeCompetition() {
-      this.competitionModalData.modalShow = false;
+      this.competitionModalData.modalShow = false
     },
     closeThanks() {
-      this.thanksModalData.modalShow = false;
-    },
+      this.thanksModalData.modalShow = false
+    }
   },
   data() {
     return {
@@ -100,74 +112,75 @@ export default {
       },
       competitionData: {
         title: '«Мое идеальное лето»',
-        description: 'Конкурс фотографий среди зарегистрированных пользователей портала Voxball.',
+        description:
+          'Конкурс фотографий среди зарегистрированных пользователей портала Voxball.',
         date: '01.09.2019',
         rules: [
-          {text: 'Сделайте смешное фото на тему «Мое идеальное лето».'},
-          {text: 'Загрузите фото на сайт'},
-          {text: 'Приглашайте своих друзей проголосовать за Ваше фото'}
+          { text: 'Сделайте смешное фото на тему «Мое идеальное лето».' },
+          { text: 'Загрузите фото на сайт' },
+          { text: 'Приглашайте своих друзей проголосовать за Ваше фото' }
         ],
         src: '',
         complete: false
       },
       members: [
         {
-          name: 'Асия Курманалиева', 
-          title:'Принцесса лета', 
+          name: 'Асия Курманалиева',
+          title: 'Принцесса лета',
           votes: '369',
           video: ''
         },
         {
-          name: 'Асия Курманалиева', 
-          title:'Принцесса лета', 
+          name: 'Асия Курманалиева',
+          title: 'Принцесса лета',
           votes: '369',
           video: ''
         },
         {
-          name: 'Асия Курманалиева', 
-          title:'Принцесса лета', 
+          name: 'Асия Курманалиева',
+          title: 'Принцесса лета',
           votes: '369',
           video: 'src'
         },
         {
-          name: 'Асия Курманалиева', 
-          title:'Принцесса лета', 
+          name: 'Асия Курманалиева',
+          title: 'Принцесса лета',
           votes: '369',
           video: ''
         },
         {
-          name: 'Асия Курманалиева', 
-          title:'Принцесса лета', 
+          name: 'Асия Курманалиева',
+          title: 'Принцесса лета',
           votes: '369',
           video: ''
         },
         {
-          name: 'Асия Курманалиева', 
-          title:'Принцесса лета', 
+          name: 'Асия Курманалиева',
+          title: 'Принцесса лета',
           votes: '369',
           video: ''
         },
         {
-          name: 'Асия Курманалиева', 
-          title:'Принцесса лета', 
+          name: 'Асия Курманалиева',
+          title: 'Принцесса лета',
           votes: '369',
           video: ''
         },
         {
-          name: 'Асия Курманалиева', 
-          title:'Принцесса лета', 
+          name: 'Асия Курманалиева',
+          title: 'Принцесса лета',
           votes: '369',
           video: ''
         },
         {
-          name: 'Асия Курманалиева', 
-          title:'Принцесса лета', 
+          name: 'Асия Курманалиева',
+          title: 'Принцесса лета',
           votes: '369',
           video: 'src'
         },
         {
-          name: 'Асия Курманалиева', 
-          title:'Принцесса лета', 
+          name: 'Асия Курманалиева',
+          title: 'Принцесса лета',
           votes: '369',
           video: ''
         }
@@ -183,9 +196,9 @@ export default {
 .competition-id {
   display: flex;
   &-section__header {
-    margin-bottom: 2.5rem
+    margin-bottom: 2.5rem;
   }
-  &-layout{
+  &-layout {
     &__button {
       border-color: $base-text-color;
       text-transform: uppercase;
@@ -196,6 +209,13 @@ export default {
         color: $base-color;
       }
     }
+
+    &__undertitle {
+      margin: 0;
+      line-height: 1;
+      padding-bottom: 0.5rem;
+    }
+
     &__text {
       text-transform: uppercase;
       font-size: 0.8em;
@@ -219,6 +239,9 @@ export default {
   }
   &__options {
     width: 50%;
+  }
+  &__button {
+    text-transform: uppercase;
   }
 }
 </style>

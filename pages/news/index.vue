@@ -4,7 +4,7 @@
       title="Будьте в курсе актуальных новостей."
       text="Читайте свежие новости на портале Voxball"
     >
-      <div class="container">
+      <div class="container mt-5">
         <polls-list :pollArr="pollsArray" />
         <section class="Section mt-5 mb-1">
           <div class="Section__header">
