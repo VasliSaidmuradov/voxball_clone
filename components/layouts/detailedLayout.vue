@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="detailed__button">
-      <v-btn class="detailed__link-wrap">
+      <v-btn v-if="back" class="detailed__link-wrap">
         <nuxt-link class="detailed__link" to="/">назад</nuxt-link>
       </v-btn>
     </div>
@@ -26,6 +26,10 @@ export default {
     text: {
       type: String,
       default: ''
+    },
+    back: {
+      type: Boolean,
+      default: true
     }
   }
 }
