@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="detailed__button">
-      <v-btn class="detailed__link">назад</v-btn>
+      <v-btn @click="$router.go(-1)" class="detailed__link">назад</v-btn>
     </div>
     <slot></slot>
   </div>
@@ -49,19 +49,18 @@ export default {
 
     &__title {
       text-transform: uppercase;
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       font-family: 'Times New Roman PSMT';
-      font-weight: normal;
+      font-weight: 600;
       color: $base-text-color;
       margin: 0;
     }
 
     &__text {
-      font-size: 1.2rem;
+      font-size: 1rem;
       line-height: 1.5rem;
       padding: 0;
       margin: 0;
-      width: 80%;
     }
 
     &__right {
@@ -98,8 +97,11 @@ export default {
 
   &__link {
     text-decoration: none;
-    color: white;
+    color: #fff;
     margin-left: 1em;
+    &:hover {
+      color: #fff;
+    }
     &:before {
       content: '<';
       vertical-align: middle;

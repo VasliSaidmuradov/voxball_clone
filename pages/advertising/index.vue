@@ -1,10 +1,9 @@
 <template>
   <div class="advert">
-    <detailed-layout>
-      <template v-slot:action>
-        <h1 class="advert-layout__title">Подайте заявку на рекламу,</h1>
-        <p class="advert-layout__text">и мы свяжемся с Вами в течении рабочего дня</p>
-      </template>
+    <detailed-layout
+      title="Подайте заявку на рекламу"
+      text="и мы свяжемся с Вами в течении рабочего дня"
+    >
       <v-form-layout class="mt-5 mb-5">
         <div>
           <label class="advert__label">Ваше имя:</label>

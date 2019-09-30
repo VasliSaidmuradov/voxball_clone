@@ -3,7 +3,6 @@
     <detailed-layout :title="'Мои рейтинги'">
       <rating-info class="mt-5" :poll="ratingData"></rating-info>
       <rating-card class="mb-5" :polltype="'rating'"></rating-card>
-
     </detailed-layout>
   </div>
 </template>
@@ -13,7 +12,7 @@ import detailedLayout from '@/components/layouts/detailedLayout.vue'
 import ratingInfo from '@/components/polls/poll/pollInfo.vue'
 import ratingCard from '@/components/polls/poll/pollCard.vue'
 export default {
-components: {
+  components: {
     detailedLayout,
     ratingInfo,
     ratingCard
@@ -29,12 +28,11 @@ components: {
         name: 'Иванов Иван',
         shared: 15,
         complete: false
-			}
-		}
-	}
+      }
+    }
+  }
 }
 </script>
 
 <style>
-
 </style>

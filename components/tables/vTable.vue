@@ -1,7 +1,7 @@
 <template>
   <div class="table-wrap">
     <slot name="header">
-      <div class="header">
+      <div v-if="title || text" class="header">
         <h3 class="header__title">{{ title }}</h3>
         <p class="header__text">{{ text }}</p>
       </div>
@@ -65,7 +65,7 @@ export default {
     width: 100%;
     overflow: hidden;
     overflow-y: auto;
-    max-height: 15rem;
+    // max-height: 15rem;
   }
   border-collapse: collapse;
   border-spacing: unset;
@@ -121,7 +121,7 @@ export default {
 }
 .header {
   color: $third-text-color;
-  padding: 2rem 3rem;
+  padding: 2rem 1.5rem;
   &__title {
     margin: 0;
     text-transform: uppercase;

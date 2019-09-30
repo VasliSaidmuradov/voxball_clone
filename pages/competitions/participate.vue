@@ -1,83 +1,84 @@
 <template>
-	<div class="participate">
+  <div class="participate">
     <detailed-layout :title="'Принять участие'">
-		<competitionInfo class="mr-4 ml-4" :competition="competitionData"/>
-    <v-form-layout class="participate__form mt-4 mb-5" :bottomLine="false">
-      <section class="participate__header">
-        <h2 class="participate__title">Ваша заявка на участие в конкурсе:</h2>
-      </section>
-      <section class="participate__main">
-        <div class="participate__left-block">
-          <!-- <input type="file" class="participate__input-file"> -->
-          <div v-show="$refs.upload && $refs.upload.dropActive" class="drop-active">
-            <h3>Drop files to upload</h3>
-          </div>
-          <div class="avatar-upload"  v-show="!edit">
-            <div class="text-center p-2">
-              <label for="avatar">
-                <img :src="files.length ? files[0].url : 'https://www.gravatar.com/avatar/default?s=200&r=pg&d=mm'"  class="rounded-circle" />
-                <h4 class="pt-2">or<br/>Drop files anywhere to upload</h4>
-              </label>
+      <competitionInfo class="mr-4 ml-4" :competition="competitionData" />
+      <v-form-layout class="participate__form mt-4 mb-5" :bottomLine="false">
+        <section class="participate__header">
+          <h2 class="participate__title">Ваша заявка на участие в конкурсе:</h2>
+        </section>
+        <section class="participate__main">
+          <div class="participate__left-block">
+            <!-- <input type="file" class="participate__input-file"> -->
+            <div v-show="$refs.upload && $refs.upload.dropActive" class="drop-active">
+              <h3>Drop files to upload</h3>
             </div>
-            <div class="text-center p-2">
-              <file-upload
-                extensions="gif,jpg,jpeg,png,webp"
-                accept="image/png,image/gif,image/jpeg,image/webp"
-                name="avatar"
-                class="btn btn-primary"
-                post-action="/upload/post"
-                :drop="!edit"
-                v-model="files"
-                @input-filter="inputFilter"
-                @input-file="inputFile"
-                ref="upload">
-                Upload avatar
-              </file-upload>
+            <div class="avatar-upload" v-show="!edit">
+              <div class="text-center p-2">
+                <label for="avatar">
+                  <img
+                    :src="files.length ? files[0].url : 'https://www.gravatar.com/avatar/default?s=200&r=pg&d=mm'"
+                    class="rounded-circle"
+                  />
+                  <h4 class="pt-2">
+                    or
+                    <br />Drop files anywhere to upload
+                  </h4>
+                </label>
+              </div>
+              <div class="text-center p-2">
+                <file-upload
+                  extensions="gif,jpg,jpeg,png,webp"
+                  accept="image/png, image/gif, image/jpeg, image/webp"
+                  name="avatar"
+                  class="btn btn-primary"
+                  post-action="/upload/post"
+                  :drop="!edit"
+                  v-model="files"
+                  @input-filter="inputFilter"
+                  @input-file="inputFile"
+                  ref="upload"
+                >Upload avatar</file-upload>
+              </div>
             </div>
-          </div>
 
-          <div class="avatar-edit" v-show="files.length && edit">
-            <div class="avatar-edit-image" v-if="files.length">
-              <img ref="editImage" :src="files[0].url" />
+            <div class="avatar-edit" v-show="files.length && edit">
+              <div class="avatar-edit-image" v-if="files.length">
+                <img ref="editImage" :src="files[0].url" />
+              </div>
+              <div class="text-center p-4">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  @click.prevent="$refs.upload.clear"
+                >Cancel</button>
+                <button type="submit" class="btn btn-primary" @click.prevent="editSave">Save</button>
+              </div>
             </div>
-            <div class="text-center p-4">
-              <button type="button" class="btn btn-secondary" @click.prevent="$refs.upload.clear">Cancel</button>
-              <button type="submit" class="btn btn-primary" @click.prevent="editSave">Save</button>
-            </div>
-          </div>
 
-          <!--  -->
-        </div>
-        <div class="participate__right-block">
-          <label class="participate__label">Имя</label>
-          <input
-            class="participate__input"
-            type="text"
-            v-model="participantName"
-          />
-          <label class="participate__label">Город</label>
-          <input
-            class="participate__input"
-            type="text"
-            v-model="participantCity"
-          />
-          <div class="participate__buttons">
-            <v-btn
-              @click="$navigate('/registration/personalization')"
-              class="participate__button"
-              border
-            >
-              <span>подать заявку</span>
-              <span>
-                <icon-arrow class="ml-2" />
-              </span>
-            </v-btn>
+            <!--  -->
           </div>
-        </div>
-      </section>
-    </v-form-layout>
+          <div class="participate__right-block">
+            <label class="participate__label">Имя</label>
+            <input class="participate__input" type="text" v-model="participantName" />
+            <label class="participate__label">Город</label>
+            <input class="participate__input" type="text" v-model="participantCity" />
+            <div class="participate__buttons">
+              <v-btn
+                @click="$navigate('/registration/personalization')"
+                class="participate__button"
+                border
+              >
+                <span>подать заявку</span>
+                <span>
+                  <icon-arrow class="ml-2" />
+                </span>
+              </v-btn>
+            </div>
+          </div>
+        </section>
+      </v-form-layout>
     </detailed-layout>
-	</div>
+  </div>
 </template>
 
 <script>
@@ -85,44 +86,44 @@ import detailedLayout from '@/components/layouts/detailedLayout.vue'
 import competitionInfo from '@/components/competition/competitionInfo.vue'
 import vFormLayout from '@/components/forms/vFormLayout.vue'
 import iconArrow from '@/components/icons/iconArrow.vue'
-import fileUpload from 'vue-upload-component'
+// import fileUpload from 'vue-upload-component'
 export default {
-	components: {
+  components: {
     detailedLayout,
-		competitionInfo,
+    competitionInfo,
     vFormLayout,
-    iconArrow,
-    fileUpload
-	},
-	data() {
-		return {
+    iconArrow
+  },
+  data() {
+    return {
       participantName: '',
       participantCity: '',
-			competitionData: {
+      competitionData: {
         title: '«Мое идеальное лето»',
-        description: 'Конкурс фотографий среди зарегистрированных пользователей портала Voxball.',
+        description:
+          'Конкурс фотографий среди зарегистрированных пользователей портала Voxball.',
         date: '01.09.2019',
         rules: [
-          {text: 'Сделайте смешное фото на тему «Мое идеальное лето».'},
-          {text: 'Загрузите фото на сайт'},
-          {text: 'Приглашайте своих друзей проголосовать за Ваше фото'}
+          { text: 'Сделайте смешное фото на тему «Мое идеальное лето».' },
+          { text: 'Загрузите фото на сайт' },
+          { text: 'Приглашайте своих друзей проголосовать за Ваше фото' }
         ],
         src: 'src',
         complete: false
       },
       files: []
-		}
+    }
   },
   watch: {
     edit(value) {
       if (value) {
-        this.$nextTick(function () {
+        this.$nextTick(function() {
           if (!this.$refs.editImage) {
             return
           }
           let cropper = new Cropper(this.$refs.editImage, {
             aspectRatio: 1 / 1,
-            viewMode: 1,
+            viewMode: 1
           })
           this.cropper = cropper
         })
@@ -138,7 +139,12 @@ export default {
     editSave() {
       this.edit = false
       let oldFile = this.files[0]
-      let binStr = atob(this.cropper.getCroppedCanvas().toDataURL(oldFile.type).split(',')[1])
+      let binStr = atob(
+        this.cropper
+          .getCroppedCanvas()
+          .toDataURL(oldFile.type)
+          .split(',')[1]
+      )
       let arr = new Uint8Array(binStr.length)
       for (let i = 0; i < binStr.length; i++) {
         arr[i] = binStr.charCodeAt(i)
@@ -148,13 +154,13 @@ export default {
         file,
         type: file.type,
         size: file.size,
-        active: true,
+        active: true
       })
     },
-   
+
     inputFile(newFile, oldFile, prevent) {
       if (newFile && !oldFile) {
-        this.$nextTick(function () {
+        this.$nextTick(function() {
           this.edit = true
         })
       }
@@ -183,7 +189,7 @@ export default {
 
 <style lang="scss" scoped>
 .participate {
-	background-image: url('~assets/img/registration__bg.png');
+  background-image: url('~assets/img/registration__bg.png');
   background-size: 100%;
   background-repeat: no-repeat;
   &__form {
@@ -254,10 +260,10 @@ export default {
   height: 200px;
 }
 .example-avatar .text-center .btn {
-  margin: 0 .5rem
+  margin: 0 0.5rem;
 }
 .example-avatar .avatar-edit-image {
-  max-width: 100%
+  max-width: 100%;
 }
 .example-avatar .drop-active {
   top: 0;
@@ -266,12 +272,12 @@ export default {
   left: 0;
   position: fixed;
   z-index: 9999;
-  opacity: .6;
+  opacity: 0.6;
   text-align: center;
   background: #000;
 }
 .example-avatar .drop-active h3 {
-  margin: -.5em 0 0;
+  margin: -0.5em 0 0;
   position: absolute;
   top: 50%;
   left: 0;
