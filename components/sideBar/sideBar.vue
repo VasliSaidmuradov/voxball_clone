@@ -1,11 +1,21 @@
 <template>
   <div class="side-bar">
-    <side-bar-list :title="'Популярное'" :list="sideBarPeriod" />
-    <side-bar-list class="side-bar_grey-bg" :title="'Мои категории'" :list="sideBarCategory" />
+    <side-bar-list
+      @click="timePeriod($event)"
+      :title="'Популярное'"
+      :checkbox="false"
+      :list="sideBarPeriod"
+    />
+    <side-bar-list
+      @change="toggle($event)"
+      class="side-bar_grey-bg"
+      :title="'Мои категории'"
+      :list="sideBarCategory"
+    />
     <side-bar-list
       @click="hello()"
       :title="'Пользователи'"
-      :check="false"
+      :checkbox="false"
       :list="sideBarSubscribers"
     />
   </div>
@@ -22,33 +32,40 @@ export default {
       sideBarPeriod: [
         {
           title: 'За день',
-          value: false
+          check: false,
+          name: 'day'
         },
         {
           title: 'За неделю',
-          value: true
+          check: true,
+          name: 'week'
         },
         {
           title: 'За месяц',
-          value: false
+          check: false,
+          name: 'month'
         },
         {
           title: 'За все время',
-          value: false
+          check: false,
+          name: 'all'
         }
       ],
       sideBarCategory: [
         {
+          id: 123,
           title: 'Животные',
-          value: false
+          check: false
         },
         {
+          id: 234,
           title: 'Жизнь',
-          value: true
+          check: true
         },
         {
+          id: 345,
           title: 'Здоровье',
-          value: false
+          check: false
         }
       ],
       sideBarSubscribers: [
@@ -70,13 +87,62 @@ export default {
         {
           title: 'Спорт'
         }
-      ]
+      ],
+      queryPeriod: {},
+      queryCategory: {}
     }
   },
   methods: {
     hello() {
       alert('hello')
+    },
+    timePeriod(index) {
+      this.sideBarPeriod = this.sideBarPeriod.map((item, i) => {
+        if (index === i) item.check = true
+        else item.check = false
+        return item
+      })
+      let list = []
+      this.sideBarPeriod.map((item, index) =>
+        item.check == true ? list.push(item.name) : null
+      )
+      this.queryPeriod = {
+        period: list.join(',')
+      }
+      this.$router.replace({
+        route: '/ru/feed',
+        query: {
+          period: this.queryPeriod.period,
+          category: this.queryCategory.category
+        }
+      })
+    },
+    toggle(result) {
+      this.sideBarCategory = this.sideBarCategory.map((item, i) => {
+        if (result == i) item.check = item.check
+        return item
+      })
+      let list = []
+      this.sideBarCategory.map((item, index) =>
+        item.check == true ? list.push(item.id) : null
+      )
+      this.queryCategory = {
+        category: list.join(',')
+      }
+      this.$router.replace({
+        route: '/ru/feed',
+        query: {
+          period: this.queryPeriod.period,
+          category: this.queryCategory.category
+        }
+      })
     }
+  },
+  updated() {
+    let c = this.$route.query.category
+    let p = this.$route.query.period
+    console.log('period: ', p)
+    console.log('category: ', c)
   }
 }
 </script>

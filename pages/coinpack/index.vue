@@ -1,8 +1,24 @@
 <template>
   <div class="coinpack">
-    <detailed-layout class="coinpack-layout" title="Выбирайте свой пакет v-coins">
+    <detailed-layout :back="false" class="coinpack-layout" title="Выбирайте свой пакет v-coins">
       <v-form-layout class="coinpack-form">
-        <v-table :title="tableData.title" :text="tableData.text" :items="items" :fields="fields"></v-table>
+        <v-table
+          :min-height="'20rem'"
+          :title="tableData.title"
+          :text="tableData.text"
+          :items="items"
+          :fields="fields"
+        >
+          <template slot="button">
+            <v-btn class="table-tbody__button" border>купить</v-btn>
+          </template>
+          <template slot="number" slot-scope="props" v-if="props.data">
+            <div class="d-flex align-items-center">
+              <img style="width: 2rem; height: 2rem;" src="~assets/img/poll-card__coin.png" />
+              <p class="ml-2">{{ props.data }}</p>
+            </div>
+          </template>
+        </v-table>
       </v-form-layout>
     </detailed-layout>
   </div>

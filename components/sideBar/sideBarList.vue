@@ -5,8 +5,9 @@
       v-for="(item, index) in list"
       :key="index"
       :data="item"
-      :check="check"
-      @click="click()"
+      :checkbox="checkbox"
+      @change="change(index)"
+      @click="click(index)"
       class="side-bar-list__item"
     />
   </div>
@@ -14,25 +15,29 @@
 
 <script>
 import sideBarItem from '@/components/sideBar/sideBarItem.vue'
-if (process.browser) {
-  var { ToggleButton } = require('vue-js-toggle-button')
-}
 export default {
   components: {
-    sideBarItem,
-    ToggleButton
+    sideBarItem
   },
   props: {
     title: String,
-    list: Array,
-    check: {
+    list: {
+      title: String,
+      check: Boolean
+    },
+    checkbox: {
       type: Boolean,
       default: true
-    }
+    },
+    value: String
   },
   methods: {
-    click() {
-      this.$emit('click')
+    click(index) {
+      this.$emit('click', index)
+    },
+    change(index) {
+      let result = index
+      this.$emit('change', result)
     }
   }
 }

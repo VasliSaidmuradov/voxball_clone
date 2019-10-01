@@ -1,15 +1,16 @@
 <template>
-  <div class="table-wrap">
+  <div class="table-wrap" :style="styles">
     <slot name="header">
       <div class="header">
         <h3 class="header__title">{{ title }}</h3>
         <p class="header__text">{{ text }}</p>
       </div>
     </slot>
-    <div class="table-scroll">
+    <div class="table-scroll" :style="styles">
       <table class="table">
         <thead class="table-thead">
           <tr class="table-thead__tr">
+            <th v-if="indexed" class="table-thead__index">№</th>
             <th
               v-for="(field, index) in fields"
               :key="index"
@@ -19,16 +20,9 @@
         </thead>
         <tbody class="table-tbody">
           <tr class="table-tbody__tr" v-for="(item, index) in items" :key="index">
+            <td v-if="indexed" class="table-tbody__index">{{ index+1 }}</td>
             <td class="table-tbody__td" v-for="(field, index) in fields" :key="index">
-              <span v-if="field.field!=='button'">{{ item[field.field] }}</span>
-              <v-btn
-                v-if="field.field=='button' && item.hasOwnProperty('button')"
-                class="table-tbody__button"
-                border
-              >
-                {{ item[field.field] }}
-                <icon-arrow class="ml-2" />
-              </v-btn>
+              <slot :name="field.field" :data="item[field.field]">{{ item[field.field] }}</slot>
             </td>
           </tr>
         </tbody>
@@ -53,7 +47,19 @@ export default {
       default: ''
     },
     items: Array,
-    fields: Array
+    fields: Array,
+    indexed: {
+      type: Boolean,
+      default: false
+    },
+    minHeight: String
+  },
+  computed: {
+    styles() {
+      return {
+        'min-height': this.minHeight
+      }
+    }
   }
 }
 </script>
@@ -88,6 +94,10 @@ export default {
       padding: 1.5rem 1.5rem;
       text-align: left;
     }
+    &__index {
+      padding: 1.5rem 1.5rem;
+      width: 5rem;
+    }
   }
   &-tbody {
     color: #565656;
@@ -97,6 +107,10 @@ export default {
     &__td {
       padding: 1.5rem 1.5rem;
       text-align: left;
+    }
+    &__index {
+      padding: 1.5rem 1.5rem;
+      text-align: center;
     }
     &__button {
       color: $base-text-color;

@@ -2,11 +2,11 @@
   <div class="side-bar-item">
     <div
       class="side-bar-item__title"
-      :class="{ active: data.value }"
+      :class="{ active: data.check }"
       @click="click()"
     >{{ data.title }}</div>
     <no-ssr>
-      <toggle-button v-if="check" :value="data.value" color="#82C7EB" />
+      <toggle-button @change="change()" v-if="checkbox" v-model="data.check" color="#82C7EB" />
     </no-ssr>
   </div>
 </template>
@@ -20,8 +20,11 @@ export default {
     ToggleButton
   },
   props: {
-    data: Object,
-    check: {
+    data: {
+      title: String,
+      check: Boolean
+    },
+    checkbox: {
       type: Boolean,
       default: true
     }
@@ -29,6 +32,9 @@ export default {
   methods: {
     click() {
       this.$emit('click')
+    },
+    change() {
+      this.$emit('change')
     }
   }
 }
@@ -41,6 +47,7 @@ export default {
   &__title {
     display: flex;
     align-items: flex-end;
+    cursor: pointer;
   }
 }
 .active {

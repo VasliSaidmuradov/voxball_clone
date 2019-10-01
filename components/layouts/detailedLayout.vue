@@ -42,7 +42,7 @@ export default {
   &-main {
     display: flex;
     justify-content: space-between;
-    height: 8.5rem;
+    min-height: 8.5rem;
     box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.2);
 
     &__left {
@@ -50,6 +50,8 @@ export default {
       flex-direction: column;
       align-items: flex-start;
       justify-content: center;
+      width: 40%;
+      padding: 1rem 0;
       padding-left: 2rem;
     }
 

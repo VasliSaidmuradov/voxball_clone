@@ -30,17 +30,20 @@
         </div>
         <div class="shareholders-table">
           <v-form-layout class="shareholders-table__layout">
-            <div class="shareholders-table__header">
-              <h2 class="shareholders-table__title">
-                Свои дивиденды получают уже
-                <span class="shareholders-table__text">1936</span>
-                пользователей. Осталось всего
-                <span
-                  class="shareholders-table__text"
-                >2025</span> мест.
-              </h2>
-            </div>
-            <v-table :items="items" :fields="fields"></v-table>
+            <v-table :indexed="true" :min-height="'20rem'" :items="items" :fields="fields">
+              <template v-slot:header>
+                <div class="shareholders-table__header">
+                  <h2 class="shareholders-table__title">
+                    Свои дивиденды получают уже
+                    <span class="shareholders-table__text">1936</span>
+                    пользователей. Осталось всего
+                    <span
+                      class="shareholders-table__text"
+                    >2025</span> мест.
+                  </h2>
+                </div>
+              </template>
+            </v-table>
           </v-form-layout>
         </div>
         <v-btn class="Section__button mt-5" rounded border>
@@ -147,52 +150,29 @@ export default {
       ],
       items: [
         {
-          id: '1',
-          name: 'Nurbek',
-          button: 'купить'
-        },
-        {
-          id: '2',
-          name: 'Nurbek2'
-        },
-        {
-          id: '3',
-          name: 'Nurbek3'
-        },
-        {
-          id: '4',
           name: 'Nurbek'
         },
         {
-          id: '5',
           name: 'Nurbek2'
         },
         {
-          id: '6',
+          name: 'Nurbek3'
+        },
+        {
+          name: 'Nurbek'
+        },
+        {
+          name: 'Nurbek2'
+        },
+        {
           name: 'Nurbek3'
         }
       ],
       fields: [
         {
-          field: 'id',
-          label: '№'
-        },
-        {
           field: 'name',
           label: 'Акционер'
         }
-        // {
-        //   field: 'age',
-        //   label: 'Возраст'
-        // },
-        // {
-        //   field: 'city',
-        //   label: 'Город'
-        // },
-        // {
-        //   field: 'button',
-        //   label: ''
-        // }
       ]
     }
   }
@@ -264,7 +244,7 @@ export default {
     background-size: 100%;
     background-repeat: no-repeat;
     &__layout {
-      width: 50%;
+      width: fit-content;
       padding: 0;
       padding-top: 1rem;
     }

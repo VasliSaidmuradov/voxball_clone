@@ -13,6 +13,7 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "@johmun/vue-tags-input": "^2.1.0",
     "nuxt": "^2.0.0",
     "nuxt-i18n": "^6.1.1",
     "v-click-outside": "^2.1.3",
