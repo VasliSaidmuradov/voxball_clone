@@ -1,15 +1,15 @@
 <template>
-  <div class="comment-answer">
-    <div class="comment-answer__header">
-      <span class="comment-answer__date">{{new Date().toLocaleDateString()}}</span>
-      <span class="comment-answer__user">{{'dsfdsfdsfsd sd'}}</span>
+  <div class="comments-answer">
+    <div class="comments-answer__header">
+      <span class="comments-answer__date">{{new Date().toLocaleDateString()}}</span>
+      <span class="comments-answer__user">{{'dsfdsfdsfsd sd'}}</span>
     </div>
-    <div @input="onInput" class="comment-answer__content" :contenteditable="edit"></div>
-    <div class="comment-answer__buttons">
-      <v-btn class="comment-answer__cancel">отмена</v-btn>
-      <v-btn class="comment-answer__send">отрпавить</v-btn>
-      <!-- <v-btn class="comment-answer__delete">удалить</v-btn>
-      <v-btn class="comment-answer__edit">редактировать</v-btn>-->
+    <textarea @input="onInput" :value="value" class="comments-answer__content"></textarea>
+    <div class="comments-answer__buttons">
+      <v-btn @click="cancel" class="comments-answer__cancel">отмена</v-btn>
+      <v-btn @click="send" class="comments-answer__send">отрпавить</v-btn>
+      <!-- <v-btn class="comments-answer__delete">удалить</v-btn>
+      <v-btn class="comments-answer__edit">редактировать</v-btn>-->
     </div>
   </div>
 </template>
@@ -17,7 +17,7 @@
 <script>
 export default {
   props: {
-    //   data
+    value: String
   },
   data() {
     return {
@@ -25,22 +25,24 @@ export default {
       content: []
     }
   },
-  //   mounted() {
-
-  //   },
   methods: {
     onInput(e) {
-      console.log(e.target.innerHTML)
-      this.content = e.target.innerHTML //innerText mb
+      this.$emit('input', e.target.value)
+    },
+    cancel() {
+      this.$emit('cancel')
+    },
+    send() {
+      this.$emit('send')
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.comment-answer {
+.comments-answer {
   &__content {
-    min-height: 5rem;
+    min-height: 6rem;
     line-height: 1.375;
     padding: 0.8rem;
     border: 1px solid gray;
@@ -48,6 +50,10 @@ export default {
     resize: none;
     white-space: pre-wrap;
     transition: all 0.3s;
+    width: 100%;
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
 
     &:focus {
       outline: none;
