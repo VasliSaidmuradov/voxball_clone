@@ -62,6 +62,8 @@ import proposalList from '@/components/shareholder/proposal/proposalList.vue'
 import shareholderStepsList from '@/components/shareholder/shareholderSteps/shareholderStepsList.vue'
 import vFormLayout from '@/components/forms/vFormLayout.vue'
 import vTable from '@/components/tables/vTable.vue'
+import datePicker from '@/components/inputs/datePicker.vue'
+import vEditor from '@/components/inputs/vEditor.vue'
 
 export default {
   components: {
@@ -70,7 +72,9 @@ export default {
     proposalList,
     shareholderStepsList,
     vFormLayout,
-    vTable
+    vTable,
+    datePicker,
+    vEditor
   },
   data() {
     return {
