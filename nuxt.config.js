@@ -19,7 +19,11 @@ module.exports = {
 	router: {
 		middleware: 'test'
 	},
-	plugins: ['~/plugins/global.js', '~/plugins/navigate.js'],
+	plugins: [
+		'~/plugins/global.js',
+		'~/plugins/navigate.js',
+		{ src: '~/plugins/ckEditor.js', mode: 'client' }
+	],
 	head: {
 		title: 'voxball',
 		meta: [
@@ -54,5 +58,8 @@ module.exports = {
 				})
 			}
 		}
+	},
+	server: {
+		port: 3000 // default: 3000
 	}
 }

@@ -16,7 +16,7 @@
           <lang-switcher :langs="$i18n.locales"></lang-switcher>
         </div>
         <div class="d-flex align-items-center">
-          <account />
+          <profile-icon />
         </div>
       </div>
     </div>
@@ -27,14 +27,14 @@
 import navBar from '@/components/shared/navbar.vue'
 import search from '@/components/inputs/search.vue'
 import langSwitcher from '@/components/inputs/langSwitcher.vue'
-import account from '@/components/account/account.vue'
+import profileIcon from '@/components/profile/profileIcon.vue'
 const find = (str, name) => new RegExp(str.replace(/\s/g, '|'), 'i').test(name)
 export default {
   components: {
     navBar,
     search,
     langSwitcher,
-    account
+    profileIcon
   },
   methods: {
     addPoll() {
