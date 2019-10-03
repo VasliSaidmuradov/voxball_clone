@@ -13,7 +13,7 @@
       :list="sideBarCategory"
     />
     <side-bar-list
-      @click="hello()"
+      @click="navigate()"
       :title="'Пользователи'"
       :checkbox="false"
       :list="sideBarSubscribers"
@@ -93,8 +93,8 @@ export default {
     }
   },
   methods: {
-    hello() {
-      alert('hello')
+    navigate() {
+      this.$navigate('/profile')
     },
     timePeriod(index) {
       this.sideBarPeriod = this.sideBarPeriod.map((item, i) => {

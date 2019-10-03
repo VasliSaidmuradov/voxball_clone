@@ -52,12 +52,12 @@ export default {
       type: Boolean,
       default: false
     },
-    minHeight: String
+    maxHeight: String
   },
   computed: {
     styles() {
       return {
-        'min-height': this.minHeight
+        'max-height': this.maxHeight
       }
     }
   }

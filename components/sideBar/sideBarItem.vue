@@ -6,7 +6,7 @@
       @click="click()"
     >{{ data.title }}</div>
     <no-ssr>
-      <toggle-button @change="change()" v-if="checkbox" v-model="data.check" color="#82C7EB" />
+      <toggle-button @change="change()" v-if="checkbox" v-model="data.check" color="#00b900" />
     </no-ssr>
   </div>
 </template>

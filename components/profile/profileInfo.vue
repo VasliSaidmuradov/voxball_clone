@@ -20,7 +20,16 @@
             ></star-rating>
           </no-ssr>
         </div>
-        <v-btn class="profile-info__button" rounded border>подписаться</v-btn>
+        <div class="profile-info__buttons-wrap">
+          <v-btn
+            class="profile-info__button"
+            @click="reviewOpen()"
+            v-if="profileInfo.type=='business'"
+            rounded
+            border
+          >оставить отзыв</v-btn>
+          <v-btn class="profile-info__button ml-2" rounded border>подписаться</v-btn>
+        </div>
       </div>
       <div class="profile-info__main">
         <div class="profile-info__item">
@@ -37,19 +46,94 @@
         </div>
       </div>
     </div>
+    <v-modal :showModal="showReview" @close="reviewClose()" :abort="false">
+      <template v-slot:body>
+        <div class="review">
+          <h3 class="review__title">Оцените компанию {{ profileInfo.name }}</h3>
+          <no-ssr>
+            <star-rating
+              v-model="review.rating"
+              border-color="#999"
+              border-width="1"
+              inactive-color="#fff"
+              active-color="#00b900"
+              :star-size="40"
+              :padding="1"
+              :show-rating="false"
+              class="review__rating"
+            ></star-rating>
+          </no-ssr>
+          <comments-answer class="review__answer" :type="answerType" v-model="answer" v-if="true"></comments-answer>
+          <div class="review__list">
+            <comments-list class="review__comments" :commentsList="comments"></comments-list>
+          </div>
+        </div>
+      </template>
+    </v-modal>
   </div>
 </template>
 
 <script>
 import StarRating from 'vue-star-rating'
 import iconArrow from '@/components/icons/iconArrow.vue'
+import vModal from '@/components/modals/vModal.vue'
+import commentsList from '@/components/comments/commentsList/commentsList.vue'
+import commentsAnswer from '@/components/comments/commentsAnswer.vue'
+
 export default {
   components: {
     StarRating,
-    iconArrow
+    iconArrow,
+    vModal,
+    commentsList,
+    commentsAnswer
+  },
+  data() {
+    return {
+      showReview: false,
+      review: {
+        rating: Number
+      },
+      answer: '',
+      comments: [
+        {
+          createdAt: '30.05.2019',
+          author: 'Nurbek',
+          content: 'commet 1',
+          type: 'review',
+          viewed: false
+        },
+        {
+          createdAt: '30.05.2019',
+          author: 'Nurbek',
+          content: 'commet 2',
+          type: 'review',
+          viewed: false
+        },
+        {
+          createdAt: '30.05.2019',
+          author: 'Nurbek',
+          content: 'commet 3',
+          type: 'review',
+          viewed: true
+        }
+      ],
+      answerType: {
+        title: 'отзыв',
+        name: 'review'
+      }
+    }
   },
   props: {
     profileInfo: Object
+  },
+  methods: {
+    reviewOpen() {
+      this.showReview = true
+    },
+    reviewClose() {
+      this.showReview = false
+    }
   }
 }
 </script>
@@ -58,7 +142,7 @@ export default {
 .profile-info {
   display: flex;
   justify-content: space-between;
-  margin: 0 20%;
+  margin: 0 10%;
   padding: 1rem 0;
   &__avatar {
     position: relative;
@@ -78,7 +162,7 @@ export default {
     right: 0;
   }
   &__content {
-    width: 65%;
+    width: 70%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -108,8 +192,12 @@ export default {
   }
   &__rating {
     padding-left: 2rem;
+    margin-right: auto;
     display: flex;
     align-items: center;
+  }
+  &__buttons-wrap {
+    display: flex;
   }
   &__button {
     margin-left: auto;
@@ -131,6 +219,35 @@ export default {
   &__number {
     font-size: 1.5rem;
     padding-right: 0.2rem;
+  }
+}
+.review {
+  margin: 0 3rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 30rem;
+  &__title {
+    font-size: 1.5rem;
+    color: $third-text-color;
+  }
+  &__rating {
+    padding-bottom: 2rem;
+  }
+  &__answer {
+    width: 100%;
+    padding-top: 1rem;
+    border-top: 1px solid $border-color;
+  }
+  &__list {
+    overflow-y: scroll;
+    height: 12rem;
+    width: 100%;
+  }
+  &__comments {
+    border-top: 1px solid $border-color;
+    padding-top: 1rem;
+    width: 100%;
   }
 }
 </style>

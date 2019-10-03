@@ -2,12 +2,16 @@
   <div class="comments-answer">
     <div class="comments-answer__header">
       <span class="comments-answer__date">{{new Date().toLocaleDateString()}}</span>
-      <span class="comments-answer__user">{{'dsfdsfdsfsd sd'}}</span>
+      <span class="comments-answer__user">{{'Карина Рар'}}</span>
     </div>
     <textarea @input="onInput" :value="value" class="comments-answer__content"></textarea>
     <div class="comments-answer__buttons">
-      <v-btn @click="cancel" class="comments-answer__cancel">отмена</v-btn>
-      <v-btn @click="send" class="comments-answer__send">отрпавить</v-btn>
+      <!-- Это для бизнес аккаунт отзывы -->
+      <v-btn v-if="type.name !== 'review'" @click="cancel" class="comments-answer__cancel">отмена</v-btn>
+      <v-btn @click="send" :class="{ review : type.name  }" class="comments-answer__send">
+        отрпавить {{ type.title }}
+        <icon-arrow v-if="type.name" class="ml-2" />
+      </v-btn>
       <!-- <v-btn class="comments-answer__delete">удалить</v-btn>
       <v-btn class="comments-answer__edit">редактировать</v-btn>-->
     </div>
@@ -15,9 +19,14 @@
 </template>
 
 <script>
+import iconArrow from '@/components/icons/iconArrow.vue'
 export default {
+  components: {
+    iconArrow
+  },
   props: {
-    value: String
+    value: String,
+    type: Object
   },
   data() {
     return {
@@ -89,6 +98,12 @@ export default {
     text-transform: uppercase;
     color: white;
     background-color: #00b900;
+  }
+}
+.review {
+  border: 1px solid $base-text-color;
+  &:hover {
+    border-color: $base-color;
   }
 }
 </style>
