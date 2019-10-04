@@ -25,7 +25,7 @@ export default {
   computed: {
     styles() {
       return {
-        width: `calc(100% / ${this.perPage})`
+        width: '33.3%'
       }
     }
   }
@@ -37,8 +37,5 @@ export default {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  &__item {
-    width: calc(100% / perpage);
-  }
 }
 </style>
