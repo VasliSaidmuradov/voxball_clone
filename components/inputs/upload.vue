@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="d-flex align-items-center flex-direction-column">
     <file-pond
       ref="pond"
       :class="{'myUpload': true, 'myUpload--file': file}"
