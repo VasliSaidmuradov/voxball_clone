@@ -16,7 +16,7 @@
           <lang-switcher :langs="$i18n.locales"></lang-switcher>
         </div>
         <div class="d-flex align-items-center">
-          <profile-icon />
+          <profile-icon :auth="auth" />
         </div>
       </div>
     </div>
@@ -36,6 +36,13 @@ export default {
     langSwitcher,
     profileIcon
   },
+  watch: {
+    $route(to, from) {
+      if (from.path === '/' + this.$i18n.locale + '/login/login') {
+        this.auth = true
+      }
+    }
+  },
   methods: {
     addPoll() {
       alert()
@@ -48,7 +55,8 @@ export default {
   },
   data() {
     return {
-      myVal: ''
+      myVal: '',
+      auth: false
     }
   }
 }

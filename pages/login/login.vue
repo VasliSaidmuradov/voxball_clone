@@ -14,7 +14,7 @@
             </span>
           </v-btn>
 
-          <v-btn @click="$navigate('/registration/verification')" class="login__link-wrap" border>
+          <v-btn @click="$navigate('')" class="login__link-wrap" border>
             войти
             <span>
               <icon-arrow class="arrow" />
