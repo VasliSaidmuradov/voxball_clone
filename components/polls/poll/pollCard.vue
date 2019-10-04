@@ -26,7 +26,7 @@
         ></star-rating>
       </no-ssr>
     </div>
-    <div class="poll-card__button-wrap">
+    <div v-if="!complete" class="poll-card__button-wrap">
       <div class="poll-card__pay">
         +1
         <img class="poll-card__coin-image" src="~assets/img/poll-card__coin.png" alt />
@@ -38,7 +38,7 @@
     </div>
     <div class="poll-card__footer">
       <div>Проголосовали: {{ poll.votes }}</div>
-      <div>Опрос окончится через: {{ poll.date }}</div>
+      <div v-if="!complete">Опрос окончится через: {{ poll.date }}</div>
       <div>Поделились: {{ poll.shares }} пользователей</div>
     </div>
   </div>
@@ -60,6 +60,7 @@ export default {
   },
   props: {
     answers: Array,
+    complete: Boolean,
     polltype: {
       type: String,
       default: 'poll'

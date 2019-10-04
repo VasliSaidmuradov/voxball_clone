@@ -2,10 +2,10 @@
   <div>
     <detailed-layout :title="`Результаты по запросу ${$route.query.query}`">
       <div class="mt-5 container">
-        <upload></upload>
-        <div class="mt-5">
+        <!-- <upload></upload> -->
+        <!-- <div class="mt-5">
           <add-answers-list :answersList.sync="answersList"></add-answers-list>
-        </div>
+        </div>-->
       </div>
     </detailed-layout>
   </div>
