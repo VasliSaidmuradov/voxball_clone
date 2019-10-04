@@ -9,7 +9,7 @@
 .v-select .vs__dropdown-toggle {
 	border-radius: 37px;
 	border-color: #d0d0d0;
-	height: 3rem;
+	height: 2.5rem;
 }
 .v-select .vs__open-indicator {
 	fill: #c4c4c4;
@@ -18,15 +18,17 @@
 .v-select .vs__search[placeholder] {
 	color: #2b454e;
 	text-transform: uppercase;
-	font-size: 1rem;
+	font-size: 0.9rem;
 	padding: 0.4rem 0;
-	margin: 4px 2px 0;
+	margin: 2px 2px 0;
 	padding-left: 1.5rem;
 }
 .v-select .vs__selected {
-	font-size: 1rem;
+	font-size: 0.9rem;
+	color: $base-text-color;
 	text-transform: uppercase;
 	padding: 0.4rem 0;
+	margin: 2px 2px 0;
 	padding-left: 1.5rem;
 }
 
