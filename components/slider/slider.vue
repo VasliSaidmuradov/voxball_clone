@@ -32,6 +32,7 @@
         :perPage="1"
         :navigateTo="navigateTo"
         :paginationEnabled="false"
+        autoplay
         loop
         @pageChange="pageChange($event)"
       >
@@ -60,7 +61,9 @@ if (process.browser) {
   var { Carousel, Slide } = require('vue-carousel')
 }
 export default {
-  props: ['list'],
+  props: {
+    list: Array
+  },
   data() {
     return {
       page: 0,

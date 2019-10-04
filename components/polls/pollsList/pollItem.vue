@@ -1,5 +1,5 @@
 <template>
-  <div @click="goToDetailed(pollData.complete)" class="poll-item mt-4">
+  <div @click="goToDetailed" class="poll-item">
     <div class="poll-item__main">
       <div class="poll-item__img-wrap">
         <img class="poll-item__img" src="~/assets/img/poll__image.png" alt />
@@ -54,14 +54,17 @@ export default {
     iconComplete,
     play
   },
-  props: ['data', 'pollData'],
+  props: ['pollData'],
   created() {},
   methods: {
-    goToDetailed(data) {
-      if (data) {
-        return this.$navigate('/results/123')
+    goToDetailed() {
+      if (this.pollData.type === 'rating') {
+        this.$navigate('/ratings/123')
+      } else if (this.pollData.complete) {
+        this.$navigate('/results/123')
+      } else {
+        this.$navigate('/polls/123')
       }
-      return this.$navigate('/polls/123')
     }
   }
 }

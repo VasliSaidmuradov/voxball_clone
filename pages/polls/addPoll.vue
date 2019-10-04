@@ -1,9 +1,16 @@
 <template>
-	<div></div>
+  <div>
+    <upload></upload>
+  </div>
 </template>
 
 <script>
-export default {}
+import upload from '@/components/inputs/upload'
+export default {
+  components: {
+    upload
+  }
+}
 </script>
 
 <style lang="scss" scoped></style>

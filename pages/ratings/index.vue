@@ -9,7 +9,7 @@
       </template>
       <section class="container mt-5">
         <div class="Section__header">
-          <h2 class="Section__title">Все опросы</h2>
+          <h2 class="Section__title">Все рейтинги</h2>
           <div class="Section__options">
             <v-select
               :options="options"
@@ -71,35 +71,40 @@ export default {
           video: '',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345
+          views: 345,
+          type: 'rating'
         },
         {
           category: 'Бизнес',
           video: '',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345
+          views: 345,
+          type: 'rating'
         },
         {
           category: 'Бизнес',
           video: 'Видео',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345
+          views: 345,
+          type: 'rating'
         },
         {
           category: 'Бизнес',
           video: '',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345
+          views: 345,
+          type: 'rating'
         },
         {
           category: 'Бизнес',
           video: '',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345
+          views: 345,
+          type: 'rating'
         }
       ]
     }
