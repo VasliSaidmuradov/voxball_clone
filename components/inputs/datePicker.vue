@@ -228,6 +228,7 @@ export default {
 }
 </style>
 <style lang="scss">
+// v-select
 .calendar .v-select .vs__selected {
   font-size: 1.5rem;
   padding-top: 4px;
@@ -242,13 +243,24 @@ export default {
 .calendar .vs__dropdown-menu {
   min-width: 70px;
 }
-.calendar .vs__search {
-  // display: none;
-}
 .calendar .v-select .vs__search[placeholder] {
   font-size: 1.5rem;
   color: $base-text-color;
   margin: 0;
+}
+.calendar .v-select .vs__open-indicator {
+  fill: $base-color;
+}
+
+// v-date-picker
+.calendar .c-header {
+  background-color: $base-text-color;
+  color: white;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+.calendar .calendar__title {
+  color: white;
 }
 .calendar .popover-container input {
   border-radius: 37px;
@@ -261,18 +273,6 @@ export default {
   min-width: 100px;
   width: 15rem;
   height: 3rem;
-}
-.calendar .v-select .vs__open-indicator {
-  fill: $base-color;
-}
-.calendar .c-header {
-  background-color: $base-text-color;
-  color: white;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-}
-.calendar .calendar__title {
-  color: white;
 }
 .calendar .popover-content.direction-bottom.align-left:after {
   background-color: #2b454e;

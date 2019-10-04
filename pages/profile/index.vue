@@ -39,7 +39,8 @@ export default {
         pollsnum: 5,
         ratingsnum: 6,
         subscribers: 200,
-        subscriptions: 26
+        subscriptions: 26,
+        type: 'business'
       },
       pollsArray: [
         {
@@ -92,6 +93,7 @@ export default {
   }
   &__title {
     margin: 0;
+    padding-bottom: 1rem;
     color: $third-text-color;
   }
   &__section {

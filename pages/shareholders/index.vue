@@ -30,7 +30,7 @@
         </div>
         <div class="shareholders-table">
           <v-form-layout class="shareholders-table__layout">
-            <v-table :indexed="true" :min-height="'20rem'" :items="items" :fields="fields">
+            <v-table :indexed="true" :max-height="'15rem'" :items="items" :fields="fields">
               <template v-slot:header>
                 <div class="shareholders-table__header">
                   <h2 class="shareholders-table__title">

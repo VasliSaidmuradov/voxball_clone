@@ -3,6 +3,7 @@
     <file-pond
       ref="pond"
       :class="{'myUpload': true, 'myUpload--file': file}"
+      :style="styles"
       :stylePanelLayout="file ? null : 'integrated'"
       :labelIdle="`<div class='upload-btn'>${label}</div>`"
       allow-multiple="true"
@@ -54,6 +55,22 @@ export default {
     maxFiles: {
       type: Number,
       default: 1
+    },
+    height: {
+      type: String,
+      default: '15em;'
+    },
+    width: {
+      type: String,
+      default: '15em;'
+    }
+  },
+  computed: {
+    styles() {
+      return {
+        height: this.height,
+        width: this.width
+      }
     }
   }
 }
@@ -115,7 +132,15 @@ export default {
   &--file {
     .filepond--item {
       height: auto !important;
+      background: white;
     }
+  }
+  .filepond--drop-label {
+    background: white;
+  }
+  .upload-btn {
+    color: $base-text-color;
+    border-color: $base-text-color;
   }
 }
 </style>
