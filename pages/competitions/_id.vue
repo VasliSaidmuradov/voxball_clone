@@ -12,6 +12,10 @@
           <icon-arrow class="ml-2" />
         </v-btn>
       </template>
+      <div class="competition-id__shared">
+        <span class="competition-id__shared-count">Поделились: 15</span>
+        <social />
+      </div>
       <competition-info class="mr-4 ml-4" :competition="competitionData" />
       <section class="Section mt-5 mb-2 ml-4 mr-4">
         <div class="Section__header competition-id-section__header">
@@ -72,8 +76,10 @@ import competitionInfo from '@/components/competition/competitionInfo.vue'
 import memberList from '@/components/competition/member/memberList.vue'
 import iconArrow from '@/components/icons/iconArrow.vue'
 import vSelect from 'vue-select'
-import '@/assets/css/vSelect.scss'
 import vModal from '@/components/modals/vModal.vue'
+import social from '@/components/shared/social.vue'
+
+import '@/assets/css/vSelect.scss'
 
 export default {
   components: {
@@ -82,7 +88,8 @@ export default {
     memberList,
     vSelect,
     iconArrow,
-    vModal
+    vModal,
+    social
   },
   methods: {
     openCompetitionModal() {
@@ -195,6 +202,17 @@ export default {
 
 .competition-id {
   display: flex;
+  position: relative;
+  &__shared {
+    display: flex;
+    position: absolute;
+    top: 9rem;
+    right: 0;
+  }
+  &__shared-count {
+    display: flex;
+    align-items: center;
+  }
   &-section__header {
     margin-bottom: 2.5rem;
   }

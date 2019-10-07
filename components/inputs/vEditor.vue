@@ -21,7 +21,6 @@ export default {
   data() {
     return {
       editor: ClassicEditor,
-      editorData: '',
       editorConfig: {
         toolbar: {
           items: ['numberedList', 'bulletedList']
@@ -32,15 +31,21 @@ export default {
   computed: {
     styles() {
       return {
-        width: this.width
+        width: this.width,
+        height: this.height
       }
     }
   },
   props: {
+    editorData: {
+      type: String,
+      default: '<p></p>'
+    },
     width: {
       type: String,
       default: 'max-content'
-    }
+    },
+    height: String
   }
 }
 </script>
@@ -55,7 +60,7 @@ export default {
 </style>
 <style lang="scss">
 .v-editor .ck-content {
-  height: 10rem;
+  min-height: 7rem;
 }
 .v-editor .ck-rounded-corners .ck.ck-editor__top .ck-sticky-panel .ck-toolbar {
   border-top-left-radius: 1rem;

@@ -57,6 +57,7 @@ export default {
   min-width: 210px;
   &__title {
     color: #565656;
+    margin: 0;
   }
   &__list {
     display: flex;

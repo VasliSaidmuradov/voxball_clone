@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     addPoll() {
-      alert()
+      this.$navigate('/polls/addPoll')
     },
     search() {
       if (this.myVal) {

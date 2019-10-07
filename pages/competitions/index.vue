@@ -1,8 +1,9 @@
 <template>
   <div class="competition">
-    <base-layout 
-     title="Топ лучших конкурсов на VoxBall"
-     text="Подборка конкурсов от наших партнеров">
+    <base-layout
+      title="Топ лучших конкурсов на VoxBall"
+      text="Подборка конкурсов от наших партнеров"
+    >
       <section class="competition__header mt-5 ml-4 mr-4">
         <competitionList :list="topCompetitionArr" :gap="'0'" :perPage="3"></competitionList>
       </section>
@@ -17,12 +18,34 @@
           <icon-arrow class="ml-2" />
         </v-btn>
       </section>
-      <section class="competition-section mt-5 pl-3 pr-3"> 
+      <section class="competition-section mt-3 pl-3 pr-3">
+        <div class="Section__header competition-section__header">
+          <h2 class="competition-section__title">УЧАСТВУЙТЕ В РОЗЫГРЫШАХ И ВЫЙГРЫВАЙТЕ ЦЕННЫЕ ПРИЗЫ</h2>
+          <p class="competition-section__text">Выбирайте и участвуйте в розыгрышах Voxball.</p>
+        </div>
+        <drawList :list="drawList" :gap="'20'" :perPage="4"></drawList>
+        <v-btn class="mr-auto ml-auto mt-4 mb-5" rounded border>
+          <span>Загрузить еще</span>
+          <icon-arrow class="ml-2" />
+        </v-btn>
+      </section>
+      <section class="competition-section mt-5 pl-3 pr-3">
         <div class="Section__header competition-section__header">
           <h2 class="competition-section__title">Архив завершенных конкурсов</h2>
           <p class="competition-section__text">Узнайте результаты завершенных конкурсов</p>
         </div>
         <competitionList :list="completeCompetitionArr" :gap="'10'" :perPage="4"></competitionList>
+        <v-btn class="mr-auto ml-auto mt-4 mb-5" rounded border>
+          <span>Загрузить еще</span>
+          <icon-arrow class="ml-2" />
+        </v-btn>
+      </section>
+      <section class="competition-section mt-5 pl-3 pr-3">
+        <div class="Section__header competition-section__header">
+          <h2 class="competition-section__title">Архив завершенных розыгрышей</h2>
+          <p class="competition-section__text">Узнайте результаты завершенных розыгрышей</p>
+        </div>
+        <drawList :list="completeDrawList" :gap="'10'" :perPage="4"></drawList>
         <v-btn class="mr-auto ml-auto mt-4 mb-5" rounded border>
           <span>Загрузить еще</span>
           <icon-arrow class="ml-2" />
@@ -35,36 +58,54 @@
 <script>
 import baseLayout from '@/components/layouts/baseLayout.vue'
 import competitionList from '@/components/competition/competitionList/competitionList.vue'
+import drawList from '@/components/draw/drawList/drawList.vue'
 import iconArrow from '@/components/icons/iconArrow.vue'
 
 export default {
   components: {
     baseLayout,
     competitionList,
+    drawList,
     iconArrow
   },
   data() {
     return {
       topCompetitionArr: [
-        {date: '13.09.2019', complete: false},
-        {date: '13.09.2019', complete: false},
-        {date: '13.09.2019', complete: false}
+        { date: '13.09.2019', complete: false },
+        { date: '13.09.2019', complete: false },
+        { date: '13.09.2019', complete: false }
       ],
       competitionArr: [
-        {date: '13.09.2019', complete: false},
-        {date: '13.09.2019', complete: false},
-        {date: '13.09.2019', complete: false},
-        {date: '13.09.2019', complete: false},
-        {date: '13.09.2019', complete: false},
-        {date: '13.09.2019', complete: false},
-        {date: '13.09.2019', complete: false},
-        {date: '13.09.2019', complete: false}
+        { date: '13.09.2019', complete: false },
+        { date: '13.09.2019', complete: false },
+        { date: '13.09.2019', complete: false },
+        { date: '13.09.2019', complete: false },
+        { date: '13.09.2019', complete: false },
+        { date: '13.09.2019', complete: false },
+        { date: '13.09.2019', complete: false },
+        { date: '13.09.2019', complete: false }
+      ],
+      drawList: [
+        { name: 'Draw1', date: '13.09.2019', complete: false, cost: 5 },
+        { name: 'Draw2', date: '13.09.2019', complete: false, cost: 10 },
+        { name: 'Draw3', date: '13.09.2019', complete: false, cost: 15 },
+        { name: 'Draw1', date: '13.09.2019', complete: false, cost: 5 },
+        { name: 'Draw2', date: '13.09.2019', complete: false, cost: 10 },
+        { name: 'Draw3', date: '13.09.2019', complete: false, cost: 15 },
+        { name: 'Draw1', date: '13.09.2019', complete: false, cost: 5 },
+        { name: 'Draw2', date: '13.09.2019', complete: false, cost: 10 }
       ],
       completeCompetitionArr: [
-        {date: '13.09.2019', complete: true},
-        {date: '13.09.2019', complete: true},
-        {date: '13.09.2019', complete: true},
-        {date: '13.09.2019', complete: true}
+        { date: '13.09.2019', complete: true },
+        { date: '13.09.2019', complete: true },
+        { date: '13.09.2019', complete: true },
+        { date: '13.09.2019', complete: true }
+      ],
+      completeDrawList: [
+        { name: 'Draw1', date: '13.09.2019', complete: true, cost: 5 },
+        { name: 'Draw2', date: '13.09.2019', complete: true, cost: 10 },
+        { name: 'Draw3', date: '13.09.2019', complete: true, cost: 15 },
+        { name: 'Draw1', date: '13.09.2019', complete: true, cost: 5 }
       ]
     }
   }
@@ -80,7 +121,7 @@ export default {
     &__header {
       align-items: flex-start;
       flex-direction: column;
-      padding: 1rem  0 1.6rem;
+      padding: 1rem 0 1.6rem;
       padding-left: 1%;
     }
     &__title {

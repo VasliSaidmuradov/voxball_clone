@@ -1,5 +1,5 @@
 <template>
-  <div @click="goToDetailed" class="poll-item">
+  <div @click="goToDetailed" class="poll-item mt-4">
     <div class="poll-item__main">
       <div class="poll-item__img-wrap">
         <img class="poll-item__img" src="~/assets/img/poll__image.png" alt />

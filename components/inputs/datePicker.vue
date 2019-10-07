@@ -230,7 +230,7 @@ export default {
 <style lang="scss">
 // v-select
 .calendar .v-select .vs__selected {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   padding-top: 4px;
   padding-bottom: 0;
   color: $base-text-color;
@@ -238,13 +238,13 @@ export default {
 .calendar .vs__dropdown-toggle {
   border-color: $base-text-color;
   width: 7.2rem;
-  height: 3rem;
+  height: 2.5rem;
 }
 .calendar .vs__dropdown-menu {
   min-width: 70px;
 }
 .calendar .v-select .vs__search[placeholder] {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: $base-text-color;
   margin: 0;
 }
@@ -268,11 +268,11 @@ export default {
   border-width: 1px;
   padding: 0.9rem 1.2rem;
   outline: none;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: $base-text-color;
   min-width: 100px;
   width: 15rem;
-  height: 3rem;
+  height: 2.5rem;
 }
 .calendar .popover-content.direction-bottom.align-left:after {
   background-color: #2b454e;
