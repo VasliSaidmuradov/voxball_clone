@@ -5,7 +5,7 @@
       text="Читайте свежие новости на портале Voxball"
     >
       <div class="container mt-5">
-        <polls-list :list="pollsArray" />
+        <top-news-list :list="newsArray" />
         <section class="Section mt-5 mb-1">
           <div class="Section__header">
             <h2 class="Section__title">Все опросы</h2>
@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import topNewsList from '@/components/news/topNews/topNewsList.vue'
 import newsList from '@/components/news/newsList/newsList.vue'
 import baseLayout from '@/components/layouts/baseLayout.vue'
 import pollsList from '@/components/polls/pollsList/pollsList.vue'
@@ -50,6 +51,7 @@ import '@/assets/css/vSelect.scss'
 
 export default {
   components: {
+    topNewsList,
     newsList,
     baseLayout,
     pollsList,
@@ -59,6 +61,38 @@ export default {
   data() {
     return {
       options: ['Казахстан', 'Россия', 'Китай'],
+      newsArray: [
+        {
+          title: 'Токаев объявил мораторий на создание новых госкомпаний',
+          date: '26.2.2019',
+          category: 'политика',
+          views: 345
+        },
+        {
+          title: 'Токаев объявил мораторий на создание новых госкомпаний',
+          date: '26.2.2019',
+          category: 'политика',
+          views: 345
+        },
+        {
+          title: 'Токаев объявил мораторий на создание новых госкомпаний',
+          date: '26.2.2019',
+          category: 'политика',
+          views: 349
+        },
+        {
+          title: 'Токаев объявил мораторий на создание новых госкомпаний',
+          date: '26.2.2019',
+          category: 'политика',
+          views: 341
+        },
+        {
+          title: 'Токаев объявил мораторий на создание новых госкомпаний',
+          date: '26.2.2019',
+          category: 'политика',
+          views: 342
+        }
+      ],
       news: [
         [
           {

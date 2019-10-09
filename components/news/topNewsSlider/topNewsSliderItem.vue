@@ -4,7 +4,7 @@
       <div class="news-item__info">
         <div class="d-flex align-items-center justify-content-between w-100">
           <span class="news-item__date">{{ news.date }}</span>
-          <views class="news-item__views" :count="news.views"></views>
+          <views :count="news.views"></views>
         </div>
       </div>
       <div class="news-item__img-wrap">
@@ -39,7 +39,7 @@ export default {
       },
       date: {
         type: String,
-        default: '26.2.2019'
+        default: '26.2.2019'   
       },
       views: {
         type: Number,
@@ -59,12 +59,11 @@ $color-gray_darker: #bababa;
 $family: 'Helvetica';
 
 .news-item {
-  height: 25rem;
-  min-width: 14.06rem;
-  width: 14.06rem;
+  height: 30rem;
+  min-width: 16.875rem;
+  width: 16.875rem;
   display: flex;
   flex-direction: column;
-  margin-right: auto;
   cursor: pointer;
 
   &:hover &__info {
@@ -93,10 +92,10 @@ $family: 'Helvetica';
   }
 
   &__info {
-    width: 78%;
+    width: 75%;
     height: 90%;
     padding: 0 10%;
-    padding-top: 0.5rem;
+    padding-top: 1rem;
     border: 0.35rem solid $border-color;
     display: flex;
     align-items: flex-start;
@@ -107,9 +106,8 @@ $family: 'Helvetica';
   }
 
   &__date {
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     font-weight: 500;
-    line-height: 1.1;
     width: 40%;
     height: 10%;
     display: flex;
@@ -128,7 +126,7 @@ $family: 'Helvetica';
   }
 
   &__views {
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     font-weight: 500;
     display: flex;
     flex-direction: row;
@@ -160,8 +158,8 @@ $family: 'Helvetica';
       position: absolute;
       right: 0;
       bottom: 0;
-      width: calc(100% + 0.325rem);
-      height: calc(100% + 0.325rem);
+      width: calc(100% + 0.425rem);
+      height: calc(100% + 0.425rem);
       z-index: -1;
       background-color: $base-color;
       transition: 0.5s ease;
@@ -201,7 +199,7 @@ $family: 'Helvetica';
     margin: 0;
     margin-top: 1.425rem;
     margin-bottom: 0.85rem;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     font-weight: 500;
     text-transform: uppercase;
   }

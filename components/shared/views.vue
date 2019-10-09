@@ -1,8 +1,8 @@
 <template>
   <div>
     <span class="views">
-      <span class="views__icon mr-1">
-        <icon-eyes />
+      <span class="views__icon-wrap mr-1">
+        <icon-eyes class="views__icon" />
       </span>
       <span class="views__count">{{count}}</span>
     </span>
@@ -31,10 +31,15 @@ export default {
 
   &__count {
     margin-left: 3px;
+    line-height: 1.1;
+  }
+
+  &__icon-wrap {
+    width: 0.9rem;
   }
 
   &__icon {
-    width: 0.9rem;
+    line-height: 1.1;
   }
 }
 </style>
