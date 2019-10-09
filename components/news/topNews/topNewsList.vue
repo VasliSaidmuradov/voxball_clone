@@ -1,7 +1,7 @@
 <template>
   <carousel class="top-news__carousel" :content="content" :perPage="4">
-    <Slide v-for="(newsItem, index) in newsArr" :key="index">
-      <topNewsItem :news="newsItem"></topNewsItem>
+    <Slide v-for="(item, index) in list" :key="index">
+      <topNewsItem :news="item"></topNewsItem>
     </Slide>
   </carousel>
 </template>
@@ -18,14 +18,14 @@ export default {
   components: {
     carousel,
     topNewsItem,
-    Slide,
+    Slide
   },
   props: {
     // slider: Boolean,
     content: Object,
-    newsArr: Array
+    list: Array
   },
-  render: function (createElement) {
+  render: function(createElement) {
     return createElement('carousel', this.blogTitle)
   }
 }
@@ -33,6 +33,5 @@ export default {
 
 <style lang="scss" scoped>
 .top-news {
-
 }
 </style>

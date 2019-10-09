@@ -2,7 +2,7 @@
   <div class="results">
     <base-layout :title="'Завершенные Опросы'">
       <section class="results-top container mt-5">
-        <polls-list :pollArr="pollsArray" />
+        <polls-list :list="pollsArray" />
       </section>
       <section class="Section container mt-4">
         <div class="Section__header">
@@ -26,8 +26,8 @@
           </div>
         </div>
         <div class="results-main__content">
-          <polls-list :pollArr="pollsArray" />
-          <polls-list :pollArr="pollsArray" />
+          <polls-list :list="pollsArray" />
+          <polls-list :list="pollsArray" />
         </div>
         <v-btn class="Section__button mb-5 mt-4" rounded border>
           <span>Загрузить еще</span>

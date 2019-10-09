@@ -1,43 +1,48 @@
 <template>
-  <div @click="goToDetailed" class="poll-item mt-4">
-    <div class="poll-item__main">
-      <div class="poll-item__img-wrap">
-        <img class="poll-item__img" src="~/assets/img/poll__image.png" alt />
-      </div>
-      <div class="poll-item__block">
-        <div class="poll-item__content">
-          <div class="poll-item__content-item">{{ pollData.category }}</div>
-          <div
-            v-if="pollData.video"
-            class="poll-item__content-item poll-item__content-item--video ml-2"
-          >{{ pollData.video }}</div>
+  <div>
+    <div v-if="data.type !== 'adv'" @click="goToDetailed" class="poll-item mt-4">
+      <div class="poll-item__main">
+        <div class="poll-item__img-wrap">
+          <img class="poll-item__img" src="~/assets/img/poll__image.png" alt />
         </div>
-        <div class="poll-item__title">{{ pollData.title }}</div>
-        <div class="poll-item__main-footer">
-          <div v-if="pollData.complete" class="poll-item__complete">
-            <span class="poll-item__icon-complete mr-2">
-              <icon-complete />
-            </span>
-            <span>Завершен</span>
+        <div class="poll-item__block">
+          <div class="poll-item__content">
+            <div class="poll-item__content-item">{{ data.category }}</div>
+            <div
+              v-if="data.video"
+              class="poll-item__content-item poll-item__content-item--video ml-2"
+            >{{ data.video }}</div>
           </div>
-          <v-btn link class="poll-item__link">
-            Подробнее
-            <icon-arrow class="ml-2"></icon-arrow>
-          </v-btn>
+          <div class="poll-item__title">{{ data.title }}</div>
+          <div class="poll-item__main-footer">
+            <div v-if="data.complete" class="poll-item__complete">
+              <span class="poll-item__icon-complete mr-2">
+                <icon-complete />
+              </span>
+              <span>Завершен</span>
+            </div>
+            <v-btn link class="poll-item__link">
+              Подробнее
+              <icon-arrow class="ml-2"></icon-arrow>
+            </v-btn>
+          </div>
+          <play v-if="data.video" />
         </div>
-        <play v-if="pollData.video" />
       </div>
-    </div>
-    <div class="poll-item__footer">
-      <div class="poll-item__date">{{ pollData.date }}</div>
-      <div class="views">
-        <span class="poll-item__icon-eyes mr-2">
-          <icon-eyes />
-        </span>
-        <div class="views__count">{{ pollData.views }}</div>
+      <div class="poll-item__footer">
+        <div class="poll-item__date">{{ data.date }}</div>
+        <div class="views">
+          <span class="poll-item__icon-eyes mr-2">
+            <icon-eyes />
+          </span>
+          <div class="views__count">{{ data.views }}</div>
+        </div>
       </div>
+      <div class="poll-item__move-out"></div>
     </div>
-    <div class="poll-item__move-out"></div>
+    <div v-else class="poll-item__adv mt-4">
+      <advertising />
+    </div>
   </div>
 </template>
 
@@ -46,21 +51,23 @@ import iconEyes from '@/components/icons/iconEyes.vue'
 import iconArrow from '@/components/icons/iconArrow.vue'
 import iconComplete from '@/components/icons/iconComplete.vue'
 import play from '@/components/buttons/play.vue'
+import advertising from '@/components/advertising.vue'
 
 export default {
   components: {
     iconArrow,
     iconEyes,
     iconComplete,
-    play
+    play,
+    advertising
   },
-  props: ['pollData'],
+  props: ['data'],
   created() {},
   methods: {
     goToDetailed() {
-      if (this.pollData.type === 'rating') {
+      if (this.data.type === 'rating') {
         this.$navigate('/ratings/123')
-      } else if (this.pollData.complete) {
+      } else if (this.data.complete) {
         this.$navigate('/results/123')
       } else {
         this.$navigate('/polls/123')
@@ -206,6 +213,10 @@ export default {
   }
   &__icon-eyes {
     width: 0.9rem;
+  }
+  &__adv {
+    width: 13.5rem;
+    height: 23.5rem;
   }
 }
 .views {

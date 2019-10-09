@@ -6,14 +6,14 @@
       </no-ssr>
     </section>
     <section class="Top-poll container mt-4">
-      <polls-list :pollArr="pollsArray" />
+      <polls-list :list="pollsArray" :adv="advList" :adv-n="3" />
     </section>
     <section class="Advertising container">
-      <advertising advWidth="100%" advHeight="9rem" advImage="/assets/img/advertising.jpg"></advertising>
+      <advertising width="100%" height="9rem" image="/assets/img/advertising.jpg"></advertising>
     </section>
     <section class="Top-news container">
       <no-ssr>
-        <top-news-list :content="topNewsContent" :newsArr="newsArray" />
+        <top-news-list :content="topNewsContent" :list="newsArray" />
       </no-ssr>
     </section>
     <section class="Analitic-articles container">
@@ -33,7 +33,7 @@
         </div>
         <div class="col-3">
           <div class="Advertising_m">
-            <advertising advWidth="100%" advHeight="100%" advImage="~assets/img/advertising-1.png"></advertising>
+            <advertising width="100%" height="100%" image="~assets/img/advertising-1.png"></advertising>
           </div>
         </div>
       </div>
@@ -43,7 +43,7 @@
         </div>
         <div class="col-3">
           <div class="Advertising_s">
-            <advertising advWidth="100%" advHeight="100%" advImage="~assets/img/advertising-2.png"></advertising>
+            <advertising width="100%" height="100%" image="~assets/img/advertising-2.png"></advertising>
           </div>
         </div>
       </div>
@@ -150,6 +150,7 @@ export default {
       ],
       pollsArray: [
         {
+          type: 'poll',
           category: 'Бизнес',
           video: '',
           title: 'хотите ли выполететь в космос?',
@@ -158,6 +159,7 @@ export default {
           complete: false
         },
         {
+          type: 'poll',
           category: 'Бизнес',
           video: '',
           title: 'хотите ли выполететь в космос?',
@@ -166,6 +168,7 @@ export default {
           complete: false
         },
         {
+          type: 'poll',
           category: 'Бизнес',
           video: '',
           title: 'хотите ли выполететь в космос?',
@@ -174,6 +177,7 @@ export default {
           complete: false
         },
         {
+          type: 'poll',
           category: 'Бизнес',
           video: 'Видео',
           title: 'хотите ли выполететь в космос?',
@@ -182,6 +186,36 @@ export default {
           complete: false
         },
         {
+          type: 'poll',
+          category: 'Бизнес',
+          video: 'Видео',
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345,
+          complete: false
+        }
+      ],
+      advList: [
+        {
+          type: 'adv',
+          category: 'Бизнес',
+          video: 'Видео',
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345,
+          complete: false
+        },
+        {
+          type: 'adv',
+          category: 'Бизнес',
+          video: 'Видео',
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345,
+          complete: false
+        },
+        {
+          type: 'adv',
           category: 'Бизнес',
           video: 'Видео',
           title: 'хотите ли выполететь в космос?',

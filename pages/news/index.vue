@@ -5,7 +5,7 @@
       text="Читайте свежие новости на портале Voxball"
     >
       <div class="container mt-5">
-        <polls-list :pollArr="pollsArray" />
+        <polls-list :list="pollsArray" />
         <section class="Section mt-5 mb-1">
           <div class="Section__header">
             <h2 class="Section__title">Все опросы</h2>

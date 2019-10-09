@@ -31,8 +31,8 @@
       </section>
       <section class="ratings-main container">
         <div class="ratings-main__content mb-4">
-          <polls-list :pollArr="ratingsArray" />
-          <polls-list :pollArr="ratingsArray" />
+          <polls-list :list="ratingsArray" />
+          <polls-list :list="ratingsArray" />
         </div>
         <v-btn class="Section__button mb-5 mt-5" rounded border>
           <span>Загрузить еще</span>

@@ -28,7 +28,7 @@
               </div>
             </div>
           </div>
-          <polls-list :pollArr="pollsArray"></polls-list>
+          <polls-list :list="pollsArray"></polls-list>
         </div>
       </div>
     </detailed-layout>

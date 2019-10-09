@@ -7,7 +7,7 @@
 			"
     >
       <section class="polls-top container mt-5">
-        <poll-list :pollArr="pollsArray" />
+        <poll-list :list="pollsArray" />
       </section>
       <section class="Section container mt-5">
         <div class="Section__header">
@@ -31,8 +31,7 @@
           </div>
         </div>
         <div class="polls-main__content mb-4">
-          <poll-list :pollArr="pollsArray" />
-          <poll-list :pollArr="pollsArray" />
+          <poll-list :list="pollsArrayMain" :adv="advList" :adv-n="3" />
         </div>
         <v-btn class="Section__button mb-5 mt-4" rounded border>
           <span>Загрузить еще</span>
@@ -96,6 +95,114 @@ export default {
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
           views: 345
+        }
+      ],
+      pollsArrayMain: [
+        {
+          category: 'Бизнес',
+          video: '',
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345
+        },
+        {
+          category: 'Бизнес',
+          video: '',
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345
+        },
+        {
+          category: 'Бизнес',
+          video: 'Видео',
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345
+        },
+        {
+          category: 'Бизнес',
+          video: '',
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345
+        },
+        {
+          category: 'Бизнес',
+          video: 'Видео',
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345
+        },
+        {
+          category: 'Бизнес',
+          video: '',
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345
+        },
+        {
+          category: 'Бизнес',
+          video: '',
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345
+        },
+        {
+          category: 'Бизнес',
+          video: 'Видео',
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345
+        },
+        {
+          category: 'Бизнес',
+          video: '',
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345
+        },
+        {
+          category: 'Бизнес',
+          video: 'Видео',
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345
+        },
+        {
+          category: 'Бизнес',
+          video: '',
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345
+        }
+      ],
+      advList: [
+        {
+          type: 'adv',
+          category: 'Бизнес',
+          video: 'Видео',
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345,
+          complete: false
+        },
+        {
+          type: 'adv',
+          category: 'Бизнес',
+          video: 'Видео',
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345,
+          complete: false
+        },
+        {
+          type: 'adv',
+          category: 'Бизнес',
+          video: 'Видео',
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345,
+          complete: false
         }
       ]
     }

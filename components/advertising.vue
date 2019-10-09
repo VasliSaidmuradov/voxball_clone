@@ -1,9 +1,6 @@
 <template>
   <div :style="styles" class="advertising">
-    <img 
-     src="~assets/img/advertising.jpg" 
-     class="advertising__banner"
-     alt="advertising image">
+    <img src="~assets/img/poll__adv.png" class="advertising__banner" alt="advertising image" />
   </div>
 </template>
 
@@ -12,15 +9,15 @@ export default {
   computed: {
     styles() {
       return {
-        'width': this.advWidth,
-        'height': this.advHeight 
+        width: this.width,
+        height: this.height
       }
     }
   },
   props: {
-    advImage: String,
-    advWidth: String,
-    advHeight: String
+    image: String,
+    width: String,
+    height: String
   }
 }
 </script>
