@@ -1,13 +1,13 @@
 <template>
   <div class="side-bar">
     <side-bar-list
-      @click="timePeriod($event)"
+      @click="toggle($event, 'sideBarPeriod')"
       :title="'Популярное'"
       :checkbox="false"
       :list="sideBarPeriod"
     />
     <side-bar-list
-      @change="toggle($event)"
+      @change="toggle($event, 'sideBarCategory')"
       class="side-bar_grey-bg"
       :title="'Мои категории'"
       :list="sideBarCategory"
@@ -89,60 +89,75 @@ export default {
         }
       ],
       queryPeriod: {},
-      queryCategory: {}
+      queryCategory: {},
+      sideBarPeriodNew: Array,
+      sideBarCategoryNew: Array
     }
   },
   methods: {
     navigate() {
       this.$navigate('/profile')
     },
-    timePeriod(index) {
-      this.sideBarPeriod = this.sideBarPeriod.map((item, i) => {
-        if (index === i) item.check = true
-        else item.check = false
-        return item
-      })
-      let list = []
+    toggle(event, list) {
+      if (list === 'sideBarPeriod') {
+        this.sideBarPeriod = this.sideBarPeriod.map((item, i) => {
+          if (event === i) item.check = true
+          else item.check = false
+          return item
+        })
+      }
+      if (list === 'sideBarCategory') {
+        this.sideBarCategory = this.sideBarCategory.map((item, i) => {
+          if (event === i) item.check = item.check
+          return item
+        })
+      }
+      let arr = []
       this.sideBarPeriod.map((item, index) =>
-        item.check == true ? list.push(item.name) : null
+        item.check == true ? arr.push(item.name) : null
       )
-      this.queryPeriod = {
-        period: list.join(',')
+      let queryPeriod = {
+        period: arr.join(',')
       }
-      this.$router.replace({
-        route: '/ru/feed',
-        query: {
-          period: this.queryPeriod.period,
-          category: this.queryCategory.category
-        }
-      })
-    },
-    toggle(result) {
-      this.sideBarCategory = this.sideBarCategory.map((item, i) => {
-        if (result == i) item.check = item.check
-        return item
-      })
-      let list = []
+      arr = []
       this.sideBarCategory.map((item, index) =>
-        item.check == true ? list.push(item.id) : null
+        item.check == true ? arr.push(item.id) : null
       )
-      this.queryCategory = {
-        category: list.join(',')
+      let queryCategory = {
+        category: arr.join(',')
       }
       this.$router.replace({
-        route: '/ru/feed',
         query: {
-          period: this.queryPeriod.period,
-          category: this.queryCategory.category
+          period: queryPeriod.period,
+          category: queryCategory.category
         }
       })
     }
   },
-  updated() {
-    let c = this.$route.query.category
-    let p = this.$route.query.period
-    console.log('period: ', p)
-    console.log('category: ', c)
+  created() {
+    if (this.$route.query.period) {
+      this.sideBarPeriod = this.sideBarPeriod.map((item, i) => {
+        if (item.name === this.$route.query.period) item.check = true
+        else item.check = false
+        return item
+      })
+    }
+    if (this.$route.query.category) {
+      let arr = this.$route.query.category.split(',').map(item => +item)
+      this.sideBarCategory = this.sideBarCategory.map((item, i) => {
+        if (arr.indexOf(item.id) !== -1) item.check = true
+        else item.check = false
+        return item
+      })
+    }
+    if (!this.$route.query.period || !this.$route.query.category) {
+      this.$router.replace({
+        query: {
+          period: this.sideBarPeriod[1].name,
+          category: this.sideBarCategory[1].id
+        }
+      })
+    }
   }
 }
 </script>

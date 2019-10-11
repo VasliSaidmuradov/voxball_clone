@@ -50,8 +50,6 @@ export default {
   position: relative;
   overflow: hidden;
   font-size: 0.8rem;
-  border-top-left-radius: 37px;
-  border-top-right-radius: 37px;
 
   &:hover &__img {
     filter: blur(8px);

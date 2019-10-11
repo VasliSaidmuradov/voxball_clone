@@ -184,15 +184,6 @@ export default {
           date: '19.19.2019',
           views: 345,
           complete: false
-        },
-        {
-          type: 'poll',
-          category: 'Бизнес',
-          video: 'Видео',
-          title: 'хотите ли выполететь в космос?',
-          date: '19.19.2019',
-          views: 345,
-          complete: false
         }
       ],
       advList: [

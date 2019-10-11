@@ -4,12 +4,12 @@
       <profile-info class="profile__info" :profile-info="profileInfo"></profile-info>
       <section class="Section container profile__section">
         <h2 class="Section__title profile__title">Опросы</h2>
-        <polls-list :pollArr="pollsArray"></polls-list>
+        <polls-list :list="pollsArray"></polls-list>
         <v-btn class="Section__button mt-4 mb-4" rounded border>Загрузить еще</v-btn>
       </section>
       <section class="Section container profile__section profile_border">
         <h2 class="Section__title profile__title">Рейтинги</h2>
-        <ratings-list :pollArr="pollsArray"></ratings-list>
+        <ratings-list :list="pollsArray"></ratings-list>
         <v-btn class="Section__button mt-4 mb-4" rounded border>Загрузить еще</v-btn>
       </section>
     </detailed-layout>

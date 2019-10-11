@@ -28,7 +28,7 @@
               </div>
             </div>
           </div>
-          <polls-list :list="pollsArray"></polls-list>
+          <polls-list :list="pollsArray" :adv="advList" :advN="6"></polls-list>
         </div>
       </div>
     </detailed-layout>
@@ -56,32 +56,96 @@ export default {
       filterFeed2: ['Отвеченные', 'Неотвеченные'],
       pollsArray: [
         {
+          type: 'poll',
           category: 'Бизнес',
           video: '',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345
+          views: 345,
+          complete: false
         },
         {
+          type: 'poll',
           category: 'Бизнес',
           video: '',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345
+          views: 345,
+          complete: false
         },
         {
+          type: 'poll',
+          category: 'Бизнес',
+          video: '',
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345,
+          complete: false
+        },
+        {
+          type: 'poll',
           category: 'Бизнес',
           video: 'Видео',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345
+          views: 345,
+          complete: false
         },
         {
+          type: 'poll',
+          category: 'Бизнес',
+          video: '',
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345,
+          complete: false
+        },
+        {
+          type: 'poll',
+          category: 'Бизнес',
+          video: '',
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345,
+          complete: false
+        },
+        {
+          type: 'poll',
+          category: 'Бизнес',
+          video: '',
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345,
+          complete: false
+        }
+      ],
+      advList: [
+        {
+          type: 'adv',
           category: 'Бизнес',
           video: 'Видео',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345
+          views: 345,
+          complete: false
+        },
+        {
+          type: 'adv',
+          category: 'Бизнес',
+          video: 'Видео',
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345,
+          complete: false
+        },
+        {
+          type: 'adv',
+          category: 'Бизнес',
+          video: 'Видео',
+          title: 'хотите ли выполететь в космос?',
+          date: '19.19.2019',
+          views: 345,
+          complete: false
         }
       ]
     }
