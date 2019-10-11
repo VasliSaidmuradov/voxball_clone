@@ -137,7 +137,7 @@ export default {
 
 <p>Желаем удачи и хорошей связи!</p>`,
         cost: 5,
-        date: '2019-11-24',
+        date: '2019-10-12 16:40:00',
         players: 275
       },
       drawList: [
@@ -146,33 +146,6 @@ export default {
         { name: 'Draw3', date: '13.09.2019', complete: false, cost: 15 },
         { name: 'Draw1', date: '13.09.2019', complete: false, cost: 5 }
       ]
-    }
-  },
-  computed: {
-    date() {
-      let newDate = ''
-      let date = new Date(new Date(this.data.date).getTime() - Date.now())
-      if (date.getMonth() !== null) {
-        newDate += `${date.getMonth()} мес. `
-      }
-      if (date.getDay() !== null) {
-        newDate += `${date.getDay()} дней `
-      }
-      if (date.getHours() !== null) {
-        newDate += `${date.getHours()}:`
-      } else {
-        newDate += '00:'
-      }
-      if (date.getMinutes() !== null) {
-        newDate += `${date.getMinutes()}:`
-      } else {
-        newDate += '00:'
-      }
-      newDate += `${date.getSeconds()}`
-      if (+date <= 0) {
-        newDate = 'Завершен'
-      }
-      return newDate
     }
   }
 }

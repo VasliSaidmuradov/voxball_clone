@@ -26,50 +26,48 @@ export default {
   methods: {
     timerMake() {
       this.timer = Math.round(
-        new Date(new Date(this.date).getTime() - Date.now()) / 1000
+        (new Date(this.date).getTime() - Date.now()) / 1000
       )
     },
     start() {
       if (!this.timerOn) {
         this.timerOn = setInterval(() => {
-          if (this.timer > 0) {
-            this.timer--
-          } else {
-            clearInterval(this.timerOn)
-          }
+          this.timer > 0 ? this.timer-- : clearInterval(this.timerOn)
         }, 1000)
       }
     }
   },
   computed: {
     timeCounter() {
-      this.timer
       let newDate = ''
-      let dateTimestamp = new Date(
-        new Date(this.date).getTime() - new Date().getTime()
-      )
       // draw ending date
       let date = new Date(this.date)
       let currentDate = new Date()
+      let dateTimestamp = new Date(date.getTime() - currentDate.getTime())
+      let dateTimestampHours = Math.floor(
+        (new Date(this.date).getTime() - Date.now()) / 1000 / 60 / 60
+      )
+      let seconds = dateTimestamp.getSeconds()
+      let minutes = dateTimestamp.getMinutes()
+      // without UTC give incorrect hours
+      let hours = dateTimestamp.getUTCHours()
+      let days = (dateTimestampHours - hours) / 24
 
-      if (date.getMonth() - currentDate.getMonth() > 0) {
-        newDate += `${date.getMonth() - currentDate.getMonth()} мес. `
+      if (days > 0) {
+        newDate += `${days} д `
       }
-      if (date.getDate() - currentDate.getDate() > 0) {
-        newDate += `${date.getDate() - currentDate.getDate() - 1} дней `
-      }
-      if (dateTimestamp.getHours() > 0) {
-        newDate += `${dateTimestamp.getHours() + 12}:`
-      } else {
-        newDate += '00:'
-      }
-      if (dateTimestamp.getMinutes() > 0) {
-        newDate += `${dateTimestamp.getMinutes()}:`
-      } else {
-        newDate += '00:'
-      }
-      newDate += `${dateTimestamp.getSeconds()}`
-      if (date.getTime() - currentDate.getTime() <= 0) {
+      hours === 0
+        ? (newDate += '00:')
+        : hours < 10
+        ? (newDate += `0${hours}:`)
+        : (newDate += `${hours}:`)
+      minutes === 0
+        ? (newDate += '00:')
+        : minutes < 10
+        ? (newDate += `0${minutes}:`)
+        : (newDate += `${minutes}:`)
+      seconds < 10 ? (newDate += `0${seconds}`) : (newDate += `${seconds}`)
+      if (this.timer <= 0) {
         newDate = 'Завершен'
       }
       return newDate
