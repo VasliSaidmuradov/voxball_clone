@@ -1,6 +1,6 @@
 <template>
   <div class="poll-id">
-    <detailed-layout :title="'Мои Опросы'">
+    <detailed-layout :title="'Мои Опрос'">
       <poll-info class="mt-5" :poll="pollData"></poll-info>
       <poll-card class="mb-5" :answers="answers"></poll-card>
       <comments-list :levels="1" :commentsList="comments" />
