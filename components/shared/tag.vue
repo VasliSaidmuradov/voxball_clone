@@ -15,7 +15,7 @@ export default {
   margin: 5px;
   border: 1px solid $base-text-color;
   border-radius: 30px;
-  cursor: pointer;
+  cursor: default;
 
   &:hover {
     background: $base-color;

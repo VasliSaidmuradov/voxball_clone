@@ -4,6 +4,59 @@
       <poll-info class="mt-5" :poll="pollData"></poll-info>
       <poll-card class="mb-5" :answers="answers"></poll-card>
       <comments-list :levels="1" :commentsList="comments" />
+      <div class="d-flex mr-auto ml-auto mb-5 mt-3" style="width: 50rem; justify-content: center">
+        <v-btn border rounded @click="openStatistics()">
+          статистика
+          <icon-arrow class="ml-2" />
+        </v-btn>
+        <v-btn class="ml-3" border rounded @click="openToTop()">
+          вывести опрос в топ
+          <icon-arrow class="ml-2" />
+        </v-btn>
+        <v-btn class="ml-3" border rounded>
+          расширенная аналитика
+          <icon-arrow class="ml-2" />
+        </v-btn>
+      </div>
+      <v-modal class="toTopModal" :showModal="showToTopModal" @close="closeToTop()" :abort="false">
+        <template slot="body">
+          <v-table :items="items" :fields="fields">
+            <template slot="pages">
+              <v-select
+                :options="optionsPages"
+                :searchable="true"
+                :multiple="false"
+                :placeholder="'Выбрать'"
+              ></v-select>
+            </template>
+          </v-table>
+        </template>
+        <template slot="footer">
+          <div class="toTopModal__footer">
+            Итого: {{ 1000 }} v-coins
+            <v-btn class border>
+              вывести в топ
+              <icon-arrow class="ml-2" />
+            </v-btn>
+          </div>
+        </template>
+      </v-modal>
+      <v-modal
+        class="statisticsModal"
+        :showModal="showStatisticsModal"
+        @close="closeStatistics()"
+        :abort="false"
+      >
+        <template slot="body">
+          <div class="statisticsModal__header">
+            <span class="statisticsModal__item">ответы: {{ this.pollData.answers }}</span>
+            <span class="statisticsModal__item">репосты: {{ this.pollData.repost }}</span>
+            <span class="statisticsModal__item">комментарии: {{ this.comments.length }}</span>
+            <span class="statisticsModal__item">просмотры: {{ this.pollData.views }}</span>
+          </div>
+          <poll-card class="mb-5" :answers="answers" complete></poll-card>
+        </template>
+      </v-modal>
     </detailed-layout>
   </div>
 </template>
@@ -13,16 +66,27 @@ import detailedLayout from '@/components/layouts/detailedLayout.vue'
 import pollInfo from '@/components/polls/poll/pollInfo.vue'
 import pollCard from '@/components/polls/poll/pollCard.vue'
 import commentsList from '@/components/comments/commentsList/commentsList.vue'
+import iconArrow from '@/components/icons/iconArrow.vue'
+import vModal from '@/components/modals/vModal.vue'
+import vTable from '@/components/tables/vTable.vue'
+import vSelect from 'vue-select'
+import '@/assets/css/vSelect.scss'
 
 export default {
   components: {
     detailedLayout,
     pollInfo,
     pollCard,
-    commentsList
+    commentsList,
+    iconArrow,
+    vModal,
+    vTable,
+    vSelect
   },
   data() {
     return {
+      showToTopModal: false,
+      showStatisticsModal: false,
       pollData: {
         title: '',
         category: 'бизнес',
@@ -31,13 +95,15 @@ export default {
         img: '~/assets/img/main-news-image-1.png',
         name: 'Иванов Иван',
         shared: 15,
-        complete: false
+        complete: false,
+        answers: 4,
+        repost: 15
       },
       answers: [
-        { label: 'Yes' },
-        { label: 'No' },
-        { label: 'Maybe' },
-        { label: 'Yes, No, Maybe' }
+        { label: 'Yes', percentage: 20 },
+        { label: 'No', percentage: 35 },
+        { label: 'Maybe', percentage: 15 },
+        { label: 'Yes, No, Maybe', percentage: 30 }
       ],
       comments: [
         {
@@ -112,7 +178,49 @@ export default {
             }
           ]
         }
-      ]
+      ],
+      items: [
+        {
+          period: '1 день',
+          pages: true,
+          cost: 500
+        },
+        {
+          period: '3 дня',
+          pages: true,
+          cost: 1000
+        },
+        {
+          period: '5 дней',
+          pages: true,
+          cost: 1500
+        },
+        {
+          period: '1 неделя',
+          pages: true,
+          cost: 2000
+        },
+        {
+          period: '2 недели',
+          pages: true,
+          cost: 2500
+        }
+      ],
+      fields: [
+        {
+          field: 'period',
+          label: 'Срок'
+        },
+        {
+          field: 'pages',
+          label: 'В Каких страницах'
+        },
+        {
+          field: 'cost',
+          label: 'Цена (в V-coins)'
+        }
+      ],
+      optionsPages: ['Главная', 'Опросы']
     }
   },
   created() {
@@ -126,10 +234,57 @@ export default {
         }
         return { ...item, level }
       })
+    },
+    openToTop() {
+      this.showToTopModal = true
+    },
+    closeToTop() {
+      this.showToTopModal = false
+    },
+    openStatistics() {
+      this.showStatisticsModal = true
+    },
+    closeStatistics() {
+      this.showStatisticsModal = false
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.toTopModal {
+  &__footer {
+    width: 100%;
+    padding: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+.statisticsModal {
+  &__header {
+    display: flex;
+    justify-content: center;
+    background-color: $base-color;
+    margin-top: 2rem;
+  }
+  &__item {
+    color: white;
+    padding: 1rem;
+  }
+}
+</style>
+<style>
+.toTopModal .v-modal__wrap {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  width: fit-content;
+}
+.toTopModal .table-wrap {
+  min-width: 50rem;
+}
+.toTopModal .table-tbody__td {
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+}
 </style>

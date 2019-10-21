@@ -1,24 +1,18 @@
 <template>
   <div class="v-modal" v-show="showModal">
     <div class="v-modal__wrap">
-      <h3 class="v-modal__title">
-        {{ title }}
-      </h3>
+      <h3 class="v-modal__title">{{ title }}</h3>
       <div class="v-modal__close-btn" @click="$emit('close')">
         <icon-close class="v-modal__close-icon" />
       </div>
       <section>
-        <slot name="body">
-
-        </slot>
+        <slot name="body"></slot>
       </section>
       <section class="v-modal__footer">
         <v-btn v-if="abort" @click="$emit('close')" border>
           <span>Отмена</span>
         </v-btn>
-        <slot name="footer">
-            
-        </slot>
+        <slot name="footer"></slot>
       </section>
     </div>
   </div>
@@ -52,8 +46,8 @@ export default {
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: rgba( 0, 0, 0, 0.3);
-  &__wrap{
+  background-color: rgba(0, 0, 0, 0.3);
+  &__wrap {
     border-top: 5px solid $base-color;
     border-bottom: 5px solid $base-color;
     background-color: white;
