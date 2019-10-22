@@ -10,6 +10,12 @@
     style="enable-background:new 0 0 47.971 47.971;"
     xml:space="preserve"
   >
+    <defs>
+      <linearGradient id="Gradient3" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="0%" stop-color="#2b454e" />
+        <stop offset="100%" stop-color="#00b900" />
+      </linearGradient>
+    </defs>
     <g>
       <path
         d="M28.228,23.986L47.092,5.122c1.172-1.171,1.172-3.071,0-4.242c-1.172-1.172-3.07-1.172-4.242,0L23.986,19.744L5.121,0.88
