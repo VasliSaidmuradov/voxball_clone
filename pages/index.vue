@@ -73,6 +73,8 @@ if (process.browser) {
   var { Slide } = require('vue-carousel')
 }
 
+import mNav from '@/components/mNav/mNav.vue'
+
 export default {
   components: {
     sliderItem,
@@ -83,7 +85,8 @@ export default {
     competitionCard,
     analyticalCard,
     advertising,
-    pollsList
+    pollsList,
+    mNav
   },
   data() {
     return {
@@ -153,37 +156,45 @@ export default {
           type: 'poll',
           category: 'Бизнес',
           video: '',
-          title: 'хотите ли выполететь в космос?',
+          title: 'хотите ли вы полететь в космос?',
           date: '19.19.2019',
           views: 345,
-          complete: false
+          complete: false,
+          vouted: false,
+          bgImage: '/_nuxt/assets/img/poll__image.png'
         },
         {
           type: 'poll',
           category: 'Бизнес',
           video: '',
-          title: 'хотите ли выполететь в космос?',
+          title: 'хотите ли вы полететь в космос?',
           date: '19.19.2019',
           views: 345,
-          complete: false
+          complete: true,
+          vouted: true,
+          bgImage: '/_nuxt/assets/img/poll__image.png'
         },
         {
           type: 'poll',
           category: 'Бизнес',
           video: '',
-          title: 'хотите ли выполететь в космос?',
+          title: 'КАК СТОИТ БОРОТЬСЯ С ЛЮДЬМИ, КОТОРЫЕ ПОСТОЯННО ОПАЗДЫВАЮТ?',
           date: '19.19.2019',
           views: 345,
-          complete: false
+          complete: false,
+          vouted: true,
+          bgImage: '/_nuxt/assets/img/poll__image2.png'
         },
         {
           type: 'poll',
           category: 'Бизнес',
           video: 'Видео',
-          title: 'хотите ли выполететь в космос?',
+          title: 'хотите ли вы полететь в космос?',
           date: '19.19.2019',
           views: 345,
-          complete: false
+          complete: false,
+          vouted: true,
+          bgImage: '/_nuxt/assets/img/poll__image.png'
         }
       ],
       advList: [
@@ -191,28 +202,34 @@ export default {
           type: 'adv',
           category: 'Бизнес',
           video: 'Видео',
-          title: 'хотите ли выполететь в космос?',
+          title: 'хотите ли вы полететь в космос?',
           date: '19.19.2019',
           views: 345,
-          complete: false
+          complete: false,
+          vouted: false,
+          bgImage: '/_nuxt/assets/img/poll__image.png'
         },
         {
           type: 'adv',
           category: 'Бизнес',
           video: 'Видео',
-          title: 'хотите ли выполететь в космос?',
+          title: 'хотите ли вы полететь в космос?',
           date: '19.19.2019',
           views: 345,
-          complete: false
+          complete: false,
+          vouted: false,
+          bgImage: '/_nuxt/assets/img/poll__image.png'
         },
         {
           type: 'adv',
           category: 'Бизнес',
           video: 'Видео',
-          title: 'хотите ли выполететь в космос?',
+          title: 'хотите ли вы полететь в космос?',
           date: '19.19.2019',
           views: 345,
-          complete: false
+          complete: false,
+          vouted: false,
+          bgImage: '/_nuxt/assets/img/poll__image.png'
         }
       ]
     }
