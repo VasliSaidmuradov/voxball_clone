@@ -44,20 +44,8 @@
             <div class="cabinet-info__email">{{ cabinetInfo.email }}</div>
           </div>
         </div>
-        <div class="cabinet-info__item-wrap">
-          <div
-            class="cabinet-info__item"
-            @click="$navigate('/cabinet/mypolls')"
-          >{{ cabinetInfo.polls }} Опросов</div>
-          <div
-            class="cabinet-info__item"
-            @click="$navigate('/cabinet/myratings')"
-          >{{ cabinetInfo.ratings }} Рейтингов</div>
-          <div class="cabinet-info__item">{{ cabinetInfo.subscribers }} Подписчиков</div>
-          <div class="cabinet-info__item">{{ cabinetInfo.subscriptions}} Подписок</div>
-          <div class="cabinet-info__item">{{ cabinetInfo.reposts }} Репостов</div>
-          <div class="cabinet-info__item">{{ cabinetInfo.pollsAnswers }} Ответов получили</div>
-          <div class="cabinet-info__item">{{ cabinetInfo.myAnswers }} Ответов дали</div>
+        <div class="cabinet-info__list-wrap">
+          <cabinet-info-list :list="cabinetInfoList" />
         </div>
       </div>
     </div>
@@ -67,11 +55,13 @@
 <script>
 import upload from '@/components/inputs/upload.vue'
 import StarRating from 'vue-star-rating'
+import cabinetInfoList from '@/components/cabinet/cabinetInfoList/cabinetInfoList.vue'
 
 export default {
   components: {
     upload,
-    StarRating
+    StarRating,
+    cabinetInfoList
   },
   data() {
     return {
@@ -88,8 +78,28 @@ export default {
         subscriptions: 5,
         reposts: 26,
         pollsAnswers: 25000,
-        myAnswers: 200
-      }
+        myAnswers: 200,
+        competitions: 2,
+        draw: 16
+      },
+      cabinetInfoLinks: [
+        { name: 'polls', link: '/cabinet/mypolls' },
+        { name: 'ratings', link: '/cabinet/myratings' },
+        { name: 'subscribers', link: '/cabinet' },
+        { name: 'subscriptions', link: '/cabinet' },
+        { name: 'draw', link: '/cabinet' },
+        { name: 'reposts', link: '/reposts' },
+        { name: 'pollsAnswers', link: '/cabinet' },
+        { name: 'myAnswers', link: '/cabinet' }
+      ]
+    }
+  },
+  computed: {
+    cabinetInfoList: function() {
+      return this.cabinetInfoLinks.map(x => {
+        x.count = this.cabinetInfo[x.name]
+        return x
+      })
     }
   }
 }
@@ -208,23 +218,10 @@ export default {
     padding: 0.5rem 1rem;
     line-height: 1.2;
   }
-  &__item-wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    flex-wrap: wrap;
+  &__list-wrap {
     margin-left: auto;
     width: 27rem;
     height: 11rem;
-  }
-  &__item {
-    width: 13rem;
-    height: auto;
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-    border: 1px solid $base-text-color;
-    cursor: pointer;
   }
 }
 .review {
