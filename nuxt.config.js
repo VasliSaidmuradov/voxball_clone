@@ -1,21 +1,28 @@
 module.exports = {
 	modules: [
 		'@nuxtjs/style-resources',
-		[
-			'nuxt-i18n',
-			{
-				lazy: true,
-				locales: [
-					{ name: 'рус', code: 'ru', file: 'ru.js' },
-					{ name: 'қаз', code: 'kk', file: 'kk.js' },
-					{ name: 'eng', code: 'en', file: 'en.js' }
-				],
-				strategy: 'prefix',
-				langDir: 'lang/',
-				defaultLocale: 'ru'
-			}
-		]
+		'nuxt-i18n',
+		'@nuxtjs/axios',
+		'@nuxtjs/auth'
 	],
+	styleResources: {
+		scss: ['@/assets/css/variables.scss']
+	},
+	i18n: {
+		lazy: true,
+		locales: [
+			{ name: 'рус', code: 'ru', file: 'ru.js' },
+			{ name: 'қаз', code: 'kk', file: 'kk.js' },
+			{ name: 'eng', code: 'en', file: 'en.js' }
+		],
+		strategy: 'prefix',
+		langDir: 'lang/',
+		defaultLocale: 'ru'
+	},
+	axios: {
+		baseURL: 'https://cms.nova.st/api/v1',
+		credentials: true
+	},
 	router: {
 		middleware: 'test'
 	},
@@ -34,20 +41,9 @@ module.exports = {
 		link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
 	},
 	css: ['@/assets/css/main.scss'],
-	styleResources: {
-		scss: ['@/assets/css/variables.scss']
-	},
-	/*
-	 ** Customize the progress bar color
-	 */
+
 	loading: { color: '#3B8070' },
-	/*
-	 ** Build configuration
-	 */
 	build: {
-		/*
-		 ** Run ESLint on save
-		 */
 		extend(config, { isDev, isClient }) {
 			if (isDev && isClient) {
 				config.module.rules.push({

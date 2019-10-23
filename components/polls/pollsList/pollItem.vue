@@ -7,7 +7,7 @@
         </div>
         <div class="poll-item__block">
           <div class="poll-item__content">
-            <div class="poll-item__content-item">{{ data.category }}</div>
+            <div class="poll-item__content-item">{{ data.category || 'нет категории' }}</div>
             <div
               v-if="data.video"
               class="poll-item__content-item poll-item__content-item--video ml-2"
@@ -59,7 +59,7 @@ export default {
     iconEyes,
     iconComplete,
     play,
-    advertising
+    advertising,
   },
   props: ['data'],
   created() {},
@@ -72,8 +72,8 @@ export default {
       } else {
         this.$navigate('/polls/123')
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

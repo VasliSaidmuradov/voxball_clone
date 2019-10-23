@@ -69,6 +69,7 @@ import carousel from '@/components/carousel/carousel.vue'
 import competitionCard from '@/components/cards/competitionCard.vue'
 import analyticalCard from '@/components/cards/analyticalCard.vue'
 import advertising from '@/components/advertising.vue'
+import axios from 'axios'
 if (process.browser) {
   var { Slide } = require('vue-carousel')
 }
@@ -83,70 +84,69 @@ export default {
     competitionCard,
     analyticalCard,
     advertising,
-    pollsList
+    pollsList,
   },
   data() {
     return {
       page: 0,
       pollCards: [
         {
-          name: 'sdfds fdsf dsfsd f '
-        }
+          name: 'sdfds fdsf dsfsd f ',
+        },
       ],
       sliderInfo: [
         {
           title: 'Участвуй в опросе',
           desc:
             'или создай свои опросы пройдя регистрацию. И зарабатывай коины. Нам важен твой голос.',
-          img: '/assets/img/slider-photo-2.png'
+          img: '/assets/img/slider-photo-2.png',
         },
         {
           title: 'Или участвуйте',
           desc:
             'или создай свои опросы пройдя регистрацию. И зарабатывай коины. Нам важен твой голос.',
-          img: '/assets/img/slider-photo-2.png'
-        }
+          img: '/assets/img/slider-photo-2.png',
+        },
       ],
       topNewsContent: {
         title: 'Новости, которые сегодня обсуждают',
-        text:
-          'Читайте новости и участвуйте в опросах. Ваш ответ принесёт Вам деньги!'
+        text: 'Читайте новости и участвуйте в опросах. Ваш ответ принесёт Вам деньги!',
       },
       topCompetitionContent: {
         title: 'Топ лучших конкурсов на Voxball',
-        text: 'Участвуйте в конкурсах и выигрывайте ценные призы'
+        text: 'Участвуйте в конкурсах и выигрывайте ценные призы',
       },
       newsArray: [
         {
           title: 'Токаев объявил мораторий на создание новых госкомпаний',
           date: '26.2.2019',
           category: 'политика',
-          views: 345
+          views: 345,
         },
         {
           title: 'Токаев объявил мораторий на создание новых госкомпаний',
           date: '26.2.2019',
           category: 'политика',
-          views: 345
+          views: 345,
         },
         {
           title: 'Токаев объявил мораторий на создание новых госкомпаний',
           date: '26.2.2019',
           category: 'политика',
-          views: 349
+          views: 349,
         },
         {
           title: 'Токаев объявил мораторий на создание новых госкомпаний',
           date: '26.2.2019',
           category: 'политика',
-          views: 341
+          views: 341,
         },
         {
           title: 'Токаев объявил мораторий на создание новых госкомпаний',
           date: '26.2.2019',
           category: 'политика',
-          views: 342
-        }
+          views: 342,
+        },
       ],
       pollsArray: [
         {
@@ -156,7 +156,7 @@ export default {
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
           views: 345,
-          complete: false
+          complete: false,
         },
         {
           type: 'poll',
@@ -165,7 +165,7 @@ export default {
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
           views: 345,
-          complete: false
+          complete: false,
         },
         {
           type: 'poll',
@@ -174,7 +174,7 @@ export default {
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
           views: 345,
-          complete: false
+          complete: false,
         },
         {
           type: 'poll',
@@ -183,8 +183,8 @@ export default {
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
           views: 345,
-          complete: false
-        }
+          complete: false,
+        },
       ],
       advList: [
         {
@@ -194,7 +194,7 @@ export default {
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
           views: 345,
-          complete: false
+          complete: false,
         },
         {
           type: 'adv',
@@ -203,7 +203,7 @@ export default {
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
           views: 345,
-          complete: false
+          complete: false,
         },
         {
           type: 'adv',
@@ -212,12 +212,12 @@ export default {
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
           views: 345,
-          complete: false
-        }
-      ]
+          complete: false,
+        },
+      ],
     }
   },
-  methods: {}
+  methods: {},
 }
 </script>
 
