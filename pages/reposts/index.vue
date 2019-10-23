@@ -14,6 +14,9 @@
             <span class="reposts__count">{{ 5 }}</span>
           </div>
         </template>
+        <template slot="name" slot-scope="props" v-if="props.data">
+          <div class="reposts__link" @click="$navigate(props.data.src)">{{ props.data.text }}</div>
+        </template>
         <template slot="vk-head">
           <div class="reposts__icon">
             <icon-vk />
@@ -70,7 +73,10 @@ export default {
       reposts: [{ name: 'Как долго Димаш останется на Музыкальном олимпе' }],
       items: [
         {
-          name: 'Как долго Димаш останется на Музыкальном олимпе?',
+          name: {
+            text: 'Как долго Димаш останется на Музыкальном олимпе?',
+            src: '/polls/123'
+          },
           vk: 100,
           facebook: 50,
           whatsapp: 10,
@@ -78,7 +84,10 @@ export default {
           telegram: 30
         },
         {
-          name: 'Как долго Димаш останется на Музыкальном олимпе?',
+          name: {
+            text: 'Как долго Димаш останется на Музыкальном олимпе?',
+            src: '/polls/123'
+          },
           vk: 100,
           facebook: 50,
           whatsapp: 10,
@@ -86,7 +95,10 @@ export default {
           telegram: 30
         },
         {
-          name: 'Как долго Димаш останется на Музыкальном олимпе?',
+          name: {
+            text: 'Как долго Димаш останется на Музыкальном олимпе?',
+            src: '/polls/123'
+          },
           vk: 100,
           facebook: 50,
           whatsapp: 10,
@@ -94,7 +106,10 @@ export default {
           telegram: 30
         },
         {
-          name: 'Как долго Димаш останется на Музыкальном олимпе?',
+          name: {
+            text: 'Как долго Димаш останется на Музыкальном олимпе?',
+            src: '/polls/123'
+          },
           vk: 100,
           facebook: 50,
           whatsapp: 10,
@@ -102,7 +117,10 @@ export default {
           telegram: 30
         },
         {
-          name: 'Как долго Димаш останется на Музыкальном олимпе?',
+          name: {
+            text: 'Как долго Димаш останется на Музыкальном олимпе?',
+            src: '/polls/123'
+          },
           vk: 100,
           facebook: 50,
           whatsapp: 10,
@@ -110,7 +128,10 @@ export default {
           telegram: 30
         },
         {
-          name: 'Как долго Димаш останется на Музыкальном олимпе?',
+          name: {
+            text: 'Как долго Димаш останется на Музыкальном олимпе?',
+            src: '/polls/123'
+          },
           vk: 100,
           facebook: 50,
           whatsapp: 10,
@@ -118,7 +139,10 @@ export default {
           telegram: 30
         },
         {
-          name: 'Как долго Димаш останется на Музыкальном олимпе?',
+          name: {
+            text: 'Как долго Димаш останется на Музыкальном олимпе?',
+            src: '/polls/123'
+          },
           vk: 100,
           facebook: 50,
           whatsapp: 10,
@@ -178,6 +202,9 @@ export default {
   }
   &__table {
     width: 60rem;
+  }
+  &__link {
+    cursor: pointer;
   }
   &__icon {
     width: 1.5rem;

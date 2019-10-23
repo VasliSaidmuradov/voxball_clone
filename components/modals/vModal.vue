@@ -9,10 +9,10 @@
         <slot name="body"></slot>
       </section>
       <section class="v-modal__footer">
+        <slot name="footer"></slot>
         <v-btn v-if="abort" @click="$emit('close')" border>
           <span>Отмена</span>
         </v-btn>
-        <slot name="footer"></slot>
       </section>
     </div>
   </div>

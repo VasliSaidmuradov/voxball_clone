@@ -85,8 +85,8 @@ export default {
       cabinetInfoLinks: [
         { name: 'polls', link: '/cabinet/mypolls' },
         { name: 'ratings', link: '/cabinet/myratings' },
-        { name: 'subscribers', link: '/cabinet' },
-        { name: 'subscriptions', link: '/cabinet' },
+        { name: 'subscribers', link: '/subscribers' },
+        { name: 'subscriptions', link: '/subscriptions' },
         { name: 'draw', link: '/cabinet' },
         { name: 'reposts', link: '/reposts' },
         { name: 'pollsAnswers', link: '/cabinet' },
