@@ -23,30 +23,7 @@
           class="Analitic-articles__text"
         >Мнения и факты авторитетных журналистов и популярных блогеров</p>
       </div>
-      <div class="row">
-        <div class="col-6 d-flex flex-column justify-content-between">
-          <analytical-card class="Analitic-articles__card"></analytical-card>
-          <analytical-card class="Analitic-articles__card"></analytical-card>
-        </div>
-        <div class="col-3">
-          <analytical-card class="Analitic-articles__card" column></analytical-card>
-        </div>
-        <div class="col-3">
-          <div class="Advertising_m">
-            <advertising width="100%" height="100%" image="~assets/img/advertising-1.png"></advertising>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-9 d-flex flex-column justify-content-between">
-          <analytical-card img-width="31%" class="Analitic-articles__card"></analytical-card>
-        </div>
-        <div class="col-3">
-          <div class="Advertising_s">
-            <advertising width="100%" height="100%" image="~assets/img/advertising-2.png"></advertising>
-          </div>
-        </div>
-      </div>
+      <news-list class="mb-4" v-for="(neww, index) in news" :key="index" :news="neww"></news-list>
     </section>
     <section class="Top-competition container">
       <no-ssr>
@@ -69,10 +46,12 @@ import carousel from '@/components/carousel/carousel.vue'
 import competitionCard from '@/components/cards/competitionCard.vue'
 import analyticalCard from '@/components/cards/analyticalCard.vue'
 import advertising from '@/components/advertising.vue'
-import axios from 'axios'
+import newsList from '@/components/news/newsList/newsList.vue'
 if (process.browser) {
   var { Slide } = require('vue-carousel')
 }
+
+import mNav from '@/components/mNav/mNav.vue'
 
 export default {
   components: {
@@ -85,6 +64,8 @@ export default {
     analyticalCard,
     advertising,
     pollsList,
+    mNav,
+    newsList
   },
   data() {
     return {
@@ -153,68 +134,110 @@ export default {
           type: 'poll',
           category: 'Бизнес',
           video: '',
-          title: 'хотите ли выполететь в космос?',
+          title: 'хотите ли вы полететь в космос?',
           date: '19.19.2019',
           views: 345,
           complete: false,
+          vouted: false,
+          bgImage: '/_nuxt/assets/img/poll__image.png'
         },
         {
           type: 'poll',
           category: 'Бизнес',
           video: '',
-          title: 'хотите ли выполететь в космос?',
+          title: 'хотите ли вы полететь в космос?',
           date: '19.19.2019',
           views: 345,
-          complete: false,
+          complete: true,
+          vouted: true,
+          bgImage: '/_nuxt/assets/img/poll__image.png'
         },
         {
           type: 'poll',
           category: 'Бизнес',
           video: '',
-          title: 'хотите ли выполететь в космос?',
+          title: 'КАК СТОИТ БОРОТЬСЯ С ЛЮДЬМИ, КОТОРЫЕ ПОСТОЯННО ОПАЗДЫВАЮТ?',
           date: '19.19.2019',
           views: 345,
           complete: false,
+          vouted: true,
+          bgImage: '/_nuxt/assets/img/poll__image2.png'
         },
         {
           type: 'poll',
           category: 'Бизнес',
           video: 'Видео',
-          title: 'хотите ли выполететь в космос?',
+          title: 'хотите ли вы полететь в космос?',
           date: '19.19.2019',
           views: 345,
           complete: false,
-        },
+          vouted: true,
+          bgImage: '/_nuxt/assets/img/poll__image.png'
+        }
       ],
       advList: [
         {
           type: 'adv',
           category: 'Бизнес',
           video: 'Видео',
-          title: 'хотите ли выполететь в космос?',
+          title: 'хотите ли вы полететь в космос?',
           date: '19.19.2019',
           views: 345,
           complete: false,
+          vouted: false,
+          bgImage: '/_nuxt/assets/img/poll__image.png'
         },
         {
           type: 'adv',
           category: 'Бизнес',
           video: 'Видео',
-          title: 'хотите ли выполететь в космос?',
+          title: 'хотите ли вы полететь в космос?',
           date: '19.19.2019',
           views: 345,
           complete: false,
+          vouted: false,
+          bgImage: '/_nuxt/assets/img/poll__image.png'
         },
         {
           type: 'adv',
           category: 'Бизнес',
           video: 'Видео',
-          title: 'хотите ли выполететь в космос?',
+          title: 'хотите ли вы полететь в космос?',
           date: '19.19.2019',
           views: 345,
           complete: false,
-        },
+          vouted: false,
+          bgImage: '/_nuxt/assets/img/poll__image.png'
+        }
       ],
+      news: [
+        [
+          {
+            name: 'dsfsdfdsf'
+          },
+          {
+            name: 'dsfsdfdsfsdf'
+          },
+          {
+            name: 'dsfsdfdsfsdf'
+          },
+          {
+            name: 'dsfsdfdsfsdf'
+          },
+          {
+            name: 'dsfsdfdsfsdf'
+          },
+          {
+            name: 'dsfsdfdsfsdf'
+          },
+          {
+            name: 'dsfsdfdsfsdf'
+          },
+          {
+            name: 'dsfsdfdsfsdf'
+          }
+        ]
+      ]
     }
   },
   methods: {},

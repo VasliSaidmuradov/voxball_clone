@@ -3,28 +3,35 @@
     <div v-if="data.type !== 'adv'" @click="goToDetailed" class="poll-item mt-4">
       <div class="poll-item__main">
         <div class="poll-item__img-wrap">
-          <img class="poll-item__img" src="~/assets/img/poll__image.png" alt />
+          <img class="poll-item__img" src="~/assets/img/poll__image2.png" alt />
+          <!-- <img class="poll-item__img" :src="data.bgImage" alt /> -->
         </div>
         <div class="poll-item__block">
           <div class="poll-item__content">
-            <div class="poll-item__content-item">{{ data.category || 'нет категории' }}</div>
-            <div
-              v-if="data.video"
-              class="poll-item__content-item poll-item__content-item--video ml-2"
-            >{{ data.video }}</div>
+            <div class="poll-item__content-item">{{ data.category }}</div>
+            <div v-if="data.vouted" class="poll-item__vouted">
+              <span class="poll-item__icon-vouted">
+                <icon-complete />
+              </span>
+            </div>
           </div>
           <div class="poll-item__title">{{ data.title }}</div>
           <div class="poll-item__main-footer">
-            <div v-if="data.complete" class="poll-item__complete">
-              <span class="poll-item__icon-complete mr-2">
-                <icon-complete />
-              </span>
-              <span>Завершен</span>
-            </div>
             <v-btn link class="poll-item__link">
               Подробнее
               <icon-arrow class="ml-2"></icon-arrow>
             </v-btn>
+            <div class="poll-item__line">
+              <div v-if="data.complete" class="poll-item__complete">
+                Завершен
+              </div>
+            </div>
+            <div class="poll-item__author">
+              <div class="poll-item__author-img-wrap">
+                <img src="~/assets/img/poll_author.png" alt class="poll-item__author-img" />
+              </div>
+              <span class="poll-item__author-name">Ешенбай Асыл</span>
+            </div>
           </div>
           <play v-if="data.video" />
         </div>
@@ -92,8 +99,8 @@ export default {
 
     &-footer {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      flex-direction: column;
+      align-items: flex-end;
       position: absolute;
       bottom: 0;
       width: 100%;
@@ -104,7 +111,9 @@ export default {
   }
 
   &__link {
-    margin: 0 1em;
+    margin: 0 .3em;
+    color: $base-color;
+    text-decoration: none;
   }
 
   &:hover &__img {
@@ -115,7 +124,7 @@ export default {
     height: 6rem;
   }
   &:hover &__link {
-    color: $base-color;
+    color: #fff;
   }
   &:hover &__move-out::after {
     top: -30px;
@@ -142,7 +151,20 @@ export default {
   }
 
   &__complete {
-    padding: 0.4em;
+    padding: 0.3em 2rem;
+    background: $base-color;
+    width: fit-content;
+    float: right;
+    text-transform: none;
+    font-size: .6rem;
+  }
+  &__vouted {
+    width: 2em;
+    height: 2em;
+    padding: 0;
+    border-radius: 50%;
+    justify-content: center;
+    color: white;
     background: $base-color;
     display: flex;
     align-items: center;
@@ -165,6 +187,7 @@ export default {
     font-size: 0.7rem;
     line-height: 1.2;
     display: flex;
+    justify-content: space-between;
   }
 
   &__content-item {
@@ -191,6 +214,34 @@ export default {
     background: white;
   }
 
+  &__author {
+    display: flex;
+    align-items: center;
+    padding: 0.3rem 0;
+    align-self: flex-start;
+  }
+
+  &__author-img-wrap {
+    border-radius: 50%;
+    margin: 0 0.5rem;
+    width: 2.3rem;
+  }
+
+  &__author-img {
+    width: 100%;
+  }
+
+  &__author-name {
+    text-transform: capitalize;
+    font-size: 0.8rem;
+  }
+
+  &__line {
+    width: 100%;
+    height: .2rem;
+    background-color: $base-color;
+  }
+
   &__move-out {
     position: relative;
     padding: 0 12%;
@@ -209,11 +260,18 @@ export default {
   }
 
   &__icon-complete {
-    width: 0.6rem;
+    width: 1rem;
   }
+
+  &__icon-vouted {
+    width: 60%;
+    padding-top: 0.2rem;
+  }
+
   &__icon-eyes {
     width: 0.9rem;
   }
+
   &__adv {
     width: 13.5rem;
     height: 23.5rem;

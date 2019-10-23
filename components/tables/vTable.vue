@@ -11,11 +11,9 @@
         <thead class="table-thead">
           <tr class="table-thead__tr">
             <th v-if="indexed" class="table-thead__index">№</th>
-            <th
-              v-for="(field, index) in fields"
-              :key="index"
-              class="table-thead__th"
-            >{{ field.label }}</th>
+            <th v-for="(field, index) in fields" :key="index" class="table-thead__th">
+              <slot :name="`${field.field}-head`">{{ field.label }}</slot>
+            </th>
           </tr>
         </thead>
         <tbody class="table-tbody">
