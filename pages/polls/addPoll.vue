@@ -31,7 +31,12 @@
                 <p class="add-poll-header__text">Введите загаловок (он же является вопросом)</p>
                 <input class="add-poll-header__input-title" type="text" />
                 <p class="add-poll-header__text">Введите описание</p>
-                <vEditor :width="'100%'" :height="'12rem'" />
+                <vEditor
+                  :width="'100%'"
+                  :height="'12rem'"
+                  :editorData="''"
+                  @input="inputEditor"
+                />
               </div>
             </div>
           </section>
@@ -59,9 +64,9 @@
               <v-select :options="languages" :searchable="true" :no-drop="false" :multiple="false"></v-select>
             </div>
           </section>
-          <section class="add-poll-select">
-            <p class="add-poll-select__title">Выберите категорию:</p>
-            <v-select :options="options" :searchable="true" :no-drop="false" :multiple="false"></v-select>
+          <section class="add-poll-category">
+            <p class="add-poll-category__title">Выберите категорию:</p>
+            <v-select :options="category" :searchable="true" :no-drop="false" :multiple="false"></v-select>
           </section>
           <section class="add-poll-tags">
             <v-tags />
@@ -121,12 +126,17 @@ export default {
         { value: 'таргетированный опрос' }
       ],
       languages: ['Казахский', 'Русский', 'Английский'],
-      options: ['Казахстан', 'Россия', 'Китай'],
+      category: ['Общество', 'Экономика', 'Животные'],
       addAnswerslist: [
         {
           value: ''
         }
       ]
+    }
+  },
+  methods: {
+    inputEditor(value) {
+      console.log(value)
     }
   }
 }
@@ -155,7 +165,7 @@ export default {
       padding: 0.5rem 1rem;
       margin-top: 1rem;
       margin-right: 2rem;
-      text-transform: lowercase;
+      text-transform: uppercase;
       font-size: 0.8rem;
       font-weight: 700;
       cursor: pointer;
@@ -245,7 +255,7 @@ export default {
       width: 30%;
     }
   }
-  &-select {
+  &-category {
     padding: 1rem 0;
     padding-bottom: 2rem;
     &__title {

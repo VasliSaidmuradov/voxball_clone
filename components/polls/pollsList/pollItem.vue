@@ -22,9 +22,7 @@
               <icon-arrow class="ml-2"></icon-arrow>
             </v-btn>
             <div class="poll-item__line">
-              <div v-if="data.complete" class="poll-item__complete">
-                Завершен
-              </div>
+              <div v-if="data.complete" class="poll-item__complete">Завершен</div>
             </div>
             <div class="poll-item__author">
               <div class="poll-item__author-img-wrap">
@@ -66,10 +64,9 @@ export default {
     iconEyes,
     iconComplete,
     play,
-    advertising,
+    advertising
   },
   props: ['data'],
-  created() {},
   methods: {
     goToDetailed() {
       if (this.data.type === 'rating') {
@@ -79,8 +76,8 @@ export default {
       } else {
         this.$navigate('/polls/123')
       }
-    },
-  },
+    }
+  }
 }
 </script>
 
@@ -111,7 +108,7 @@ export default {
   }
 
   &__link {
-    margin: 0 .3em;
+    margin: 0 0.3em;
     color: $base-color;
     text-decoration: none;
   }
@@ -156,7 +153,7 @@ export default {
     width: fit-content;
     float: right;
     text-transform: none;
-    font-size: .6rem;
+    font-size: 0.6rem;
   }
   &__vouted {
     width: 2em;
@@ -238,7 +235,7 @@ export default {
 
   &__line {
     width: 100%;
-    height: .2rem;
+    height: 0.2rem;
     background-color: $base-color;
   }
 

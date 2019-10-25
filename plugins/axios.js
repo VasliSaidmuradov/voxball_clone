@@ -1,3 +1,12 @@
-export default function({ $axios, redirect }) {
-	$axios.onRequest(config => {})
+import axios from 'axios'
+
+const BASE_URL = 'https://cms.nova.st/api/v1'
+
+const options = {
+	baseURL: BASE_URL,
+	headers: {
+		// token: cookies.get('token')
+	}
 }
+
+export default () => axios.create(options)

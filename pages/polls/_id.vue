@@ -71,6 +71,7 @@ import vModal from '@/components/modals/vModal.vue'
 import vTable from '@/components/tables/vTable.vue'
 import vSelect from 'vue-select'
 import '@/assets/css/vSelect.scss'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   components: {
@@ -227,6 +228,9 @@ export default {
     this.comments = this.setLevelForItem(this.comments)
   },
   methods: {
+    ...mapActions({
+      ADD_POLL: 'polls/ADD_POLL'
+    }),
     setLevelForItem(arr, level = 0) {
       return arr.map(item => {
         if (item.child) {
@@ -246,6 +250,10 @@ export default {
     },
     closeStatistics() {
       this.showStatisticsModal = false
+    },
+    addPoll() {
+      let poll = {}
+      ADD_POLL()
     }
   }
 }

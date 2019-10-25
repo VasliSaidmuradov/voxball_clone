@@ -10,6 +10,8 @@
           :no-drop="false"
           :multiple="false"
           :placeholder="options[0]"
+          v-model="accountType"
+          @input="setSelected"
         ></v-select>
         <div class="type__buttons">
           <v-btn @click="$navigate('/login/login')" class="type__link-wrap left-link" link>
@@ -18,11 +20,7 @@
               <icon-arrow class="arrow" />
             </span>
           </v-btn>
-          <v-btn
-            @click="$navigate('/registration/registrationmode')"
-            class="type__link-wrap"
-            border
-          >
+          <v-btn @click="nextStep" class="type__link-wrap" border>
             далее
             <span>
               <icon-arrow class="arrow" />
@@ -40,7 +38,8 @@ import detailedLayout from '@/components/layouts/detailedLayout.vue'
 import vFormLayout from '@/components/forms/vFormLayout.vue'
 // v-select
 import vSelect from 'vue-select'
-import '@/assets/css/vSelect.scss';
+import '@/assets/css/vSelect.scss'
+import { mapMutations } from 'vuex'
 
 export default {
   components: {
@@ -51,8 +50,24 @@ export default {
   },
   data() {
     return {
-      options: ['Персональный', 'Корпоративный']
+      options: ['Персональный', 'Корпоративный'],
+      accountType: ''
     }
+  },
+  methods: {
+    nextStep() {
+      this.$navigate('/registration/registrationmode')
+    },
+    setSelected() {
+      let state = {
+        field: 'isBusiness',
+        value: this.accountType === 'Корпоративный' ? true : false
+      }
+      this.addState(state)
+    },
+    ...mapMutations({
+      addState: 'auth/SET_REGISTRATION_DATA'
+    })
   }
 }
 </script>
@@ -106,7 +121,7 @@ export default {
 }
 </style>
 <style>
-.type .v-select{
+.type .v-select {
   width: 100%;
 }
 .type .v-select .vs__dropdown-toggle {

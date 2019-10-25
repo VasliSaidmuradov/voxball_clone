@@ -1,3 +1,5 @@
+import Api from '@/plugins/axios'
+
 export const state = () => ({
 	polls: []
 })
@@ -11,11 +13,20 @@ export const mutations = {
 export const actions = {
 	async FETCH_POLLS({ commit }) {
 		try {
-			const res = await this.$axios.get('/quizzes')
-			console.log(res.data.data)
+			const res = await Api().get('/quizzes')
+			// console.log(res)
 			commit('SET_POLLS', res.data.data)
-		} catch ({ e }) {
-			console.log({ e })
+		} catch (e) {
+			console.log(e.response.data)
+		}
+	},
+	async ADD_POLL({ commit }, data) {
+		try {
+			const res = await this.$axios.post('/quizzes', data)
+			console.log(res)
+			commit('SET_POLLS', res.data.data)
+		} catch (e) {
+			console.log(e.response.data)
 		}
 	}
 }

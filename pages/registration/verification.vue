@@ -13,9 +13,8 @@
           <v-btn class="left-link" link>
             <span>
               <icon-arrow class="arrow" style="transform: rotate(180deg);" />
-              <!-- Пока просто перевернул иконку -->
             </span>
-            <span class="ml-2">назад</span>
+            <span class="ml-2" @click="$router.go(-1)">назад</span>
           </v-btn>
           <v-btn
             @click="$navigate('/registration/personalization')"

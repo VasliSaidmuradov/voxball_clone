@@ -20,8 +20,20 @@ module.exports = {
 		defaultLocale: 'ru'
 	},
 	axios: {
+		// host: 'cms.nova.st1',
+		// https: true,
+		// prefix: '/api/v1',
+		// port: '',
+		// proxy: true,
 		baseURL: 'https://cms.nova.st/api/v1',
-		credentials: true
+		// browserBaseURL: 'https://cms.nova.st/api/v1',
+		credentials: false,
+		proxyHeaders: false
+	},
+	proxy: {
+		'/api/v1': {
+			target: 'https://cms.nova.st/api/v1'
+		}
 	},
 	router: {
 		middleware: 'test'
@@ -29,7 +41,8 @@ module.exports = {
 	plugins: [
 		'~/plugins/global.js',
 		'~/plugins/navigate.js',
-		{ src: '~/plugins/ckEditor.js', mode: 'client' }
+		{ src: '~/plugins/ckEditor.js', mode: 'client' },
+		{ src: '~plugins/vue-cookie', ssr: false }
 	],
 	head: {
 		title: 'voxball',

@@ -5,16 +5,16 @@
         <div class="mode__toggle">
           <a
             class="mode__type"
-            :class="{ isActive : phone }"
-            @click="phone=!phone"
+            :class="{ isActive : registrationMode }"
+            @click="registrationMode = true"
           >Регистрация через номер</a>
           <a
             class="mode__type"
-            :class="{ isActive : !phone }"
-            @click="phone=!phone"
+            :class="{ isActive : !registrationMode }"
+            @click="registrationMode = false"
           >Регистрация через e-mail</a>
         </div>
-        <div v-if="phone">
+        <div v-if="registrationMode">
           <v-select
             class="mode__select"
             :options="options"
@@ -22,28 +22,45 @@
             :no-drop="false"
             :multiple="false"
             placeholder="Выберите страну"
+            v-model="country"
+            @input="setSelected"
           ></v-select>
           <input
             class="mode__input mode__tel"
             type="tel"
             v-mask="'+7(###) ### ## ##'"
-            v-model="tel"
+            v-model="phone"
             placeholder="+7(___) ___ __ __"
+            @change="addState('phone', phone)"
           />
         </div>
-        <div v-if="phone==false">
+        <div v-if="registrationMode == false">
           <label class="mode__label">Адрес электронной почты</label>
-          <input class="mode__input mode__email" type="email" v-model="email" />
+          <input
+            class="mode__input mode__email"
+            type="text"
+            v-model="email"
+            @change="addState('email', email)"
+          />
           <label class="mode__label">Создать пароль</label>
-          <input class="mode__input mode__password" type="text" v-model="password" />
+          <input
+            class="mode__input mode__password"
+            type="text"
+            v-model="password"
+            @change="addState('password', password)"
+          />
           <label class="mode__label">Повторить пароль</label>
-          <input class="mode__input mode__password" type="text" v-model="passwordCheck" />
+          <input
+            class="mode__input mode__password"
+            type="text"
+            v-model="passwordCheck"
+            @change="addState('passwordCheck', passwordCheck)"
+          />
         </div>
         <div class="mode__buttons">
-          <v-btn class="mode__link-wrap left-link" link>
+          <v-btn class="mode__link-wrap left-link" @click="$router.go(-1)" link>
             <span>
               <icon-arrow class="arrow" style="transform: rotate(180deg);" />
-              <!-- Пока просто перевернул иконку -->
             </span>
             <span class="ml-2">назад</span>
           </v-btn>
@@ -75,6 +92,7 @@ import VueMask from 'v-mask'
 Vue.use(VueMask)
 import { VueMaskDirective } from 'v-mask'
 Vue.directive('mask', VueMaskDirective)
+import { mapMutations } from 'vuex'
 
 export default {
   components: {
@@ -88,9 +106,39 @@ export default {
   data() {
     return {
       options: ['Казахстан', 'Россия', 'Китай'],
-      phone: true,
-      tel: ''
+      registrationMode: true,
+      phone: '',
+      country: '',
+      email: '',
+      password: '',
+      passwordCheck: ''
     }
+  },
+  methods: {
+    setSelected() {
+      let state = {
+        field: 'country',
+        value: this.country
+      }
+      this.mutateState(state)
+    },
+    addState(field, value) {
+      if (field === 'phone') {
+        value = value
+          .trim()
+          .split('')
+          .map(x => (x == ' ' || x == '(' || x == ')' ? '' : x))
+          .join('')
+      }
+      let state = {
+        field: field,
+        value: value
+      }
+      this.mutateState(state)
+    },
+    ...mapMutations({
+      mutateState: 'auth/SET_REGISTRATION_DATA'
+    })
   }
 }
 </script>
