@@ -31,7 +31,7 @@
             v-mask="'+7(###) ### ## ##'"
             v-model="phone"
             placeholder="+7(___) ___ __ __"
-            @change="addState('phone', phone)"
+            @input="addState('phone', phone.replace(/\D/g, ''))"
           />
         </div>
         <div v-if="registrationMode == false">

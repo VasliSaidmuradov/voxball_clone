@@ -13,8 +13,9 @@ export const mutations = {
 export const actions = {
 	async FETCH_POLLS({ commit }) {
 		try {
-			const res = await Api().get('/quizzes')
-			// console.log(res)
+			const res = await this.$axios.get('/quizzes')
+			const res2 = await this.$axios.get('/auth/info')
+			console.log(res2)
 			commit('SET_POLLS', res.data.data)
 		} catch (e) {
 			console.log(e.response.data)

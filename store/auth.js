@@ -1,47 +1,45 @@
-import Api from '@/plugins/axios'
-
 export const state = () => ({
-	isBusiness: false,
-	country: '',
-	phone: '',
-	email: '',
-	password: '',
-	name: '',
-	username: '',
-	categories: []
+	user: {},
+	userRegistrationData: {
+		isBusiness: false,
+		country: '',
+		phone: '',
+		email: '',
+		password: '',
+		code: '',
+		name: '',
+		categories: []
+	},
+	token: null
 })
 
 export const mutations = {
-	SET_REGISTRATION_DATA(state, data) {
-		state[data.field] = data.value
-		console.log(data.field + ': ' + state[data.field])
+	SET_REGISTRATION_DATA(state, { field, value }) {
+		state.userRegistrationData[field] = value
+	},
+
+	SET_TOKEN(state, token) {
+		state.token = token
 	}
 }
 
 export const actions = {
 	async USER_REGISTRATION({ commit, state }) {
 		try {
-			const user = {
-				email: state.email,
-				password: state.password
-				// phone: '+77775555536',
-				// name: state.name,
-				// isBusiness: false,
-				// username: state.email
-				// email: state.email,
-				// password: state.password,
-				// phone: state.phone,
-				// name: state.name,
-				// isBusiness: state.isBusiness,
-				// username: state.email
+			const data = {
+				...state.userRegistrationData,
+				type: state.userRegistrationData.value
 			}
-			const res = await this.$axios.post('/auth/register', user)
-			const token = res.data.data.token
-
-			// this.$axios.setToken(token)
-			// console.log('token', token)
+			console.log(data)
+			// const res = await this.$axios.post(
+			// 	'/auth/register',
+			// 	state.userRegistrationData
+			// )
+			// console.log(res)
+			// const token = res.data.data.token
+			// console.log(token)
+			// commit('SET_TOKEN', token)
 			// $cookies.set('token', token)
-			// console.log('$cookies.get()', $cookies.get('token'))
 		} catch (e) {
 			console.log('error:', e)
 		}
@@ -58,7 +56,6 @@ export const actions = {
 }
 
 export const getters = {
-	GET_AUTH_LIST(state) {
-		return state
-	}
+	GET_REGISTRATION_DATA: state => state.userRegistrationData,
+	GET_TOKEN: state => state.token
 }
