@@ -7,7 +7,7 @@ export const state = () => ({
 		email: '',
 		password: '',
 		code: '',
-		name: '',
+		name: 'nurbek',
 		categories: []
 	},
 	token: null
@@ -27,19 +27,19 @@ export const actions = {
 	async USER_REGISTRATION({ commit, state }) {
 		try {
 			const data = {
-				...state.userRegistrationData,
-				type: state.userRegistrationData.value
+				// ...state.userRegistrationData,
+				email: state.userRegistrationData.email,
+				password: state.userRegistrationData.password
+				// type: state.userRegistrationData.value,
+				// phone: state.userRegistrationData.phone.replace(/\D/g, '')
 			}
 			console.log(data)
-			// const res = await this.$axios.post(
-			// 	'/auth/register',
-			// 	state.userRegistrationData
-			// )
-			// console.log(res)
-			// const token = res.data.data.token
-			// console.log(token)
-			// commit('SET_TOKEN', token)
-			// $cookies.set('token', token)
+			const res = await this.$axios.post('/auth/register', data)
+			console.log(res)
+			const token = res.data.data.token
+			console.log(token)
+			commit('SET_TOKEN', token)
+			$cookies.set('token', token)
 		} catch (e) {
 			console.log('error:', e)
 		}

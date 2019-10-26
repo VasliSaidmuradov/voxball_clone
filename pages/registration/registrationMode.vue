@@ -29,9 +29,8 @@
             class="mode__input mode__tel"
             type="tel"
             v-mask="'+7(###) ### ## ##'"
-            v-model="phone"
             placeholder="+7(___) ___ __ __"
-            @input="addState('phone', phone.replace(/\D/g, ''))"
+            @input="addState('phone', $event.target.value)"
           />
         </div>
         <div v-if="registrationMode == false">
@@ -39,15 +38,13 @@
           <input
             class="mode__input mode__email"
             type="text"
-            v-model="email"
-            @change="addState('email', email)"
+            @input="SET_REGISTRATION_DATA({field: 'email', value: $event.target.value})"
           />
           <label class="mode__label">Создать пароль</label>
           <input
             class="mode__input mode__password"
             type="text"
-            v-model="password"
-            @change="addState('password', password)"
+            @input="SET_REGISTRATION_DATA({field: 'password', value: $event.target.value})"
           />
           <label class="mode__label">Повторить пароль</label>
           <input
@@ -115,6 +112,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations({ SET_REGISTRATION_DATA: 'auth/SET_REGISTRATION_DATA' }),
     setSelected() {
       let state = {
         field: 'country',

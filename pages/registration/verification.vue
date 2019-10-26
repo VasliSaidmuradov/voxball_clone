@@ -4,8 +4,8 @@
       <v-form-layout class="mt-5 mb-5">
         <label class="verification__label">Введите код подтверждения</label>
         <input
-          :value="GET_USER_REGISTRATION_DATA['code']"
-          @input="SET_REGISTRATION_DATA({field: 'code', val: $event.target.value})"
+          :value="GET_REGISTRATION_DATA['code']"
+          @input="SET_REGISTRATION_DATA({field: 'code', value: $event.target.value})"
           class="verification__input"
           type="text"
           v-mask="'### ###'"
@@ -63,7 +63,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      GET_USER_REGISTRATION_DATA: 'auth/GET_USER_REGISTRATION_DATA'
+      GET_REGISTRATION_DATA: 'auth/GET_REGISTRATION_DATA'
     })
   },
   methods: {
