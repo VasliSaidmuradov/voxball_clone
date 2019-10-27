@@ -21,7 +21,8 @@ module.exports = {
 	},
 	axios: {
 		baseURL: 'https://cms.nova.st/api/v1',
-		credentials: true
+		credentials: true,
+		proxy: true
 	},
 	router: {
 		middleware: 'test'

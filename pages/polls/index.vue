@@ -31,7 +31,7 @@
           </div>
         </div>
         <div class="polls-main__content mb-4">
-          <poll-list :list="pollsArrayMain" :adv="advList" :adv-n="3" />
+          <poll-list :list="GET_POLLS_LIST" :adv="advList" :adv-n="3" />
         </div>
         <v-btn class="Section__button mb-5 mt-4" rounded border>
           <span>Загрузить еще</span>
@@ -49,14 +49,14 @@ import pollItem from '@/components/polls/pollsList/pollItem.vue'
 import vSelect from 'vue-select'
 import iconArrow from '@/components/icons/iconArrow.vue'
 import '@/assets/css/vSelect.scss'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapState } from 'vuex'
 
 export default {
   components: {
     baseLayout,
     pollList,
     vSelect,
-    iconArrow,
+    iconArrow
   },
   data() {
     return {
@@ -67,36 +67,36 @@ export default {
           video: '',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345,
+          views: 345
         },
         {
           category: 'Бизнес',
           video: '',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345,
+          views: 345
         },
         {
           category: 'Бизнес',
           video: 'Видео',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345,
+          views: 345
         },
         {
           category: 'Бизнес',
           video: '',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345,
+          views: 345
         },
         {
           category: 'Бизнес',
           video: 'Видео',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345,
-        },
+          views: 345
+        }
       ],
       pollsArrayMain: [
         {
@@ -104,78 +104,78 @@ export default {
           video: '',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345,
+          views: 345
         },
         {
           category: 'Бизнес',
           video: '',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345,
+          views: 345
         },
         {
           category: 'Бизнес',
           video: 'Видео',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345,
+          views: 345
         },
         {
           category: 'Бизнес',
           video: '',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345,
+          views: 345
         },
         {
           category: 'Бизнес',
           video: 'Видео',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345,
+          views: 345
         },
         {
           category: 'Бизнес',
           video: '',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345,
+          views: 345
         },
         {
           category: 'Бизнес',
           video: '',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345,
+          views: 345
         },
         {
           category: 'Бизнес',
           video: 'Видео',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345,
+          views: 345
         },
         {
           category: 'Бизнес',
           video: '',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345,
+          views: 345
         },
         {
           category: 'Бизнес',
           video: 'Видео',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345,
+          views: 345
         },
         {
           category: 'Бизнес',
           video: '',
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345,
-        },
+          views: 345
+        }
       ],
       advList: [
         {
@@ -185,7 +185,7 @@ export default {
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
           views: 345,
-          complete: false,
+          complete: false
         },
         {
           type: 'adv',
@@ -194,7 +194,7 @@ export default {
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
           views: 345,
-          complete: false,
+          complete: false
         },
         {
           type: 'adv',
@@ -203,17 +203,17 @@ export default {
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
           views: 345,
-          complete: false,
-        },
-      ],
+          complete: false
+        }
+      ]
     }
   },
   computed: {
-    ...mapGetters({ GET_POLLS_LIST: 'polls/GET_POLLS_LIST' }),
+    ...mapGetters({ GET_POLLS_LIST: 'polls/GET_POLLS_LIST' })
   },
   async fetch({ store }) {
     await store.dispatch('polls/FETCH_POLLS')
-  },
+  }
 }
 </script>
 

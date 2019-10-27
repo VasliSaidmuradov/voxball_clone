@@ -5,7 +5,7 @@
 			v-for="(answer, index) in answers"
 			:key="index"
 			@click="selectAnswer(index)"
-			:label="answer.label"
+			:label="answer.id"
 			:percentage="answer.percentage"
 			:editable="editable"
 		></answers-item>

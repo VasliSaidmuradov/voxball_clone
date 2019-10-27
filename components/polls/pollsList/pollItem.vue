@@ -1,15 +1,15 @@
 <template>
-  <div>
-    <div v-if="data.type !== 'adv'" @click="goToDetailed" class="poll-item mt-4">
+  <div @click="pollClick">
+    <div v-if="data.type !== 'adv'" class="poll-item mt-4">
       <div class="poll-item__main">
         <div class="poll-item__img-wrap">
-          <img class="poll-item__img" src="~/assets/img/poll__image2.png" alt />
-          <!-- <img class="poll-item__img" :src="data.bgImage" alt /> -->
+          <!-- <img class="poll-item__img" src="~/assets/img/poll__image2.png" alt /> -->
+          <img class="poll-item__img" :src="data.preview" alt />
         </div>
         <div class="poll-item__block">
           <div class="poll-item__content">
-            <div class="poll-item__content-item">{{ data.category }}</div>
-            <div v-if="data.vouted" class="poll-item__vouted">
+            <div class="poll-item__content-item">{{ data.categoryTitle }}</div>
+            <div v-if="data.isVouted" class="poll-item__vouted">
               <span class="poll-item__icon-vouted">
                 <icon-complete />
               </span>
@@ -22,27 +22,25 @@
               <icon-arrow class="ml-2"></icon-arrow>
             </v-btn>
             <div class="poll-item__line">
-              <div v-if="data.complete" class="poll-item__complete">
-                Завершен
-              </div>
+              <div v-if="data.endedAt" class="poll-item__complete">Завершен</div>
             </div>
             <div class="poll-item__author">
               <div class="poll-item__author-img-wrap">
                 <img src="~/assets/img/poll_author.png" alt class="poll-item__author-img" />
               </div>
-              <span class="poll-item__author-name">Ешенбай Асыл</span>
+              <span class="poll-item__author-name">{{ data.authorName }}</span>
             </div>
           </div>
           <play v-if="data.video" />
         </div>
       </div>
       <div class="poll-item__footer">
-        <div class="poll-item__date">{{ data.date }}</div>
+        <div class="poll-item__date">{{ data.createdAt }}</div>
         <div class="views">
           <span class="poll-item__icon-eyes mr-2">
             <icon-eyes />
           </span>
-          <div class="views__count">{{ data.views }}</div>
+          <div class="views__count">{{ data.viewCount }}</div>
         </div>
       </div>
       <div class="poll-item__move-out"></div>
@@ -66,20 +64,19 @@ export default {
     iconEyes,
     iconComplete,
     play,
-    advertising,
+    advertising
   },
   props: ['data'],
   created() {},
   methods: {
-    goToDetailed() {
-      if (this.data.type === 'rating') {
-        this.$navigate('/ratings/123')
-      } else if (this.data.complete) {
-        this.$navigate('/results/123')
-      } else {
-        this.$navigate('/polls/123')
+    pollClick() {
+      if (this.data.path) {
+        this.$navigate(this.data.path)
       }
-    },
+      if (this.data.onclick) {
+        this.data.onclick()
+      }
+    }
   },
 }
 </script>
@@ -111,7 +108,7 @@ export default {
   }
 
   &__link {
-    margin: 0 .3em;
+    margin: 0 0.3em;
     color: $base-color;
     text-decoration: none;
   }
@@ -156,7 +153,7 @@ export default {
     width: fit-content;
     float: right;
     text-transform: none;
-    font-size: .6rem;
+    font-size: 0.6rem;
   }
   &__vouted {
     width: 2em;
@@ -238,7 +235,7 @@ export default {
 
   &__line {
     width: 100%;
-    height: .2rem;
+    height: 0.2rem;
     background-color: $base-color;
   }
 

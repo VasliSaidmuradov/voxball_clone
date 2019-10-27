@@ -4,7 +4,7 @@
       <span class="views__icon-wrap mr-1">
         <icon-eyes class="views__icon" />
       </span>
-      <span class="views__count">{{count}}</span>
+      <span class="views__count">{{ viewCount }}</span>
     </span>
   </div>
 </template>
@@ -13,9 +13,13 @@
 import iconEyes from '@/components/icons/iconEyes'
 export default {
   props: {
-    count: {
-      type: Number,
-      default: 0
+    // viewCount: {
+    //   type: Number,
+    //   // default: 13
+    // }
+    viewCount: {
+      type: Number
+
     }
   },
   components: {

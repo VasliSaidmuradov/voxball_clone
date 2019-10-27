@@ -1,8 +1,14 @@
 <template>
   <div class="poll-id">
     <detailed-layout :title="'Мои Опрос'">
-      <poll-info class="mt-5" :poll="pollData"></poll-info>
-      <poll-card class="mb-5" :answers="answers"></poll-card>
+      <!-- {{ $route.params.id }} -->
+      <!-- {{ GET_POLL.questions }} -->
+      <poll-info class="mt-5"  :poll="GET_POLL"></poll-info>
+      <poll-card
+        class="mb-5"
+        :answers="GET_POLL"
+        v-show="GET_POLL.questions != 0"
+      ></poll-card>
       <comments-list :levels="1" :commentsList="comments" />
       <div class="d-flex mr-auto ml-auto mb-5 mt-3" style="width: 50rem; justify-content: center">
         <v-btn border rounded @click="openStatistics()">
@@ -71,6 +77,7 @@ import vModal from '@/components/modals/vModal.vue'
 import vTable from '@/components/tables/vTable.vue'
 import vSelect from 'vue-select'
 import '@/assets/css/vSelect.scss'
+import { mapGetters, mapActions, mapState } from 'vuex'
 
 export default {
   components: {
@@ -247,6 +254,12 @@ export default {
     closeStatistics() {
       this.showStatisticsModal = false
     }
+  },
+  computed: {
+    ...mapGetters({ GET_POLL: 'polls/GET_POLL' })
+  },
+  async fetch({ store, route }) {
+    await store.dispatch('polls/FETCH_POLL', route.params.id)
   }
 }
 </script>

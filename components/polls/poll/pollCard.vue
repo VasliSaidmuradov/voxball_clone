@@ -1,30 +1,55 @@
 <template>
   <div class="poll-card">
-    <h2 class="poll-card__title">
-      Как вы считаете, долго ли Димаш будет
-      на музыкальной вершине?
-    </h2>
-    <div v-if="polltype == 'poll'" class="poll-card__answer">
-      <div class="answer__list">
-        <answers-list
-          multiple
-          @selectedAnswers="selectedAnswers($event)"
-          :answersList="answers"
-          :percent="[25,15,50,10]"
-        ></answers-list>
+    <div class="poll-card__question" v-for="question in answers.questions" :key="question.id">
+      <h2 class="poll-card__title">
+        <!-- Как вы считаете, долго ли Димаш будет
+        на музыкальной вершине?-->
+        {{ question.title }}
+        <!-- {{  answers.type }} -->
+      </h2>
+      <div v-if="question.type == 'simple'" class="poll-card__answer">
+        <div class="answer__list">
+          <answers-list
+            multiple
+            @selectedAnswers="selectedAnswers($event)"
+            :answersList="answers.questions.answers"
+            :percent="[25,15,50,10]"
+          ></answers-list>
+          <span style="text-align: center; width: 100%;">Simple</span>
+        </div>
       </div>
-    </div>
-    <div v-if="polltype == 'rating'" class="poll-card__ratings ml-auto mr-auto">
-      <no-ssr>
-        <star-rating
-          v-model="rating"
-          inactive-color="#fff"
-          border-color="#999"
-          border-width="1"
-          padding="1"
-          :show-rating="false"
-        ></star-rating>
-      </no-ssr>
+      <div v-if="question.type == 'multiply'" class="poll-card__answer">
+        <div class="answer__list">
+          <answers-list
+            multiple
+            @selectedAnswers="selectedAnswers($event)"
+            :answersList="answers.questions.answers"
+            :percent="[25,15,50,10]"
+          ></answers-list>
+          <span style="text-align: center; width: 100%;">Multiply</span>
+        </div>
+      </div>
+      <div v-if="question.type == 'text'" class="poll-card__ratings ml-auto mr-auto">
+        <span>Text</span>
+      </div>
+      <div v-if="question.type == 'rating'" class="poll-card__ratings ml-auto mr-auto">
+        <no-ssr>
+          <star-rating
+            v-model="rating"
+            inactive-color="#fff"
+            border-color="#999"
+            border-width="1"
+            padding="1"
+            :show-rating="false"
+          ></star-rating>
+        </no-ssr>
+      </div>
+      <div v-if="question.type == 'images'" class="poll-card__ratings ml-auto mr-auto">
+        <span>Image</span>
+      </div>
+      <div v-if="question.type == 'video'" class="poll-card__ratings ml-auto mr-auto">
+        <span>Video</span>
+      </div>
     </div>
     <div v-if="!complete" class="poll-card__button-wrap">
       <div class="poll-card__pay">
@@ -59,7 +84,9 @@ export default {
     StarRating
   },
   props: {
-    answers: Array,
+    answers: {
+      type: Array
+    },
     complete: Boolean,
     polltype: {
       type: String,
@@ -93,6 +120,10 @@ export default {
   margin: 0 auto;
   padding: 3rem 2.5rem 2rem;
   box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.2);
+
+  &__question {
+    margin-bottom: 3rem;
+  }
   &__title {
     color: black;
     font-size: 1.45rem;
@@ -107,6 +138,7 @@ export default {
   &__ratings {
     padding: 1.5rem 0;
     padding-bottom: 2rem;
+    width: fit-content;
   }
   &__button-wrap {
     width: 40%;
