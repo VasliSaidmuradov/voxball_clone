@@ -24,7 +24,7 @@ export const actions = {
 			const user = {
 				email: state.email,
 				password: state.password
-				// phone: '+77775555536',
+				// phone: '+77775555541',
 				// name: state.name,
 				// isBusiness: false,
 				// username: state.email
@@ -38,9 +38,9 @@ export const actions = {
 			const res = await this.$axios.post('/auth/register', user)
 			const token = res.data.data.token
 
-			// this.$axios.setToken(token)
-			// console.log('token', token)
-			// $cookies.set('token', token)
+			this.$axios.setToken(token)
+			console.log('token', token)
+			$cookies.set('token', token)
 			// console.log('$cookies.get()', $cookies.get('token'))
 		} catch (e) {
 			console.log('error:', e)

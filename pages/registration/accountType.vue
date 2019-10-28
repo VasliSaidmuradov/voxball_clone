@@ -63,10 +63,10 @@ export default {
         field: 'isBusiness',
         value: this.accountType === 'Корпоративный' ? true : false
       }
-      this.addState(state)
+      this.SET_REGISTRATION_DATA(state)
     },
     ...mapMutations({
-      addState: 'auth/SET_REGISTRATION_DATA'
+      SET_REGISTRATION_DATA: 'auth/SET_REGISTRATION_DATA'
     })
   }
 }

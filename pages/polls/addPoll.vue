@@ -29,14 +29,14 @@
               </div>
               <div class="add-poll-header__info">
                 <p class="add-poll-header__text">Введите загаловок (он же является вопросом)</p>
-                <input class="add-poll-header__input-title" type="text" />
-                <p class="add-poll-header__text">Введите описание</p>
-                <vEditor
-                  :width="'100%'"
-                  :height="'12rem'"
-                  :editorData="''"
-                  @input="inputEditor"
+                <input
+                  class="add-poll-header__input-title"
+                  v-model="pollTitle"
+                  type="text"
+                  @input="inputPollData(field, pollTitle)"
                 />
+                <p class="add-poll-header__text">Введите описание</p>
+                <vEditor :width="'100%'" :height="'12rem'" :editorData="''" @input="inputEditor" />
               </div>
             </div>
           </section>
@@ -74,7 +74,7 @@
           <section class="add-poll-date">
             <datePicker />
           </section>
-          <v-btn class="add-poll__button" border>
+          <v-btn class="add-poll__button" @click="ADD_POLL" border>
             опубликовать
             <iconArrow class="ml-3" />
           </v-btn>
@@ -97,6 +97,8 @@ import datePicker from '@/components/inputs/datePicker.vue'
 import vTags from '@/components/tags/vTags.vue'
 import vSelect from 'vue-select'
 import iconArrow from '@/components/icons/iconArrow.vue'
+
+import { mapMutations, mapActions } from 'vuex'
 
 import '@/assets/css/vSelect.scss'
 
@@ -131,12 +133,38 @@ export default {
         {
           value: ''
         }
-      ]
+      ],
+      pollTitle: ''
     }
   },
   methods: {
+    ...mapMutations({
+      SET_POLL_DATA: 'poll/SET_POLL_DATA'
+    }),
+    ...mapActions({
+      ADD_POLL: 'polls/ADD_POLL'
+    }),
     inputEditor(value) {
       console.log(value)
+      inputPollData('description', value)
+    },
+    inputPollData(field, data) {
+      let pollData = {
+        field: field,
+        value: data
+      }
+      SET_POLL_DATA(pollData)
+    }
+  },
+  beforeUpdate() {
+    localStorage.setItem('newPoll', JSON.stringify(store.state.newPoll))
+  },
+  mounted() {
+    if (localStorage.getItem('newPoll') === null) {
+      let newPoll = JSON.parse(localStorage.getItem('newPoll'))
+      for (let key in newPoll) {
+        SET_POLL_DATA({ field: key, value: newPoll[key] })
+      }
     }
   }
 }

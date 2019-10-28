@@ -90,10 +90,10 @@ export default {
         field: field,
         value: value
       }
-      this.mutateState(state)
+      this.SET_REGISTRATION_DATA(state)
     },
     ...mapMutations({
-      mutateState: 'auth/SET_REGISTRATION_DATA'
+      SET_REGISTRATION_DATA: 'auth/SET_REGISTRATION_DATA'
     }),
     // registration() {
     //   this.$store.dispatch('auth/USER_REGISTRATION')
