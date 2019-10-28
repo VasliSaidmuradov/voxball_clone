@@ -9,7 +9,8 @@
           :searchable="false"
           :no-drop="false"
           :multiple="false"
-          :placeholder="options[0]"
+          :value="GET_REGISTRATION_DATA['type']"
+          @input="SET_REGISTRATION_DATA({ field: 'type', value: $event })"
         ></v-select>
         <div class="type__buttons">
           <v-btn @click="$navigate('/login/login')" class="type__link-wrap left-link" link>
@@ -18,11 +19,7 @@
               <icon-arrow class="arrow" />
             </span>
           </v-btn>
-          <v-btn
-            @click="$navigate('/registration/registrationmode')"
-            class="type__link-wrap"
-            border
-          >
+          <v-btn @click="nextStep" class="type__link-wrap" border>
             далее
             <span>
               <icon-arrow class="arrow" />
@@ -40,7 +37,8 @@ import detailedLayout from '@/components/layouts/detailedLayout.vue'
 import vFormLayout from '@/components/forms/vFormLayout.vue'
 // v-select
 import vSelect from 'vue-select'
-import '@/assets/css/vSelect.scss';
+import '@/assets/css/vSelect.scss'
+import { mapMutations, mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -51,8 +49,24 @@ export default {
   },
   data() {
     return {
-      options: ['Персональный', 'Корпоративный']
+      options: [
+        { label: 'Персональный', value: false },
+        { label: 'Корпоративный', value: true }
+      ],
+      accountType: null
     }
+  },
+  computed: {
+    ...mapGetters({ GET_REGISTRATION_DATA: 'auth/GET_REGISTRATION_DATA' })
+  },
+  methods: {
+    ...mapMutations({ SET_REGISTRATION_DATA: 'auth/SET_REGISTRATION_DATA' }),
+    nextStep() {
+      this.$navigate('/registration/registrationmode')
+    }
+  },
+  mounted() {
+    this.SET_REGISTRATION_DATA({ field: 'type', value: this.options[0] })
   }
 }
 </script>
@@ -63,9 +77,6 @@ export default {
   background-size: 100%;
   background-repeat: no-repeat;
   min-height: 40rem;
-
-  &__label {
-  }
 
   &__select {
     margin-top: 0.5rem;
@@ -106,7 +117,7 @@ export default {
 }
 </style>
 <style>
-.type .v-select{
+.type .v-select {
   width: 100%;
 }
 .type .v-select .vs__dropdown-toggle {

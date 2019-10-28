@@ -5,7 +5,8 @@
         class="v-editor__ckeditor"
         :editor="editor"
         :config="editorConfig"
-        v-model="editorData"
+        v-model="editorData2"
+        @input="onEditorInput"
       ></ckeditor>
     </no-ssr>
   </div>
@@ -25,7 +26,24 @@ export default {
         toolbar: {
           items: ['numberedList', 'bulletedList']
         }
-      }
+      },
+      editorData2: ''
+    }
+  },
+  props: {
+    // editorData: {
+    //   type: String,
+    //   default: '<p></p>'
+    // },
+    width: {
+      type: String,
+      default: 'max-content'
+    },
+    height: String
+  },
+  methods: {
+    onEditorInput() {
+      this.$emit('input', this.editorData2)
     }
   },
   computed: {
@@ -35,17 +53,6 @@ export default {
         height: this.height
       }
     }
-  },
-  props: {
-    editorData: {
-      type: String,
-      default: '<p></p>'
-    },
-    width: {
-      type: String,
-      default: 'max-content'
-    },
-    height: String
   }
 }
 </script>

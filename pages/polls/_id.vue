@@ -1,6 +1,6 @@
 <template>
   <div class="poll-id">
-    <detailed-layout :title="'Мои Опрос'">
+    <detailed-layout :title="'Мои Опросы'">
       <!-- {{ $route.params.id }} -->
       <!-- {{ GET_POLL.questions }} -->
       <poll-info class="mt-5"  :poll="GET_POLL"></poll-info>

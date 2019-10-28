@@ -3,7 +3,12 @@
     <detailed-layout :title="'Регистрация'">
       <v-form-layout class="mt-5 mb-5">
         <label class="person__label">Ваше имя</label>
-        <input class="person__input person__name" type="text" v-model="name" />
+        <input
+          class="person__input person__name"
+          type="text"
+          v-model="name"
+          @change="addState('name', name)"
+        />
         <label class="person__label">Подписаться на 3 категории</label>
         <v-select
           class="person__select"
@@ -33,11 +38,10 @@
           <v-btn class="left-link" link>
             <span>
               <icon-arrow class="arrow" style="transform: rotate(180deg);" />
-              <!-- Пока просто перевернул иконку -->
             </span>
-            <span class="ml-2">назад</span>
+            <span class="ml-2" @click="$router.go(-1)">назад</span>
           </v-btn>
-          <v-btn class="person__link-wrap" border>
+          <v-btn class="person__link-wrap" @click="USER_REGISTRATION" border>
             <span>зарегистрироваться</span>
             <span>
               <icon-arrow class="arrow" />
@@ -59,6 +63,11 @@ import registrationSocial from '@/components/registration/registrationSocial.vue
 // v-select
 import vSelect from 'vue-select'
 import '@/assets/css/vSelect.scss'
+import Vue from 'vue'
+import VueCookies from 'vue-cookies'
+Vue.use(VueCookies)
+import { mapGetters, mapActions, mapMutations } from 'vuex'
+
 export default {
   components: {
     iconArrow,
@@ -66,14 +75,39 @@ export default {
     vSelect,
     detailedLayout,
     vFormLayout,
-    registrationSocial
+    registrationSocial,
+    VueCookies
   },
   data() {
     return {
       options: ['Еда', 'Развлечения', 'Политика'],
       name: ''
     }
+  },
+  methods: {
+    addState(field, value) {
+      let state = {
+        field: field,
+        value: value
+      }
+      this.mutateState(state)
+    },
+    ...mapMutations({
+      mutateState: 'auth/SET_REGISTRATION_DATA'
+    }),
+    // registration() {
+    //   this.$store.dispatch('auth/USER_REGISTRATION')
+    // },
+    ...mapActions({
+      USER_REGISTRATION: 'auth/USER_REGISTRATION'
+    })
+    // ...mapActions({
+    //   add: 'increment' // проксирует `this.add()` в `this.$store.dispatch('increment')`
+    // })
   }
+  // async fetch({ store }) {
+  //   await store.dispatch('auth/USER_REGISTRATION')
+  // }
 }
 </script>
 

@@ -1,4 +1,5 @@
 import { Store } from 'vuex'
+import Api from '@/plugins/axios'
 
 export const state = () => ({
 	pollsList: [],
@@ -19,10 +20,21 @@ export const actions = {
 	async FETCH_POLLS({ commit }) {
 		try {
 			const res = await this.$axios.get('/quizzes?with[author]&with[category]')
+			const res2 = await this.$axios.get('/auth/info')
 			console.log(res.data.data)
+			// console.log(res2)
 			commit('SET_POLLS', res.data.data)
-		} catch ({ e }) {
-			console.log({ e })
+		} catch (e) {
+			console.log(e.response.data)
+		}
+	},
+	async ADD_POLL({ commit }, data) {
+		try {
+			const res = await this.$axios.post('/quizzes', data)
+			console.log(res)
+			// commit('SET_POLLS', res.data.data)
+		} catch (e) {
+			console.log(e.response.data)
 		}
 	},
 

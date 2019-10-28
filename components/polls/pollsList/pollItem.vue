@@ -67,7 +67,6 @@ export default {
     advertising
   },
   props: ['data'],
-  created() {},
   methods: {
     pollClick() {
       if (this.data.path) {
@@ -77,7 +76,7 @@ export default {
         this.data.onclick()
       }
     }
-  },
+  }
 }
 </script>
 
