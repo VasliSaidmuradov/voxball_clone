@@ -3,7 +3,7 @@
     <div v-if="auth" class="account-log">
       <div class="account-log__coin">
         <img class="account-log__coin-img" src="~/assets/img/poll-card__coin.png" alt />
-        100
+        1000
       </div>
       <v-btn class @click="profile()">
         <img src="~/assets/img/avatar__icon.png" alt />

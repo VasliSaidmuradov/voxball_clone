@@ -3,9 +3,19 @@
     <detailed-layout>
       <v-form-layout class="mt-5 mb-5">
         <label class="login__label">Введите номер или e-mail</label>
-        <input class="login__input login__email" type="email" v-loginl="'email'" />
+        <input
+          class="login__input login__email"
+          type="text"
+          :value="GET_AUTHORIZATION_DATA['email']"
+          @input="SET_AUTHORIZATION_DATA({field: 'email', value: $event.target.value})"
+        />
         <label class="login__label">Пароль</label>
-        <input class="login__input login__password" type="text" v-loginl="'password'" />
+        <input
+          class="login__input login__password"
+          type="text"
+          :value="GET_AUTHORIZATION_DATA['password']"
+          @input="SET_AUTHORIZATION_DATA({field: 'password', value: $event.target.value})"
+        />
         <div class="login__buttons">
           <v-btn @click="$navigate('/registration/accountType')" class="left-link">
             зарегестрироваться
@@ -14,7 +24,7 @@
             </span>
           </v-btn>
 
-          <v-btn @click="$navigate('')" class="login__link-wrap" border>
+          <v-btn @click="USER_AUTHORIZATION" class="login__link-wrap" border>
             войти
             <span>
               <icon-arrow class="arrow" />
@@ -34,12 +44,25 @@ import detailedLayout from '@/components/layouts/detailedLayout.vue'
 import vFormLayout from '@/components/forms/vFormLayout.vue'
 import registrationSocial from '@/components/registration/registrationSocial.vue'
 
+import { mapGetters, mapActions, mapMutations } from 'vuex'
+
 export default {
   components: {
     iconArrow,
     detailedLayout,
     vFormLayout,
     registrationSocial
+  },
+  computed: {
+    ...mapGetters({ GET_AUTHORIZATION_DATA: 'auth/GET_AUTHORIZATION_DATA' })
+  },
+  methods: {
+    ...mapMutations({
+      SET_AUTHORIZATION_DATA: 'auth/SET_AUTHORIZATION_DATA'
+    }),
+    ...mapActions({
+      USER_AUTHORIZATION: 'auth/USER_AUTHORIZATION'
+    })
   }
 }
 </script>

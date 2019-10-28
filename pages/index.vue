@@ -65,7 +65,7 @@ export default {
     advertising,
     pollsList,
     mNav,
-    newsList
+    newsList,
   },
   data() {
     return {
@@ -139,7 +139,7 @@ export default {
           views: 345,
           complete: false,
           vouted: false,
-          bgImage: '/_nuxt/assets/img/poll__image.png'
+          bgImage: '/_nuxt/assets/img/poll__image.png',
         },
         {
           type: 'poll',
@@ -150,7 +150,7 @@ export default {
           views: 345,
           complete: true,
           vouted: true,
-          bgImage: '/_nuxt/assets/img/poll__image.png'
+          bgImage: '/_nuxt/assets/img/poll__image.png',
         },
         {
           type: 'poll',
@@ -161,7 +161,7 @@ export default {
           views: 345,
           complete: false,
           vouted: true,
-          bgImage: '/_nuxt/assets/img/poll__image2.png'
+          bgImage: '/_nuxt/assets/img/poll__image2.png',
         },
         {
           type: 'poll',
@@ -172,8 +172,8 @@ export default {
           views: 345,
           complete: false,
           vouted: true,
-          bgImage: '/_nuxt/assets/img/poll__image.png'
-        }
+          bgImage: '/_nuxt/assets/img/poll__image.png',
+        },
       ],
       advList: [
         {
@@ -185,7 +185,7 @@ export default {
           views: 345,
           complete: false,
           vouted: false,
-          bgImage: '/_nuxt/assets/img/poll__image.png'
+          bgImage: '/_nuxt/assets/img/poll__image.png',
         },
         {
           type: 'adv',
@@ -196,7 +196,7 @@ export default {
           views: 345,
           complete: false,
           vouted: false,
-          bgImage: '/_nuxt/assets/img/poll__image.png'
+          bgImage: '/_nuxt/assets/img/poll__image.png',
         },
         {
           type: 'adv',
@@ -207,37 +207,37 @@ export default {
           views: 345,
           complete: false,
           vouted: false,
-          bgImage: '/_nuxt/assets/img/poll__image.png'
-        }
+          bgImage: '/_nuxt/assets/img/poll__image.png',
+        },
       ],
       news: [
         [
           {
-            name: 'dsfsdfdsf'
+            name: 'dsfsdfdsf',
           },
           {
-            name: 'dsfsdfdsfsdf'
+            name: 'dsfsdfdsfsdf',
           },
           {
-            name: 'dsfsdfdsfsdf'
+            name: 'dsfsdfdsfsdf',
           },
           {
-            name: 'dsfsdfdsfsdf'
+            name: 'dsfsdfdsfsdf',
           },
           {
-            name: 'dsfsdfdsfsdf'
+            name: 'dsfsdfdsfsdf',
           },
           {
-            name: 'dsfsdfdsfsdf'
+            name: 'dsfsdfdsfsdf',
           },
           {
-            name: 'dsfsdfdsfsdf'
+            name: 'dsfsdfdsfsdf',
           },
           {
-            name: 'dsfsdfdsfsdf'
-          }
-        ]
-      ]
+            name: 'dsfsdfdsfsdf',
+          },
+        ],
+      ],
     }
   },
   methods: {},

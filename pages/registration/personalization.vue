@@ -6,8 +6,8 @@
         <input
           class="person__input person__name"
           type="text"
-          v-model="name"
-          @change="addState('name', name)"
+          :value="GET_REGISTRATION_DATA['name']"
+          @input="SET_REGISTRATION_DATA({field: 'name', value: $event.target.value})"
         />
         <label class="person__label">Подписаться на 3 категории</label>
         <v-select
@@ -17,6 +17,8 @@
           :no-drop="false"
           :multiple="false"
           :placeholder="options[0]"
+          :value="GET_REGISTRATION_DATA['categories.1']"
+          @input="SET_REGISTRATION_DATA({field: 'categories.1', value: $event})"
         ></v-select>
         <v-select
           class="person__select"
@@ -25,6 +27,8 @@
           :no-drop="false"
           :multiple="false"
           :placeholder="options[1]"
+          :value="GET_REGISTRATION_DATA['categories.2']"
+          @input="SET_REGISTRATION_DATA({field: 'categories.2', value: $event})"
         ></v-select>
         <v-select
           class="person__select"
@@ -33,6 +37,8 @@
           :no-drop="false"
           :multiple="false"
           :placeholder="options[2]"
+          :value="GET_REGISTRATION_DATA['categories.3']"
+          @input="SET_REGISTRATION_DATA({field: 'categories.3', value: $event})"
         ></v-select>
         <div class="person__buttons">
           <v-btn class="left-link" link>
@@ -84,26 +90,16 @@ export default {
       name: ''
     }
   },
+  computed: {
+    ...mapGetters({ GET_REGISTRATION_DATA: 'auth/GET_REGISTRATION_DATA' })
+  },
   methods: {
-    addState(field, value) {
-      let state = {
-        field: field,
-        value: value
-      }
-      this.SET_REGISTRATION_DATA(state)
-    },
     ...mapMutations({
       SET_REGISTRATION_DATA: 'auth/SET_REGISTRATION_DATA'
     }),
-    // registration() {
-    //   this.$store.dispatch('auth/USER_REGISTRATION')
-    // },
     ...mapActions({
       USER_REGISTRATION: 'auth/USER_REGISTRATION'
     })
-    // ...mapActions({
-    //   add: 'increment' // проксирует `this.add()` в `this.$store.dispatch('increment')`
-    // })
   }
   // async fetch({ store }) {
   //   await store.dispatch('auth/USER_REGISTRATION')

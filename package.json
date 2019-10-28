@@ -25,6 +25,8 @@
     "@johmun/vue-tags-input": "^2.1.0",
     "@nuxtjs/auth": "^4.8.4",
     "@nuxtjs/axios": "^5.6.0",
+    "cookie-parser": "^1.4.4",
+    "cookieparser": "^0.1.0",
     "filepond": "^4.7.1",
     "filepond-plugin-image-crop": "^2.0.3",
     "filepond-plugin-image-edit": "^1.4.0",

@@ -1,64 +1,116 @@
-import Api from '@/plugins/axios'
+// import { stat } from 'fs'
 
 export const state = () => ({
-	isBusiness: false,
-	country: '',
-	phone: '',
-	email: '',
-	password: '',
-	name: '',
-	username: '',
-	categories: []
+	userData: {
+		id: '',
+		emial: '',
+		name: '',
+		rating: '',
+		isBuisness: ''
+	},
+	userAuthorizationData: {
+		email: '',
+		password: ''
+	},
+	userRegistrationData: {
+		type: false,
+		phone: '',
+		email: '',
+		password: '',
+		name: '',
+		username: '',
+		categories: { 1: '', 2: '', 3: '' },
+		code: '',
+		country: ''
+	},
+	token: null
 })
 
 export const mutations = {
-	SET_REGISTRATION_DATA(state, data) {
-		state[data.field] = data.value
-		console.log(data.field + ': ' + state[data.field])
+	SET_REGISTRATION_DATA(state, { field, value }) {
+		state.userRegistrationData[field] = value
+	},
+
+	SET_AUTHORIZATION_DATA(state, { field, value }) {
+		state.userAuthorizationData[field] = value
+	},
+
+	SET_TOKEN(state, token) {
+		state.token = token
+	},
+
+	SET_USER(state, user) {
+		state.userData = {
+			...user
+		}
 	}
 }
 
 export const actions = {
 	async USER_REGISTRATION({ commit, state }) {
 		try {
-			const user = {
-				email: state.email,
-				password: state.password
-				// phone: '+77775555541',
-				// name: state.name,
-				// isBusiness: false,
-				// username: state.email
-				// email: state.email,
-				// password: state.password,
-				// phone: state.phone,
-				// name: state.name,
-				// isBusiness: state.isBusiness,
-				// username: state.email
+			const data = {
+				// ...state.userRegistrationData,
+				name: state.userRegistrationData.name,
+				username: state.userRegistrationData.email,
+				email: state.userRegistrationData.email,
+				password: state.userRegistrationData.password,
+				isBuisness: state.userRegistrationData.type
+				// phone: state.userRegistrationData.phone.replace(/\D/g, '')
 			}
-			const res = await this.$axios.post('/auth/register', user)
+			const res = await this.$axios.post('/auth/register', data)
 			const token = res.data.data.token
-
-			this.$axios.setToken(token)
-			console.log('token', token)
+			console.log('authrorized ', token)
+			commit('SET_TOKEN', token)
 			$cookies.set('token', token)
-			// console.log('$cookies.get()', $cookies.get('token'))
 		} catch (e) {
 			console.log('error:', e)
 		}
 	},
+
 	async USER_INFO({ commit }) {
 		try {
-			// let header = { token: $cookies.get('token') }
-			// const res = await this.$axios.get('/auth/info')
-			// console.log('user_info: ', res)
+			const res = await this.$axios.get('/auth/info')
+			console.log(res.data.data)
 		} catch (e) {
-			console.log('error user_info', e)
+			console.log('error user_info ', e)
+		}
+	},
+
+	async USER_AUTHORIZATION({ commit, state }) {
+		try {
+			const data = {
+				email: state.userAuthorizationData.email,
+				password: state.userAuthorizationData.password
+			}
+			const res = await this.$axios.post('/auth/login', data)
+			const token = res.data.data.token
+			console.log('user login: ', token)
+			const user = res.data.data.user
+			// const userPolls = await this.$axios.get(
+			// 	'/quizzes?filter[author.id]=is:76'
+			// )
+			// console.log(user.name + ' user polls: ' + userPolls.data)
+			commit('SET_USER', user)
+			commit('SET_TOKEN', token)
+		} catch (e) {
+			console.log('error user_login ', e)
+		}
+	},
+
+	async USER_UNAUTHORIZATION({ commit }) {
+		try {
+			commit('SET_TOKEN', '')
+		} catch (e) {
+			console.log('error user_logout', e)
 		}
 	}
 }
 
 export const getters = {
-	GET_AUTH_LIST(state) {
-		return state
-	}
+	GET_REGISTRATION_DATA: state => state.userRegistrationData,
+	GET_AUTHORIZATION_DATA: state => state.userAuthorizationData,
+	GET_TOKEN: state => state.token,
+	GET_IS_LOGGED: state => !!state.token,
+	GET_USER: state => state.userData
 }

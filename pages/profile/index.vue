@@ -23,6 +23,8 @@ import pollsList from '@/components/polls/pollsList/pollsList.vue'
 import ratingsList from '@/components/polls/pollsList/pollsList.vue'
 import iconArrow from '@/components/icons/iconArrow.vue'
 
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
   components: {
     detailedLayout,
@@ -33,15 +35,6 @@ export default {
   },
   data() {
     return {
-      profileInfo: {
-        name: 'Карина Рар',
-        rating: 4,
-        pollsnum: 5,
-        ratingsnum: 6,
-        subscribers: 200,
-        subscriptions: 26,
-        type: 'business'
-      },
       pollsArray: [
         {
           category: 'Бизнес',
@@ -79,6 +72,18 @@ export default {
           views: 345
         }
       ]
+    }
+  },
+  computed: {
+    ...mapGetters({ GET_USER: 'auth/GET_USER' }),
+    profileInfo() {
+      return {
+        ...this.GET_USER,
+        pollsnum: 5,
+        ratingsnum: 6,
+        subscribers: 200,
+        subscriptions: 26
+      }
     }
   }
 }

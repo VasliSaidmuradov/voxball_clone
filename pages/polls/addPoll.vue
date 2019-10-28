@@ -160,7 +160,7 @@ export default {
     localStorage.setItem('newPoll', JSON.stringify(store.state.newPoll))
   },
   mounted() {
-    if (localStorage.getItem('newPoll') === null) {
+    if (localStorage.getItem('newPoll') !== null) {
       let newPoll = JSON.parse(localStorage.getItem('newPoll'))
       for (let key in newPoll) {
         SET_POLL_DATA({ field: key, value: newPoll[key] })

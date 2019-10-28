@@ -2,7 +2,7 @@
   <div class="Header">
     <div class="container Header__wrapper">
       <div class="d-flex align-items-center">
-        <nuxt-link :to="'/'+$i18n.locale">
+        <nuxt-link :to="'/' + $i18n.locale">
           <img class="Header__logo" src="~/assets/img/logo.png" alt />
         </nuxt-link>
         <nav-bar class="Header__nav" />
@@ -15,8 +15,8 @@
         <div class="add-poll Header__lang">
           <lang-switcher :langs="$i18n.locales"></lang-switcher>
         </div>
-        <div class="d-flex align-items-center">
-          <profile-icon :auth="auth" />
+        <div class="d-flex align-items-center" @click="USER_UNAUTHORIZATION">
+          <profile-icon :auth="GET_IS_LOGGED" />
         </div>
       </div>
     </div>
@@ -28,6 +28,9 @@ import navBar from '@/components/shared/navbar.vue'
 import search from '@/components/inputs/search.vue'
 import langSwitcher from '@/components/inputs/langSwitcher.vue'
 import profileIcon from '@/components/profile/profileIcon.vue'
+
+import { mapGetters, mapActions } from 'vuex'
+
 const find = (str, name) => new RegExp(str.replace(/\s/g, '|'), 'i').test(name)
 export default {
   components: {
@@ -44,6 +47,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions({ USER_UNAUTHORIZATION: 'auth/USER_UNAUTHORIZATION' }),
     addPoll() {
       this.$navigate('/polls/addPoll')
     },
@@ -55,9 +59,11 @@ export default {
   },
   data() {
     return {
-      myVal: '',
-      auth: false
+      myVal: ''
     }
+  },
+  computed: {
+    ...mapGetters({ GET_IS_LOGGED: 'auth/GET_IS_LOGGED' })
   }
 }
 </script>

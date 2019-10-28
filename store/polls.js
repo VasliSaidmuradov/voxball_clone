@@ -3,7 +3,16 @@ import Api from '@/plugins/axios'
 export const state = () => ({
 	polls: [],
 	newPolls: [],
-	newPoll: {}
+	newPoll: {
+		title: '',
+		description: '',
+		startedAt: '',
+		endedAt: '',
+		isPrivate: '',
+		preview: '',
+		video: '',
+		videoUrl: ''
+	}
 })
 
 export const mutations = {
@@ -19,18 +28,20 @@ export const mutations = {
 export const actions = {
 	async FETCH_POLLS({ commit }) {
 		try {
-			const res = await Api().get('/quizzes')
-			// console.log(res)
+			const res = await this.$axios.get('/quizzes')
+			const res2 = await this.$axios.get('/auth/info')
+			console.log('auth: ', res2.data.data)
 			commit('SET_POLLS', res.data.data)
 		} catch (e) {
 			console.log(e.response.data)
 		}
 	},
+
 	async ADD_POLL({ commit, state }) {
 		try {
 			// const poll = state.newPoll
 			const poll = {
-				title: 'Pollllllll 4',
+				title: 'Polllllllasdasdl 5',
 				startedAt: '2019-10-26 08:25:47',
 				endedAt: '2019-11-20 08:25:47'
 			}

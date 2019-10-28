@@ -1,10 +1,5 @@
 module.exports = {
-	modules: [
-		'@nuxtjs/style-resources',
-		'nuxt-i18n',
-		'@nuxtjs/axios',
-		'@nuxtjs/auth'
-	],
+	modules: ['@nuxtjs/style-resources', 'nuxt-i18n', '@nuxtjs/axios'],
 	styleResources: {
 		scss: ['@/assets/css/variables.scss']
 	},
@@ -20,13 +15,7 @@ module.exports = {
 		defaultLocale: 'ru'
 	},
 	axios: {
-		// host: 'cms.nova.st1',
-		// https: true,
-		// prefix: '/api/v1',
-		// port: '',
-		// proxy: true,
 		baseURL: 'https://cms.nova.st/api/v1',
-		// browserBaseURL: 'https://cms.nova.st/api/v1',
 		credentials: false,
 		proxyHeaders: false
 	},
@@ -41,8 +30,10 @@ module.exports = {
 	plugins: [
 		'~/plugins/global.js',
 		'~/plugins/navigate.js',
+		'~/plugins/axios.js',
 		{ src: '~/plugins/ckEditor.js', mode: 'client' },
-		{ src: '~plugins/vue-cookie', ssr: false }
+		{ src: '~plugins/vue-cookie', ssr: false },
+		{ src: '~plugins/persistedState', ssr: false }
 	],
 	head: {
 		title: 'voxball',

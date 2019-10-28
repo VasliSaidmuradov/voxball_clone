@@ -9,9 +9,8 @@
           :searchable="false"
           :no-drop="false"
           :multiple="false"
-          :placeholder="options[0]"
-          v-model="accountType"
-          @input="setSelected"
+          :value="GET_REGISTRATION_DATA['type']"
+          @input="SET_REGISTRATION_DATA({ field: 'type', value: $event })"
         ></v-select>
         <div class="type__buttons">
           <v-btn @click="$navigate('/login/login')" class="type__link-wrap left-link" link>
@@ -39,7 +38,7 @@ import vFormLayout from '@/components/forms/vFormLayout.vue'
 // v-select
 import vSelect from 'vue-select'
 import '@/assets/css/vSelect.scss'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -50,24 +49,24 @@ export default {
   },
   data() {
     return {
-      options: ['Персональный', 'Корпоративный'],
-      accountType: ''
+      options: [
+        { label: 'Персональный', value: false },
+        { label: 'Корпоративный', value: true }
+      ],
+      accountType: null
     }
   },
+  computed: {
+    ...mapGetters({ GET_REGISTRATION_DATA: 'auth/GET_REGISTRATION_DATA' })
+  },
   methods: {
+    ...mapMutations({ SET_REGISTRATION_DATA: 'auth/SET_REGISTRATION_DATA' }),
     nextStep() {
       this.$navigate('/registration/registrationmode')
-    },
-    setSelected() {
-      let state = {
-        field: 'isBusiness',
-        value: this.accountType === 'Корпоративный' ? true : false
-      }
-      this.SET_REGISTRATION_DATA(state)
-    },
-    ...mapMutations({
-      SET_REGISTRATION_DATA: 'auth/SET_REGISTRATION_DATA'
-    })
+    }
+  },
+  mounted() {
+    this.SET_REGISTRATION_DATA({ field: 'type', value: this.options[0] })
   }
 }
 </script>
@@ -78,9 +77,6 @@ export default {
   background-size: 100%;
   background-repeat: no-repeat;
   min-height: 40rem;
-
-  &__label {
-  }
 
   &__select {
     margin-top: 0.5rem;

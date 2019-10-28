@@ -219,6 +219,8 @@ export default {
   computed: {
     ...mapGetters({ GET_POLLS_LIST: 'polls/GET_POLLS_LIST' })
   },
+  created() {
+  },
   async fetch({ store }) {
     await store.dispatch('polls/FETCH_POLLS')
   }

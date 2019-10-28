@@ -4,10 +4,11 @@
       <v-form-layout class="mt-5 mb-5">
         <label class="verification__label">Введите код подтверждения</label>
         <input
+          :value="GET_REGISTRATION_DATA['code']"
+          @input="SET_REGISTRATION_DATA({field: 'code', value: $event.target.value})"
           class="verification__input"
           type="text"
           v-mask="'### ###'"
-          v-model="verificationCode"
         />
         <div class="verification__buttons">
           <v-btn class="left-link" link>
@@ -44,6 +45,7 @@ import registrationSocial from '@/components/registration/registrationSocial.vue
 import VueMask from 'v-mask'
 Vue.use(VueMask)
 import { VueMaskDirective } from 'v-mask'
+import { mapGetters, mapMutations } from 'vuex'
 Vue.directive('mask', VueMaskDirective)
 
 export default {
@@ -58,6 +60,16 @@ export default {
     return {
       verificationCode: ''
     }
+  },
+  computed: {
+    ...mapGetters({
+      GET_REGISTRATION_DATA: 'auth/GET_REGISTRATION_DATA'
+    })
+  },
+  methods: {
+    ...mapMutations({
+      SET_REGISTRATION_DATA: 'auth/SET_REGISTRATION_DATA'
+    })
   }
 }
 </script>
