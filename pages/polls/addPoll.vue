@@ -36,18 +36,38 @@
                   @input="SET_NEW_POLL_DATA({field: 'title', value: $event.target.value})"
                 />
                 <p class="add-poll-header__text">Введите описание</p>
-                <!-- <vEditor
+                <vEditor
                   :width="'100%'"
                   :height="'12rem'"
-                  :editorData="GET_NEW_POLL['description']"
+                  :editorData="''"
                   @input="SET_NEW_POLL_DATA({field: 'description', value: $event})"
-                />-->
+                />
               </div>
             </div>
           </section>
           <section class="add-poll-answers">
-            <p>Введите варианты ответов:</p>
-            <add-answers-list :answersList.sync="addAnswerslist" />
+            <div
+              class="add-poll-questions"
+              v-for="(question, index) in GET_NEW_POLL_QUESTIONS"
+              :key="index"
+            >
+              <p>Введите вопрос:</p>
+              <input
+                :value="question.title"
+                @input="SET_NEW_POLL_DATA_QUESTION({ questionIndex: index, field: 'title', value: $event.target.value })"
+                class="add-poll-questions__title"
+                type="text"
+              />
+              <p>Введите варианты ответов:</p>
+              <add-answers-list :answersList="GET_NEW_POLL_VARIANTS[index]" :questionIndex="index" />
+              <!-- @input="inputAnswer(index)" -->
+            </div>
+            <v-btn
+              @click="SET_NEW_POLL_QUESTION"
+              class="add-poll-questions__button"
+              rounded
+              border
+            >добавить вопрос</v-btn>
           </section>
           <section class="add-poll-options">
             <div class="add-poll-options__item">
@@ -143,11 +163,22 @@ export default {
   },
   methods: {
     ...mapMutations({
-      SET_NEW_POLL_DATA: 'polls/SET_NEW_POLL_DATA'
+      SET_NEW_POLL_DATA: 'polls/SET_NEW_POLL_DATA',
+      SET_NEW_POLL_QUESTION: 'polls/SET_NEW_POLL_QUESTION',
+      SET_NEW_POLL_DATA_QUESTION: 'polls/SET_NEW_POLL_DATA_QUESTION',
+      SET_NEW_POLL_DATA_VARIANT: 'polls/SET_NEW_POLL_DATA_VARIANT'
     }),
     ...mapActions({
       ADD_POLL: 'polls/ADD_POLL'
     }),
+    inputAnswer(data, questionIndex) {
+      SET_NEW_POLL_DATA_VARIANT({
+        questionIndex: questionIndex,
+        variantIndex: data.index,
+        field: 'title',
+        value: data.value
+      })
+    },
     publishPoll() {
       this.SET_NEW_POLL_DATA({
         field: 'startedAt',
@@ -160,20 +191,11 @@ export default {
   computed: {
     ...mapGetters({
       GET_NEW_POLL: 'polls/GET_NEW_POLL',
-      GET_USER: 'auth/GET_USER'
+      GET_USER: 'auth/GET_USER',
+      GET_NEW_POLL_QUESTIONS: 'polls/GET_NEW_POLL_QUESTIONS',
+      GET_NEW_POLL_VARIANTS: 'polls/GET_NEW_POLL_VARIANTS'
     })
   }
-  // beforeUpdate() {
-  //   localStorage.setItem('newPoll', JSON.stringify(store.state.newPoll))
-  // },
-  // mounted() {
-  //   if (localStorage.getItem('newPoll') !== null) {
-  //     let newPoll = JSON.parse(localStorage.getItem('newPoll'))
-  //     for (let key in newPoll) {
-  //       SET_POLL_DATA({ field: key, value: newPoll[key] })
-  //     }
-  //   }
-  // }
 }
 </script>
 
@@ -269,6 +291,25 @@ export default {
     padding: 1rem 0;
     border-bottom: 1px solid $border-color;
     &__title {
+    }
+  }
+  &-questions {
+    border-top: 1px solid $border-color;
+    padding-bottom: 1rem;
+    &__title {
+      border: 3px solid $border-color;
+      border-radius: 2rem;
+      padding: 0.5rem 0.9rem;
+      position: relative;
+      line-height: 1;
+      width: 100%;
+      margin-bottom: 0.8rem;
+      &:focus {
+        outline: none;
+      }
+    }
+    &__button {
+      margin: 1rem 0;
     }
   }
   &-options {

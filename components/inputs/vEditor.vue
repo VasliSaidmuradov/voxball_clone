@@ -5,7 +5,7 @@
         class="v-editor__ckeditor"
         :editor="editor"
         :config="editorConfig"
-        v-model="editorData"
+        :v-model="editorData"
         @input="onEditorInput($event)"
       ></ckeditor>
     </no-ssr>
@@ -69,7 +69,8 @@ export default {
 </style>
 <style lang="scss">
 .v-editor .ck-content {
-  min-height: 7rem;
+  overflow-y: scroll;
+  height: 7rem;
 }
 .v-editor .ck-rounded-corners .ck.ck-editor__top .ck-sticky-panel .ck-toolbar {
   border-top-left-radius: 1rem;

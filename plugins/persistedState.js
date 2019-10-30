@@ -6,8 +6,7 @@ export default ({ store }) => {
 			paths: [
 				'auth.userRegistrationData',
 				'auth.userAuthorizationData',
-				'auth.userData',
-				'polls.newPoll'
+				'auth.userData'
 			]
 		})(store)
 	})
