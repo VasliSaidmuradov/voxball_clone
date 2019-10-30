@@ -121,7 +121,7 @@ export const actions = {
 			const res = await this.$axios.post('/quizzes', poll)
 			console.log(res)
 			commit('SET_POLLS', res.data.data)
-			commit('SET_NEW_POLL_CLEAR')
+			// commit('SET_NEW_POLL_CLEAR')
 		} catch (e) {
 			console.log(e.response.data)
 		}
