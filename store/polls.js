@@ -3,7 +3,9 @@ import Api from '@/plugins/axios'
 
 export const state = () => ({
 	pollsList: [],
-	poll: {}
+	poll: {},
+	pollAnswer: {},
+	pollComments: {}
 })
 
 export const mutations = {
@@ -13,15 +15,30 @@ export const mutations = {
 
 	SET_POLL(state, poll) {
 		state.poll = poll
-	}
+	},
+
+	SET_POLL_COMMENTS(state, comments) {
+		state.pollComments = comments
+	},
+
+	FORMATTED_POLL_ANSWERS(state, questions) {
+		questions.forEach(item => {
+			state.pollAnswer[item.id] = []
+		})
+	},
+
+	SET_POLL_ANSWER(state, { questionId, answers }) {
+		console.log(answers)
+		state.pollAnswer[questionId] = answers
+	},
+
 }
 
 export const actions = {
-	async FETCH_POLLS({ commit }) {
+	async FETCH_POLLS({ commit }, data) {
 		try {
-			const res = await this.$axios.get('/quizzes?with[author]&with[category]')
-			const res2 = await this.$axios.get('/auth/info')
-			console.log(res.data.data)
+			const res = await this.$axios.get(`/quizzes?with[author]&with[category]&${data}`)
+			// console.log(res.data.data)
 			// console.log(res2)
 			commit('SET_POLLS', res.data.data)
 		} catch (e) {
@@ -31,19 +48,44 @@ export const actions = {
 	async ADD_POLL({ commit }, data) {
 		try {
 			const res = await this.$axios.post('/quizzes', data)
-			console.log(res)
+			// console.log(res)
 			// commit('SET_POLLS', res.data.data)
 		} catch (e) {
 			console.log(e.response.data)
 		}
 	},
 
-	async FETCH_POLL({ commit }, id) {
+	async FETCH_POLL({ commit }, id, data) {
 		try {
-			console.log(id)
-			const res = await this.$axios.get(`/quizzes/${id}?with[author]&with[category]&with[questions][with][variants]`)
+			// console.log(id)
+			const res = await this.$axios.get(`/quizzes/${id}?with[author]&with[category]&with[questions][with][variants]&${data}`)
 			console.log(res.data.data)
 			commit('SET_POLL', res.data.data)
+			commit('FORMATTED_POLL_ANSWERS', res.data.data.questions)
+
+		} catch ({ e }) {
+			console.log({ e })
+		}
+	},
+
+	// async FETCH_POLL_COMMENTS({ commit }, id) {
+	// 	try {
+	// 		let id = 1
+	// 		const res = await this.$axios.get(`/quizzes/${id}/comments`)
+	// 		console.log(res.data.data)
+	// 		commit('SET_POLL_COMMENTS', res.data.data)
+	// 	} catch ({ e }) {
+	// 		console.log({ e })
+	// 	}
+	// },
+
+	// async FETCH_POLL_COMPLETED()
+
+	async VOTE({ commit, state }, id) {
+		try {
+			console.log(state.pollAnswer)
+			
+			// const res = await this.$axios.post(`/quizzes/${id}/answers`)
 		} catch ({ e }) {
 			console.log({ e })
 		}
@@ -70,10 +112,18 @@ export const getters = {
 		createdAt: new Date(state.poll.createdAt).toLocaleDateString(),
 		authorName: state.poll.author.name.split(' ').slice(0, 3).join(' '),
 		preview: state.poll.preview == '' ? '/_nuxt/assets/img/poll-no-info-image.png' : state.poll.preview,
-		endedAt: Date.parse(state.poll.endedAt) < Date.parse(new Date()),
 		authorAvatar: state.poll.author.avatar == '' ? '/_nuxt/assets/img/poll-no-avatar.png' : state.poll.author.avatar,
 		path: `/polls/${state.poll.id}`,
+		complete: new Date(state.poll.endedAt) < new Date()
 		// questionsTitle: state.poll.questions.title,
 		// type: state.poll.questions.type
-	})
+	}),
+
+	GET_POLL_COMMENTS: state => ({
+		...state.pollComments
+	}),
+
+	GET_POLL_ANSWER: state => state.pollAnswer
 }
+
+// console.log(Store)

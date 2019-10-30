@@ -1,78 +1,102 @@
 <template>
   <div class="poll-card">
-    <div class="poll-card__question" v-for="question in answers.questions" :key="question.id">
+    <div class="poll-card__question" v-for="question in poll.questions" :key="question.id">
       <h2 class="poll-card__title">
         <!-- Как вы считаете, долго ли Димаш будет
         на музыкальной вершине?-->
         {{ question.title }}
-        <!-- {{  answers.type }} -->
+        <!-- {{  poll.type }} -->
       </h2>
-      <div v-if="question.type == 'simple'" class="poll-card__answer">
+      <div class="poll-card__answer">
         <div class="answer__list">
+          <div v-text="GET_POLL_ANSWER[question.id]"></div>
+
+          <!-- {{GET_POLL_ANSWER[question.id]}} -->
           <answers-list
-            multiple
-            @selectedAnswers="selectedAnswers($event)"
-            :answersList="answers.questions.answers"
+            :type="GET_POLL_ANSWER[question.type]"
+            :value="GET_POLL_ANSWER[question.id]"
+            @input="SET_POLL_ANSWER({'questionId': question.id, 'answers': $event})"
+            :answersList="question.variants"
             :percent="[25,15,50,10]"
+            :complete="complete"
+            v-if="GET_POLL_ANSWER[question.type] !== 'text' && GET_POLL_ANSWER[question.type] !== 'rating'"
+            @showAnswerMedia="openAnswerMedia()"
           ></answers-list>
-          <span style="text-align: center; width: 100%;">Simple</span>
+          <!-- {{answers}} -->
+
+          <div class="poll-card__text-editor" v-if="GET_POLL_ANSWER[question.type] === 'text'">
+            <v-editor
+              class="m-auto"
+              style="width: 90%; height: auto; margin-bottom: 1rem;"
+              @input="SET_POLL_ANSWER({'questionId': question.id, 'answers': $event})"
+              :config="editorConfig"
+            />
+          </div>
+
+          <div
+            class="answer-item__ratings ml-auto mr-auto"
+            v-if="GET_POLL_ANSWER[question.type] === 'rating'"
+          >
+            <no-ssr>
+              <star-rating
+                :value="GET_POLL_ANSWER[question.id]"
+                inactive-color="#fff"
+                border-color="#999"
+                :border-width="1"
+                :padding="1"
+                :show-rating="false"
+                :round-start-rating="false"
+                @rating-selected="SET_POLL_ANSWER({'questionId': question.id, 'answers': $event})"
+              ></star-rating>
+            </no-ssr>
+          </div>
         </div>
-      </div>
-      <div v-if="question.type == 'multiply'" class="poll-card__answer">
-        <div class="answer__list">
-          <answers-list
-            multiple
-            @selectedAnswers="selectedAnswers($event)"
-            :answersList="answers.questions.answers"
-            :percent="[25,15,50,10]"
-          ></answers-list>
-          <span style="text-align: center; width: 100%;">Multiply</span>
-        </div>
-      </div>
-      <div v-if="question.type == 'text'" class="poll-card__ratings ml-auto mr-auto">
-        <span>Text</span>
-      </div>
-      <div v-if="question.type == 'rating'" class="poll-card__ratings ml-auto mr-auto">
-        <no-ssr>
-          <star-rating
-            v-model="rating"
-            inactive-color="#fff"
-            border-color="#999"
-            border-width="1"
-            padding="1"
-            :show-rating="false"
-          ></star-rating>
-        </no-ssr>
-      </div>
-      <div v-if="question.type == 'images'" class="poll-card__ratings ml-auto mr-auto">
-        <span>Image</span>
-      </div>
-      <div v-if="question.type == 'video'" class="poll-card__ratings ml-auto mr-auto">
-        <span>Video</span>
       </div>
     </div>
+    <!-- {{ GET_POLL_ANSWER[question] }} -->
     <div v-if="!complete" class="poll-card__button-wrap">
       <div class="poll-card__pay">
         +1
         <img class="poll-card__coin-image" src="~assets/img/poll-card__coin.png" alt />
       </div>
-      <v-btn class="poll-card__button" border>
+      <v-btn class="poll-card__button" border @click="VOTE">
         голосовать
         <icon-arrow class="ml-2" />
       </v-btn>
     </div>
+
     <div class="poll-card__footer">
       <div>Проголосовали: {{ poll.votes }}</div>
       <div v-if="!complete">Опрос окончится через: {{ poll.date }}</div>
       <div>Поделились: {{ poll.shares }} пользователей</div>
     </div>
+    <v-modal v-slot:body="question" :showModal="showAnswerMedia" @close="closeAnswerMedia()">
+      <template>
+        <div class="answer-item__video-wrap">
+          <div class="answer-item__play-icon"></div>
+          <video
+            class="answer-item__video"
+            src="~/assets/video/placeholder_video.mp4"
+            width="100%"
+            controls
+          ></video>
+        </div>
+        <!-- <div class="answer-item__image-wrap" v-if="question.type === 'image'">
+          <img src="~/assets/img/poll-no-info-image.png" alt />
+        </div>-->
+      </template>
+    </v-modal>
   </div>
 </template>
 
 <script>
 import iconArrow from '@/components/icons/iconArrow.vue'
-import answersList from '@/components/polls/answersList/answersList.vue'
+import answersList from '@/components/answers/answersList/answersList.vue'
+import vEditor from '@/components/inputs/vEditor.vue'
 import StarRating from 'vue-star-rating'
+import vModal from '@/components/modals/vModal.vue'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
+
 // if (process.browser) {
 //   var  StarRating   = require('vue-star-rating')
 // }
@@ -81,13 +105,21 @@ export default {
   components: {
     iconArrow,
     answersList,
-    StarRating
+    vEditor,
+    StarRating,
+    vModal
   },
   props: {
-    answers: {
-      type: Array
+    poll: {
+      type: Object,
+      default: () => ({
+        questions: []
+      })
     },
-    complete: Boolean,
+    complete: {
+      type: Boolean,
+      default: false
+    },
     polltype: {
       type: String,
       default: 'poll'
@@ -95,18 +127,28 @@ export default {
   },
   data() {
     return {
-      poll: {
-        votes: 11,
-        date: '9 дней',
-        shares: 15
-      },
-      rating: 0
+      questionType: 'rating',
+      showAnswerMedia: false
+      // qType: 'text'
+      // rating: 0
     }
   },
   methods: {
+    ...mapMutations({ SET_POLL_ANSWER: 'polls/SET_POLL_ANSWER' }),
+    ...mapActions({ VOTE: 'polls/VOTE' }),
     selectedAnswers(selectedAnswers) {
+      alert()
       console.log(selectedAnswers)
+    },
+    openAnswerMedia() {
+      this.showAnswerMedia = true
+    },
+    closeAnswerMedia() {
+      this.showAnswerMedia = false
     }
+  },
+  computed: {
+    ...mapGetters({ GET_POLL_ANSWER: 'polls/GET_POLL_ANSWER' })
   }
 }
 </script>
@@ -167,6 +209,9 @@ export default {
     height: 1.2rem;
     margin-left: 0.3rem;
     opacity: 0.5;
+  }
+  &__text-editor {
+    width: 100%;
   }
   &__footer {
     display: flex;

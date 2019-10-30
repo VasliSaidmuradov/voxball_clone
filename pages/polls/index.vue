@@ -1,5 +1,6 @@
 <template>
   <div class="polls">
+
     <base-layout
       :title="'Участвуйте в on-line опросах от Voxball.'"
       :text="

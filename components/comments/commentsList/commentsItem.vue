@@ -16,6 +16,7 @@
           class="comment__notification-img"
         />
       </div>
+
       <div editable="true" class="comment__body">
         <p class="comment__text">{{commentsItem.content}}</p>
         <div v-if="commentsItem.type !== 'notification' && commentsItem.type !== 'review'">
@@ -23,6 +24,7 @@
           <span @click="deleteAnswer" class="comment__answer">Удалить</span>
         </div>
       </div>
+
     </div>
     <comments-answer v-model="answer" @cancel="cancelAnswer" @send="sendAnswer" v-if="showAnswer"></comments-answer>
     <comments-list

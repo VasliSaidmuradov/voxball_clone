@@ -1,6 +1,7 @@
 <template>
   <div class="results">
     <base-layout :title="'Завершенные Опросы'">
+      <!-- {{ GET_POLLS_LIST }} -->
       <section class="results-top container mt-5">
         <polls-list :list="pollsArray" />
       </section>
@@ -26,8 +27,8 @@
           </div>
         </div>
         <div class="results-main__content">
-          <polls-list :list="pollsArray" />
-          <polls-list :list="pollsArray" />
+          <polls-list :list="GET_POLLS_LIST" />
+          <polls-list :list="GET_POLLS_LIST" />
         </div>
         <v-btn class="Section__button mb-5 mt-4" rounded border>
           <span>Загрузить еще</span>
@@ -45,6 +46,7 @@ import pollsList from '@/components/polls/pollsList/pollsList.vue'
 import vSelect from 'vue-select'
 import iconArrow from '@/components/icons/iconArrow.vue'
 import '@/assets/css/vSelect.scss'
+import { mapGetters, mapActions, mapState } from 'vuex'
 
 export default {
   components: {
@@ -61,7 +63,7 @@ export default {
           category: 'Бизнес',
           video: '',
           complete: true,
-          title: 'хотите ли выполететь в космос?',
+          title: 'хотите ли выполететь в космос 1?',
           date: '19.19.2019',
           views: 345
         },
@@ -69,7 +71,7 @@ export default {
           category: 'Бизнес',
           video: 'Видео',
           complete: true,
-          title: 'хотите ли выполететь в космос?',
+          title: 'хотите ли выполететь в космос 2?',
           date: '19.19.2019',
           views: 345
         },
@@ -77,7 +79,7 @@ export default {
           category: 'Бизнес',
           video: '',
           complete: true,
-          title: 'хотите ли выполететь в космос?',
+          title: 'хотите ли выполететь в космос 3?',
           date: '19.19.2019',
           views: 345
         },
@@ -85,20 +87,33 @@ export default {
           category: 'Бизнес',
           video: '',
           complete: true,
-          title: 'хотите ли выполететь в космос?',
+          title: 'хотите ли выполететь в космос 4?',
           date: '19.19.2019',
           views: 345
         },
         {
           category: 'Бизнес',
           video: '',
-          complete: true,
-          title: 'хотите ли выполететь в космос?',
+          complete: false,
+          title: 'хотите ли выполететь в космос 5?',
           date: '19.19.2019',
           views: 345
         }
       ]
     }
+  },
+  // methods: {
+  //   ...mapActions({ })
+  // },
+  computed: {
+    ...mapGetters({ GET_POLLS_LIST: 'polls/GET_POLLS_LIST' })
+  },
+  async fetch({ store }) {
+    let now = new Date().toLocaleDateString()
+    await store.dispatch(
+      'polls/FETCH_POLLS',
+      `filter[endedAt]=between:01.01.1970,${now}`
+    )
   }
 }
 </script>
@@ -106,10 +121,6 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/css/section.scss';
 
-.results {
-  &-main {
-  }
-}
 .arrow {
   width: 1.2rem;
   margin-left: 0.5rem;
