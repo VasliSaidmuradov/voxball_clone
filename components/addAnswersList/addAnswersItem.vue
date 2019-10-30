@@ -17,13 +17,14 @@
     </div>
     <div v-else class="answer-item">
       <input
-        ref="input"
         v-if="type !== 'video'"
-        v-model="answersItem.value"
-        @keyup.enter="enter"
+        @input="SET_NEW_POLL_DATA_VARIANT({ questionIndex: variantInfo.questionIndex, variantIndex: variantInfo.variantIndex, field: 'title', value: $event.target.value})"
         class="answer-item__input"
         type="text"
       />
+      <!-- ref="input"-->
+      <!-- @keyup.enter="enter" -->
+      <!-- v-model="answersItem.value" -->
       <div class="answer-item__cancel-wrapper" @click="removeAnswer()">
         <iconCancel class="icon-cancel answer-item__cancel"></iconCancel>
       </div>
@@ -34,9 +35,12 @@
 <script>
 import iconCancel from '@/components/icons/iconCancel'
 import upload from '@/components/inputs/upload'
+import { mapMutations } from 'vuex'
+
 export default {
   props: {
-    answersItem: Object
+    answersItem: Object,
+    variantInfo: Object
   },
   data() {
     return {
@@ -50,6 +54,9 @@ export default {
     }
   },
   methods: {
+    ...mapMutations({
+      SET_NEW_POLL_DATA_VARIANT: 'polls/SET_NEW_POLL_DATA_VARIANT'
+    }),
     enter() {
       this.$emit('enter')
     },

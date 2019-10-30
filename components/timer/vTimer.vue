@@ -9,7 +9,7 @@ export default {
   props: {
     date: {
       type: String,
-      default: '12.12.2019'
+      default: '2019-12-25'
     }
   },
   data() {

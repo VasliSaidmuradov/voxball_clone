@@ -6,7 +6,9 @@
     </div>
     <div class="profile-info__content">
       <div class="profile-info__header">
-        <div class="profile-info__name">{{ profileInfo.name }}</div>
+        <div
+          class="profile-info__name"
+        >{{`${profileInfo.name} ${profileInfo.email} ${profileInfo.id} ${profileInfo.rating} ${profileInfo.isBusiness}`}}</div>
         <div class="profile-info__rating">
           <no-ssr>
             <star-rating
@@ -24,7 +26,7 @@
           <v-btn
             class="profile-info__button"
             @click="reviewOpen()"
-            v-if="profileInfo.type=='business'"
+            v-if="profileInfo.isBusiness==true"
             rounded
             border
           >оставить отзыв</v-btn>

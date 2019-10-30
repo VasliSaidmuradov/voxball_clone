@@ -29,20 +29,50 @@
               </div>
               <div class="add-poll-header__info">
                 <p class="add-poll-header__text">Введите загаловок (он же является вопросом)</p>
-                <input class="add-poll-header__input-title" type="text" />
+                <input
+                  class="add-poll-header__input-title"
+                  type="text"
+                  :value="GET_NEW_POLL['title']"
+                  @input="SET_NEW_POLL_DATA({field: 'title', value: $event.target.value})"
+                />
                 <p class="add-poll-header__text">Введите описание</p>
-                <vEditor :width="'100%'" :height="'12rem'" :editorData="''" @input="inputEditor" />
+                <vEditor
+                  :width="'100%'"
+                  :height="'12rem'"
+                  :editorData="''"
+                  @input="SET_NEW_POLL_DATA({field: 'description', value: $event})"
+                />
               </div>
             </div>
           </section>
           <section class="add-poll-answers">
-            <p>Введите варианты ответов:</p>
-            <add-answers-list :answersList.sync="addAnswerslist" />
+            <div
+              class="add-poll-questions"
+              v-for="(question, index) in GET_NEW_POLL_QUESTIONS"
+              :key="index"
+            >
+              <p>Введите вопрос:</p>
+              <input
+                :value="question.title"
+                @input="SET_NEW_POLL_DATA_QUESTION({ questionIndex: index, field: 'title', value: $event.target.value })"
+                class="add-poll-questions__title"
+                type="text"
+              />
+              <p>Введите варианты ответов:</p>
+              <add-answers-list :answersList="GET_NEW_POLL_VARIANTS[index]" :questionIndex="index" />
+              <!-- @input="inputAnswer(index)" -->
+            </div>
+            <v-btn
+              @click="SET_NEW_POLL_QUESTION"
+              class="add-poll-questions__button"
+              rounded
+              border
+            >добавить вопрос</v-btn>
           </section>
           <section class="add-poll-options">
             <div class="add-poll-options__item">
               <p class="add-poll-options__title">1. Это приватный опрос:</p>
-              <ToggleButton />
+              <ToggleButton @input="SET_NEW_POLL_DATA({field: 'isPrivate', value: $event})" />
             </div>
             <div class="add-poll-options__item">
               <p
@@ -67,9 +97,9 @@
             <v-tags />
           </section>
           <section class="add-poll-date">
-            <datePicker />
+            <datePicker @input="SET_NEW_POLL_DATA({field: 'endedAt', value: $event})" />
           </section>
-          <v-btn class="add-poll__button" border>
+          <v-btn class="add-poll__button" @click="publishPoll" border>
             опубликовать
             <iconArrow class="ml-3" />
           </v-btn>
@@ -92,6 +122,8 @@ import datePicker from '@/components/inputs/datePicker.vue'
 import vTags from '@/components/tags/vTags.vue'
 import vSelect from 'vue-select'
 import iconArrow from '@/components/icons/iconArrow.vue'
+
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 import '@/assets/css/vSelect.scss'
 
@@ -130,9 +162,39 @@ export default {
     }
   },
   methods: {
-    inputEditor(value) {
-      console.log(value)
+    ...mapMutations({
+      SET_NEW_POLL_DATA: 'polls/SET_NEW_POLL_DATA',
+      SET_NEW_POLL_QUESTION: 'polls/SET_NEW_POLL_QUESTION',
+      SET_NEW_POLL_DATA_QUESTION: 'polls/SET_NEW_POLL_DATA_QUESTION',
+      SET_NEW_POLL_DATA_VARIANT: 'polls/SET_NEW_POLL_DATA_VARIANT'
+    }),
+    ...mapActions({
+      ADD_POLL: 'polls/ADD_POLL'
+    }),
+    inputAnswer(data, questionIndex) {
+      SET_NEW_POLL_DATA_VARIANT({
+        questionIndex: questionIndex,
+        variantIndex: data.index,
+        field: 'title',
+        value: data.value
+      })
+    },
+    publishPoll() {
+      this.SET_NEW_POLL_DATA({
+        field: 'startedAt',
+        value: new Date()
+      })
+      this.SET_NEW_POLL_DATA({ field: 'authorId', value: this.GET_USER['id'] })
+      this.ADD_POLL()
     }
+  },
+  computed: {
+    ...mapGetters({
+      GET_NEW_POLL: 'polls/GET_NEW_POLL',
+      GET_USER: 'auth/GET_USER',
+      GET_NEW_POLL_QUESTIONS: 'polls/GET_NEW_POLL_QUESTIONS',
+      GET_NEW_POLL_VARIANTS: 'polls/GET_NEW_POLL_VARIANTS'
+    })
   }
 }
 </script>
@@ -226,6 +288,25 @@ export default {
   &-answers {
     padding: 1rem 0;
     border-bottom: 1px solid $border-color;
+  }
+  &-questions {
+    border-top: 1px solid $border-color;
+    padding-bottom: 1rem;
+    &__title {
+      border: 3px solid $border-color;
+      border-radius: 2rem;
+      padding: 0.5rem 0.9rem;
+      position: relative;
+      line-height: 1;
+      width: 100%;
+      margin-bottom: 0.8rem;
+      &:focus {
+        outline: none;
+      }
+    }
+    &__button {
+      margin: 1rem 0;
+    }
   }
   &-options {
     padding: 1rem 0;

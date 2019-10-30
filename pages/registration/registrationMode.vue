@@ -5,16 +5,16 @@
         <div class="mode__toggle">
           <a
             class="mode__type"
-            :class="{ isActive : registrationMode }"
-            @click="registrationMode = true"
+            :class="{ isActive : !registrationMode }"
+            @click="registrationMode = !registrationMode"
           >Регистрация через номер</a>
           <a
             class="mode__type"
-            :class="{ isActive : !registrationMode }"
-            @click="registrationMode = false"
+            :class="{ isActive : registrationMode }"
+            @click="registrationMode = !registrationMode"
           >Регистрация через e-mail</a>
         </div>
-        <div v-if="registrationMode">
+        <div v-if="registrationMode === false">
           <v-select
             class="mode__select"
             :options="options"
@@ -22,36 +22,38 @@
             :no-drop="false"
             :multiple="false"
             placeholder="Выберите страну"
-            v-model="country"
-            @input="setSelected"
+            :value="GET_REGISTRATION_DATA['country']"
+            @input="SET_REGISTRATION_DATA({field: 'country', value: $event})"
           ></v-select>
           <input
             class="mode__input mode__tel"
-            type="tel"
             v-mask="'+7(###) ### ## ##'"
+            :value="GET_REGISTRATION_DATA['phone']"
             placeholder="+7(___) ___ __ __"
-            @input="addState('phone', $event.target.value)"
+            @input="SET_REGISTRATION_DATA({ field: 'phone', value: $event.target.value })"
           />
         </div>
-        <div v-if="registrationMode == false">
+        <div v-if="registrationMode == true">
           <label class="mode__label">Адрес электронной почты</label>
           <input
             class="mode__input mode__email"
             type="text"
+            :value="GET_REGISTRATION_DATA['email']"
             @input="SET_REGISTRATION_DATA({field: 'email', value: $event.target.value})"
           />
           <label class="mode__label">Создать пароль</label>
           <input
             class="mode__input mode__password"
             type="text"
+            :value="GET_REGISTRATION_DATA['password']"
             @input="SET_REGISTRATION_DATA({field: 'password', value: $event.target.value})"
           />
           <label class="mode__label">Повторить пароль</label>
           <input
             class="mode__input mode__password"
             type="text"
-            v-model="passwordCheck"
-            @change="addState('passwordCheck', passwordCheck)"
+            :value="GET_REGISTRATION_DATA['password']"
+            @input="SET_REGISTRATION_DATA({field: 'password', value: $event.target.value})"
           />
         </div>
         <div class="mode__buttons">
@@ -89,7 +91,7 @@ import VueMask from 'v-mask'
 Vue.use(VueMask)
 import { VueMaskDirective } from 'v-mask'
 Vue.directive('mask', VueMaskDirective)
-import { mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   components: {
@@ -103,40 +105,14 @@ export default {
   data() {
     return {
       options: ['Казахстан', 'Россия', 'Китай'],
-      registrationMode: true,
-      phone: '',
-      country: '',
-      email: '',
-      password: '',
-      passwordCheck: ''
+      registrationMode: true
     }
   },
+  computed: {
+    ...mapGetters({ GET_REGISTRATION_DATA: 'auth/GET_REGISTRATION_DATA' })
+  },
   methods: {
-    ...mapMutations({ SET_REGISTRATION_DATA: 'auth/SET_REGISTRATION_DATA' }),
-    setSelected() {
-      let state = {
-        field: 'country',
-        value: this.country
-      }
-      this.mutateState(state)
-    },
-    addState(field, value) {
-      if (field === 'phone') {
-        value = value
-          .trim()
-          .split('')
-          .map(x => (x == ' ' || x == '(' || x == ')' ? '' : x))
-          .join('')
-      }
-      let state = {
-        field: field,
-        value: value
-      }
-      this.mutateState(state)
-    },
-    ...mapMutations({
-      mutateState: 'auth/SET_REGISTRATION_DATA'
-    })
+    ...mapMutations({ SET_REGISTRATION_DATA: 'auth/SET_REGISTRATION_DATA' })
   }
 }
 </script>

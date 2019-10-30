@@ -15,6 +15,8 @@
             :multiple="false"
             :placeholder="hours[0]"
             :maxHeight="'70'"
+            v-model="dateHours"
+            @input="dateChange"
             :clearable="false"
           ></v-select>
           <span class="p-1">:</span>
@@ -26,6 +28,8 @@
             :multiple="false"
             :placeholder="minutes[0]"
             :maxHeight="'70'"
+            v-model="dateMinutes"
+            @input="dateChange"
             :clearable="false"
           ></v-select>
         </div>
@@ -41,6 +45,7 @@
               mode="single"
               v-model="date"
               :select-attribute="attributes"
+              @input="dateChange"
             ></v-date-picker>
           </div>
         </no-ssr>
@@ -156,6 +161,8 @@ export default {
         '58',
         '59'
       ],
+      dateMinutes: 0,
+      dateHours: 0,
       date: new Date(),
       formats: {
         title: 'MMMM YYYY',
@@ -177,6 +184,14 @@ export default {
           color: '#2b454e'
         }
       }
+    }
+  },
+  methods: {
+    dateChange() {
+      let exactDate = new Date(this.date)
+      exactDate.setMinutes(this.dateMinutes)
+      exactDate.setHours(this.dateHours)
+      this.$emit('input', exactDate)
     }
   }
 }
