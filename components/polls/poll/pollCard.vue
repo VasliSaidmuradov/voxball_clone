@@ -2,10 +2,7 @@
   <div class="poll-card">
     <div class="poll-card__question" v-for="question in poll.questions" :key="question.id">
       <h2 class="poll-card__title">
-        <!-- Как вы считаете, долго ли Димаш будет
-        на музыкальной вершине?-->
         {{ question.title }}
-        <!-- {{  poll.type }} -->
       </h2>
       <div class="poll-card__answer">
         <div class="answer__list">

@@ -19,7 +19,7 @@
       <div class="poll-info__img-wrap">
         <!-- <img class="poll-info__img" src="~assets/img/poll-no-info-image.png" alt /> -->
         <img class="poll-info__img" :src="poll.preview" alt />
-        <div v-if="poll.endedAt" class="poll-info__complete">
+        <div v-if="poll.complete" class="poll-info__complete">
           <span class="poll-info__icon-complete mr-2">
             <icon-complete />
           </span>

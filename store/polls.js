@@ -5,7 +5,7 @@ export const state = () => ({
 	pollsList: [],
 	poll: {},
 	pollAnswer: {},
-	pollComments: {},
+	// pollComments: {},
 	// polls: [],
 	newPoll: {
 		title: '',
@@ -47,9 +47,9 @@ export const mutations = {
 		state.poll = poll
 	},
 
-	SET_POLL_COMMENTS(state, comments) {
-		state.pollComments = comments
-	},
+	// SET_POLL_COMMENTS(state, comments) {
+	// 	state.pollComments = comments
+	// },
 
 	FORMATTED_POLL_ANSWERS(state, questions) {
 		questions.forEach(item => {
@@ -118,7 +118,7 @@ export const actions = {
 	async FETCH_POLLS({ commit }, data) {
 		try {
 			const res = await this.$axios.get(`/quizzes?with[author]&with[category]&${data}`)
-			// console.log(res.data.data)
+			console.log(res.data.data)
 			// console.log(res2)
 			// const res = await this.$axios.get('/quizzes')
 			const res2 = await this.$axios.get('/auth/info')
@@ -154,7 +154,7 @@ export const actions = {
 			const res = await this.$axios.post('/quizzes', poll)
 			console.log(res)
 			commit('SET_POLLS', res.data.data)
-			commit('SET_NEW_POLL_CLEAR')
+			// commit('SET_NEW_POLL_CLEAR')
 		} catch (e) {
 			console.log(e.response.data)
 		}
@@ -162,8 +162,10 @@ export const actions = {
 
 	async FETCH_POLL({ commit }, id, data) {
 		try {
-			// console.log(id)
+			// let id = 60
 			const res = await this.$axios.get(`/quizzes/${id}?with[author]&with[category]&with[questions][with][variants]&${data}`)
+			// const res = await this.$axios.get(`/quizzes/${id}`)
+
 			console.log(res.data.data)
 			commit('SET_POLL', res.data.data)
 			commit('FORMATTED_POLL_ANSWERS', res.data.data.questions)
@@ -202,7 +204,7 @@ export const getters = {
 		return state.pollsList.map(item => ({
 			...item,
 			title: item.title.substr(0, 60) + '...',
-			categoryTitle: item.category.title.substr(0, 15) + '...',
+			categoryTitle: item.category.title.substr(0, 12) + '...',
 			createdAt: new Date(item.createdAt).toLocaleDateString(),
 			authorName: item.author.name.split(' ').slice(0, 3).join(' '),
 			preview: item.preview == '' ? '/_nuxt/assets/img/poll__image2.png' : item.preview,
@@ -213,11 +215,11 @@ export const getters = {
 
 	GET_POLL: state => ({
 		...state.poll,
-		categoryTitle: state.poll.category.title.substr(0, 15) + '...',
+		categoryTitle: state.poll.category === null ? 'No category title' : state.poll.category.title.substr(0, 12) + '...',
 		createdAt: new Date(state.poll.createdAt).toLocaleDateString(),
-		authorName: state.poll.author.name.split(' ').slice(0, 3).join(' '),
+		authorName: state.poll.author === null ? 'No Author Name' : state.poll.author.name.split(' ').slice(0, 3).join(' '),
 		preview: state.poll.preview == '' ? '/_nuxt/assets/img/poll-no-info-image.png' : state.poll.preview,
-		authorAvatar: state.poll.author.avatar == '' ? '/_nuxt/assets/img/poll-no-avatar.png' : state.poll.author.avatar,
+		authorAvatar: state.poll.author == null ? '/_nuxt/assets/img/poll-no-avatar.png' : state.poll.author.avatar,
 		path: `/polls/${state.poll.id}`,
 		complete: new Date(state.poll.endedAt) < new Date()
 		// questionsTitle: state.poll.questions.title,
@@ -228,7 +230,7 @@ export const getters = {
 		...state.pollComments
 	}),
 
-	// GET_POLL_ANSWER: state => state.pollAnswer,
+	GET_POLL_ANSWER: state => state.pollAnswer,
 	// GET_POLLS_LIST: state => state.polls,
 	GET_NEW_POLL: state => state.newPoll,
 	GET_NEW_POLL_QUESTIONS: state =>

@@ -1,6 +1,5 @@
 <template>
   <div class="polls">
-
     <base-layout
       :title="'Участвуйте в on-line опросах от Voxball.'"
       :text="
@@ -220,10 +219,11 @@ export default {
   computed: {
     ...mapGetters({ GET_POLLS_LIST: 'polls/GET_POLLS_LIST' })
   },
-  created() {
-  },
+  created() {},
   async fetch({ store }) {
     await store.dispatch('polls/FETCH_POLLS')
+    // await store.dispatch('polls/FETCH_POLLS', 'filter[id]=is:50')
+
   }
 }
 </script>

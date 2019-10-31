@@ -4,7 +4,14 @@
       <!-- {{ $route.params.id }} -->
       <!-- {{ GET_POLL.questions }} -->
       <poll-info class="mt-5" :poll="GET_POLL"></poll-info>
-      <poll-card :complete="GET_POLL['complete']" class="mb-5" :poll="GET_POLL" v-show="!!GET_POLL.questions.length"></poll-card>
+      <!-- <poll-card :complete="GET_POLL['complete']" class="mb-5" :poll="GET_POLL" v-show="!!GET_POLL.questions.length"></poll-card> -->
+      <poll-card
+        :complete="GET_POLL['complete']"
+        class="mb-5"
+        :poll="GET_POLL"
+        v-show="!!GET_POLL.questions.length"
+      ></poll-card>
+
       <comments-list :levels="1" :commentsList="comments" />
       <div class="d-flex mr-auto ml-auto mb-5 mt-3" style="width: 50rem; justify-content: center">
         <v-btn border rounded @click="openStatistics">
@@ -56,7 +63,7 @@
             <span class="statisticsModal__item">комментарии: {{ this.comments.length }}</span>
             <span class="statisticsModal__item">просмотры: {{ this.pollData.views }}</span>
           </div>
-          <poll-card class="mb-5" :answers="answers" complete ></poll-card>
+          <poll-card class="mb-5" :answers="answers" complete></poll-card>
         </template>
       </v-modal>
     </detailed-layout>
@@ -253,18 +260,13 @@ export default {
   },
   computed: {
     ...mapGetters({
-      GET_POLL: 'polls/GET_POLL',
-      GET_POLL_COMMENTS: 'polls/GET_POLL_COMMENTS'
+      GET_POLL: 'polls/GET_POLL'
     })
   },
   async fetch({ store, route }) {
     await store.dispatch('polls/FETCH_POLL', route.params.id)
-    // await store.dispatch('polls/FETCH_POLL_COMMENTS', 1)
-  },
-  // async fetch({ store, route}) {
-  //     await store.dispatch('polls/FETCH_POLL_COMMENTS', route.params.id)    
-  // }
-
+    // await store.dispatch('polls/FETCH_POLL', 58)
+  }
 }
 </script>
 
