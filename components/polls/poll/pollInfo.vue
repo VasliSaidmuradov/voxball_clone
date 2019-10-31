@@ -3,8 +3,8 @@
     <div class="poll-info__header">
       <div class="poll-info__info">
         <div class="poll-info__info-wrap">
-          <span class="poll-info__category">{{ poll.category }}</span>
-          <span class="poll-info__date">{{ poll.date }}</span>
+          <span class="poll-info__category">{{ poll.categoryTitle }}</span>
+          <span class="poll-info__date">{{ poll.createdAt }}</span>
         </div>
         <div class="poll-info__info-wrap">
           <v-btn class="poll-info__button" border>
@@ -13,11 +13,12 @@
               <icon-arrow class="ml-2" />
             </span>
           </v-btn>
-          <views class="poll-info__views"></views>
+          <views class="poll-info__views" :viewCount="poll.viewCount"></views>
         </div>
       </div>
       <div class="poll-info__img-wrap">
-        <img class="poll-info__img" src="~assets/img/poll-info-image.png" alt />
+        <!-- <img class="poll-info__img" src="~assets/img/poll-no-info-image.png" alt /> -->
+        <img class="poll-info__img" :src="poll.preview" alt />
         <div v-if="poll.complete" class="poll-info__complete">
           <span class="poll-info__icon-complete mr-2">
             <icon-complete />
@@ -27,24 +28,18 @@
       </div>
     </div>
     <div class="poll-info__main">
-      <h2 class="poll-info__title">
-        Как вы считаете, долго ли Димаш будет
-        на музыкальной вершине?
-      </h2>
-      <p class="poll-info__text">
-        Первый сольный альбом Димаша Кудайбергена вмиг обрел популярность. Буквально в первые 37 секунд дебютное творение певца стало платиновым. Первый сольный альбом Димаша Кудайбергена вмиг обрел популярность. Буквально в первые 37 секунд дебютное творение певца стало платиновым. Первый сольный альбом Димаша Кудайбергена вмиг обрел популярность. Буквально в первые 37 секунд дебютное творение певца стало платиновым. Первый сольный альбом Димаша Кудайбергена вмиг обрел популярность. Буквально в первые 37 секунд дебютное творение певца стало платиновым.
-        Первый сольный альбом Димаша Кудайбергена вмиг обрел популярность. Буквально в первые 37 секунд дебютное творение певца стало платиновым. Первый сольный альбом Димаша Кудайбергена вмиг обрел популярность. Буквально в первые 37 секунд дебютное творение певца стало платиновым. Первый сольный альбом Димаша Кудайбергена вмиг обрел популярность. Буквально в первые 37 секунд дебютное творение певца стало платиновым.
-        Первый сольный альбом Димаша Кудайбергена вмиг обрел популярность. Буквально в первые 37 секунд дебютное творение певца стало платиновым. Первый сольный альбом Димаша Кудайбергена вмиг обрел популярность. Буквально в первые 37 секунд дебютное творение певца стало платиновым. Первый сольный альбом Димаша Кудайбергена вмиг обрел популярность. Буквально в первые 37 секунд дебютное творение певца стало платиновым.
-      </p>
+      <h2 class="poll-info__title">{{ poll.title }}</h2>
+      <p class="poll-info__text">{{ poll.description }}</p>
     </div>
     <div class="poll-info__footer">
       <div class="poll-info__footer-wrap">
         <div class="poll-info__avatar">
-          <img class="poll-info__avatar-img" src="~assets/img/poll-avatar.png" alt />
+          <img class="poll-info__avatar-img" src="~assets/img/poll-no-avatar.png" alt />
+          <!-- <img class="poll-info__avatar-img" :src="poll.authorAvatar" alt /> -->
         </div>
         <p class="poll-info__name-wrap">
           Автор:
-          <span class="poll-info__name">{{ poll.name }}</span>
+          <span class="poll-info__name">{{ poll.authorName }}</span>
         </p>
       </div>
       <div class="poll-info__footer-wrap justify-content">
@@ -184,8 +179,6 @@ export default {
   &__icon-complete {
     width: 0.6rem;
   }
-  &__main {
-  }
   &__title {
     width: 70%;
     font-size: 1.5rem;
@@ -225,6 +218,7 @@ export default {
   }
   &__avatar {
     border-radius: 50%;
+    width: 4.3rem;
   }
   &__avatar-img {
     width: 100%;

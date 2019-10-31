@@ -291,8 +291,6 @@ export default {
     width: 80%;
     margin-bottom: 5rem;
   }
-  &-wrap {
-  }
   &-header {
     border-bottom: 1px solid $border-color;
     &__title {
@@ -344,8 +342,6 @@ export default {
   &-answers {
     padding: 1rem 0;
     border-bottom: 1px solid $border-color;
-    &__title {
-    }
   }
   &-questions {
     border-top: 1px solid $border-color;

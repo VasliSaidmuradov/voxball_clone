@@ -1,15 +1,24 @@
 <template>
   <div class="poll-id">
-    <detailed-layout :title="'Мои Опрос'">
-      <poll-info class="mt-5" :poll="pollData"></poll-info>
-      <poll-card class="mb-5" :answers="answers"></poll-card>
+    <detailed-layout :title="'Мои Опросы'">
+      <!-- {{ $route.params.id }} -->
+      <!-- {{ GET_POLL.questions }} -->
+      <poll-info class="mt-5" :poll="GET_POLL"></poll-info>
+      <!-- <poll-card :complete="GET_POLL['complete']" class="mb-5" :poll="GET_POLL" v-show="!!GET_POLL.questions.length"></poll-card> -->
+      <poll-card
+        :complete="GET_POLL['complete']"
+        class="mb-5"
+        :poll="GET_POLL"
+        v-show="!!GET_POLL.questions.length"
+      ></poll-card>
+
       <comments-list :levels="1" :commentsList="comments" />
       <div class="d-flex mr-auto ml-auto mb-5 mt-3" style="width: 50rem; justify-content: center">
-        <v-btn border rounded @click="openStatistics()">
+        <v-btn border rounded @click="openStatistics">
           статистика
           <icon-arrow class="ml-2" />
         </v-btn>
-        <v-btn class="ml-3" border rounded @click="openToTop()">
+        <v-btn class="ml-3" border rounded @click="openToTop">
           вывести опрос в топ
           <icon-arrow class="ml-2" />
         </v-btn>
@@ -18,7 +27,7 @@
           <icon-arrow class="ml-2" />
         </v-btn>
       </div>
-      <v-modal class="toTopModal" :showModal="showToTopModal" @close="closeToTop()" :abort="false">
+      <v-modal class="toTopModal" :showModal="showToTopModal" @close="closeToTop" :abort="false">
         <template slot="body">
           <v-table :items="items" :fields="fields">
             <template slot="pages">
@@ -71,7 +80,7 @@ import vModal from '@/components/modals/vModal.vue'
 import vTable from '@/components/tables/vTable.vue'
 import vSelect from 'vue-select'
 import '@/assets/css/vSelect.scss'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapState } from 'vuex'
 
 export default {
   components: {
@@ -228,9 +237,6 @@ export default {
     this.comments = this.setLevelForItem(this.comments)
   },
   methods: {
-    ...mapActions({
-      ADD_POLL: 'polls/ADD_POLL'
-    }),
     setLevelForItem(arr, level = 0) {
       return arr.map(item => {
         if (item.child) {
@@ -251,6 +257,15 @@ export default {
     closeStatistics() {
       this.showStatisticsModal = false
     }
+  },
+  computed: {
+    ...mapGetters({
+      GET_POLL: 'polls/GET_POLL'
+    })
+  },
+  async fetch({ store, route }) {
+    await store.dispatch('polls/FETCH_POLL', route.params.id)
+    // await store.dispatch('polls/FETCH_POLL', 58)
   }
 }
 </script>
