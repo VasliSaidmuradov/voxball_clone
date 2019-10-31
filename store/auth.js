@@ -54,8 +54,8 @@ export const actions = {
 				name: state.userRegistrationData.name,
 				username: state.userRegistrationData.email,
 				email: state.userRegistrationData.email,
-				password: state.userRegistrationData.password,
-				isBuisness: state.userRegistrationData.type
+				password: state.userRegistrationData.password
+				// isBuisness: state.userRegistrationData.type
 				// phone: state.userRegistrationData.phone.replace(/\D/g, '')
 			}
 			const res = await this.$axios.post('/auth/register', data)

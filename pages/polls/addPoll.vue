@@ -62,6 +62,13 @@
                 class="add-poll-questions__title"
                 type="text"
               />
+              <v-select
+                :options="questionTypeList.map(item => item.value)"
+                :searchable="true"
+                :no-drop="false"
+                :multiple="false"
+                @input="setQuestionType($event, index)"
+              ></v-select>
               <p>Введите варианты ответов:</p>
               <add-answers-list :answersList="GET_NEW_POLL_VARIANTS[index]" :questionIndex="index" />
               <!-- @input="inputAnswer(index)" -->
@@ -82,11 +89,11 @@
               <p
                 class="add-poll-options__title"
               >2. Могут ли голосовать неавторизованные пользователи</p>
-              <ToggleButton />
+              <ToggleButton @input="SET_NEW_POLL_DATA({field: 'isOpen', value: $event})" />
             </div>
             <div class="add-poll-options__item">
               <p class="add-poll-options__title">3. Комментирование:</p>
-              <ToggleButton />
+              <ToggleButton @input="SET_NEW_POLL_DATA({field: 'canComment', value: $event})" />
             </div>
             <div class="add-poll-options__item add-poll-options__language">
               <p class="add-poll-options__title">4. Укажите язык рейтинга:</p>
@@ -152,15 +159,24 @@ export default {
   },
   data() {
     return {
+      // simple, multiply, video, image, text, stars, questioned, rating, target
       pollTypeList: [
         { value: 'Одиночный выбор', type: 'simple' },
-        { value: 'Множественный выбор', type: 'simple' },
-        { value: 'рейтинг', type: 'simple' },
-        { value: 'текстовый опрос', type: 'simple' },
-        { value: 'анкетированный опрос', type: 'ancket' },
-        { value: 'опрос с картинками', type: 'simple' },
-        { value: 'видео опрос', type: 'simple' },
+        { value: 'Множественный выбор', type: 'multiply' },
+        { value: 'рейтинг', type: 'rating' },
+        { value: 'текстовый опрос', type: 'text' },
+        { value: 'опрос с картинками', type: 'image' },
+        { value: 'видео опрос', type: 'video' },
+        { value: 'анкетированный опрос', type: 'questioned' },
         { value: 'таргетированный опрос', type: 'target' }
+      ],
+      questionTypeList: [
+        { value: 'одиночный выбор', type: 'simple' },
+        { value: 'множественный выбор', type: 'multiply' },
+        { value: 'рейтинг', type: 'rating' },
+        { value: 'ответ-текстовый', type: 'text' },
+        { value: 'ответ-картинки', type: 'image' },
+        { value: 'ответ-видео', type: 'video' }
       ],
       pollTypeActive: false,
       languages: ['Казахский', 'Русский', 'Английский'],
@@ -202,11 +218,21 @@ export default {
     set_poll_type(value, index) {
       this.pollTypeActive = index
       this.SET_NEW_POLL_TYPE(value)
+      this.SET_NEW_POLL_DATA({ field: 'type', value: value })
     },
     categorySet(e) {
       let categoryId = this.GET_CATEGORY_LIST.find(item => item.title === e).id
-      console.log('categoryId: ', typeof categoryId)
+      // console.log('categoryId: ', typeof categoryId)
       this.SET_NEW_POLL_DATA({ field: 'categoryId', value: categoryId })
+    },
+    setQuestionType(e, index) {
+      let type = this.questionTypeList.find(item => (item.value = e)).type
+      console.log('questiontype: ', e, index, type)
+      this.SET_NEW_POLL_DATA_QUESTION({
+        questionIndex: index,
+        field: 'type',
+        value: type
+      })
     }
   },
   computed: {
@@ -398,6 +424,13 @@ export default {
 .add-poll-date .vs__dropdown-menu {
   height: 7rem;
 }
+.add-poll-answers .v-select .vs__selected {
+  font-size: 0.9rem;
+  text-transform: lowercase;
+}
+.add-poll-answers .vs__actions .vs__clear {
+  display: none;
+}
 .add-poll-category .v-select {
   max-width: 17rem;
 }
@@ -405,7 +438,8 @@ export default {
   display: none;
 }
 .add-poll-category .v-select .vs__selected {
-  height: 2.5rem;
+  height: 2.3rem;
   overflow-y: scroll;
+  text-transform: lowercase;
 }
 </style>

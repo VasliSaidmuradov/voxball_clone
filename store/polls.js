@@ -13,7 +13,10 @@ export const state = () => ({
 		video: '',
 		videoUrl: '',
 		isPrivate: false,
-		questions: [{ title: '' }],
+		isOpen: false,
+		canComment: false,
+		type: '',
+		questions: [{ title: '', type: 'simple' }],
 		variants: [
 			[
 				{
@@ -55,12 +58,12 @@ export const mutations = {
 		for (let field in state.newPoll) {
 			if (field === 'isPrivate') state.newPoll[field] = false
 			if (field === 'questions' || field === 'variants') {
-				state.newPoll['questions'] = [{ title: '' }]
+				state.newPoll['questions'] = [{ title: '', type: 'simple' }]
 				state.newPoll['variants'] = [[{ title: '' }]]
 			} else state.newPoll[field] = ''
-			console.log(`${field} : ${state.newPoll[field]}`)
+			// console.log(`${field} : ${state.newPoll[field]}`)
 		}
-		console.log('state.newPoll: ', state.newPoll)
+		// console.log('state.newPoll: ', state.newPoll)
 	},
 	SET_NEW_POLL_QUESTION(state) {
 		// single|multiply|video|image|text|rating
@@ -119,7 +122,7 @@ export const actions = {
 	async FETCH_CATEGORY({ commit }) {
 		try {
 			const res = await this.$axios.get('/quizzes/categories')
-			console.log('categories: ', res.data.data)
+			// console.log('categories: ', res.data.data)
 			commit('SET_CATEGORY', res.data.data)
 		} catch (e) {
 			console.log(e.response.data)
@@ -129,12 +132,17 @@ export const actions = {
 	async ADD_POLL({ commit, state }) {
 		try {
 			// const poll = state.newPoll
-			let questions = state.newPoll.questions.map((item, index) => ({
-				...item,
-				variants: state.newPoll.variants[index]
-			}))
+			let questions = state.newPoll.questions
+				.map((item, index) => ({
+					...item,
+					variants: state.newPoll.variants[index]
+				}))
+				.map(item => (item.type = 'simple'))
 			const poll = {
+				type: state.newPoll.type,
 				categoryId: state.newPoll.categoryId,
+				isOpen: state.newPoll.isOpen,
+				canComment: state.newPoll.canComment,
 				title: state.newPoll.title,
 				description: state.newPoll.description,
 				startedAt: state.newPoll.startedAt,
@@ -143,8 +151,7 @@ export const actions = {
 				isPrivate: state.newPoll.isPrivate,
 				questions: questions
 			}
-			// authorId: state.newPoll.authorId,
-			// categoryId: state.newPoll.category
+			// authorId: state.newPoll.authorId
 			console.log('poll: ', poll)
 			const res = await this.$axios.post('/quizzes', poll)
 			console.log(res)
