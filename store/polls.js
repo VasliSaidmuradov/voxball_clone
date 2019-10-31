@@ -45,7 +45,6 @@ export const mutations = {
 	SET_POLLS(state, polls) {
 		state.pollsList = polls
 	},
-<<<<<<< HEAD
 
 	SET_POLL(state, poll) {
 		state.poll = poll
@@ -68,7 +67,6 @@ export const mutations = {
 
 	// 	state.polls = polls
 	// },
-=======
 	SET_CATEGORY(state, category) {
 		state.category = category
 	},
@@ -76,7 +74,6 @@ export const mutations = {
 		state.pollType = data
 		console.log('state.pollType: ', state.pollType)
 	},
->>>>>>> 4809e3d6b64d036edb0130e011b0a49692ec8082
 	SET_NEW_POLL_DATA(state, data) {
 		state.newPoll[data.field] = data.value
 		console.log(`${data.field} : ${state.newPoll[data.field]}`)
@@ -137,7 +134,8 @@ export const mutations = {
 export const actions = {
 	async FETCH_POLLS({ commit }, data) {
 		try {
-			const res = await this.$axios.get(`/quizzes?with[author]&with[category]&${data}`)
+			// const res = await this.$axios.get(`/quizzes?with[author]&with[category]&${data}`)
+			const res = await this.$axios.get('/quizzes')
 			console.log(res.data.data)
 			// console.log(res2)
 			// const res = await this.$axios.get('/quizzes')
@@ -246,7 +244,7 @@ export const getters = {
 
 	GET_POLL: state => ({
 		...state.poll,
-		categoryTitle: state.poll.category === null ? 'No category title' : state.poll.category.title.substr(0, 12) + '...',
+		categoryTitle: state.poll.category === null ? 'No category title' : state.poll.category.title.substr(0, 12) + '...', // !!state.poll.category
 		createdAt: new Date(state.poll.createdAt).toLocaleDateString(),
 		authorName: state.poll.author === null ? 'No Author Name' : state.poll.author.name.split(' ').slice(0, 3).join(' '),
 		preview: state.poll.preview == '' ? '/_nuxt/assets/img/poll-no-info-image.png' : state.poll.preview,

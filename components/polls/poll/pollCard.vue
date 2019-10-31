@@ -169,7 +169,7 @@ export default {
     font-family: 'times new roman psmt';
     text-align: center;
     margin: 0 auto;
-    width: 60%;
+    width: 90%;
   }
   &__answer {
     padding: 2rem 0;
