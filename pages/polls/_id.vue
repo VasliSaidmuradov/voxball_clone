@@ -250,10 +250,6 @@ export default {
     },
     closeStatistics() {
       this.showStatisticsModal = false
-    },
-    addPoll() {
-      let poll = {}
-      ADD_POLL()
     }
   }
 }

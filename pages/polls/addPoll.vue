@@ -4,11 +4,15 @@
       <section class="add-poll-type">
         <h2 class="add-poll-type__title">Выберите тип опроса:</h2>
         <div class="add-poll-type__list">
-          <div
-            class="add-poll-type__item"
-            v-for="(item, index) in pollTypeList"
-            :key="index"
-          >{{ item.value }}</div>
+          <div v-for="(item, index) in pollTypeList" :key="index">
+            <v-btn
+              class="add-poll-type__item"
+              :class="{'add-poll-type__item_active' : pollTypeActive === index}"
+              @click="set_poll_type(item.type, index)"
+              border
+              rounded
+            >{{ item.value }}</v-btn>
+          </div>
         </div>
       </section>
       <v-form-layout :bottomLine="false" class="add-poll__form-layout">
@@ -91,7 +95,13 @@
           </section>
           <section class="add-poll-category">
             <p class="add-poll-category__title">Выберите категорию:</p>
-            <v-select :options="category" :searchable="true" :no-drop="false" :multiple="false"></v-select>
+            <v-select
+              :options="GET_CATEGORY_LIST.map(item => item.title)"
+              :searchable="true"
+              :no-drop="false"
+              :multiple="false"
+              @input="categorySet($event)"
+            ></v-select>
           </section>
           <section class="add-poll-tags">
             <v-tags />
@@ -143,15 +153,16 @@ export default {
   data() {
     return {
       pollTypeList: [
-        { value: 'Одиночный выбор' },
-        { value: 'Множественный выбор' },
-        { value: 'рейтинг' },
-        { value: 'текстовый опрос' },
-        { value: 'анкетированный опрос' },
-        { value: 'опрос с картинками' },
-        { value: 'видео опрос' },
-        { value: 'таргетированный опрос' }
+        { value: 'Одиночный выбор', type: 'simple' },
+        { value: 'Множественный выбор', type: 'simple' },
+        { value: 'рейтинг', type: 'simple' },
+        { value: 'текстовый опрос', type: 'simple' },
+        { value: 'анкетированный опрос', type: 'ancket' },
+        { value: 'опрос с картинками', type: 'simple' },
+        { value: 'видео опрос', type: 'simple' },
+        { value: 'таргетированный опрос', type: 'target' }
       ],
+      pollTypeActive: false,
       languages: ['Казахский', 'Русский', 'Английский'],
       category: ['Общество', 'Экономика', 'Животные'],
       addAnswerslist: [
@@ -163,6 +174,7 @@ export default {
   },
   methods: {
     ...mapMutations({
+      SET_NEW_POLL_TYPE: 'polls/SET_NEW_POLL_TYPE',
       SET_NEW_POLL_DATA: 'polls/SET_NEW_POLL_DATA',
       SET_NEW_POLL_QUESTION: 'polls/SET_NEW_POLL_QUESTION',
       SET_NEW_POLL_DATA_QUESTION: 'polls/SET_NEW_POLL_DATA_QUESTION',
@@ -186,6 +198,15 @@ export default {
       })
       this.SET_NEW_POLL_DATA({ field: 'authorId', value: this.GET_USER['id'] })
       this.ADD_POLL()
+    },
+    set_poll_type(value, index) {
+      this.pollTypeActive = index
+      this.SET_NEW_POLL_TYPE(value)
+    },
+    categorySet(e) {
+      let categoryId = this.GET_CATEGORY_LIST.find(item => item.title === e).id
+      console.log('categoryId: ', typeof categoryId)
+      this.SET_NEW_POLL_DATA({ field: 'categoryId', value: categoryId })
     }
   },
   computed: {
@@ -193,8 +214,12 @@ export default {
       GET_NEW_POLL: 'polls/GET_NEW_POLL',
       GET_USER: 'auth/GET_USER',
       GET_NEW_POLL_QUESTIONS: 'polls/GET_NEW_POLL_QUESTIONS',
-      GET_NEW_POLL_VARIANTS: 'polls/GET_NEW_POLL_VARIANTS'
+      GET_NEW_POLL_VARIANTS: 'polls/GET_NEW_POLL_VARIANTS',
+      GET_CATEGORY_LIST: 'polls/GET_CATEGORY_LIST'
     })
+  },
+  async fetch({ store }) {
+    await store.dispatch('polls/FETCH_CATEGORY')
   }
 }
 </script>
@@ -217,16 +242,19 @@ export default {
       flex-wrap: wrap;
     }
     &__item {
-      border: 1px solid $base-text-color;
-      border-radius: 37px;
-      padding: 0.5rem 1rem;
-      margin-top: 1rem;
-      margin-right: 2rem;
       text-transform: uppercase;
       font-size: 0.8rem;
       font-weight: 700;
+      margin-left: 1rem;
+      margin-top: 1rem;
+      padding-top: 0.6rem;
       cursor: pointer;
       &:hover {
+        border-color: $base-color;
+        background-color: $base-color;
+        color: white;
+      }
+      &_active {
         border-color: $base-color;
         background-color: $base-color;
         color: white;
@@ -369,5 +397,15 @@ export default {
 }
 .add-poll-date .vs__dropdown-menu {
   height: 7rem;
+}
+.add-poll-category .v-select {
+  max-width: 17rem;
+}
+.add-poll-category .vs__actions .vs__clear {
+  display: none;
+}
+.add-poll-category .v-select .vs__selected {
+  height: 2.5rem;
+  overflow-y: scroll;
 }
 </style>
