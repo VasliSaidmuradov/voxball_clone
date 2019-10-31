@@ -7,7 +7,9 @@ export const state = () => ({
 	pollAnswer: {},
 	// pollComments: {},
 	// polls: [],
+	category: [],
 	newPoll: {
+		categoryId: '',
 		title: '',
 		description: '',
 		startedAt: '',
@@ -35,13 +37,15 @@ export const state = () => ({
 		// 		]
 		// 	}
 		// ]
-	}
+	},
+	pollType: ''
 })
 
 export const mutations = {
 	SET_POLLS(state, polls) {
 		state.pollsList = polls
 	},
+<<<<<<< HEAD
 
 	SET_POLL(state, poll) {
 		state.poll = poll
@@ -64,20 +68,38 @@ export const mutations = {
 
 	// 	state.polls = polls
 	// },
+=======
+	SET_CATEGORY(state, category) {
+		state.category = category
+	},
+	SET_NEW_POLL_TYPE(state, data) {
+		state.pollType = data
+		console.log('state.pollType: ', state.pollType)
+	},
+>>>>>>> 4809e3d6b64d036edb0130e011b0a49692ec8082
 	SET_NEW_POLL_DATA(state, data) {
 		state.newPoll[data.field] = data.value
 		console.log(`${data.field} : ${state.newPoll[data.field]}`)
 	},
 	SET_NEW_POLL_CLEAR(state) {
 		for (let field in state.newPoll) {
-			state.newPoll[field] = null
-			// console.log(`${field} : ${state.newPoll[field]}`)
+			if (field === 'isPrivate') state.newPoll[field] = false
+			if (field === 'questions' || field === 'variants') {
+				state.newPoll['questions'] = [{ title: '' }]
+				state.newPoll['variants'] = [[{ title: '' }]]
+			} else state.newPoll[field] = ''
+			console.log(`${field} : ${state.newPoll[field]}`)
 		}
+		console.log('state.newPoll: ', state.newPoll)
 	},
 	SET_NEW_POLL_QUESTION(state) {
+		// single|multiply|video|image|text|rating
 		state.newPoll.questions = [
 			...state.newPoll.questions,
-			{ title: '', type: 'simple' }
+			{
+				title: '',
+				type: 'simple'
+			}
 		]
 		state.newPoll.variants = [...state.newPoll.variants, [{}]]
 	},
@@ -95,21 +117,19 @@ export const mutations = {
 	},
 	SET_NEW_POLL_DATA_VARIANT(state, data) {
 		const { questionIndex, variantIndex, field, value } = data
-		console.log(
-			'SET_NEW_POLL_DATA_VARIANT: ',
-			questionIndex,
-			variantIndex,
-			field,
-			value
-		)
+		console.log('DATA_VARIANT: ', questionIndex, variantIndex, field, value)
 		state.newPoll.variants[questionIndex][variantIndex][field] = value
+	},
+	SET_NEW_POLL_QUESTION_TYPE(state, data) {
+		state.localType = data
+		console.log('POLL_TYPE: ')
 	},
 	REMOVE_NEW_POLL_DATA_VARIANT(state, data) {
 		const { questionIndex, variantIndex } = data
-		console.log({ questionIndex, variantIndex })
-		let array = state.newPoll.variants[questionIndex]
-		array.splice(variantIndex, 1)
-		state.newPoll.variants[questionIndex] = array
+		// let array = state.newPoll.variants[questionIndex]
+		// array.splice(variantIndex, 1)
+		// state.newPoll.variants[questionIndex] = array
+		state.newPoll.variants[questionIndex].splice(variantIndex, 1)
 		console.log(state.newPoll.variants[questionIndex])
 	}
 }
@@ -129,6 +149,16 @@ export const actions = {
 		}
 	},
 
+	async FETCH_CATEGORY({ commit }) {
+		try {
+			const res = await this.$axios.get('/quizzes/categories')
+			console.log('categories: ', res.data.data)
+			commit('SET_CATEGORY', res.data.data)
+		} catch (e) {
+			console.log(e.response.data)
+		}
+	},
+
 	async ADD_POLL({ commit, state }) {
 		try {
 			// const res = await this.$axios.post('/quizzes', data)
@@ -140,6 +170,7 @@ export const actions = {
 				variants: state.newPoll.variants[index]
 			}))
 			const poll = {
+				categoryId: state.newPoll.categoryId,
 				title: state.newPoll.title,
 				description: state.newPoll.description,
 				startedAt: state.newPoll.startedAt,
@@ -238,7 +269,8 @@ export const getters = {
 			...item,
 			variants: state.newPoll.variants[index]
 		})),
-	GET_NEW_POLL_VARIANTS: state => state.newPoll.variants
+	GET_NEW_POLL_VARIANTS: state => state.newPoll.variants,
+	GET_CATEGORY_LIST: state => state.category
 }
 
 // console.log(Store)
