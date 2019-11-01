@@ -1,14 +1,9 @@
 <template>
   <div class="poll-card">
     <div class="poll-card__question" v-for="question in poll.questions" :key="question.id">
-      <h2 class="poll-card__title">
-        {{ question.title }}
-      </h2>
+      <h2 class="poll-card__title">{{ question.title }}</h2>
       <div class="poll-card__answer">
         <div class="answer__list">
-          <div v-text="GET_POLL_ANSWER[question.id]"></div>
-
-          <!-- {{GET_POLL_ANSWER[question.id]}} -->
           <answers-list
             :type="GET_POLL_ANSWER[question.type]"
             :value="GET_POLL_ANSWER[question.id]"
@@ -19,7 +14,6 @@
             v-if="GET_POLL_ANSWER[question.type] !== 'text' && GET_POLL_ANSWER[question.type] !== 'rating'"
             @showAnswerMedia="openAnswerMedia()"
           ></answers-list>
-          <!-- {{answers}} -->
 
           <div class="poll-card__text-editor" v-if="GET_POLL_ANSWER[question.type] === 'text'">
             <v-editor
@@ -50,13 +44,12 @@
         </div>
       </div>
     </div>
-    <!-- {{ GET_POLL_ANSWER[question] }} -->
     <div v-if="!complete" class="poll-card__button-wrap">
       <div class="poll-card__pay">
         +1
         <img class="poll-card__coin-image" src="~assets/img/poll-card__coin.png" alt />
       </div>
-      <v-btn class="poll-card__button" border @click="VOTE">
+      <v-btn class="poll-card__button" border @click="VOTE($route.params.id)">
         голосовать
         <icon-arrow class="ml-2" />
       </v-btn>

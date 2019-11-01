@@ -12,7 +12,7 @@ export const state = () => ({
 		categoryId: '',
 		title: '',
 		description: '',
-		startedAt: '',
+		startedAt: null,
 		endedAt: '',
 		preview: '',
 		video: '',
@@ -20,7 +20,7 @@ export const state = () => ({
 		isPrivate: false,
 		isOpen: false,
 		canComment: false,
-		type: '',
+		type: 'simple',
 		questions: [{ title: '', type: 'simple' }],
 		variants: [
 			[
@@ -29,17 +29,6 @@ export const state = () => ({
 				}
 			]
 		]
-		// questions: [
-		// 	{
-		// 		title: '',
-		// 		type: 'simple',
-		// 		variants: [
-		// 			{
-		// 				title: ''
-		// 			}
-		// 		]
-		// 	}
-		// ]
 	},
 	pollType: ''
 })
@@ -64,7 +53,6 @@ export const mutations = {
 	},
 
 	SET_POLL_ANSWER(state, { questionId, answers }) {
-		console.log(answers)
 		state.pollAnswer[questionId] = answers
 	},
 
@@ -73,6 +61,7 @@ export const mutations = {
 	SET_CATEGORY(state, category) {
 		state.category = category
 	},
+
 	SET_NEW_POLL_TYPE(state, data) {
 		state.pollType = data
 		console.log('state.pollType: ', state.pollType)
@@ -135,15 +124,12 @@ export const mutations = {
 }
 
 export const actions = {
-	async FETCH_POLLS({ commit }, data) {
+	async FETCH_POLLS({ commit }, data = '') {
 		try {
-			// const res = await this.$axios.get(`/quizzes?with[author]&with[category]&${data}`)
-			const res = await this.$axios.get('/quizzes')
+			const res = await this.$axios.get(
+				`/quizzes?with[author]&with[category]&sort[]=startedAt&${data}`
+			)
 			console.log(res.data.data)
-			// console.log(res2)
-			// const res = await this.$axios.get('/quizzes')
-			const res2 = await this.$axios.get('/auth/info')
-			console.log('auth: ', res2.data.data)
 			commit('SET_POLLS', res.data.data)
 		} catch (e) {
 			console.log(e.response.data)
@@ -153,46 +139,43 @@ export const actions = {
 	async FETCH_CATEGORY({ commit }) {
 		try {
 			const res = await this.$axios.get('/quizzes/categories')
-			// console.log('categories: ', res.data.data)
+			// console.log(res.data.data)
+			console.log('categories: ', res.data.data)
 			commit('SET_CATEGORY', res.data.data)
 		} catch (e) {
 			console.log(e.response.data)
 		}
 	},
 
-	async ADD_POLL({ commit, state }) {
+	async ADD_POLL({ commit, state, getters }) {
 		try {
-			// const res = await this.$axios.post('/quizzes', data)
-			// console.log(res)
+			const data = {
+				...getters.GET_NEW_POLL,
+				questions: getters.GET_NEW_POLL_QUESTIONS
+			}
+			delete data.variants
+			delete data.preview
+			delete data.video
+			delete data.videoUrl
+			const res = await this.$axios.post('/quizzes', data)
+			console.log(res)
 			// commit('SET_POLLS', res.data.data)
 			// const poll = state.newPoll
-			let questions = state.newPoll.questions
-				.map((item, index) => ({
-					...item,
-					variants: state.newPoll.variants[index]
-				}))
-				.map(item => (item.type = 'simple'))
-			const poll = {
-				type: state.newPoll.type,
-				categoryId: state.newPoll.categoryId,
-				isOpen: state.newPoll.isOpen,
-				canComment: state.newPoll.canComment,
-				title: state.newPoll.title,
-				description: state.newPoll.description,
-				startedAt: state.newPoll.startedAt,
-				endedAt: state.newPoll.endedAt,
-				viewCount: 1,
-				isPrivate: state.newPoll.isPrivate,
-				questions: questions
-			}
+			// let questions = state.newPoll.questions
+			// 	.map((item, index) => ({
+			// 		...item,
+			// 		variants: state.newPoll.variants[index]
+			// 	}))
+			// 	.map(item => (item.type = 'simple'))
+
 			// authorId: state.newPoll.authorId
-			console.log('poll: ', poll)
-			const res = await this.$axios.post('/quizzes', poll)
-			console.log(res)
-			commit('SET_POLLS', res.data.data)
+			// console.log('poll: ', poll)
+			// const res = await this.$axios.post('/quizzes', poll)
+			// console.log(res)
+			// commit('SET_POLLS', res.data.data)
 			// commit('SET_NEW_POLL_CLEAR')
 		} catch (e) {
-			console.log(e.response.data)
+			console.log(e)
 		}
 	},
 
@@ -225,13 +208,20 @@ export const actions = {
 
 	// async FETCH_POLL_COMPLETED()
 
-	async VOTE({ commit, state }, id) {
+	async VOTE({ commit, state, getters }, id) {
 		try {
-			console.log(state.pollAnswer)
-
-			// const res = await this.$axios.post(`/quizzes/${id}/answers`)
+			let asd = { ...state.pollAnswer }
+			for (const key in asd) {
+				if (asd.hasOwnProperty(key)) {
+					asd[key] = asd[key].join(',')
+				}
+			}
+			const res = await this.$axios.post(
+				`/quizzes/${id}/answers`,
+				asd
+			)
 		} catch ({ e }) {
-			console.log({ e })
+			console.log(e)
 		}
 	}
 }
@@ -240,13 +230,17 @@ export const getters = {
 	GET_POLLS_LIST: state => {
 		return state.pollsList.map(item => ({
 			...item,
-			title: item.title.substr(0, 60) + '...',
-			categoryTitle: item.category.title.substr(0, 12) + '...',
+			title: item.title.substr(0, 60) + '...' || '',
+			categoryTitle: item.category
+				? item.category.title.substr(0, 12) + '...'
+				: 'нет категории',
 			createdAt: new Date(item.createdAt).toLocaleDateString(),
-			authorName: item.author.name
-				.split(' ')
-				.slice(0, 3)
-				.join(' '),
+			authorName: item.author
+				? item.author.name
+						.split(' ')
+						.slice(0, 3)
+						.join(' ')
+				: 'Нет автора',
 			preview:
 				item.preview == ''
 					? '/_nuxt/assets/img/poll__image2.png'
@@ -294,6 +288,7 @@ export const getters = {
 	GET_NEW_POLL_QUESTIONS: state =>
 		state.newPoll.questions.map((item, index) => ({
 			...item,
+			title: item.type === 'questioned' ? item.title : state.newPoll.title,
 			variants: state.newPoll.variants[index]
 		})),
 	GET_NEW_POLL_VARIANTS: state => state.newPoll.variants,

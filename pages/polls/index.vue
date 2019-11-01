@@ -6,9 +6,9 @@
 				'Активно отвечайте на вопросы, выражайте свое мнение и зарабатывайте на этом деньги'
 			"
     >
-      <section class="polls-top container mt-5">
+      <!-- <section class="polls-top container mt-5">
         <poll-list :list="GET_POLLS_LIST" />
-      </section>
+      </section> -->
       <section class="Section container mt-5">
         <div class="Section__header">
           <h2 class="Section__title">Все опросы</h2>

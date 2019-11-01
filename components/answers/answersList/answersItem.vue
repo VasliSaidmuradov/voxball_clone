@@ -1,6 +1,5 @@
 <template>
   <div class="answer-item-wrapper">
-    {{complete}}
     <div class="answer-item__video-wrap" v-if="type === 'video'">
       <div class="answer-item__play-icon"></div>
       <video
@@ -36,7 +35,7 @@ export default {
   props: {
     label: String,
     percentage: {
-      type: Number,
+      type: Number
       // default: 25
     },
     checked: Boolean,

@@ -2,7 +2,6 @@
 	<div class="answers-list">
 		<div class="m-auto" v-if="!answersList.length">
 			Нет вариантов ответа 			
-
 		</div>
 
 		<answers-item

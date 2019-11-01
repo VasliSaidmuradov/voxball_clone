@@ -63,7 +63,7 @@
             </span>
             <span class="ml-2">назад</span>
           </v-btn>
-          <v-btn class="mode__link-wrap" @click="$navigate('/registration/verification')" border>
+          <v-btn class="mode__link-wrap" @click="$navigate('/registration/personalization')" border>
             <span>далее</span>
             <span>
               <icon-arrow class="arrow" />
