@@ -65,6 +65,7 @@ export const actions = {
 			$cookies.set('token', token)
 		} catch (e) {
 			console.log('error:', e)
+			throw e
 		}
 	},
 
@@ -111,6 +112,6 @@ export const getters = {
 	GET_REGISTRATION_DATA: state => state.userRegistrationData,
 	GET_AUTHORIZATION_DATA: state => state.userAuthorizationData,
 	GET_TOKEN: state => state.token,
-	GET_IS_LOGGED: state => !!state.token,
-	GET_USER: state => state.userData
+	GET_USER: state => state.userData,
+	IS_LOGGED_IN: state => !!state.token
 }

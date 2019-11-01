@@ -16,7 +16,7 @@
           <lang-switcher :langs="$i18n.locales"></lang-switcher>
         </div>
         <div class="d-flex align-items-center" @click="USER_UNAUTHORIZATION">
-          <profile-icon :auth="GET_IS_LOGGED" />
+          <profile-icon :user="GET_USER" :auth="IS_LOGGED_IN" />
         </div>
       </div>
     </div>
@@ -63,7 +63,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({ GET_IS_LOGGED: 'auth/GET_IS_LOGGED' })
+    ...mapGetters({
+      IS_LOGGED_IN: 'auth/IS_LOGGED_IN',
+      GET_USER: 'auth/GET_USER'
+    })
   }
 }
 </script>

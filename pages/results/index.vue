@@ -1,10 +1,9 @@
 <template>
   <div class="results">
     <base-layout :title="'Завершенные Опросы'">
-      <!-- {{ GET_POLLS_LIST }} -->
-      <section class="results-top container mt-5">
+      <!-- <section class="results-top container mt-5">
         <polls-list :list="pollsArray" />
-      </section>
+      </section>-->
       <section class="Section container mt-4">
         <div class="Section__header">
           <h2 class="Section__title">Все опросы</h2>
