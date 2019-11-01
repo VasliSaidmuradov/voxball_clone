@@ -58,7 +58,13 @@
               :key="index"
             >
               <div v-if="pollTypeList[pollTypeActive].type === 'questioned'">
-                <p>Введите вопрос:</p>
+                <div class="d-flex justify-content-between">
+                  <p>Введите вопрос:</p>
+                  <div class="add-poll-questions__cancel-wrapper" @click="removeQuestion(index)">
+                    <!-- v-if="pollTypeList[pollTypeActive].type === 'questioned'" -->
+                    <iconCancel class="icon-cancel add-poll-questions__cancel"></iconCancel>
+                  </div>
+                </div>
                 <div class="d-flex align-items-center">
                   <input
                     :value="question.title"
@@ -78,7 +84,7 @@
               </div>
               <p>Введите варианты ответов:</p>
               <add-answers-list
-                type="video"
+                :type="GET_NEW_POLL_QUESTIONS[index].type"
                 :answersList="GET_NEW_POLL_VARIANTS[index]"
                 :questionIndex="index"
               />
@@ -142,6 +148,7 @@
 if (process.browser) {
   var { ToggleButton } = require('vue-js-toggle-button')
 }
+import iconCancel from '@/components/icons/iconCancel'
 import detailedLayout from '@/components/layouts/detailedLayout.vue'
 import vFormLayout from '@/components/forms/vFormLayout.vue'
 import upload from '@/components/inputs/upload'
@@ -167,7 +174,8 @@ export default {
     datePicker,
     vTags,
     vSelect,
-    iconArrow
+    iconArrow,
+    iconCancel
   },
   data() {
     return {
@@ -206,7 +214,8 @@ export default {
       SET_NEW_POLL_DATA: 'polls/SET_NEW_POLL_DATA',
       SET_NEW_POLL_QUESTION: 'polls/SET_NEW_POLL_QUESTION',
       SET_NEW_POLL_DATA_QUESTION: 'polls/SET_NEW_POLL_DATA_QUESTION',
-      SET_NEW_POLL_DATA_VARIANT: 'polls/SET_NEW_POLL_DATA_VARIANT'
+      SET_NEW_POLL_DATA_VARIANT: 'polls/SET_NEW_POLL_DATA_VARIANT',
+      REMOVE_NEW_POLL_DATA_QUESTION: 'polls/REMOVE_NEW_POLL_DATA_QUESTION'
     }),
     ...mapActions({
       ADD_POLL: 'polls/ADD_POLL'
@@ -226,6 +235,7 @@ export default {
       })
       this.SET_NEW_POLL_DATA({ field: 'authorId', value: this.GET_USER['id'] })
       await this.ADD_POLL()
+      // localStorage.removeItem('vuex')
     },
     set_poll_type(value, index) {
       this.pollTypeActive = index
@@ -238,12 +248,17 @@ export default {
       this.SET_NEW_POLL_DATA({ field: 'categoryId', value: categoryId })
     },
     setQuestionType(e, index) {
-      let type = this.questionTypeList.find(item => (item.value = e)).type
-      console.log('questiontype: ', e, index, type)
+      let type = this.questionTypeList.find(item => item.value == e).type
+      // console.log('questiontype: ', e, index, ' ', type)
       this.SET_NEW_POLL_DATA_QUESTION({
         questionIndex: index,
         field: 'type',
         value: type
+      })
+    },
+    removeQuestion(index) {
+      this.REMOVE_NEW_POLL_DATA_QUESTION({
+        questionIndex: index
       })
     }
   },
@@ -368,6 +383,16 @@ export default {
       &:focus {
         outline: none;
       }
+    }
+    &__cancel-wrapper {
+      padding: 0.5rem 0;
+      margin-right: 0.5rem;
+      line-height: 1;
+      position: relative;
+      width: 1.5rem;
+    }
+    &__cancel {
+      cursor: pointer;
     }
     &__button {
       margin: 1rem 0;

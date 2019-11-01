@@ -15,7 +15,7 @@
         <div class="add-poll Header__lang">
           <lang-switcher :langs="$i18n.locales"></lang-switcher>
         </div>
-        <div class="d-flex align-items-center" @click="USER_UNAUTHORIZATION">
+        <div class="d-flex align-items-center">
           <profile-icon :user="GET_USER" :auth="IS_LOGGED_IN" />
         </div>
       </div>

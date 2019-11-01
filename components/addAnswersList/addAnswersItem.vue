@@ -1,6 +1,20 @@
 <template>
   <div :class="classes">
-    <div v-if="isMedia" class="answer-item-upload">
+    <div v-if="type==='rating'" class="mt-2 mb-2">
+      <no-ssr>
+        <star-rating
+          v-model="rating"
+          inactive-color="#fff"
+          active-color="#00b900"
+          :star-size="25"
+          :padding="1"
+          read-only
+          :show-rating="false"
+        ></star-rating>
+      </no-ssr>
+    </div>
+    <div v-if="type==='text'">Текстовый вопрос</div>
+    <div v-if="type==='video'||type==='image'" class="answer-item-upload mb-3">
       <upload :label="type === 'video' ? 'Загрузить видео' : 'Загрузить фото'"></upload>
       <div class="ml-4 w-100">
         <textarea
@@ -8,16 +22,17 @@
           ref="input"
           class="answer-item-upload__input answer-item-upload__input--textarea"
         ></textarea>
-        <div class="answer-item-upload__text">Или укажите ссылку на видео</div>
+        <div
+          class="answer-item-upload__text"
+        >Или укажите ссылку на {{type==='video' ? 'видео' : 'картинку'}}</div>
         <input @keyup.enter="enter" class="answer-item-upload__input" type="text" />
       </div>
       <div @click="removeAnswer()">
         <iconCancel class="icon-cancel answer-item-upload__cancel"></iconCancel>
       </div>
     </div>
-    <div v-else class="answer-item">
+    <div v-if="type==='simple'||type==='multiply'" class="answer-item">
       <input
-        v-if="type !== 'video'"
         @input="SET_NEW_POLL_DATA_VARIANT({ questionIndex: variantInfo.questionIndex, variantIndex: variantInfo.variantIndex, field: 'title', value: $event.target.value})"
         class="answer-item__input"
         type="text"
@@ -35,17 +50,26 @@
 <script>
 import iconCancel from '@/components/icons/iconCancel'
 import upload from '@/components/inputs/upload'
+import vEditor from '@/components/inputs/vEditor.vue'
+import StarRating from 'vue-star-rating'
 import { mapMutations } from 'vuex'
 
 export default {
+  components: {
+    iconCancel,
+    upload,
+    vEditor,
+    StarRating
+  },
   props: {
     answersItem: Object,
-    variantInfo: Object
+    variantInfo: Object,
+    type: String
   },
   data() {
     return {
       value: '',
-      type: ''
+      rating: 5
     }
   },
   mounted() {
@@ -65,19 +89,12 @@ export default {
     }
   },
   computed: {
-    isMedia() {
-      return this.type === 'video' || this.type === 'image'
-    },
     classes() {
       return {
         'answer-item-wrapper': !this.isMedia,
         'answer-item-wrapper-upload': this.isMedia
       }
     }
-  },
-  components: {
-    iconCancel,
-    upload
   }
 }
 </script>

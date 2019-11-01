@@ -101,6 +101,7 @@ export const actions = {
 
 	async USER_UNAUTHORIZATION({ commit }) {
 		try {
+			$cookies.remove('token')
 			commit('SET_TOKEN', '')
 		} catch (e) {
 			console.log('error user_logout', e)

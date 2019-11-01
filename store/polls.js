@@ -113,6 +113,12 @@ export const mutations = {
 		state.localType = data
 		console.log('POLL_TYPE: ')
 	},
+	REMOVE_NEW_POLL_DATA_QUESTION(state, data) {
+		const { index } = data
+		if (state.newPoll.questions.length > 1)
+			state.newPoll.questions.splice(index, 1)
+		console.log(state.newPoll.questions)
+	},
 	REMOVE_NEW_POLL_DATA_VARIANT(state, data) {
 		const { questionIndex, variantIndex } = data
 		// let array = state.newPoll.variants[questionIndex]
@@ -216,10 +222,7 @@ export const actions = {
 					asd[key] = asd[key].join(',')
 				}
 			}
-			const res = await this.$axios.post(
-				`/quizzes/${id}/answers`,
-				asd
-			)
+			const res = await this.$axios.post(`/quizzes/${id}/answers`, asd)
 		} catch ({ e }) {
 			console.log(e)
 		}
