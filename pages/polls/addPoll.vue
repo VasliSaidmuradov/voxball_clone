@@ -78,8 +78,8 @@
                   </div>
                 </div>
                 <div class="d-flex align-items-center">
-                  <!-- :value="question.title" -->
                   <input
+                    :value="GET_NEW_POLL_QUESTIONS[index].title"
                     @input="SET_NEW_POLL_DATA_QUESTION({ questionIndex: index, field: 'title', value: $event.target.value })"
                     class="add-poll-questions__title"
                     type="text"

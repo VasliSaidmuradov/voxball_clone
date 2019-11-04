@@ -114,9 +114,12 @@ export const mutations = {
 		console.log('POLL_TYPE: ')
 	},
 	REMOVE_NEW_POLL_DATA_QUESTION(state, data) {
-		const { index } = data
-		if (state.newPoll.questions.length > 1)
-			state.newPoll.questions.splice(index, 1)
+		const { questionIndex } = data
+		console.log('question: ', questionIndex)
+		// if (state.newPoll.questions.length > 1) {
+		state.newPoll.questions.splice(questionIndex, 1)
+		state.newPoll.variants.splice(questionIndex, 1)
+		// }
 		console.log(state.newPoll.questions)
 	},
 	REMOVE_NEW_POLL_DATA_VARIANT(state, data) {
@@ -291,7 +294,8 @@ export const getters = {
 	GET_NEW_POLL_QUESTIONS: state =>
 		state.newPoll.questions.map((item, index) => ({
 			...item,
-			title: item.type === 'questioned' ? item.title : state.newPoll.title,
+			title:
+				state.newPoll.type === 'questioned' ? item.title : state.newPoll.title,
 			variants: state.newPoll.variants[index]
 		})),
 	GET_NEW_POLL_VARIANTS: state => state.newPoll.variants,
