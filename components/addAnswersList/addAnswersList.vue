@@ -8,9 +8,15 @@
         @removeAnswer="removeAnswer(index)"
         :variantInfo="{questionIndex: questionIndex, variantIndex: index}"
         class="answers-item"
+        :type="type"
       ></add-answers-item>
     </div>
-    <v-btn @click="newAnswer" rounded class="answers-list__button">добавить ответ</v-btn>
+    <v-btn
+      v-if="type !== 'rating' && type!=='text'"
+      @click="newAnswer"
+      rounded
+      class="answers-list__button"
+    >добавить ответ</v-btn>
   </div>
 </template>
 
@@ -22,7 +28,8 @@ export default {
   props: {
     answersList: Array,
     count: Number,
-    questionIndex: Number
+    questionIndex: Number,
+    type: String
   },
   methods: {
     ...mapMutations({

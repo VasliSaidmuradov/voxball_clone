@@ -3,8 +3,8 @@
     <div v-if="data.type !== 'adv'" class="poll-item mt-4">
       <div class="poll-item__main">
         <div class="poll-item__img-wrap">
-          <!-- <img class="poll-item__img" src="~/assets/img/poll__image2.png" alt /> -->
-          <img class="poll-item__img" :src="data.preview" alt />
+          <img v-if="!data.preview" class="poll-item__img" src="~/assets/img/poll__image2.png" alt />
+          <img v-else class="poll-item__img" :src="data.preview" alt />
         </div>
         <div class="poll-item__block">
           <div class="poll-item__content">

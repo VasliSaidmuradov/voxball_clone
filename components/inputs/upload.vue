@@ -39,8 +39,11 @@ export default {
   },
   methods: {
     getFiles(e) {
-      let files = e.map(item => item.file)
-      this.$emit('getFiles', files)
+      let file = e[0].file
+      console.log('upload: ', file.name, ' : ', file)
+      const formData = new FormData()
+      formData.append('myFile', file, file.name)
+      this.$emit('getFiles', formData)
     }
   },
   props: {

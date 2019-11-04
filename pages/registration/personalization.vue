@@ -47,7 +47,7 @@
             </span>
             <span class="ml-2" @click="$router.go(-1)">назад</span>
           </v-btn>
-          <v-btn class="person__link-wrap" @click="USER_REGISTRATION" border>
+          <v-btn class="person__link-wrap" @click="registration" border>
             <span>зарегистрироваться</span>
             <span>
               <icon-arrow class="arrow" />
@@ -99,7 +99,15 @@ export default {
     }),
     ...mapActions({
       USER_REGISTRATION: 'auth/USER_REGISTRATION'
-    })
+    }),
+    async registration() {
+      try {
+        await this.USER_REGISTRATION()
+        this.$navigate('/cabinet')
+      } catch (error) {
+        console.log(error)
+      }
+    }
   }
   // async fetch({ store }) {
   //   await store.dispatch('auth/USER_REGISTRATION')

@@ -12,13 +12,16 @@ export const state = () => ({
 		categoryId: '',
 		title: '',
 		description: '',
-		startedAt: '',
+		startedAt: null,
 		endedAt: '',
 		preview: '',
 		video: '',
 		videoUrl: '',
 		isPrivate: false,
-		questions: [{ title: '' }],
+		isOpen: false,
+		canComment: false,
+		type: 'simple',
+		questions: [{ title: '', type: 'simple' }],
 		variants: [
 			[
 				{
@@ -26,17 +29,6 @@ export const state = () => ({
 				}
 			]
 		]
-		// questions: [
-		// 	{
-		// 		title: '',
-		// 		type: 'simple',
-		// 		variants: [
-		// 			{
-		// 				title: ''
-		// 			}
-		// 		]
-		// 	}
-		// ]
 	},
 	pollType: ''
 })
@@ -61,7 +53,6 @@ export const mutations = {
 	},
 
 	SET_POLL_ANSWER(state, { questionId, answers }) {
-		console.log(answers)
 		state.pollAnswer[questionId] = answers
 	},
 
@@ -70,6 +61,7 @@ export const mutations = {
 	SET_CATEGORY(state, category) {
 		state.category = category
 	},
+
 	SET_NEW_POLL_TYPE(state, data) {
 		state.pollType = data
 		console.log('state.pollType: ', state.pollType)
@@ -82,12 +74,12 @@ export const mutations = {
 		for (let field in state.newPoll) {
 			if (field === 'isPrivate') state.newPoll[field] = false
 			if (field === 'questions' || field === 'variants') {
-				state.newPoll['questions'] = [{ title: '' }]
+				state.newPoll['questions'] = [{ title: '', type: 'simple' }]
 				state.newPoll['variants'] = [[{ title: '' }]]
 			} else state.newPoll[field] = ''
-			console.log(`${field} : ${state.newPoll[field]}`)
+			// console.log(`${field} : ${state.newPoll[field]}`)
 		}
-		console.log('state.newPoll: ', state.newPoll)
+		// console.log('state.newPoll: ', state.newPoll)
 	},
 	SET_NEW_POLL_QUESTION(state) {
 		// single|multiply|video|image|text|rating
@@ -121,6 +113,12 @@ export const mutations = {
 		state.localType = data
 		console.log('POLL_TYPE: ')
 	},
+	REMOVE_NEW_POLL_DATA_QUESTION(state, data) {
+		const { index } = data
+		if (state.newPoll.questions.length > 1)
+			state.newPoll.questions.splice(index, 1)
+		console.log(state.newPoll.questions)
+	},
 	REMOVE_NEW_POLL_DATA_VARIANT(state, data) {
 		const { questionIndex, variantIndex } = data
 		// let array = state.newPoll.variants[questionIndex]
@@ -132,15 +130,12 @@ export const mutations = {
 }
 
 export const actions = {
-	async FETCH_POLLS({ commit }, data) {
+	async FETCH_POLLS({ commit }, data = '') {
 		try {
-			// const res = await this.$axios.get(`/quizzes?with[author]&with[category]&${data}`)
-			const res = await this.$axios.get('/quizzes')
+			const res = await this.$axios.get(
+				`/quizzes?with[author]&with[category]&sort[]=startedAt&${data}`
+			)
 			console.log(res.data.data)
-			// console.log(res2)
-			// const res = await this.$axios.get('/quizzes')
-			const res2 = await this.$axios.get('/auth/info')
-			console.log('auth: ', res2.data.data)
 			commit('SET_POLLS', res.data.data)
 		} catch (e) {
 			console.log(e.response.data)
@@ -150,6 +145,7 @@ export const actions = {
 	async FETCH_CATEGORY({ commit }) {
 		try {
 			const res = await this.$axios.get('/quizzes/categories')
+			// console.log(res.data.data)
 			console.log('categories: ', res.data.data)
 			commit('SET_CATEGORY', res.data.data)
 		} catch (e) {
@@ -157,48 +153,49 @@ export const actions = {
 		}
 	},
 
-	async ADD_POLL({ commit, state }) {
+	async ADD_POLL({ commit, state, getters }) {
 		try {
-			// const res = await this.$axios.post('/quizzes', data)
-			// console.log(res)
+			const data = {
+				...getters.GET_NEW_POLL,
+				questions: getters.GET_NEW_POLL_QUESTIONS
+			}
+			delete data.variants
+			delete data.preview
+			delete data.video
+			delete data.videoUrl
+			const res = await this.$axios.post('/quizzes', data)
+			console.log(res)
 			// commit('SET_POLLS', res.data.data)
 			// const poll = state.newPoll
-			let questions = state.newPoll.questions.map((item, index) => ({
-				...item,
-				variants: state.newPoll.variants[index]
-			}))
-			const poll = {
-				categoryId: state.newPoll.categoryId,
-				title: state.newPoll.title,
-				description: state.newPoll.description,
-				startedAt: state.newPoll.startedAt,
-				endedAt: state.newPoll.endedAt,
-				viewCount: 1,
-				isPrivate: state.newPoll.isPrivate,
-				questions: questions
-			}
-			// authorId: state.newPoll.authorId,
-			// categoryId: state.newPoll.category
+			// let questions = state.newPoll.questions
+			// 	.map((item, index) => ({
+			// 		...item,
+			// 		variants: state.newPoll.variants[index]
+			// 	}))
+			// 	.map(item => (item.type = 'simple'))
+
+			// authorId: state.newPoll.authorId
 			// console.log('poll: ', poll)
-			const res = await this.$axios.post('/quizzes', poll)
-			console.log(res)
-			commit('SET_POLLS', res.data.data)
+			// const res = await this.$axios.post('/quizzes', poll)
+			// console.log(res)
+			// commit('SET_POLLS', res.data.data)
 			// commit('SET_NEW_POLL_CLEAR')
 		} catch (e) {
-			console.log(e.response.data)
+			console.log(e)
 		}
 	},
 
 	async FETCH_POLL({ commit }, id, data) {
 		try {
 			// let id = 60
-			const res = await this.$axios.get(`/quizzes/${id}?with[author]&with[category]&with[questions][with][variants]&${data}`)
+			const res = await this.$axios.get(
+				`/quizzes/${id}?with[author]&with[category]&with[questions][with][variants]&${data}`
+			)
 			// const res = await this.$axios.get(`/quizzes/${id}`)
 
 			console.log(res.data.data)
 			commit('SET_POLL', res.data.data)
 			commit('FORMATTED_POLL_ANSWERS', res.data.data.questions)
-
 		} catch ({ e }) {
 			console.log({ e })
 		}
@@ -217,13 +214,17 @@ export const actions = {
 
 	// async FETCH_POLL_COMPLETED()
 
-	async VOTE({ commit, state }, id) {
+	async VOTE({ commit, state, getters }, id) {
 		try {
-			console.log(state.pollAnswer)
-			
-			// const res = await this.$axios.post(`/quizzes/${id}/answers`)
+			let asd = { ...state.pollAnswer }
+			for (const key in asd) {
+				if (asd.hasOwnProperty(key)) {
+					asd[key] = asd[key].join(',')
+				}
+			}
+			const res = await this.$axios.post(`/quizzes/${id}/answers`, asd)
 		} catch ({ e }) {
-			console.log({ e })
+			console.log(e)
 		}
 	}
 }
@@ -232,11 +233,21 @@ export const getters = {
 	GET_POLLS_LIST: state => {
 		return state.pollsList.map(item => ({
 			...item,
-			title: item.title.substr(0, 60) + '...',
-			categoryTitle: item.category.title.substr(0, 12) + '...',
+			title: item.title.substr(0, 60) + '...' || '',
+			categoryTitle: item.category
+				? item.category.title.substr(0, 12) + '...'
+				: 'нет категории',
 			createdAt: new Date(item.createdAt).toLocaleDateString(),
-			authorName: item.author.name.split(' ').slice(0, 3).join(' '),
-			preview: item.preview == '' ? '/_nuxt/assets/img/poll__image2.png' : item.preview,
+			authorName: item.author
+				? item.author.name
+						.split(' ')
+						.slice(0, 3)
+						.join(' ')
+				: 'Нет автора',
+			preview:
+				item.preview == ''
+					? '/_nuxt/assets/img/poll__image2.png'
+					: item.preview,
 			endedAt: Date.parse(item.endedAt) < Date.parse(new Date()),
 			path: `/polls/${item.id}`
 		}))
@@ -244,11 +255,26 @@ export const getters = {
 
 	GET_POLL: state => ({
 		...state.poll,
-		categoryTitle: state.poll.category === null ? 'No category title' : state.poll.category.title.substr(0, 12) + '...', // !!state.poll.category
+		categoryTitle:
+			state.poll.category === null
+				? 'No category title'
+				: state.poll.category.title.substr(0, 12) + '...', // !!state.poll.category
 		createdAt: new Date(state.poll.createdAt).toLocaleDateString(),
-		authorName: state.poll.author === null ? 'No Author Name' : state.poll.author.name.split(' ').slice(0, 3).join(' '),
-		preview: state.poll.preview == '' ? '/_nuxt/assets/img/poll-no-info-image.png' : state.poll.preview,
-		authorAvatar: state.poll.author == null ? '/_nuxt/assets/img/poll-no-avatar.png' : state.poll.author.avatar,
+		authorName:
+			state.poll.author === null
+				? 'No Author Name'
+				: state.poll.author.name
+						.split(' ')
+						.slice(0, 3)
+						.join(' '),
+		preview:
+			state.poll.preview == ''
+				? '/_nuxt/assets/img/poll-no-info-image.png'
+				: state.poll.preview,
+		authorAvatar:
+			state.poll.author == null
+				? '/_nuxt/assets/img/poll-no-avatar.png'
+				: state.poll.author.avatar,
 		path: `/polls/${state.poll.id}`,
 		complete: new Date(state.poll.endedAt) < new Date()
 		// questionsTitle: state.poll.questions.title,
@@ -265,6 +291,7 @@ export const getters = {
 	GET_NEW_POLL_QUESTIONS: state =>
 		state.newPoll.questions.map((item, index) => ({
 			...item,
+			title: item.type === 'questioned' ? item.title : state.newPoll.title,
 			variants: state.newPoll.variants[index]
 		})),
 	GET_NEW_POLL_VARIANTS: state => state.newPoll.variants,

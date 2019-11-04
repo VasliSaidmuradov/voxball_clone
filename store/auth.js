@@ -54,8 +54,8 @@ export const actions = {
 				name: state.userRegistrationData.name,
 				username: state.userRegistrationData.email,
 				email: state.userRegistrationData.email,
-				password: state.userRegistrationData.password,
-				isBuisness: state.userRegistrationData.type
+				password: state.userRegistrationData.password
+				// isBuisness: state.userRegistrationData.type
 				// phone: state.userRegistrationData.phone.replace(/\D/g, '')
 			}
 			const res = await this.$axios.post('/auth/register', data)
@@ -65,6 +65,7 @@ export const actions = {
 			$cookies.set('token', token)
 		} catch (e) {
 			console.log('error:', e)
+			throw e
 		}
 	},
 
@@ -100,6 +101,7 @@ export const actions = {
 
 	async USER_UNAUTHORIZATION({ commit }) {
 		try {
+			$cookies.remove('token')
 			commit('SET_TOKEN', '')
 		} catch (e) {
 			console.log('error user_logout', e)
@@ -111,6 +113,6 @@ export const getters = {
 	GET_REGISTRATION_DATA: state => state.userRegistrationData,
 	GET_AUTHORIZATION_DATA: state => state.userAuthorizationData,
 	GET_TOKEN: state => state.token,
-	GET_IS_LOGGED: state => !!state.token,
-	GET_USER: state => state.userData
+	GET_USER: state => state.userData,
+	IS_LOGGED_IN: state => !!state.token
 }

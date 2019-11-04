@@ -32,7 +32,9 @@
                 </div>
               </div>
               <div class="add-poll-header__info">
-                <p class="add-poll-header__text">Введите загаловок (он же является вопросом)</p>
+                <p
+                  class="add-poll-header__text"
+                >Введите загаловок {{pollTypeList[pollTypeActive].type !== 'questioned' ? '(он же является вопросом)' : ''}}</p>
                 <input
                   class="add-poll-header__input-title"
                   type="text"
@@ -55,15 +57,37 @@
               v-for="(question, index) in GET_NEW_POLL_QUESTIONS"
               :key="index"
             >
-              <p>Введите вопрос:</p>
-              <input
-                :value="question.title"
-                @input="SET_NEW_POLL_DATA_QUESTION({ questionIndex: index, field: 'title', value: $event.target.value })"
-                class="add-poll-questions__title"
-                type="text"
-              />
+              <div v-if="pollTypeList[pollTypeActive].type === 'questioned'">
+                <div class="d-flex justify-content-between">
+                  <p>Введите вопрос:</p>
+                  <div class="add-poll-questions__cancel-wrapper" @click="removeQuestion(index)">
+                    <!-- v-if="pollTypeList[pollTypeActive].type === 'questioned'" -->
+                    <iconCancel class="icon-cancel add-poll-questions__cancel"></iconCancel>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center">
+                  <input
+                    :value="question.title"
+                    @input="SET_NEW_POLL_DATA_QUESTION({ questionIndex: index, field: 'title', value: $event.target.value })"
+                    class="add-poll-questions__title"
+                    type="text"
+                  />
+                  <v-select
+                    :options="questionTypeList.map(item => item.value)"
+                    :searchable="true"
+                    :no-drop="false"
+                    :multiple="false"
+                    @input="setQuestionType($event, index)"
+                    class="ml-5"
+                  ></v-select>
+                </div>
+              </div>
               <p>Введите варианты ответов:</p>
-              <add-answers-list :answersList="GET_NEW_POLL_VARIANTS[index]" :questionIndex="index" />
+              <add-answers-list
+                :type="GET_NEW_POLL_QUESTIONS[index].type"
+                :answersList="GET_NEW_POLL_VARIANTS[index]"
+                :questionIndex="index"
+              />
               <!-- @input="inputAnswer(index)" -->
             </div>
             <v-btn
@@ -71,6 +95,7 @@
               class="add-poll-questions__button"
               rounded
               border
+              v-if="pollTypeList[pollTypeActive].type === 'questioned'"
             >добавить вопрос</v-btn>
           </section>
           <section class="add-poll-options">
@@ -82,14 +107,14 @@
               <p
                 class="add-poll-options__title"
               >2. Могут ли голосовать неавторизованные пользователи</p>
-              <ToggleButton />
+              <ToggleButton @input="SET_NEW_POLL_DATA({field: 'isOpen', value: $event})" />
             </div>
             <div class="add-poll-options__item">
               <p class="add-poll-options__title">3. Комментирование:</p>
-              <ToggleButton />
+              <ToggleButton @input="SET_NEW_POLL_DATA({field: 'canComment', value: $event})" />
             </div>
             <div class="add-poll-options__item add-poll-options__language">
-              <p class="add-poll-options__title">4. Укажите язык рейтинга:</p>
+              <p class="add-poll-options__title">4. Укажите язык опроса:</p>
               <v-select :options="languages" :searchable="true" :no-drop="false" :multiple="false"></v-select>
             </div>
           </section>
@@ -107,7 +132,7 @@
             <v-tags />
           </section>
           <section class="add-poll-date">
-            <datePicker @input="SET_NEW_POLL_DATA({field: 'endedAt', value: $event})" />
+            <datePicker @input="SET_NEW_POLL_DATA({field: 'endedAt', value: new Date($event)})" />
           </section>
           <v-btn class="add-poll__button" @click="publishPoll" border>
             опубликовать
@@ -123,6 +148,7 @@
 if (process.browser) {
   var { ToggleButton } = require('vue-js-toggle-button')
 }
+import iconCancel from '@/components/icons/iconCancel'
 import detailedLayout from '@/components/layouts/detailedLayout.vue'
 import vFormLayout from '@/components/forms/vFormLayout.vue'
 import upload from '@/components/inputs/upload'
@@ -148,21 +174,31 @@ export default {
     datePicker,
     vTags,
     vSelect,
-    iconArrow
+    iconArrow,
+    iconCancel
   },
   data() {
     return {
+      // simple, multiply, video, image, text, stars, questioned, rating, target
       pollTypeList: [
         { value: 'Одиночный выбор', type: 'simple' },
-        { value: 'Множественный выбор', type: 'simple' },
-        { value: 'рейтинг', type: 'simple' },
-        { value: 'текстовый опрос', type: 'simple' },
-        { value: 'анкетированный опрос', type: 'ancket' },
-        { value: 'опрос с картинками', type: 'simple' },
-        { value: 'видео опрос', type: 'simple' },
+        { value: 'Множественный выбор', type: 'multiply' },
+        { value: 'рейтинг', type: 'rating' },
+        { value: 'текстовый опрос', type: 'text' },
+        { value: 'опрос с картинками', type: 'image' },
+        { value: 'видео опрос', type: 'video' },
+        { value: 'анкетированный опрос', type: 'questioned' },
         { value: 'таргетированный опрос', type: 'target' }
       ],
-      pollTypeActive: false,
+      questionTypeList: [
+        { value: 'одиночный выбор', type: 'simple' },
+        { value: 'множественный выбор', type: 'multiply' },
+        { value: 'рейтинг', type: 'rating' },
+        { value: 'ответ-текстовый', type: 'text' },
+        { value: 'ответ-картинки', type: 'image' },
+        { value: 'ответ-видео', type: 'video' }
+      ],
+      pollTypeActive: 0,
       languages: ['Казахский', 'Русский', 'Английский'],
       category: ['Общество', 'Экономика', 'Животные'],
       addAnswerslist: [
@@ -178,7 +214,8 @@ export default {
       SET_NEW_POLL_DATA: 'polls/SET_NEW_POLL_DATA',
       SET_NEW_POLL_QUESTION: 'polls/SET_NEW_POLL_QUESTION',
       SET_NEW_POLL_DATA_QUESTION: 'polls/SET_NEW_POLL_DATA_QUESTION',
-      SET_NEW_POLL_DATA_VARIANT: 'polls/SET_NEW_POLL_DATA_VARIANT'
+      SET_NEW_POLL_DATA_VARIANT: 'polls/SET_NEW_POLL_DATA_VARIANT',
+      REMOVE_NEW_POLL_DATA_QUESTION: 'polls/REMOVE_NEW_POLL_DATA_QUESTION'
     }),
     ...mapActions({
       ADD_POLL: 'polls/ADD_POLL'
@@ -191,22 +228,38 @@ export default {
         value: data.value
       })
     },
-    publishPoll() {
+    async publishPoll() {
       this.SET_NEW_POLL_DATA({
         field: 'startedAt',
         value: new Date()
       })
       this.SET_NEW_POLL_DATA({ field: 'authorId', value: this.GET_USER['id'] })
-      this.ADD_POLL()
+      await this.ADD_POLL()
+      // localStorage.removeItem('vuex')
     },
     set_poll_type(value, index) {
       this.pollTypeActive = index
-      this.SET_NEW_POLL_TYPE(value)
+      // this.SET_NEW_POLL_TYPE(value)
+      this.SET_NEW_POLL_DATA({ field: 'type', value: value })
     },
     categorySet(e) {
       let categoryId = this.GET_CATEGORY_LIST.find(item => item.title === e).id
-      console.log('categoryId: ', typeof categoryId)
+      // console.log('categoryId: ', typeof categoryId)
       this.SET_NEW_POLL_DATA({ field: 'categoryId', value: categoryId })
+    },
+    setQuestionType(e, index) {
+      let type = this.questionTypeList.find(item => item.value == e).type
+      // console.log('questiontype: ', e, index, ' ', type)
+      this.SET_NEW_POLL_DATA_QUESTION({
+        questionIndex: index,
+        field: 'type',
+        value: type
+      })
+    },
+    removeQuestion(index) {
+      this.REMOVE_NEW_POLL_DATA_QUESTION({
+        questionIndex: index
+      })
     }
   },
   computed: {
@@ -321,16 +374,25 @@ export default {
     border-top: 1px solid $border-color;
     padding-bottom: 1rem;
     &__title {
-      border: 3px solid $border-color;
+      border: 1px solid $border-color;
       border-radius: 2rem;
-      padding: 0.5rem 0.9rem;
+      padding: 0.7rem 0.9rem;
       position: relative;
       line-height: 1;
       width: 100%;
-      margin-bottom: 0.8rem;
       &:focus {
         outline: none;
       }
+    }
+    &__cancel-wrapper {
+      padding: 0.5rem 0;
+      margin-right: 0.5rem;
+      line-height: 1;
+      position: relative;
+      width: 1.5rem;
+    }
+    &__cancel {
+      cursor: pointer;
     }
     &__button {
       margin: 1rem 0;
@@ -394,6 +456,13 @@ export default {
 .add-poll-date .vs__dropdown-menu {
   height: 7rem;
 }
+.add-poll-answers .v-select .vs__selected {
+  font-size: 0.9rem;
+  text-transform: lowercase;
+}
+.add-poll-answers .vs__actions .vs__clear {
+  display: none;
+}
 .add-poll-category .v-select {
   max-width: 17rem;
 }
@@ -401,7 +470,8 @@ export default {
   display: none;
 }
 .add-poll-category .v-select .vs__selected {
-  height: 2.5rem;
+  height: 2.3rem;
   overflow-y: scroll;
+  text-transform: lowercase;
 }
 </style>
