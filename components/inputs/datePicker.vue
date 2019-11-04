@@ -1,10 +1,10 @@
 <template>
   <div class="calendar">
     <div class="clanedar__header">
-      <h2 class="calendar__title">Срок действия голосования:</h2>
+      <h2 v-if="dateTime" class="calendar__title">Срок действия голосования:</h2>
     </div>
     <div class="calendar__main">
-      <div class="calendar-time">
+      <div v-if="dateTime" class="calendar-time">
         <h3 class="calendar-time__title">Время окончания</h3>
         <div class="calendar-time__options">
           <v-select
@@ -35,7 +35,7 @@
         </div>
       </div>
       <div class="calendar-date">
-        <h3 class="calendar-date__title">Дата окончания</h3>
+        <h3 v-if="dateTime" class="calendar-date__title">Дата окончания</h3>
         <no-ssr>
           <div class="calendar-wrap">
             <!-- <v-calendar></v-calendar> -->
@@ -51,7 +51,7 @@
         </no-ssr>
       </div>
     </div>
-    <div class="calendar__footer">*Голосования по рейтингу может продолжиться до 30 дней</div>
+    <div v-if="dateTime" class="calendar__footer">*Голосования по рейтингу может продолжиться до 30 дней</div>
   </div>
 </template>
 
@@ -69,6 +69,12 @@ import '@/assets/css/vSelect.scss'
 export default {
   components: {
     vSelect
+  },
+  props: {
+    dateTime: {
+      type: Boolean,
+      default: true
+    }
   },
   data() {
     return {

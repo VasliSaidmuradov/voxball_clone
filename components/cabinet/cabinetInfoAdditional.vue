@@ -5,24 +5,28 @@
     </div>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-6">
+        <div class="col-7">
           <div
             class="row cabinet-info-additional__button-wrap"
             v-for="(button, index) in cabinetInfoAdditional.buttons"
             :key="index"
           >
-            <v-btn class="cabinet-info-additional__button">{{ button }}</v-btn>
+            <v-btn
+              class="cabinet-info-additional__button"
+              @click="$navigate('/cabinet/additional/')"
+              :data-type="button.type"
+            >{{ button.value }}</v-btn>
             <div class="cabinet-info-additional__pay">
               <img
                 class="cabinet-info-additional__coin-image"
                 src="~assets/img/poll-card__coin.png"
                 alt
               />
-              +150
+              150
             </div>
           </div>
         </div>
-        <div class="col-6">
+        <div class="col-5">
           <div
             class="row cabinet-info-additional__button-wrap-right"
             v-for="(buttonRight, index) in cabinetInfoAdditional.buttonsRight"
@@ -34,7 +38,7 @@
             <span class="mr-2 cabinet-info-additional__toggle-title">Получать уведомления</span>
             <ToggleButton />
           </div>
-          <div class="cabinet-info-additional__toggle">          
+          <div class="cabinet-info-additional__toggle">
             <span class="mr-2 cabinet-info-additional__toggle-title">Закрытый аккаунт</span>
             <ToggleButton />
           </div>
@@ -60,12 +64,12 @@ export default {
       cabinetInfoAdditional: {
         title: 'Укажите дополнительную информацию и заработайте v-coins:',
         buttons: [
-          'Личные данные',
-          'Семейное положение',
-          'Образование и работа',
-          'Интересы и увлечения',
-          'Хобби и увлечения ',
-          'Вкусовые предпочтения'
+          { value: 'Личные данные', type: 'personalData' },
+          { value: 'Семейное положение', type: 'familyStatus' },
+          { value: 'Образование и работа', type: 'educationAndWork' },
+          { value: 'Интересы и увлечения', type: 'interestsAndHobbies' },
+          // { value: 'Хобби и увлечения', type: 'personalData' },
+          { value: 'Вкусовые предпочтения', type: 'tastePreferences' }
         ],
         buttonsRight: [
           'сменить пароль',
@@ -103,7 +107,7 @@ export default {
 
   &__button {
     border: 1px solid $border-color;
-    min-width: 22rem;
+    min-width: 20rem;
     min-height: 2.5rem;
     border-radius: 2rem;
     justify-content: center;
@@ -126,8 +130,8 @@ export default {
   }
   &__button-right {
     border: 1px solid $border-color;
-    min-width: 17rem;
-    max-width: 17rem;
+    min-width: 15rem;
+    max-width: 15rem;
     min-height: 3rem;
     justify-content: center;
     font-size: 0.9rem;
@@ -143,11 +147,11 @@ export default {
     display: flex;
     align-items: center;
     margin-left: 1rem;
-    font-size: .9rem;
+    font-size: 0.9rem;
   }
   &__coin-image {
-    width: 1.2rem;
-    height: 1.2rem;
+    width: 1rem;
+    height: 1rem;
     margin-right: 0.3rem;
     opacity: 0.8;
   }
@@ -155,7 +159,7 @@ export default {
     height: 3rem;
     display: flex;
     align-items: center;
-    width: 17rem;
+    width: 15rem;
     margin: auto;
   }
   // &__toggle-title {

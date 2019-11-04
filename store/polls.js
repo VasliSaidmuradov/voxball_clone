@@ -22,6 +22,7 @@ export const state = () => ({
 		canComment: false,
 		type: 'simple',
 		questions: [{ title: '', type: 'simple' }],
+		
 		variants: [
 			[
 				{
@@ -54,6 +55,7 @@ export const mutations = {
 
 	SET_POLL_ANSWER(state, { questionId, answers }) {
 		state.pollAnswer[questionId] = answers
+		console.log(state.pollAnswer[questionId])
 	},
 
 	// 	state.polls = polls
@@ -216,13 +218,8 @@ export const actions = {
 
 	async VOTE({ commit, state, getters }, id) {
 		try {
-			let asd = { ...state.pollAnswer }
-			for (const key in asd) {
-				if (asd.hasOwnProperty(key)) {
-					asd[key] = asd[key].join(',')
-				}
-			}
-			const res = await this.$axios.post(`/quizzes/${id}/answers`, asd)
+			const res = await this.$axios.post(`/quizzes/${id}/answers`, state.pollAnswer)
+			// console.log(res)
 		} catch ({ e }) {
 			console.log(e)
 		}
