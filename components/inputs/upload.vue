@@ -10,6 +10,7 @@
       :max-files="maxFiles"
       allowImageCrop="true"
       @updatefiles="getFiles($event)"
+      :disabled="disabled"
     />
   </div>
 </template>
@@ -39,11 +40,12 @@ export default {
   },
   methods: {
     getFiles(e) {
-      let file = e[0].file
-      console.log('upload: ', file.name, ' : ', file)
-      const formData = new FormData()
-      formData.append('myFile', file, file.name)
-      this.$emit('getFiles', formData)
+      // let file = e[0].file
+      // console.log('upload: ', file.name, ' : ', file)
+      // const formData = new FormData()
+      // formData.append('myFile', file, file.name)
+      // this.$emit('getFiles', formData)
+      this.$emit('getFiles', e)
     }
   },
   props: {
@@ -66,6 +68,10 @@ export default {
     width: {
       type: String,
       default: '15em;'
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {

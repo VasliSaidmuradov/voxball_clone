@@ -18,16 +18,24 @@
       <v-form-layout :bottomLine="false" class="add-poll__form-layout">
         <div class="add-poll-wrap">
           <section class="add-poll-header">
-            <h2 class="add-poll-header__title">Одиночный выбор</h2>
+            <h2 class="add-poll-header__title">{{pollTypeList[pollTypeActive].value}}</h2>
             <div class="add-poll-header__wrap">
               <div class="add-poll-header__uploads">
-                <upload :height="'14em'" :width="'14em'" class="mr-3"></upload>
+                <upload :height="'14em'" label="загрузить картинку" :width="'14em'" class="mr-3"></upload>
                 <div>
-                  <upload :height="'14em'" :width="'14em'"></upload>
+                  <upload
+                    :disabled="disFile"
+                    label="загрузить видео"
+                    :height="'14em'"
+                    :width="'14em'"
+                    @getFiles="getFiles"
+                  ></upload>
                   <input
                     placeholder="Или добавьте ссылку на видео"
                     class="add-poll-header__input-video"
                     type="text"
+                    @input="pollVideoUrl($event)"
+                    :disabled="disUrl"
                   />
                 </div>
               </div>
@@ -51,7 +59,11 @@
               </div>
             </div>
           </section>
-          <section class="add-poll-answers">
+          <section
+            class="add-poll-answers"
+            v-if="pollTypeList[pollTypeActive].type !== 'rating' && 
+              pollTypeList[pollTypeActive].type !== 'text'"
+          >
             <div
               class="add-poll-questions"
               v-for="(question, index) in GET_NEW_POLL_QUESTIONS"
@@ -66,8 +78,8 @@
                   </div>
                 </div>
                 <div class="d-flex align-items-center">
+                  <!-- :value="question.title" -->
                   <input
-                    :value="question.title"
                     @input="SET_NEW_POLL_DATA_QUESTION({ questionIndex: index, field: 'title', value: $event.target.value })"
                     class="add-poll-questions__title"
                     type="text"
@@ -183,12 +195,12 @@ export default {
       pollTypeList: [
         { value: 'Одиночный выбор', type: 'simple' },
         { value: 'Множественный выбор', type: 'multiply' },
-        { value: 'рейтинг', type: 'rating' },
-        { value: 'текстовый опрос', type: 'text' },
-        { value: 'опрос с картинками', type: 'image' },
-        { value: 'видео опрос', type: 'video' },
-        { value: 'анкетированный опрос', type: 'questioned' },
-        { value: 'таргетированный опрос', type: 'target' }
+        { value: 'Рейтинг', type: 'rating' },
+        { value: 'Текстовый опрос', type: 'text' },
+        { value: 'Опрос с картинками', type: 'image' },
+        { value: 'Видео опрос', type: 'video' },
+        { value: 'Анкетированный опрос', type: 'questioned' },
+        { value: 'Таргетированный опрос', type: 'target' }
       ],
       questionTypeList: [
         { value: 'одиночный выбор', type: 'simple' },
@@ -205,7 +217,9 @@ export default {
         {
           value: ''
         }
-      ]
+      ],
+      disFile: false,
+      disUrl: false
     }
   },
   methods: {
@@ -235,11 +249,15 @@ export default {
       })
       this.SET_NEW_POLL_DATA({ field: 'authorId', value: this.GET_USER['id'] })
       await this.ADD_POLL()
+      this.$navigate('/polls')
       // localStorage.removeItem('vuex')
     },
     set_poll_type(value, index) {
       this.pollTypeActive = index
       // this.SET_NEW_POLL_TYPE(value)
+      if (value === 'image') this.setQuestionType('ответ-картинки', 0)
+      else if (value === 'video') this.setQuestionType('ответ-видео', 0)
+      else this.setQuestionType('одиночный выбор', 0)
       this.SET_NEW_POLL_DATA({ field: 'type', value: value })
     },
     categorySet(e) {
@@ -260,6 +278,12 @@ export default {
       this.REMOVE_NEW_POLL_DATA_QUESTION({
         questionIndex: index
       })
+    },
+    pollVideoUrl(e) {
+      !!e.target.value ? (this.disFile = true) : (this.disFile = false)
+    },
+    getFiles(e) {
+      !!e.length ? (this.disUrl = true) : (this.disUrl = false)
     }
   },
   computed: {
