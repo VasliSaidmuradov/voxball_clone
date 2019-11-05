@@ -21,14 +21,20 @@
             <h2 class="add-poll-header__title">{{pollTypeList[pollTypeActive].value}}</h2>
             <div class="add-poll-header__wrap">
               <div class="add-poll-header__uploads">
-                <upload :height="'14em'" label="загрузить картинку" :width="'14em'" class="mr-3"></upload>
+                <upload
+                  :height="'14em'"
+                  @getFiles="getImage"
+                  label="загрузить картинку"
+                  :width="'14em'"
+                  class="mr-3"
+                ></upload>
                 <div>
                   <upload
                     :disabled="disFile"
                     label="загрузить видео"
                     :height="'14em'"
                     :width="'14em'"
-                    @getFiles="getFiles"
+                    @getFiles="getVideo"
                   ></upload>
                   <input
                     placeholder="Или добавьте ссылку на видео"
@@ -197,7 +203,7 @@ export default {
         { value: 'Множественный выбор', type: 'multiply' },
         { value: 'Рейтинг', type: 'rating' },
         { value: 'Текстовый опрос', type: 'text' },
-        { value: 'Опрос с картинками', type: 'image' },
+        { value: 'Опрос с картинками', type: 'images' },
         { value: 'Видео опрос', type: 'video' },
         { value: 'Анкетированный опрос', type: 'questioned' },
         { value: 'Таргетированный опрос', type: 'target' }
@@ -207,7 +213,7 @@ export default {
         { value: 'множественный выбор', type: 'multiply' },
         { value: 'рейтинг', type: 'rating' },
         { value: 'ответ-текстовый', type: 'text' },
-        { value: 'ответ-картинки', type: 'image' },
+        { value: 'ответ-картинки', type: 'images' },
         { value: 'ответ-видео', type: 'video' }
       ],
       pollTypeActive: 0,
@@ -232,7 +238,8 @@ export default {
       REMOVE_NEW_POLL_DATA_QUESTION: 'polls/REMOVE_NEW_POLL_DATA_QUESTION'
     }),
     ...mapActions({
-      ADD_POLL: 'polls/ADD_POLL'
+      ADD_POLL: 'polls/ADD_POLL',
+      ADD_FILE: 'polls/ADD_FILE'
     }),
     inputAnswer(data, questionIndex) {
       SET_NEW_POLL_DATA_VARIANT({
@@ -248,16 +255,33 @@ export default {
         value: new Date()
       })
       this.SET_NEW_POLL_DATA({ field: 'authorId', value: this.GET_USER['id'] })
-      await this.ADD_POLL()
-      this.$navigate('/polls')
+      let pollId = await this.ADD_POLL()
+      // console.log('pollId', pollId )
+      if (!!pollId) this.$navigate(`/polls/${pollId.data.data.id}`)
       // localStorage.removeItem('vuex')
     },
     set_poll_type(value, index) {
       this.pollTypeActive = index
       // this.SET_NEW_POLL_TYPE(value)
-      if (value === 'image') this.setQuestionType('ответ-картинки', 0)
+      if (value === 'images') this.setQuestionType('ответ-картинки', 0)
       else if (value === 'video') this.setQuestionType('ответ-видео', 0)
-      else this.setQuestionType('одиночный выбор', 0)
+      else if (value === 'rating') {
+        this.setQuestionType('рейтинг', 0)
+        this.SET_NEW_POLL_DATA_VARIANT({
+          questionIndex: 0,
+          variantIndex: 0,
+          field: 'title',
+          value: 'raiting'
+        })
+      } else if (value === 'text') {
+        this.setQuestionType('ответ-текстовый', 0)
+        this.SET_NEW_POLL_DATA_VARIANT({
+          questionIndex: 0,
+          variantIndex: 0,
+          field: 'title',
+          value: 'text'
+        })
+      } else this.setQuestionType('одиночный выбор', 0)
       this.SET_NEW_POLL_DATA({ field: 'type', value: value })
     },
     categorySet(e) {
@@ -282,8 +306,19 @@ export default {
     pollVideoUrl(e) {
       !!e.target.value ? (this.disFile = true) : (this.disFile = false)
     },
-    getFiles(e) {
+    getImage(e) {
+      this.getFiles(e, 'preview')
+    },
+    getVideo(e) {
+      this.getFiles(e, 'video')
+    },
+    async getFiles(e, type) {
       !!e.length ? (this.disUrl = true) : (this.disUrl = false)
+      let id = await this.ADD_FILE(e)
+      console.log('id: ', id)
+      if (id !== null) {
+        this.SET_NEW_POLL_DATA({ field: type, value: id })
+      }
     }
   },
   computed: {

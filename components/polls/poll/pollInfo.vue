@@ -29,7 +29,7 @@
     </div>
     <div class="poll-info__main">
       <h2 class="poll-info__title">{{ poll.title }}</h2>
-      <p class="poll-info__text">{{ poll.description }}</p>
+      <p class="poll-info__text" v-html="poll.description"></p>
     </div>
     <div class="poll-info__footer">
       <div class="poll-info__footer-wrap">

@@ -2,7 +2,7 @@
   <div class="poll-id">
     <detailed-layout :title="'Мои Опросы'">
       <!-- {{ $route.params.id }} -->
-      <!-- {{ GET_POLL.questions }} -->
+      <!-- {{ GET_POLL }} -->
       <poll-info class="mt-5" :poll="GET_POLL"></poll-info>
       <!-- <poll-card :complete="GET_POLL['complete']" class="mb-5" :poll="GET_POLL" v-show="!!GET_POLL.questions.length"></poll-card> -->
       <poll-card
