@@ -4,9 +4,12 @@
       <h2 class="poll-card__title">{{ question.title }}</h2>
       <div class="poll-card__answer">
         <div class="answer__list">
+<<<<<<< HEAD
           <!-- {{ GET_POLL_ANSWER[question.id] }} -->
+=======
+>>>>>>> a0a323dba297cd69419d3604563c23ce22302a68
           <answers-list
-            type="question.type"
+            :type="question.type"
             :value="GET_POLL_ANSWER[question.id]"
             @input="SET_POLL_ANSWER({'questionId': question.id, 'answers': $event})"
             :answersList="question.variants"
@@ -57,7 +60,7 @@
     </div>
 
     <div class="poll-card__footer">
-      <div>Проголосовали: {{ poll.votes }}</div>
+      <div>Проголосовали: {{ poll.voteCount }}</div>
       <div v-if="!complete">Опрос окончится через: {{ poll.date }}</div>
       <div>Поделились: {{ poll.shares }} пользователей</div>
     </div>
