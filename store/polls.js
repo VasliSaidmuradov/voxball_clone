@@ -282,16 +282,10 @@ export const getters = {
 				? item.category.title.substr(0, 12) + '...'
 				: 'нет категории',
 			createdAt: new Date(item.createdAt).toLocaleDateString(),
-<<<<<<< HEAD
 			authorAvatar:
 				item.author.avatar === null
 					? '/_nuxt/assets/img/poll-no-avatar.png'
 					: item.author.avatar,
-=======
-			authorAvatar: item.author.avatar === null
-				? '/_nuxt/assets/img/poll-no-avatar.png'
-				: item.author.avatar,
->>>>>>> 94944cb0e089ede692be90bb0f48168981e4ac8d
 			authorName:
 				item.author && item.author.name
 					? item.author.name.substr(0, 20)
