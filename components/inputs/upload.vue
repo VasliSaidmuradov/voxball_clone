@@ -8,9 +8,22 @@
       :labelIdle="`<div class='upload-btn'>${label}</div>`"
       allow-multiple="false"
       allowImageCrop="true"
+      :max-files="maxFiles"
       @updatefiles="getFiles($event)"
       :disabled="disabled"
     />
+    <!-- <file-pond
+      ref="pond"
+      :class="{'myUpload': true, 'myUpload--file': file}"
+      :style="styles"
+      :stylePanelLayout="file ? null : 'integrated'"
+      :labelIdle="`<div class='upload-btn'>${label}</div>`"
+      allow-multiple="true"
+      :max-files="maxFiles"
+      allowImageCrop="true"
+      @updatefiles="getFiles($event)"
+      :disabled="disabled"
+    />-->
     <!-- :allowFileTypeValidation="type"
     :acceptedFileTypes="mime_types[type]"-->
     <!-- :max-files="maxFiles" -->
@@ -35,12 +48,12 @@ import 'filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css'
 const FilePond = vueFilePond(
   FilePondPluginImagePreview,
   FilePondPluginImageCrop,
-  FilePondPluginImageEdit
+  FilePondPluginImageEdit,
 )
 
 export default {
   components: {
-    FilePond
+    FilePond,
   },
   methods: {
     getFiles(e) {
@@ -48,54 +61,54 @@ export default {
         let data = e[0]
         this.$emit('getFiles', data)
       }
-    }
+    },
   },
   props: {
     label: {
       type: String,
-      default: 'Загрузить файл'
+      default: 'Загрузить файл',
     },
     file: {
       type: Boolean,
-      default: false
+      default: false,
     },
     maxFiles: {
       type: Number,
-      default: 1
+      default: 1,
     },
     height: {
       type: String,
-      default: '15em;'
+      default: '15em;',
     },
     width: {
       type: String,
-      default: '15em;'
+      default: '15em;',
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     type: {
       type: String,
-      default: null
-    }
+      default: null,
+    },
   },
   computed: {
     styles() {
       return {
         height: this.height,
-        width: this.width
+        width: this.width,
       }
-    }
+    },
   },
   data() {
     return {
       mime_types: {
         video: ['video/mpeg', 'video/mp4'],
-        image: ['image/jpeg', 'image/png']
-      }
+        image: ['image/jpeg', 'image/png'],
+      },
     }
-  }
+  },
 }
 </script>
 
