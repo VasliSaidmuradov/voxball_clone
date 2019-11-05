@@ -159,10 +159,11 @@ export const mutations = {
 export const actions = {
 	async FETCH_POLLS({ commit }, data = {}) {
 		try {
-			const {query, size, page} = data
+			const { query, size, page } = data
 			console.log(data)
 			const res = await this.$axios.get(
-				`/quizzes?with[author]&with[category]&sort[]=createdAt${query||''}&size=${size||10}&page=${page}`
+				`/quizzes?with[author]&with[category]&sort[]=createdAt${query ||
+					''}&size=${size || 10}&page=${page}`
 			)
 			console.log(res.data.data)
 			commit('SET_POLLS', res.data.data)
@@ -214,6 +215,7 @@ export const actions = {
 				...getters.GET_NEW_POLL,
 				questions: getters.GET_NEW_POLL_QUESTIONS
 			}
+			console.log(data)
 			delete data.variants
 			if (data.preview === '') {
 				delete data.preview
@@ -223,6 +225,11 @@ export const actions = {
 			}
 			delete data.videoUrl
 			delete data.authorId
+			data.questions.forEach(item => {
+				if (item.type === 'stars' || item.type === 'text') {
+					delete item.variants
+				}
+			})
 			const res = await this.$axios.post('/quizzes', data)
 			console.log(res)
 			commit('SET_NEW_POLL_CLEAR')

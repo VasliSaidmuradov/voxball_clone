@@ -79,8 +79,8 @@
                 <div class="d-flex justify-content-between">
                   <p>Введите вопрос:</p>
                   <!-- <div class="add-poll-questions__cancel-wrapper" @click="removeQuestion(index)"> -->
-                    <!-- v-if="pollTypeList[pollTypeActive].type === 'questioned'" -->
-                    <!-- <iconCancel class="icon-cancel add-poll-questions__cancel"></iconCancel> -->
+                  <!-- v-if="pollTypeList[pollTypeActive].type === 'questioned'" -->
+                  <!-- <iconCancel class="icon-cancel add-poll-questions__cancel"></iconCancel> -->
                   <!-- </div> -->
                 </div>
                 <div class="d-flex align-items-center">
@@ -100,7 +100,9 @@
                   ></v-select>
                 </div>
               </div>
-              <p>Введите варианты ответов:</p>
+              <p
+                v-if="GET_NEW_POLL_QUESTIONS[index].type !== 'text' && GET_NEW_POLL_QUESTIONS[index].type !== 'stars'"
+              >Введите варианты ответов:</p>
               <add-answers-list
                 :type="GET_NEW_POLL_QUESTIONS[index].type"
                 :answersList="GET_NEW_POLL_VARIANTS[index]"
@@ -193,7 +195,7 @@ export default {
     vTags,
     vSelect,
     iconArrow,
-    iconCancel
+    iconCancel,
   },
   data() {
     return {
@@ -206,7 +208,7 @@ export default {
         { value: 'Опрос с картинками', type: 'image' },
         { value: 'Видео опрос', type: 'video' },
         { value: 'Анкетированный опрос', type: 'questioned' },
-        { value: 'Таргетированный опрос', type: 'target' }
+        { value: 'Таргетированный опрос', type: 'target' },
       ],
       questionTypeList: [
         { value: 'одиночный выбор', type: 'simple' },
@@ -214,18 +216,18 @@ export default {
         { value: 'рейтинг', type: 'stars' },
         { value: 'ответ-текстовый', type: 'text' },
         { value: 'ответ-картинки', type: 'image' },
-        { value: 'ответ-видео', type: 'video' }
+        { value: 'ответ-видео', type: 'video' },
       ],
       pollTypeActive: 0,
       languages: ['Казахский', 'Русский', 'Английский'],
       category: ['Общество', 'Экономика', 'Животные'],
       addAnswerslist: [
         {
-          value: ''
-        }
+          value: '',
+        },
       ],
       disFile: false,
-      disUrl: false
+      disUrl: false,
     }
   },
   methods: {
@@ -235,25 +237,25 @@ export default {
       SET_NEW_POLL_QUESTION: 'polls/SET_NEW_POLL_QUESTION',
       SET_NEW_POLL_DATA_QUESTION: 'polls/SET_NEW_POLL_DATA_QUESTION',
       SET_NEW_POLL_DATA_VARIANT: 'polls/SET_NEW_POLL_DATA_VARIANT',
-      REMOVE_NEW_POLL_DATA_QUESTION: 'polls/REMOVE_NEW_POLL_DATA_QUESTION'
+      REMOVE_NEW_POLL_DATA_QUESTION: 'polls/REMOVE_NEW_POLL_DATA_QUESTION',
     }),
     ...mapActions({
       ADD_POLL: 'polls/ADD_POLL',
       ADD_FILE: 'polls/ADD_FILE',
-      ADD_FILE_URL: 'polls/ADD_FILE_URL'
+      ADD_FILE_URL: 'polls/ADD_FILE_URL',
     }),
     inputAnswer(data, questionIndex) {
       SET_NEW_POLL_DATA_VARIANT({
         questionIndex: questionIndex,
         variantIndex: data.index,
         field: 'title',
-        value: data.value
+        value: data.value,
       })
     },
     async publishPoll() {
       this.SET_NEW_POLL_DATA({
         field: 'startedAt',
-        value: new Date()
+        value: new Date(),
       })
       this.SET_NEW_POLL_DATA({ field: 'authorId', value: this.GET_USER['id'] })
       let pollId = await this.ADD_POLL()
@@ -273,7 +275,7 @@ export default {
           questionIndex: 0,
           variantIndex: 0,
           field: 'title',
-          value: 'stars'
+          value: 'stars',
         })
       } else if (value === 'text') {
         this.setQuestionType('ответ-текстовый', 0)
@@ -281,7 +283,7 @@ export default {
           questionIndex: 0,
           variantIndex: 0,
           field: 'title',
-          value: 'text'
+          value: 'text',
         })
       } else this.setQuestionType('одиночный выбор', 0)
       this.SET_NEW_POLL_DATA({ field: 'type', value: value })
@@ -297,12 +299,12 @@ export default {
       this.SET_NEW_POLL_DATA_QUESTION({
         questionIndex: index,
         field: 'type',
-        value: type
+        value: type,
       })
     },
     removeQuestion(index) {
       this.REMOVE_NEW_POLL_DATA_QUESTION({
-        questionIndex: index
+        questionIndex: index,
       })
     },
     async pollVideoUrl(e) {
@@ -326,7 +328,7 @@ export default {
       if (id !== null) {
         this.SET_NEW_POLL_DATA({ field: type, value: id })
       }
-    }
+    },
   },
   computed: {
     ...mapGetters({
@@ -334,12 +336,12 @@ export default {
       GET_USER: 'auth/GET_USER',
       GET_NEW_POLL_QUESTIONS: 'polls/GET_NEW_POLL_QUESTIONS',
       GET_NEW_POLL_VARIANTS: 'polls/GET_NEW_POLL_VARIANTS',
-      GET_CATEGORY_LIST: 'polls/GET_CATEGORY_LIST'
-    })
+      GET_CATEGORY_LIST: 'polls/GET_CATEGORY_LIST',
+    }),
   },
   async fetch({ store }) {
     await store.dispatch('polls/FETCH_CATEGORY')
-  }
+  },
 }
 </script>
 
