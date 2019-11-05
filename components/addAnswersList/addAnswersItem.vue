@@ -1,21 +1,7 @@
 <template>
   <div :class="classes">
-    <div v-if="type==='rating'" class="mt-2 mb-2">
-      <no-ssr>
-        <star-rating
-          v-model="rating"
-          inactive-color="#fff"
-          active-color="#00b900"
-          :star-size="25"
-          :padding="1"
-          read-only
-          :show-rating="false"
-        ></star-rating>
-      </no-ssr>
-    </div>
-    <div v-if="type==='text'">Текстовый вопрос</div>
     <div v-if="type==='video'||type==='image'" class="answer-item-upload mb-3">
-      <upload @getFiles="getFiles" :label="type === 'video' ? 'Загрузить видео' : 'Загрузить фото'"></upload>
+      <upload @getFiles="getFiles" :label="type === 'video' ? 'Загрузить видео' : 'Загрузить фото'">  </upload>
       <div class="ml-4 w-100">
         <textarea
           style="resize:none"
@@ -96,9 +82,8 @@ export default {
     removeAnswer() {
       this.$emit('removeAnswer')
     },
-    async getFiles(e, type) {
+    async getFiles(e) {
       let id = await this.ADD_FILE(e)
-      console.log('id: ', id)
       if (id !== null) {
         this.SET_NEW_POLL_DATA_VARIANT({
           questionIndex: this.variantInfo.questionIndex,

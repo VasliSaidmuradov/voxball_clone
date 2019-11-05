@@ -2,7 +2,7 @@
   <div class="rating">
     <detailed-layout :title="'Рейтинг'">
       <rating-info class="mt-5" :poll="ratingData"></rating-info>
-      <rating-card class="mb-5" :polltype="'rating'"></rating-card>
+      <rating-card class="mb-5" :polltype="'stars'"></rating-card>
     </detailed-layout>
   </div>
 </template>

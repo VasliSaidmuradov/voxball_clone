@@ -12,7 +12,7 @@
       ></add-answers-item>
     </div>
     <v-btn
-      v-if="type !== 'rating' && type!=='text'"
+      v-if="type !== 'stars' && type!=='text'"
       @click="newAnswer"
       rounded
       class="answers-list__button"

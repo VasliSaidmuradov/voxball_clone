@@ -68,6 +68,6 @@ export default {
   margin: 0 auto;
   list-style: none;
   padding: 0;
-  font-size: 0.8em;
+  font-size: 0.8rem;
 }
 </style>

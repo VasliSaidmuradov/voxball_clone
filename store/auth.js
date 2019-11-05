@@ -94,6 +94,8 @@ export const actions = {
 			// console.log(user.name + ' user polls: ' + userPolls.data)
 			commit('SET_USER', user)
 			commit('SET_TOKEN', token)
+			console.log('authrorized ', token)
+			$cookies.set('token', token)
 		} catch (e) {
 			console.log('error user_login ', e)
 		}

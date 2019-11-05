@@ -67,7 +67,7 @@
           </section>
           <section
             class="add-poll-answers"
-            v-if="pollTypeList[pollTypeActive].type !== 'rating' && 
+            v-if="pollTypeList[pollTypeActive].type !== 'stars' && 
               pollTypeList[pollTypeActive].type !== 'text'"
           >
             <div
@@ -78,10 +78,10 @@
               <div v-if="pollTypeList[pollTypeActive].type === 'questioned'">
                 <div class="d-flex justify-content-between">
                   <p>Введите вопрос:</p>
-                  <div class="add-poll-questions__cancel-wrapper" @click="removeQuestion(index)">
+                  <!-- <div class="add-poll-questions__cancel-wrapper" @click="removeQuestion(index)"> -->
                     <!-- v-if="pollTypeList[pollTypeActive].type === 'questioned'" -->
-                    <iconCancel class="icon-cancel add-poll-questions__cancel"></iconCancel>
-                  </div>
+                    <!-- <iconCancel class="icon-cancel add-poll-questions__cancel"></iconCancel> -->
+                  <!-- </div> -->
                 </div>
                 <div class="d-flex align-items-center">
                   <input
@@ -201,7 +201,7 @@ export default {
       pollTypeList: [
         { value: 'Одиночный выбор', type: 'simple' },
         { value: 'Множественный выбор', type: 'multiply' },
-        { value: 'Рейтинг', type: 'rating' },
+        { value: 'Рейтинг', type: 'stars' },
         { value: 'Текстовый опрос', type: 'text' },
         { value: 'Опрос с картинками', type: 'image' },
         { value: 'Видео опрос', type: 'video' },
@@ -211,7 +211,7 @@ export default {
       questionTypeList: [
         { value: 'одиночный выбор', type: 'simple' },
         { value: 'множественный выбор', type: 'multiply' },
-        { value: 'рейтинг', type: 'rating' },
+        { value: 'рейтинг', type: 'stars' },
         { value: 'ответ-текстовый', type: 'text' },
         { value: 'ответ-картинки', type: 'image' },
         { value: 'ответ-видео', type: 'video' }
@@ -266,13 +266,14 @@ export default {
       // this.SET_NEW_POLL_TYPE(value)
       if (value === 'image') this.setQuestionType('ответ-картинки', 0)
       else if (value === 'video') this.setQuestionType('ответ-видео', 0)
-      else if (value === 'rating') {
+      else if (value === 'multiply') this.setQuestionType('множественный выбор', 0)
+      else if (value === 'stars') {
         this.setQuestionType('рейтинг', 0)
         this.SET_NEW_POLL_DATA_VARIANT({
           questionIndex: 0,
           variantIndex: 0,
           field: 'title',
-          value: 'raiting'
+          value: 'stars'
         })
       } else if (value === 'text') {
         this.setQuestionType('ответ-текстовый', 0)
@@ -292,7 +293,7 @@ export default {
     },
     setQuestionType(e, index) {
       let type = this.questionTypeList.find(item => item.value == e).type
-      // console.log('questiontype: ', e, index, ' ', type)
+      console.log('questiontype: ', e, index, ' ', type)
       this.SET_NEW_POLL_DATA_QUESTION({
         questionIndex: index,
         field: 'type',
@@ -312,11 +313,11 @@ export default {
         this.SET_NEW_POLL_DATA({ field: 'videoUrl', value: id })
       }
     },
-    getImage(e) {
-      this.getFiles(e, 'preview')
+    async getImage(e) {
+      await this.getFiles(e, 'preview')
     },
-    getVideo(e) {
-      this.getFiles(e, 'video')
+    async getVideo(e) {
+      await this.getFiles(e, 'video')
     },
     async getFiles(e, type) {
       !!e.length ? (this.disUrl = true) : (this.disUrl = false)

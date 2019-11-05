@@ -54,7 +54,7 @@ export default {
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
           views: 345,
-          type: 'rating'
+          type: 'stars'
         },
         {
           category: 'Бизнес',
@@ -62,7 +62,7 @@ export default {
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
           views: 345,
-          type: 'rating'
+          type: 'stars'
         },
         {
           category: 'Бизнес',
@@ -70,7 +70,7 @@ export default {
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
           views: 345,
-          type: 'rating'
+          type: 'stars'
         },
         {
           category: 'Бизнес',
@@ -78,7 +78,7 @@ export default {
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
           views: 345,
-          type: 'rating'
+          type: 'stars'
         },
         {
           category: 'Бизнес',
@@ -86,7 +86,7 @@ export default {
           title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
           views: 345,
-          type: 'rating'
+          type: 'stars'
         }
       ],
       advList: [

@@ -7,7 +7,7 @@
           <span class="poll-info__date">{{ poll.createdAt }}</span>
         </div>
         <div class="poll-info__info-wrap">
-          <v-btn class="poll-info__button" border @click="openAnswerMedia">
+          <v-btn v-if="!!poll.video || !!poll.videoUrl" class="poll-info__button" border @click="openAnswerMedia">
             посмотреть видео
             <span>
               <icon-arrow class="ml-2" />
@@ -44,7 +44,7 @@
         </p>
       </div>
       <div class="poll-info__footer-wrap justify-content">
-        <div class="poll-info__share-wrap">Поделились:{{ poll.shared }}</div>
+        <div class="poll-info__share-wrap">Поделились:{{ 0 }}</div>
         <div class="poll-info__social-wrap">
           <div class="poll-info__social">
             <social></social>

@@ -11,7 +11,7 @@
             :answersList="question.variants"
             :percent="[25,15,50,10]"
             :complete="complete"
-            v-if="GET_POLL_ANSWER[question.type] !== 'text' && GET_POLL_ANSWER[question.type] !== 'rating'"
+            v-if="question.type !== 'text' && question.type !== 'stars'"
             @showAnswerMedia="openAnswerMedia()"
           ></answers-list>
           <!-- {{question}} -->
@@ -26,7 +26,7 @@
 
           <div
             class="answer-item__ratings ml-auto mr-auto"
-            v-if="GET_POLL_ANSWER[question.type] === 'rating'"
+            v-if="question.type === 'stars'"
           >
             <no-ssr>
               <star-rating
@@ -117,7 +117,7 @@ export default {
   },
   data() {
     return {
-      questionType: 'rating',
+      questionType: 'stars',
       showAnswerMedia: false
       // qType: 'text'
       // rating: 0

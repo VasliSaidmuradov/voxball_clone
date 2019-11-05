@@ -43,6 +43,7 @@ export const mutations = {
 	},
 
 	FORMATTED_POLL_ANSWERS(state, questions) {
+		state.pollAnswer = {}
 		questions.forEach(item => {
 			state.pollAnswer = { ...state.pollAnswer, [item.id]: [] }
 		})
@@ -67,15 +68,37 @@ export const mutations = {
 		console.log(`${data.field} : ${state.newPoll[data.field]}`)
 	},
 	SET_NEW_POLL_CLEAR(state) {
-		for (let field in state.newPoll) {
-			if (field === 'isPrivate') state.newPoll[field] = false
-			if (field === 'questions' || field === 'variants') {
-				state.newPoll['questions'] = [{ title: '', type: 'simple' }]
-				state.newPoll['variants'] = [[{ title: '' }]]
-			} else state.newPoll[field] = ''
-			// console.log(`${field} : ${state.newPoll[field]}`)
+		// for (let field in state.newPoll) {
+		// 	if (field === 'isPrivate') state.newPoll[field] = false
+		// 	if (field === 'questions' || field === 'variants') {
+		// 		state.newPoll['questions'] = [{ title: '', type: 'simple' }]
+		// 		state.newPoll['variants'] = [[{ title: '' }]]
+		// 	} else state.newPoll[field] = ''
+		// 	// console.log(`${field} : ${state.newPoll[field]}`)
+		// }
+		// // console.log('state.newPoll: ', state.newPoll)
+		state.newPoll = {
+			categoryId: '',
+			title: '',
+			description: '',
+			startedAt: null,
+			endedAt: '',
+			preview: '',
+			video: '',
+			videoUrl: '',
+			isPrivate: false,
+			isOpen: false,
+			canComment: false,
+			type: 'simple',
+			questions: [{ title: '', type: 'simple' }],
+			variants: [
+				[
+					{
+						title: ''
+					}
+				]
+			]
 		}
-		// console.log('state.newPoll: ', state.newPoll)
 	},
 	SET_NEW_POLL_QUESTION(state) {
 		// single|multiply|video|image|text|rating
@@ -139,7 +162,7 @@ export const actions = {
 			const {query, size, page} = data
 			console.log(data)
 			const res = await this.$axios.get(
-				`/quizzes?with[author]&with[category]&sort[]=startedAt${query||''}&size=${size||10}&page=${page}`
+				`/quizzes?with[author]&with[category]&sort[]=createdAt${query||''}&size=${size||10}&page=${page}`
 			)
 			console.log(res.data.data)
 			commit('SET_POLLS', res.data.data)
@@ -202,6 +225,7 @@ export const actions = {
 			delete data.authorId
 			const res = await this.$axios.post('/quizzes', data)
 			console.log(res)
+			commit('SET_NEW_POLL_CLEAR')
 			if (!!res) return res
 			// commit('SET_POLLS', res.data.data)
 			// const poll = state.newPoll
@@ -282,16 +306,9 @@ export const getters = {
 				? item.category.title.substr(0, 12) + '...'
 				: 'нет категории',
 			createdAt: new Date(item.createdAt).toLocaleDateString(),
-<<<<<<< HEAD
-			authorAvatar:
-				item.author.avatar === null
-					? '/_nuxt/assets/img/poll-no-avatar.png'
-					: item.author.avatar,
-=======
 			authorAvatar: item.author.avatar === null
 				? '/_nuxt/assets/img/poll-no-avatar.png'
 				: item.author.avatar,
->>>>>>> 94944cb0e089ede692be90bb0f48168981e4ac8d
 			authorName:
 				item.author && item.author.name
 					? item.author.name.substr(0, 20)
