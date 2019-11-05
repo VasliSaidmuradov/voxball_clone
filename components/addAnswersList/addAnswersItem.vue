@@ -14,7 +14,7 @@
       </no-ssr>
     </div>
     <div v-if="type==='text'">Текстовый вопрос</div>
-    <div v-if="type==='video'||type==='images'" class="answer-item-upload mb-3">
+    <div v-if="type==='video'||type==='image'" class="answer-item-upload mb-3">
       <upload @getFiles="getFiles" :label="type === 'video' ? 'Загрузить видео' : 'Загрузить фото'"></upload>
       <div class="ml-4 w-100">
         <textarea

@@ -1,17 +1,20 @@
 <template>
   <div class="answer-item-wrapper">
     <div class="answer-item__video-wrap" v-if="type === 'video'">
-      <div class="answer-item__play-icon"></div>
+      <!-- <div class="answer-item__play-icon"></div> -->
       <video
-        @click="$emit('showAnswerMedia')"
         class="answer-item__video"
-        src="~/assets/video/placeholder_video.mp4"
+        :src="'https://cms.nova.st' + answer.file"
         width="100%"
         type="video/mp4"
+        controls
       ></video>
+      <!-- @click="$emit('showAnswerMedia')" -->
+      <!-- src="~/assets/video/placeholder_video.mp4" -->
     </div>
     <div @click="$emit('showAnswerMedia')" class="answer-item__image-wrap" v-if="type === 'image'">
-      <img src="~/assets/img/poll-no-info-image.png" alt />
+      {{ 'https://cms.nova.st' + answer.file }}
+      <img :src="'https://cms.nova.st' + answer.file" alt />
     </div>
     <div :class="classes" @click="selectAnswer">
       <span class="answer-item__percent" v-if="complete">{{ percentage }}%</span>
@@ -116,18 +119,18 @@ export default {
     transform: translate(-50%, -50%);
     z-index: 1;
   }
-  &__video-wrap::before,
-  &__video-wrap::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-    background-color: rgba($base-color, 0.4);
-  }
+  // &__video-wrap::before,
+  // &__video-wrap::after {
+  //   content: '';
+  //   position: absolute;
+  //   top: 50%;
+  //   left: 50%;
+  //   transform: translate(-50%, -50%);
+  //   width: 2rem;
+  //   height: 2rem;
+  //   border-radius: 50%;
+  //   background-color: rgba($base-color, 0.4);
+  // }
   &__video-wrap::after {
     width: 3.3rem;
     height: 3.3rem;

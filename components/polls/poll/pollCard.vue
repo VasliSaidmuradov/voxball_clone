@@ -4,10 +4,6 @@
       <h2 class="poll-card__title">{{ question.title }}</h2>
       <div class="poll-card__answer">
         <div class="answer__list">
-<<<<<<< HEAD
-          <!-- {{ GET_POLL_ANSWER[question.id] }} -->
-=======
->>>>>>> a0a323dba297cd69419d3604563c23ce22302a68
           <answers-list
             :type="question.type"
             :value="GET_POLL_ANSWER[question.id]"

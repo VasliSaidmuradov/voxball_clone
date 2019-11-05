@@ -203,7 +203,7 @@ export default {
         { value: 'Множественный выбор', type: 'multiply' },
         { value: 'Рейтинг', type: 'rating' },
         { value: 'Текстовый опрос', type: 'text' },
-        { value: 'Опрос с картинками', type: 'images' },
+        { value: 'Опрос с картинками', type: 'image' },
         { value: 'Видео опрос', type: 'video' },
         { value: 'Анкетированный опрос', type: 'questioned' },
         { value: 'Таргетированный опрос', type: 'target' }
@@ -213,7 +213,7 @@ export default {
         { value: 'множественный выбор', type: 'multiply' },
         { value: 'рейтинг', type: 'rating' },
         { value: 'ответ-текстовый', type: 'text' },
-        { value: 'ответ-картинки', type: 'images' },
+        { value: 'ответ-картинки', type: 'image' },
         { value: 'ответ-видео', type: 'video' }
       ],
       pollTypeActive: 0,
@@ -239,7 +239,8 @@ export default {
     }),
     ...mapActions({
       ADD_POLL: 'polls/ADD_POLL',
-      ADD_FILE: 'polls/ADD_FILE'
+      ADD_FILE: 'polls/ADD_FILE',
+      ADD_FILE_URL: 'polls/ADD_FILE_URL'
     }),
     inputAnswer(data, questionIndex) {
       SET_NEW_POLL_DATA_VARIANT({
@@ -263,7 +264,7 @@ export default {
     set_poll_type(value, index) {
       this.pollTypeActive = index
       // this.SET_NEW_POLL_TYPE(value)
-      if (value === 'images') this.setQuestionType('ответ-картинки', 0)
+      if (value === 'image') this.setQuestionType('ответ-картинки', 0)
       else if (value === 'video') this.setQuestionType('ответ-видео', 0)
       else if (value === 'rating') {
         this.setQuestionType('рейтинг', 0)
@@ -303,8 +304,13 @@ export default {
         questionIndex: index
       })
     },
-    pollVideoUrl(e) {
+    async pollVideoUrl(e) {
       !!e.target.value ? (this.disFile = true) : (this.disFile = false)
+      console.log('e: ', e.target.value)
+      let id = await this.ADD_FILE_URL(e.target.value)
+      if (id !== null) {
+        this.SET_NEW_POLL_DATA({ field: 'videoUrl', value: id })
+      }
     },
     getImage(e) {
       this.getFiles(e, 'preview')
