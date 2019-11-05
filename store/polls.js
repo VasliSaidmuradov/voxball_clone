@@ -127,17 +127,23 @@ export const mutations = {
 			state.newPoll.variants[questionIndex].splice(variantIndex, 1)
 		}
 		console.log(state.newPoll.variants[questionIndex])
+	},
+	LOAD_MORE(state, polls) {
+		state.pollsList.push(polls)
 	}
 }
 
 export const actions = {
-	async FETCH_POLLS({ commit }, data = '') {
+	async FETCH_POLLS({ commit }, data = {}) {
 		try {
+			const {query, size, page} = data
+			console.log(data)
 			const res = await this.$axios.get(
-				`/quizzes?with[author]&with[category]&sort[]=startedAt&${data}`
+				`/quizzes?with[author]&with[category]&sort[]=startedAt${query||''}&size=${size||10}&page=${page}`
 			)
 			console.log(res.data.data)
 			commit('SET_POLLS', res.data.data)
+			return res.data.data
 		} catch (e) {
 			console.log(e.response.data)
 		}
@@ -276,10 +282,16 @@ export const getters = {
 				? item.category.title.substr(0, 12) + '...'
 				: 'нет категории',
 			createdAt: new Date(item.createdAt).toLocaleDateString(),
+<<<<<<< HEAD
 			authorAvatar:
 				item.author.avatar === null
 					? '/_nuxt/assets/img/poll-no-avatar.png'
 					: item.author.avatar,
+=======
+			authorAvatar: item.author.avatar === null
+				? '/_nuxt/assets/img/poll-no-avatar.png'
+				: item.author.avatar,
+>>>>>>> 94944cb0e089ede692be90bb0f48168981e4ac8d
 			authorName:
 				item.author && item.author.name
 					? item.author.name.substr(0, 20)
@@ -301,6 +313,7 @@ export const getters = {
 				? 'Нет категории'
 				: state.poll.category.title.substr(0, 12) + '...', // !!state.poll.category
 		createdAt: new Date(state.poll.createdAt).toLocaleDateString(),
+		endedAt: new Date(state.poll.endedAt).toLocaleDateString(),
 		authorName:
 			state.poll.author && state.poll.author.name
 				? state.poll.author.name

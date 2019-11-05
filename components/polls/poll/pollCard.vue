@@ -57,8 +57,8 @@
 
     <div class="poll-card__footer">
       <div>Проголосовали: {{ poll.voteCount }}</div>
-      <div v-if="!complete">Опрос окончится через: {{ poll.date }}</div>
-      <div>Поделились: {{ poll.shares }} пользователей</div>
+      <div v-if="!complete">Дата окончания опроса: {{ poll.endedAt }}</div>
+      <div>Поделились: {{ 0 }} пользователей</div>
     </div>
     <v-modal v-slot:body="question" :showModal="showAnswerMedia" @close="closeAnswerMedia()">
       <template>

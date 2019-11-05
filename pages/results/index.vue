@@ -109,10 +109,7 @@ export default {
   },
   async fetch({ store }) {
     let now = new Date().toLocaleDateString()
-    await store.dispatch(
-      'polls/FETCH_POLLS',
-      `filter[endedAt]=between:01.01.1970,${now}`
-    )
+    await store.dispatch('polls/FETCH_POLLS', {'query': `&filter[endedAt]=between:01.01.1970,${now}`})
   }
 }
 </script>
