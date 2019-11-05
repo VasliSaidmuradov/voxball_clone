@@ -33,7 +33,7 @@
         <div class="polls-main__content mb-4">
           <poll-list :list="GET_POLLS_LIST" :adv="advList" :adv-n="3" />
         </div>
-        <v-btn class="Section__button mb-5 mt-4" @click="userInfo" rounded border>
+        <v-btn class="Section__button mb-5 mt-4" rounded border>
           <span>Загрузить еще</span>
           <icon-arrow class="ml-2" />
         </v-btn>
@@ -49,7 +49,7 @@ import pollItem from '@/components/polls/pollsList/pollItem.vue'
 import vSelect from 'vue-select'
 import iconArrow from '@/components/icons/iconArrow.vue'
 import '@/assets/css/vSelect.scss'
-import { mapGetters, mapActions, mapState } from 'vuex'
+import { mapGetters, mapActions, mapState, mapMutations } from 'vuex'
 
 export default {
   components: {
@@ -210,10 +210,17 @@ export default {
   },
   methods: {
     ...mapActions({
-      USER_INFO: 'auth/USER_INFO'
+      FETCH_POLLS: 'polls/FETCH_POLLS'
+    }),
+    ...mapMutations({
+      LOAD_MORE: 'polls/LOAD_MORE'
     }),
     userInfo() {
       this.USER_INFO()
+    },
+    async loadMore() {
+      const polls = await this.FETCH_POLLS({page: 2})
+      this.LOAD_MORE(polls)
     }
   },
   computed: {

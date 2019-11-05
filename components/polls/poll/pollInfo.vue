@@ -7,7 +7,7 @@
           <span class="poll-info__date">{{ poll.createdAt }}</span>
         </div>
         <div class="poll-info__info-wrap">
-          <v-btn class="poll-info__button" border>
+          <v-btn class="poll-info__button" border @click="openAnswerMedia">
             посмотреть видео
             <span>
               <icon-arrow class="ml-2" />
@@ -53,6 +53,20 @@
       </div>
     </div>
     <tags class="mt-5 mb-5" :arrTag="arrTags" />
+
+    <v-modal v-slot:body :showModal="showAnswerMedia" @close="closeAnswerMedia()">
+      <template>
+        <div class="poll-info__video-wrap">
+          <!-- <div class="poll-info__play-icon"></div> -->
+          <video
+            class="poll-info__video"
+            :src="poll.video"
+            width="100%"
+            controls
+          ></video>
+        </div>
+      </template>
+    </v-modal>
   </div>
 </template>
 
@@ -62,6 +76,7 @@ import views from '@/components/shared/views.vue'
 import tags from '@/components/shared/tags.vue'
 import social from '@/components/shared/social.vue'
 import iconComplete from '@/components/icons/iconComplete.vue'
+import vModal from '@/components/modals/vModal.vue'
 
 export default {
   components: {
@@ -69,7 +84,8 @@ export default {
     iconComplete,
     views,
     tags,
-    social
+    social,
+    vModal
   },
   props: {
     poll: Object
@@ -92,7 +108,16 @@ export default {
         'экономика',
         'политика',
         'информационные технологии'
-      ]
+      ],
+      showAnswerMedia: false
+    }
+  },
+  methods: {
+    openAnswerMedia() {
+      this.showAnswerMedia = true
+    },
+    closeAnswerMedia() {
+      this.showAnswerMedia = false
     }
   }
 }

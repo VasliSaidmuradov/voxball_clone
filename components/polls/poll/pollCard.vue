@@ -4,10 +4,6 @@
       <h2 class="poll-card__title">{{ question.title }}</h2>
       <div class="poll-card__answer">
         <div class="answer__list">
-<<<<<<< HEAD
-          <!-- {{ GET_POLL_ANSWER[question.id] }} -->
-=======
->>>>>>> a0a323dba297cd69419d3604563c23ce22302a68
           <answers-list
             :type="question.type"
             :value="GET_POLL_ANSWER[question.id]"
@@ -61,8 +57,8 @@
 
     <div class="poll-card__footer">
       <div>Проголосовали: {{ poll.voteCount }}</div>
-      <div v-if="!complete">Опрос окончится через: {{ poll.date }}</div>
-      <div>Поделились: {{ poll.shares }} пользователей</div>
+      <div v-if="!complete">Дата окончания опроса: {{ poll.endedAt }}</div>
+      <div>Поделились: {{ 0 }} пользователей</div>
     </div>
     <v-modal v-slot:body="question" :showModal="showAnswerMedia" @close="closeAnswerMedia()">
       <template>
