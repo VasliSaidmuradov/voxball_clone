@@ -6,12 +6,16 @@
       :style="styles"
       :stylePanelLayout="file ? null : 'integrated'"
       :labelIdle="`<div class='upload-btn'>${label}</div>`"
-      allow-multiple="true"
-      :max-files="maxFiles"
+      allow-multiple="false"
       allowImageCrop="true"
       @updatefiles="getFiles($event)"
       :disabled="disabled"
     />
+    <!-- :allowFileTypeValidation="type"
+    :acceptedFileTypes="mime_types[type]"-->
+    <!-- :max-files="maxFiles" -->
+    <!-- v-on:init="handleFilePondInit" -->
+    <!-- accepted-file-types="image/jpeg, image/png" -->
   </div>
 </template>
 
@@ -40,12 +44,10 @@ export default {
   },
   methods: {
     getFiles(e) {
-      // let file = e[0].file
-      // console.log('upload: ', file.name, ' : ', file)
-      // const formData = new FormData()
-      // formData.append('myFile', file, file.name)
-      // this.$emit('getFiles', formData)
-      this.$emit('getFiles', e)
+      if (!!e.length) {
+        let data = e[0]
+        this.$emit('getFiles', data)
+      }
     }
   },
   props: {
@@ -72,6 +74,10 @@ export default {
     disabled: {
       type: Boolean,
       default: false
+    },
+    type: {
+      type: String,
+      default: null
     }
   },
   computed: {
@@ -79,6 +85,14 @@ export default {
       return {
         height: this.height,
         width: this.width
+      }
+    }
+  },
+  data() {
+    return {
+      mime_types: {
+        video: ['video/mpeg', 'video/mp4'],
+        image: ['image/jpeg', 'image/png']
       }
     }
   }

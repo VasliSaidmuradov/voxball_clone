@@ -116,10 +116,10 @@ export const mutations = {
 	REMOVE_NEW_POLL_DATA_QUESTION(state, data) {
 		const { questionIndex } = data
 		console.log('question: ', questionIndex)
-		// if (state.newPoll.questions.length > 1) {
-		state.newPoll.questions.splice(questionIndex, 1)
-		state.newPoll.variants.splice(questionIndex, 1)
-		// }
+		if (state.newPoll.questions.length > 1) {
+			state.newPoll.questions.splice(questionIndex, 1)
+			state.newPoll.variants.splice(questionIndex, 1)
+		}
 		console.log(state.newPoll.questions)
 	},
 	REMOVE_NEW_POLL_DATA_VARIANT(state, data) {
@@ -127,7 +127,9 @@ export const mutations = {
 		// let array = state.newPoll.variants[questionIndex]
 		// array.splice(variantIndex, 1)
 		// state.newPoll.variants[questionIndex] = array
-		state.newPoll.variants[questionIndex].splice(variantIndex, 1)
+		if (state.newPoll.variants.length > 1) {
+			state.newPoll.variants[questionIndex].splice(variantIndex, 1)
+		}
 		console.log(state.newPoll.variants[questionIndex])
 	}
 }
@@ -156,6 +158,18 @@ export const actions = {
 		}
 	},
 
+	async ADD_FILE({ commit, state }, data) {
+		try {
+			console.log('ADD_FILE: ', data)
+			let formData = new FormData()
+			formData.append('file', data.file)
+			let res = await this.$axios.post('/files', formData)
+			if (!!res) return res.data.data.id
+		} catch (e) {
+			console.log(e)
+		}
+	},
+
 	async ADD_POLL({ commit, state, getters }) {
 		try {
 			const data = {
@@ -163,11 +177,16 @@ export const actions = {
 				questions: getters.GET_NEW_POLL_QUESTIONS
 			}
 			delete data.variants
-			delete data.preview
-			delete data.video
+			if (data.preview === '') {
+				delete data.preview
+			}
+			if (data.video === '') {
+				delete data.video
+			}
 			delete data.videoUrl
 			const res = await this.$axios.post('/quizzes', data)
 			console.log(res)
+			if (!!res) return res
 			// commit('SET_POLLS', res.data.data)
 			// const poll = state.newPoll
 			// let questions = state.newPoll.questions
@@ -201,6 +220,17 @@ export const actions = {
 			commit('FORMATTED_POLL_ANSWERS', res.data.data.questions)
 		} catch ({ e }) {
 			console.log({ e })
+		}
+	},
+
+	async FETCH_POLL_IMAGE({ commit }, data) {
+		try {
+			const { id } = data
+			const res = await this.$axios.get(`/files/${id}`)
+			console.log('image: ', res)
+			commit('SET_POLL_IMAGE', res.data.data.src)
+		} catch (e) {
+			console.log(e)
 		}
 	},
 
@@ -241,7 +271,7 @@ export const getters = {
 				? item.category.title.substr(0, 12) + '...'
 				: 'нет категории',
 			createdAt: new Date(item.createdAt).toLocaleDateString(),
-			authorName: item.author
+			authorName: item.author.name
 				? item.author.name
 						.split(' ')
 						.slice(0, 3)

@@ -18,14 +18,19 @@
       <upload :label="type === 'video' ? 'Загрузить видео' : 'Загрузить фото'"></upload>
       <div class="ml-4 w-100">
         <textarea
-          v-model="answersItem.value"
-          ref="input"
+          style="resize:none"
+          @input="SET_NEW_POLL_DATA_VARIANT({ questionIndex: variantInfo.questionIndex, variantIndex: variantInfo.variantIndex, field: 'title', value: $event.target.value })"
           class="answer-item-upload__input answer-item-upload__input--textarea"
         ></textarea>
-        <div
-          class="answer-item-upload__text"
-        >Или укажите ссылку на {{type==='video' ? 'видео' : 'картинку'}}</div>
-        <input @keyup.enter="enter" class="answer-item-upload__input" type="text" />
+        <!-- ref="input" -->
+        <!-- v-model="answersItem.value" -->
+        <div v-if="type==='video'" class="answer-item-upload__text">Или укажите ссылку на видео</div>
+        <input
+          v-if="type==='video'"
+          @keyup.enter="enter"
+          class="answer-item-upload__input"
+          type="text"
+        />
       </div>
       <div @click="removeAnswer()">
         <iconCancel class="icon-cancel answer-item-upload__cancel"></iconCancel>
