@@ -25,7 +25,6 @@ export default {
     cabinetInfoAdditional,
     additionalList
   },
-  props: {},
   data() {
     return {
       personalData: [

@@ -22,7 +22,7 @@ export const state = () => ({
 		canComment: false,
 		type: 'simple',
 		questions: [{ title: '', type: 'simple' }],
-		
+
 		variants: [
 			[
 				{
@@ -102,7 +102,7 @@ export const mutations = {
 		state.newPoll.questions[questionIndex][field] = value
 		console.log(
 			`question ${(field, questionIndex)} = ${
-				state.newPoll.questions[questionIndex][field]
+			state.newPoll.questions[questionIndex][field]
 			}`
 		)
 	},
@@ -238,12 +238,12 @@ export const getters = {
 				? item.category.title.substr(0, 12) + '...'
 				: 'нет категории',
 			createdAt: new Date(item.createdAt).toLocaleDateString(),
-			authorName: item.author
-				? item.author.name
-						.split(' ')
-						.slice(0, 3)
-						.join(' ')
-				: 'Нет автора',
+			authorName: item.author.name === null
+				? 'Нет автора'
+				: item.author.name.substr(0, 12),
+			authorAvatar: item.author.avatar === null
+				? '/_nuxt/assets/img/poll-no-avatar.png'
+				: item.author.avatar,
 			preview:
 				item.preview == ''
 					? '/_nuxt/assets/img/poll__image2.png'
@@ -257,24 +257,21 @@ export const getters = {
 		...state.poll,
 		categoryTitle:
 			state.poll.category === null
-				? 'No category title'
+				? 'Нет категории'
 				: state.poll.category.title.substr(0, 12) + '...', // !!state.poll.category
 		createdAt: new Date(state.poll.createdAt).toLocaleDateString(),
 		authorName:
-			state.poll.author === null
-				? 'No Author Name'
-				: state.poll.author.name
-						.split(' ')
-						.slice(0, 3)
-						.join(' '),
+			state.poll.author.name === null
+				? 'Нет имени'
+				: state.poll.author.name.substr(0, 12),
 		preview:
 			state.poll.preview == ''
 				? '/_nuxt/assets/img/poll-no-info-image.png'
 				: state.poll.preview,
-		authorAvatar:
-			state.poll.author == null
-				? '/_nuxt/assets/img/poll-no-avatar.png'
-				: state.poll.author.avatar,
+		// authorAvatar:
+		// 	state.poll.author === null
+		// 		? state.poll.author.id
+		// 		: '/_nuxt/assets/img/poll-no-avatar.png',
 		path: `/polls/${state.poll.id}`,
 		complete: new Date(state.poll.endedAt) < new Date()
 		// questionsTitle: state.poll.questions.title,

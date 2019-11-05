@@ -64,7 +64,7 @@ export default {
 .polls__list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  // justify-content: space-between;
   margin: 0 auto;
   list-style: none;
   padding: 0;

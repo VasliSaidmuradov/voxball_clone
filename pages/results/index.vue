@@ -27,7 +27,7 @@
         </div>
         <div class="results-main__content">
           <polls-list :list="GET_POLLS_LIST" />
-          <polls-list :list="GET_POLLS_LIST" />
+          <!-- <polls-list :list="GET_POLLS_LIST" /> -->
         </div>
         <v-btn class="Section__button mb-5 mt-4" rounded border>
           <span>Загрузить еще</span>

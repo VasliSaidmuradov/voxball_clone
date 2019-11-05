@@ -36,6 +36,7 @@
         <div class="poll-info__avatar">
           <img class="poll-info__avatar-img" src="~assets/img/poll-no-avatar.png" alt />
           <!-- <img class="poll-info__avatar-img" :src="poll.authorAvatar" alt /> -->
+          <!-- {{ poll.authorAvatar }} -->
         </div>
         <p class="poll-info__name-wrap">
           Автор:
