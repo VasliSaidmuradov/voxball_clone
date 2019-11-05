@@ -18,7 +18,7 @@
 
       <div class="answer-item__label">{{ answer.title }}</div>
       <span v-if="complete" class="answer-item__percent-bg" :style="{ width: percentage + '%' }"></span>
-      <div v-if="!complete" class="answer-item__checkbox">
+      <div v-else class="answer-item__checkbox">
         <iconComplete v-if="checked" class="answer-item__complete-icon"></iconComplete>
       </div>
     </div>

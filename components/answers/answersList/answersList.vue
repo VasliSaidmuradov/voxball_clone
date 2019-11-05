@@ -1,14 +1,13 @@
 <template>
 	<div class="answers-list">
-		<div class="m-auto" v-if="!answersList.length">
+		<!-- <div class="m-auto" v-if="!answersList.length">
 			Нет вариантов ответа 			
-		</div>
+		</div> -->
 
 		<answers-item
 			v-for="answer in answersList"
 			:key="answer.id"
 			:answer="answer"
-			v-else
 			:checked="value.includes(answer.id)"
 			@showAnswerMedia="$emit('showAnswerMedia')"
 			@click="selectAnswer(answer.id)"
@@ -66,7 +65,6 @@ export default {
 	},
 	methods: {
 		selectAnswer(id) {
-			let result = []
 			if (!this.value.includes(id)) {
 				if (this.type === 'multiply') {
 					this.selectedAnswers.push(id)
@@ -78,8 +76,9 @@ export default {
 					item => item !== id
 				)
 			}
-			result = this.answersList.map(item => item.id).filter(item => this.selectedAnswers.includes(item))
-			this.$emit('input', result)
+			// console.log(this.selectedAnswers)
+			// result = this.answersList.map(item => item.id).filter(item => this.selectedAnswers.includes(item))
+			this.$emit('input', [...this.selectedAnswers])
 			// this.$emit('selectedAnswers', result)
 		}
 	}

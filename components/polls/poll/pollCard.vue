@@ -4,8 +4,9 @@
       <h2 class="poll-card__title">{{ question.title }}</h2>
       <div class="poll-card__answer">
         <div class="answer__list">
+          {{ GET_POLL_ANSWER[question.id] }}
           <answers-list
-            :type="GET_POLL_ANSWER[question.type]"
+            type="question.type"
             :value="GET_POLL_ANSWER[question.id]"
             @input="SET_POLL_ANSWER({'questionId': question.id, 'answers': $event})"
             :answersList="question.variants"
@@ -14,8 +15,8 @@
             v-if="GET_POLL_ANSWER[question.type] !== 'text' && GET_POLL_ANSWER[question.type] !== 'rating'"
             @showAnswerMedia="openAnswerMedia()"
           ></answers-list>
-
-          <div class="poll-card__text-editor" v-if="GET_POLL_ANSWER[question.type] === 'text'">
+          <!-- {{question}} -->
+          <div class="poll-card__text-editor" v-if="question.type === 'text'">
             <v-editor
               class="m-auto"
               style="width: 90%; height: auto; margin-bottom: 1rem;"
