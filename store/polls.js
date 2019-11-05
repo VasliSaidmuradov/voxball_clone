@@ -172,6 +172,19 @@ export const actions = {
 		}
 	},
 
+	async ADD_FILE_URL({ commit, state }, data) {
+		try {
+			console.log('ADD_FILE_URL: ', data)
+			let url = {
+				url: data
+			}
+			let res = await this.$axios.post('/files/url', url)
+			if (!!res) return res.data.data.id
+		} catch (e) {
+			console.log(e)
+		}
+	},
+
 	async ADD_POLL({ commit, state, getters }) {
 		try {
 			const data = {
@@ -186,6 +199,7 @@ export const actions = {
 				delete data.video
 			}
 			delete data.videoUrl
+			delete data.authorId
 			const res = await this.$axios.post('/quizzes', data)
 			console.log(res)
 			if (!!res) return res
@@ -268,9 +282,12 @@ export const getters = {
 				? item.category.title.substr(0, 12) + '...'
 				: 'нет категории',
 			createdAt: new Date(item.createdAt).toLocaleDateString(),
+<<<<<<< HEAD
+=======
 			authorAvatar: item.author.avatar === null
 				? '/_nuxt/assets/img/poll-no-avatar.png'
 				: item.author.avatar,
+>>>>>>> 3acbc9f8f42418378abe5faccd1201ef2b4a4233
 			authorName:
 				item.author && item.author.name
 					? item.author.name.substr(0, 20)
