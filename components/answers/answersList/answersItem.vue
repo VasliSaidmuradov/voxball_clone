@@ -13,7 +13,7 @@
       <!-- src="~/assets/video/placeholder_video.mp4" -->
     </div>
     <div @click="$emit('showAnswerMedia')" class="answer-item__image-wrap" v-if="type === 'image'">
-      {{ 'https://cms.nova.st' + answer.file }}
+      <!-- {{ 'https://cms.nova.st' + answer.file }} -->
       <img :src="'https://cms.nova.st' + answer.file" alt />
     </div>
     <div :class="classes" @click="selectAnswer">
@@ -103,8 +103,11 @@ export default {
     position: relative;
   }
   &__image-wrap {
+    height: 10rem;
     img {
       width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
   }
 

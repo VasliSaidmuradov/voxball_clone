@@ -66,7 +66,7 @@
           <div class="answer-item__play-icon"></div>
           <video
             class="answer-item__video"
-            src="~/assets/video/placeholder_video.mp4"
+            :src="'https://cms.nova.st' + poll.video"
             width="100%"
             controls
           ></video>

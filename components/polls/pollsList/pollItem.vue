@@ -3,8 +3,14 @@
     <div v-if="data.type !== 'adv'" class="poll-item mt-4">
       <div class="poll-item__main">
         <div class="poll-item__img-wrap">
-          <img v-if="!data.preview" class="poll-item__img" src="~/assets/img/poll__image2.png" alt />
-          <img v-else class="poll-item__img" :src="data.preview" alt />
+          <!-- {{ data.preview }} -->
+          <img
+            v-if="!data.preview"
+            class="poll-item__img"
+            src="~assets/img/poll-no-info-image.png"
+            alt
+          />
+          <img v-else class="poll-item__img" :src="'https://cms.nova.st' + data.preview" alt />
         </div>
         <div class="poll-item__block">
           <div class="poll-item__content">
@@ -82,7 +88,10 @@ export default {
 
 <style lang="scss" scoped>
 .poll-item-wrap {
-  margin-right: calc((100% - (13.5rem * 4)) / 4);
+  margin-right: calc((100% - (13.5rem * 5)) / 4);
+  &:nth-child(5n) {
+    margin-right: 0;
+  }
 }
 .poll-item {
   &__main {
