@@ -3,7 +3,6 @@
 		<!-- <div class="m-auto" v-if="!answersList.length">
 			Нет вариантов ответа 			
 		</div> -->
-
 		<answers-item
 			v-for="answer in answersList"
 			:key="answer.id"
@@ -58,7 +57,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapGetters({GET_POLL_ANSWERS: 'polls/GET_POLL_ANSWERS'}),
+		...mapGetters({ GET_POLL_ANSWERS: 'polls/GET_POLL_ANSWERS' }),
 		answers() {
 			return this.answersList
 		}
@@ -72,9 +71,7 @@ export default {
 					this.selectedAnswers = [id]
 				}
 			} else {
-				this.selectedAnswers = this.selectedAnswers.filter(
-					item => item !== id
-				)
+				this.selectedAnswers = this.selectedAnswers.filter(item => item !== id)
 			}
 			// console.log(this.selectedAnswers)
 			// result = this.answersList.map(item => item.id).filter(item => this.selectedAnswers.includes(item))

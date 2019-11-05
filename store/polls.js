@@ -22,7 +22,6 @@ export const state = () => ({
 		canComment: false,
 		type: 'simple',
 		questions: [{ title: '', type: 'simple' }],
-		
 		variants: [
 			[
 				{
@@ -43,19 +42,14 @@ export const mutations = {
 		state.poll = poll
 	},
 
-	// SET_POLL_COMMENTS(state, comments) {
-	// 	state.pollComments = comments
-	// },
-
 	FORMATTED_POLL_ANSWERS(state, questions) {
 		questions.forEach(item => {
-			state.pollAnswer[item.id] = []
+			state.pollAnswer = { ...state.pollAnswer, [item.id]: [] }
 		})
 	},
 
 	SET_POLL_ANSWER(state, { questionId, answers }) {
 		state.pollAnswer[questionId] = answers
-		console.log(state.pollAnswer[questionId])
 	},
 
 	// 	state.polls = polls
@@ -190,14 +184,11 @@ export const actions = {
 		}
 	},
 
-	async FETCH_POLL({ commit }, id, data) {
+	async FETCH_POLL({ commit }, id, data = '') {
 		try {
-			// let id = 60
 			const res = await this.$axios.get(
-				`/quizzes/${id}?with[author]&with[category]&with[questions][with][variants]&${data}`
+				`/quizzes/${id}?with[author]&with[category]&with[questions][with][variants]&with[voteCount]${data}`
 			)
-			// const res = await this.$axios.get(`/quizzes/${id}`)
-
 			console.log(res.data.data)
 			commit('SET_POLL', res.data.data)
 			commit('FORMATTED_POLL_ANSWERS', res.data.data.questions)
@@ -221,7 +212,10 @@ export const actions = {
 
 	async VOTE({ commit, state, getters }, id) {
 		try {
-			const res = await this.$axios.post(`/quizzes/${id}/answers`, state.pollAnswer)
+			const res = await this.$axios.post(
+				`/quizzes/${id}/answers`,
+				state.pollAnswer
+			)
 			// console.log(res)
 		} catch ({ e }) {
 			console.log(e)
@@ -238,12 +232,10 @@ export const getters = {
 				? item.category.title.substr(0, 12) + '...'
 				: 'нет категории',
 			createdAt: new Date(item.createdAt).toLocaleDateString(),
-			authorName: item.author
-				? item.author.name
-						.split(' ')
-						.slice(0, 3)
-						.join(' ')
-				: 'Нет автора',
+			authorName:
+				item.author && item.author.name
+					? item.author.name.substr(0, 20)
+					: 'Нет автора',
 			preview:
 				item.preview == ''
 					? '/_nuxt/assets/img/poll__image2.png'
@@ -261,12 +253,12 @@ export const getters = {
 				: state.poll.category.title.substr(0, 12) + '...', // !!state.poll.category
 		createdAt: new Date(state.poll.createdAt).toLocaleDateString(),
 		authorName:
-			state.poll.author === null
-				? 'No Author Name'
-				: state.poll.author.name
+			state.poll.author && state.poll.author.name
+				? state.poll.author.name
 						.split(' ')
 						.slice(0, 3)
-						.join(' '),
+						.join(' ')
+				: 'Нет автора',
 		preview:
 			state.poll.preview == ''
 				? '/_nuxt/assets/img/poll-no-info-image.png'
