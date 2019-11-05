@@ -4,7 +4,7 @@
       <h2 class="poll-card__title">{{ question.title }}</h2>
       <div class="poll-card__answer">
         <div class="answer__list">
-          {{ GET_POLL_ANSWER[question.id] }}
+          <!-- {{ GET_POLL_ANSWER[question.id] }} -->
           <answers-list
             type="question.type"
             :value="GET_POLL_ANSWER[question.id]"

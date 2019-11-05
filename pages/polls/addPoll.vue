@@ -203,7 +203,7 @@ export default {
         { value: 'Множественный выбор', type: 'multiply' },
         { value: 'Рейтинг', type: 'rating' },
         { value: 'Текстовый опрос', type: 'text' },
-        { value: 'Опрос с картинками', type: 'image' },
+        { value: 'Опрос с картинками', type: 'images' },
         { value: 'Видео опрос', type: 'video' },
         { value: 'Анкетированный опрос', type: 'questioned' },
         { value: 'Таргетированный опрос', type: 'target' }
@@ -213,7 +213,7 @@ export default {
         { value: 'множественный выбор', type: 'multiply' },
         { value: 'рейтинг', type: 'rating' },
         { value: 'ответ-текстовый', type: 'text' },
-        { value: 'ответ-картинки', type: 'image' },
+        { value: 'ответ-картинки', type: 'images' },
         { value: 'ответ-видео', type: 'video' }
       ],
       pollTypeActive: 0,
@@ -263,7 +263,7 @@ export default {
     set_poll_type(value, index) {
       this.pollTypeActive = index
       // this.SET_NEW_POLL_TYPE(value)
-      if (value === 'image') this.setQuestionType('ответ-картинки', 0)
+      if (value === 'images') this.setQuestionType('ответ-картинки', 0)
       else if (value === 'video') this.setQuestionType('ответ-видео', 0)
       else if (value === 'rating') {
         this.setQuestionType('рейтинг', 0)

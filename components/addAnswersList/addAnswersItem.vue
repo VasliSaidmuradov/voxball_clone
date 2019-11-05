@@ -14,8 +14,8 @@
       </no-ssr>
     </div>
     <div v-if="type==='text'">Текстовый вопрос</div>
-    <div v-if="type==='video'||type==='image'" class="answer-item-upload mb-3">
-      <upload :label="type === 'video' ? 'Загрузить видео' : 'Загрузить фото'"></upload>
+    <div v-if="type==='video'||type==='images'" class="answer-item-upload mb-3">
+      <upload @getFiles="getFiles" :label="type === 'video' ? 'Загрузить видео' : 'Загрузить фото'"></upload>
       <div class="ml-4 w-100">
         <textarea
           style="resize:none"
@@ -57,7 +57,7 @@ import iconCancel from '@/components/icons/iconCancel'
 import upload from '@/components/inputs/upload'
 import vEditor from '@/components/inputs/vEditor.vue'
 import StarRating from 'vue-star-rating'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapActions } from 'vuex'
 
 export default {
   components: {
@@ -86,11 +86,27 @@ export default {
     ...mapMutations({
       SET_NEW_POLL_DATA_VARIANT: 'polls/SET_NEW_POLL_DATA_VARIANT'
     }),
+    ...mapActions({
+      ADD_POLL: 'polls/ADD_POLL',
+      ADD_FILE: 'polls/ADD_FILE'
+    }),
     enter() {
       this.$emit('enter')
     },
     removeAnswer() {
       this.$emit('removeAnswer')
+    },
+    async getFiles(e, type) {
+      let id = await this.ADD_FILE(e)
+      console.log('id: ', id)
+      if (id !== null) {
+        this.SET_NEW_POLL_DATA_VARIANT({
+          questionIndex: this.variantInfo.questionIndex,
+          variantIndex: this.variantInfo.variantIndex,
+          field: 'file',
+          value: id
+        })
+      }
     }
   },
   computed: {

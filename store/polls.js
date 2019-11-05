@@ -22,7 +22,7 @@ export const state = () => ({
 		canComment: false,
 		type: 'simple',
 		questions: [{ title: '', type: 'simple' }],
-		
+
 		variants: [
 			[
 				{
@@ -251,7 +251,10 @@ export const actions = {
 
 	async VOTE({ commit, state, getters }, id) {
 		try {
-			const res = await this.$axios.post(`/quizzes/${id}/answers`, state.pollAnswer)
+			const res = await this.$axios.post(
+				`/quizzes/${id}/answers`,
+				state.pollAnswer
+			)
 			// console.log(res)
 		} catch ({ e }) {
 			console.log(e)
@@ -300,7 +303,7 @@ export const getters = {
 		preview:
 			state.poll.preview == ''
 				? '/_nuxt/assets/img/poll-no-info-image.png'
-				: state.poll.preview,
+				: 'https://cms.nova.st' + state.poll.preview,
 		authorAvatar:
 			state.poll.author == null
 				? '/_nuxt/assets/img/poll-no-avatar.png'
