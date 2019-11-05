@@ -1,5 +1,5 @@
 <template>
-  <div @click="pollClick">
+  <div @click="pollClick" class="poll-item-wrap">
     <div v-if="data.type !== 'adv'" class="poll-item mt-4">
       <div class="poll-item__main">
         <div class="poll-item__img-wrap">
@@ -26,7 +26,7 @@
             </div>
             <div class="poll-item__author">
               <div class="poll-item__author-img-wrap">
-                <img src="~/assets/img/poll_author.png" alt class="poll-item__author-img" />
+                <img src="~/assets/img/poll-no-avatar.png" alt class="poll-item__author-img" />
               </div>
               <span class="poll-item__author-name">{{ data.authorName }}</span>
             </div>
@@ -81,6 +81,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.poll-item-wrap {
+  margin-right: calc((100% - (13.5rem * 4)) / 4);
+}
 .poll-item {
   &__main {
     cursor: pointer;

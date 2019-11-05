@@ -18,7 +18,7 @@
       ></additional-item>
     </div>
 
-    <div class="family-status">
+    <div class="personal-data">
       <h2 class="personal-data__title">СЕМЕЙНОЕ ПОЛОЖЕНИЕ</h2>
       <additional-item
         v-for="(data, index) in familyStatus"
@@ -28,7 +28,7 @@
       ></additional-item>
     </div>
 
-    <div class="education-work">
+    <div class="personal-data">
       <h2 class="personal-data__title">ОБРАЗОВАНИЕ И РАБОТА</h2>
       <additional-item
         v-for="(data, index) in educationAndWork"
@@ -38,7 +38,7 @@
       ></additional-item>
     </div>
 
-    <div class="education-work">
+    <div class="personal-data">
       <h2 class="personal-data__title">ИНТЕРЕСЫ И УВЛЕЧЕНИЯ</h2>
       <additional-item
         v-for="(data, index) in interestsAndHobbies"
@@ -108,9 +108,7 @@ export default {
   }
 }
 
-.personal-data,
-.family-status,
-.education-work {
+.personal-data {
   padding: 2rem;
   display: flex;
   flex-wrap: wrap;

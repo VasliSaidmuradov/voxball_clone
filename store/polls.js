@@ -96,7 +96,7 @@ export const mutations = {
 		state.newPoll.questions[questionIndex][field] = value
 		console.log(
 			`question ${(field, questionIndex)} = ${
-				state.newPoll.questions[questionIndex][field]
+			state.newPoll.questions[questionIndex][field]
 			}`
 		)
 	},
@@ -276,6 +276,12 @@ export const getters = {
 				? item.category.title.substr(0, 12) + '...'
 				: 'нет категории',
 			createdAt: new Date(item.createdAt).toLocaleDateString(),
+<<<<<<< HEAD
+=======
+			authorAvatar: item.author.avatar === null
+				? '/_nuxt/assets/img/poll-no-avatar.png'
+				: item.author.avatar,
+>>>>>>> 3acbc9f8f42418378abe5faccd1201ef2b4a4233
 			authorName:
 				item.author && item.author.name
 					? item.author.name.substr(0, 20)
@@ -293,7 +299,7 @@ export const getters = {
 		...state.poll,
 		categoryTitle:
 			state.poll.category === null
-				? 'No category title'
+				? 'Нет категории'
 				: state.poll.category.title.substr(0, 12) + '...', // !!state.poll.category
 		createdAt: new Date(state.poll.createdAt).toLocaleDateString(),
 		authorName:
