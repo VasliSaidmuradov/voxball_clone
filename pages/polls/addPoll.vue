@@ -266,6 +266,8 @@ export default {
       // this.SET_NEW_POLL_TYPE(value)
       if (value === 'image') this.setQuestionType('ответ-картинки', 0)
       else if (value === 'video') this.setQuestionType('ответ-видео', 0)
+      else if (value === 'multiply')
+        this.setQuestionType('множественный выбор', 0)
       else if (value === 'rating') {
         this.setQuestionType('рейтинг', 0)
         this.SET_NEW_POLL_DATA_VARIANT({
@@ -280,7 +282,7 @@ export default {
           questionIndex: 0,
           variantIndex: 0,
           field: 'title',
-          value: 'text'
+          value: ''
         })
       } else this.setQuestionType('одиночный выбор', 0)
       this.SET_NEW_POLL_DATA({ field: 'type', value: value })

@@ -136,10 +136,11 @@ export const mutations = {
 export const actions = {
 	async FETCH_POLLS({ commit }, data = {}) {
 		try {
-			const {query, size, page} = data
+			const { query, size, page } = data
 			console.log(data)
 			const res = await this.$axios.get(
-				`/quizzes?with[author]&with[category]&sort[]=startedAt${query||''}&size=${size||10}&page=${page}`
+				`/quizzes?with[author]&with[category]&sort[]=startedAt${query ||
+					''}&size=${size || 10}&page=${page}`
 			)
 			console.log(res.data.data)
 			commit('SET_POLLS', res.data.data)
@@ -282,16 +283,10 @@ export const getters = {
 				? item.category.title.substr(0, 12) + '...'
 				: 'нет категории',
 			createdAt: new Date(item.createdAt).toLocaleDateString(),
-<<<<<<< HEAD
 			authorAvatar:
 				item.author.avatar === null
 					? '/_nuxt/assets/img/poll-no-avatar.png'
 					: item.author.avatar,
-=======
-			authorAvatar: item.author.avatar === null
-				? '/_nuxt/assets/img/poll-no-avatar.png'
-				: item.author.avatar,
->>>>>>> 94944cb0e089ede692be90bb0f48168981e4ac8d
 			authorName:
 				item.author && item.author.name
 					? item.author.name.substr(0, 20)

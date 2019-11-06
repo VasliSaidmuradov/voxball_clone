@@ -5,6 +5,7 @@
         <div class="poll-info__info-wrap">
           <span class="poll-info__category">{{ poll.categoryTitle }}</span>
           <span class="poll-info__date">{{ poll.createdAt }}</span>
+          <!-- {{ poll }} -->
         </div>
         <div class="poll-info__info-wrap">
           <v-btn class="poll-info__button" border @click="openAnswerMedia">
@@ -58,9 +59,10 @@
       <template>
         <div class="poll-info__video-wrap">
           <!-- <div class="poll-info__play-icon"></div> -->
+
           <video
             class="poll-info__video"
-            :src="poll.video"
+            :src="'https://cms.nova.st' + poll.video"
             width="100%"
             controls
           ></video>
