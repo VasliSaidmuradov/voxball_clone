@@ -9,9 +9,8 @@
             :value="GET_POLL_ANSWER[question.id]"
             @input="SET_POLL_ANSWER({'questionId': question.id, 'answers': $event})"
             :answersList="question.variants"
-            :percent="[25,15,50,10]"
             :complete="complete"
-            v-if="GET_POLL_ANSWER[question.type] !== 'text' && GET_POLL_ANSWER[question.type] !== 'rating'"
+            v-if="question.type !== 'text' && question.type !== 'stars'"
             @showAnswerMedia="openAnswerMedia()"
           ></answers-list>
           <!-- {{question}} -->
@@ -24,10 +23,7 @@
             />
           </div>
 
-          <div
-            class="answer-item__ratings ml-auto mr-auto"
-            v-if="GET_POLL_ANSWER[question.type] === 'rating'"
-          >
+          <div class="answer-item__ratings ml-auto mr-auto" v-if="question.type === 'stars'">
             <no-ssr>
               <star-rating
                 :value="GET_POLL_ANSWER[question.id]"
@@ -117,7 +113,7 @@ export default {
   },
   data() {
     return {
-      questionType: 'rating',
+      questionType: 'stars',
       showAnswerMedia: false
       // qType: 'text'
       // rating: 0

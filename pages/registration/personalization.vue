@@ -1,45 +1,24 @@
 <template>
   <div class="person">
     <detailed-layout :title="'Регистрация'">
-      <v-form-layout class="mt-5 mb-5">
+      <v-form-layout class="mt-5 mb-5" style="width: 20rem">
         <label class="person__label">Ваше имя</label>
         <input
           class="person__input person__name"
           type="text"
           :value="GET_REGISTRATION_DATA['name']"
-          @input="SET_REGISTRATION_DATA({field: 'name', value: $event.target.value})"
+          @input="SET_REGISTRATION_DATA({ field: 'name', value: $event.target.value })"
         />
         <label class="person__label">Подписаться на 3 категории</label>
         <v-select
           class="person__select"
-          :options="options"
-          :searchable="true"
-          :no-drop="false"
-          :multiple="false"
-          :placeholder="options[0]"
-          :value="GET_REGISTRATION_DATA['categories.1']"
-          @input="SET_REGISTRATION_DATA({field: 'categories.1', value: $event})"
+          :options="GET_CATEGORY_LIST.map(item => item.title.substr(0, 15))"
+          :searchable="false"
+          multiple
+          :placeholder="'Еда'"
+          @input="set_category($event)"
         ></v-select>
-        <v-select
-          class="person__select"
-          :options="options"
-          :searchable="true"
-          :no-drop="false"
-          :multiple="false"
-          :placeholder="options[1]"
-          :value="GET_REGISTRATION_DATA['categories.2']"
-          @input="SET_REGISTRATION_DATA({field: 'categories.2', value: $event})"
-        ></v-select>
-        <v-select
-          class="person__select"
-          :options="options"
-          :searchable="true"
-          :no-drop="false"
-          :multiple="false"
-          :placeholder="options[2]"
-          :value="GET_REGISTRATION_DATA['categories.3']"
-          @input="SET_REGISTRATION_DATA({field: 'categories.3', value: $event})"
-        ></v-select>
+        <!-- @input="SET_REGISTRATION_DATA({field: categories, value: $event})" -->
         <div class="person__buttons">
           <v-btn class="left-link" link>
             <span>
@@ -62,36 +41,33 @@
 
 <script>
 import iconArrow from '@/components/icons/iconArrow.vue'
-import iconArrowleft from '@/components/icons/iconArrowleft.vue'
 import detailedLayout from '@/components/layouts/detailedLayout.vue'
 import vFormLayout from '@/components/forms/vFormLayout.vue'
 import registrationSocial from '@/components/registration/registrationSocial.vue'
-// v-select
+
 import vSelect from 'vue-select'
 import '@/assets/css/vSelect.scss'
+
 import Vue from 'vue'
 import VueCookies from 'vue-cookies'
 Vue.use(VueCookies)
+
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
   components: {
-    iconArrow,
-    iconArrowleft,
     vSelect,
     detailedLayout,
     vFormLayout,
     registrationSocial,
+    iconArrow,
     VueCookies
   },
-  data() {
-    return {
-      options: ['Еда', 'Развлечения', 'Политика'],
-      name: ''
-    }
-  },
   computed: {
-    ...mapGetters({ GET_REGISTRATION_DATA: 'auth/GET_REGISTRATION_DATA' })
+    ...mapGetters({
+      GET_REGISTRATION_DATA: 'auth/GET_REGISTRATION_DATA',
+      GET_CATEGORY_LIST: 'polls/GET_CATEGORY_LIST'
+    })
   },
   methods: {
     ...mapMutations({
@@ -107,11 +83,33 @@ export default {
       } catch (error) {
         console.log(error)
       }
+    },
+    set_category(event) {
+      try {
+        let categories = this.GET_CATEGORY_LIST
+        let data = event.map(
+          item =>
+            categories.find(findItem => findItem.title.substr(0, 15) === item)
+              .id
+        )
+        this.SET_REGISTRATION_DATA({
+          field: 'category',
+          value: data
+        })
+      } catch (error) {
+        console.log('set_registration: ', error)
+      }
+    },
+    Test(e) {
+      console.log(e)
     }
-  }
+  },
   // async fetch({ store }) {
   //   await store.dispatch('auth/USER_REGISTRATION')
   // }
+  async fetch({ store }) {
+    await store.dispatch('polls/FETCH_CATEGORY')
+  }
 }
 </script>
 
@@ -125,6 +123,7 @@ export default {
   &__input {
     appearance: none;
     display: flex;
+    height: 3rem;
     background: white;
     border: 1px solid $base-text-color;
     border-radius: 37px;
@@ -191,6 +190,16 @@ export default {
 }
 .person .v-select .vs__dropdown-toggle {
   border-color: #2b454e;
+  min-height: 3rem;
+  height: auto;
+  max-height: 9rem;
+}
+.person .vs__selected-options {
+  padding-left: 1.5rem;
+}
+.person .v-select .vs__selected {
+  padding: 0.5rem;
+  background: transparent;
 }
 .person .v-select .vs__open-indicator {
   fill: #007b00;

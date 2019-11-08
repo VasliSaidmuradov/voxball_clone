@@ -21,7 +21,7 @@ export default {
       type: Array,
       default: null
     },
-    advN: Number
+    advN: { type: Number, default: 3 }
   },
   components: {
     pollItem
@@ -47,15 +47,10 @@ export default {
       return arr
     }
   },
-  data() {
-    return {
-      mixList: Array
+  computed: {
+    mixList() {
+      return this.adv ? this.insert(this.list, this.adv, this.advN) : this.list
     }
-  },
-  created() {
-    if (this.adv !== null)
-      this.mixList = this.insert(this.list, this.adv, this.advN)
-    else this.mixList = this.list
   }
 }
 </script>
@@ -68,6 +63,6 @@ export default {
   margin: 0 auto;
   list-style: none;
   padding: 0;
-  font-size: 0.8em;
+  font-size: 0.8rem;
 }
 </style>

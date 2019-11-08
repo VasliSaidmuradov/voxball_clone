@@ -8,6 +8,7 @@
       :labelIdle="`<div class='upload-btn'>${label}</div>`"
       allow-multiple="false"
       allowImageCrop="true"
+      :max-files="maxFiles"
       @updatefiles="getFiles($event)"
       :disabled="disabled"
     />

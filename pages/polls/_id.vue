@@ -4,7 +4,6 @@
       <!-- {{ $route.params.id }} -->
       <!-- {{ GET_POLL }} -->
       <poll-info class="mt-5" :poll="GET_POLL"></poll-info>
-      <!-- <poll-card :complete="GET_POLL['complete']" class="mb-5" :poll="GET_POLL" v-show="!!GET_POLL.questions.length"></poll-card> -->
       <poll-card
         :complete="GET_POLL['complete']"
         class="mb-5"
@@ -109,12 +108,6 @@ export default {
         answers: 4,
         repost: 15
       },
-      answers: [
-        { label: 'Yes', percentage: 20 },
-        { label: 'No', percentage: 35 },
-        { label: 'Maybe', percentage: 15 },
-        { label: 'Yes, No, Maybe', percentage: 30 }
-      ],
       comments: [
         {
           author: 'vova',

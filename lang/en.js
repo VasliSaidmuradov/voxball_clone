@@ -6,7 +6,7 @@ export default context => {
 				results: 'Results',
 				news: 'News',
 				competitions: 'Competitions',
-				rating: 'Rating',
+				rating: 'rating',
 				become_shareholders: 'Become shareholders'
 			},
 			lang: 'Английский'

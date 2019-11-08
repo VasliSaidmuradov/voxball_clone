@@ -8,28 +8,14 @@
         <div class="Section__header">
           <h2 class="Section__title">Все опросы</h2>
           <div class="Section__options">
-            <v-select
-              :options="options"
-              :searchable="true"
-              :no-drop="false"
-              :multiple="false"
-              placeholder="Популярное"
-            ></v-select>
-            <v-select
-              class="ml-5"
-              :options="options"
-              :searchable="true"
-              :no-drop="false"
-              :multiple="false"
-              placeholder="Категории"
-            ></v-select>
+            <v-select :options="options" :multiple="false" placeholder="Популярное"></v-select>
+            <v-select class="ml-5" :options="options" :multiple="false" placeholder="Категории"></v-select>
           </div>
         </div>
         <div class="results-main__content">
-          <polls-list :list="GET_POLLS_LIST" />
-          <!-- <polls-list :list="GET_POLLS_LIST" /> -->
+          <polls-list :list="GET_POLLS_LIST" :adv="advList" />
         </div>
-        <v-btn class="Section__button mb-5 mt-4" rounded border>
+        <v-btn @click="loadMore" class="Section__button mb-5 mt-4" rounded border>
           <span>Загрузить еще</span>
           <icon-arrow class="ml-2" />
         </v-btn>
@@ -57,59 +43,61 @@ export default {
   data() {
     return {
       options: ['Казахстан', 'Россия', 'Китай'],
-      pollsArray: [
+      advList: [
         {
-          category: 'Бизнес',
-          video: '',
-          complete: true,
-          title: 'хотите ли выполететь в космос 1?',
-          date: '19.19.2019',
-          views: 345
-        },
-        {
+          type: 'adv',
           category: 'Бизнес',
           video: 'Видео',
-          complete: true,
-          title: 'хотите ли выполететь в космос 2?',
+          title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345
+          views: 345,
+          complete: false
         },
         {
+          type: 'adv',
           category: 'Бизнес',
-          video: '',
-          complete: true,
-          title: 'хотите ли выполететь в космос 3?',
+          video: 'Видео',
+          title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345
+          views: 345,
+          complete: false
         },
         {
+          type: 'adv',
           category: 'Бизнес',
-          video: '',
-          complete: true,
-          title: 'хотите ли выполететь в космос 4?',
+          video: 'Видео',
+          title: 'хотите ли выполететь в космос?',
           date: '19.19.2019',
-          views: 345
-        },
-        {
-          category: 'Бизнес',
-          video: '',
-          complete: false,
-          title: 'хотите ли выполететь в космос 5?',
-          date: '19.19.2019',
-          views: 345
+          views: 345,
+          complete: false
         }
       ]
     }
   },
-  // methods: {
-  //   ...mapActions({ })
-  // },
+  methods: {
+    ...mapActions({
+      FETCH_POLLS: 'polls/FETCH_POLLS'
+    }),
+    async loadMore() {
+      let today = new Date()
+      today = `${today.getDate()}-${today.getMonth() +
+        1}-${today.getFullYear()}`
+      await this.FETCH_POLLS({
+        query: `&filter[endedAt]=between:02-02-1970,${today}&sort[]=endedAt`,
+        more: true
+      })
+    }
+  },
   computed: {
     ...mapGetters({ GET_POLLS_LIST: 'polls/GET_POLLS_LIST' })
   },
   async fetch({ store }) {
-    let now = new Date().toLocaleDateString()
-    await store.dispatch('polls/FETCH_POLLS', {'query': `&filter[endedAt]=between:01.01.1970,${now}`})
+    let today = new Date()
+    today = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`
+    console.log('now', today)
+    await store.dispatch('polls/FETCH_POLLS', {
+      query: `&filter[endedAt]=between:02-02-1970,${today}&sort[]=endedAt`
+    })
   }
 }
 </script>
