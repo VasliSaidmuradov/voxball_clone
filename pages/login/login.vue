@@ -94,6 +94,7 @@ export default {
   &__input {
     appearance: none;
     display: flex;
+    height: 3rem;
     background: none;
     border: 1px solid $base-text-color;
     border-radius: 37px;

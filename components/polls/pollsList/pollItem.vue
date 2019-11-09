@@ -1,5 +1,6 @@
 <template>
   <div @click="pollClick" class="poll-item-wrap">
+    <!-- {{ data }} -->
     <div v-if="data.type !== 'adv'" class="poll-item mt-4">
       <div class="poll-item__main">
         <div class="poll-item__img-wrap">
@@ -27,9 +28,6 @@
               <icon-arrow class="ml-2"></icon-arrow>
             </v-btn>
             <div class="poll-item__line">
-              <!-- {{ data.complete }}
-              {{ data.endedAt }} -->
-
               <div v-if="data.complete" class="poll-item__complete">Завершен</div>
             </div>
             <div class="poll-item__author">

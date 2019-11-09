@@ -71,9 +71,10 @@
       <template>
         <div class="poll-info__video-wrap">
           <!-- <div class="poll-info__play-icon"></div> -->
+
           <video
             class="poll-info__video"
-            src="https://www.youtube.com/watch?v=4VK0DQhCIuU"
+            :src="'https://cms.nova.st' + poll.video"
             width="100%"
             controls
           ></video>

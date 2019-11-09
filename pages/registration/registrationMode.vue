@@ -231,4 +231,7 @@ export default {
   opacity: 0.5;
   font-style: italic;
 }
+.mode .v-select .vs__selected {
+  margin-top: 0.3rem;
+}
 </style>

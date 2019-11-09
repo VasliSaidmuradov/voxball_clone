@@ -5,12 +5,13 @@
         <label class="type__label">Выберите тип аккаунта</label>
         <v-select
           class="type__select"
-          :options="options"
+          :options="accountType"
           :searchable="false"
-          :no-drop="false"
           :multiple="false"
-          :value="GET_REGISTRATION_DATA['type']"
-          @input="SET_REGISTRATION_DATA({ field: 'type', value: $event })"
+          :required="true"
+          :placeholder="'ПЕРСОНАЛЬНЫЙ'"
+          :value="accountType[GET_REGISTRATION_DATA['type']]"
+          @input="set_registration($event)"
         ></v-select>
         <div class="type__buttons">
           <v-btn @click="$navigate('/login/login')" class="type__link-wrap left-link" link>
@@ -32,28 +33,28 @@
 </template>
 
 <script>
-import iconArrow from '@/components/icons/iconArrow.vue'
 import detailedLayout from '@/components/layouts/detailedLayout.vue'
 import vFormLayout from '@/components/forms/vFormLayout.vue'
-// v-select
+import iconArrow from '@/components/icons/iconArrow.vue'
+
 import vSelect from 'vue-select'
 import '@/assets/css/vSelect.scss'
+
 import { mapMutations, mapGetters } from 'vuex'
 
 export default {
   components: {
-    iconArrow,
-    vSelect,
     detailedLayout,
-    vFormLayout
+    vFormLayout,
+    vSelect,
+    iconArrow
   },
   data() {
     return {
-      options: [
+      accountType: [
         { label: 'Персональный', value: false },
         { label: 'Корпоративный', value: true }
-      ],
-      accountType: null
+      ]
     }
   },
   computed: {
@@ -63,10 +64,20 @@ export default {
     ...mapMutations({ SET_REGISTRATION_DATA: 'auth/SET_REGISTRATION_DATA' }),
     nextStep() {
       this.$navigate('/registration/registrationmode')
+    },
+    set_registration(event) {
+      try {
+        this.SET_REGISTRATION_DATA({ field: 'type', value: event.value })
+      } catch (error) {
+        console.log('set_registration: ', error)
+      }
     }
   },
   mounted() {
-    this.SET_REGISTRATION_DATA({ field: 'type', value: this.options[0] })
+    this.SET_REGISTRATION_DATA({
+      field: 'type',
+      value: this.accountType[0].value
+    })
   }
 }
 </script>
@@ -122,16 +133,31 @@ export default {
 }
 .type .v-select .vs__dropdown-toggle {
   border-color: #2b454e;
+  height: 3rem;
 }
 .type .v-select .vs__open-indicator {
   fill: #007b00;
+}
+.type .v-select .vs__selected {
+  margin: 0;
+  margin-top: 0.5rem;
 }
 .type .v-select .vs__search {
   line-height: 2;
   font-size: 0.8em;
 }
 .type .v-select .vs__search[placeholder] {
-  opacity: 0.5;
-  font-style: italic;
+  margin: 0;
+  margin-top: 0.1rem;
+  letter-spacing: -1px;
+  padding-top: 0.4rem;
+  font-size: 1rem;
+  font-family: HelveticaNeue-Roman;
+}
+.type .vs__clear {
+  margin-right: 1.5rem;
+}
+.type .vs__open-indicator {
+  outline: 0.5rem;
 }
 </style>

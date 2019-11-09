@@ -77,10 +77,12 @@
             >
               <div v-if="pollTypeList[pollTypeActive].type === 'questioned'">
                 <div class="d-flex justify-content-between">
-                  <p>Введите вопрос:</p>
+                  <p
+                    v-if="pollTypeList[pollTypeActive].type!=='text' && pollTypeList[pollTypeActive].type!=='stars'"
+                  >Введите вопрос:</p>
                   <!-- <div class="add-poll-questions__cancel-wrapper" @click="removeQuestion(index)"> -->
-                    <!-- v-if="pollTypeList[pollTypeActive].type === 'questioned'" -->
-                    <!-- <iconCancel class="icon-cancel add-poll-questions__cancel"></iconCancel> -->
+                  <!-- v-if="pollTypeList[pollTypeActive].type === 'questioned'" -->
+                  <!-- <iconCancel class="icon-cancel add-poll-questions__cancel"></iconCancel> -->
                   <!-- </div> -->
                 </div>
                 <div class="d-flex align-items-center">
@@ -93,14 +95,15 @@
                   <v-select
                     :options="questionTypeList.map(item => item.value)"
                     :searchable="true"
-                    :no-drop="false"
                     :multiple="false"
                     @input="setQuestionType($event, index)"
                     class="ml-5"
                   ></v-select>
                 </div>
               </div>
-              <p>Введите варианты ответов:</p>
+              <p
+                v-if="GET_NEW_POLL_QUESTIONS[index].type !== 'text' && GET_NEW_POLL_QUESTIONS[index].type !== 'stars'"
+              >Введите варианты ответов:</p>
               <add-answers-list
                 :type="GET_NEW_POLL_QUESTIONS[index].type"
                 :answersList="GET_NEW_POLL_VARIANTS[index]"
@@ -133,7 +136,7 @@
             </div>
             <div class="add-poll-options__item add-poll-options__language">
               <p class="add-poll-options__title">4. Укажите язык опроса:</p>
-              <v-select :options="languages" :searchable="true" :no-drop="false" :multiple="false"></v-select>
+              <v-select :options="languages" :searchable="true" :multiple="false"></v-select>
             </div>
           </section>
           <section class="add-poll-category">
@@ -141,9 +144,9 @@
             <v-select
               :options="GET_CATEGORY_LIST.map(item => item.title)"
               :searchable="true"
-              :no-drop="false"
               :multiple="false"
               @input="categorySet($event)"
+              :placeholder="'Категории'"
             ></v-select>
           </section>
           <section class="add-poll-tags">
@@ -197,7 +200,6 @@ export default {
   },
   data() {
     return {
-      // simple, multiply, video, image, text, stars, questioned, rating, target
       pollTypeList: [
         { value: 'Одиночный выбор', type: 'simple' },
         { value: 'Множественный выбор', type: 'multiply' },
@@ -217,13 +219,8 @@ export default {
         { value: 'ответ-видео', type: 'video' }
       ],
       pollTypeActive: 0,
-      languages: ['Казахский', 'Русский', 'Английский'],
+      languages: ['Русский', 'Казахский', 'Английский'],
       category: ['Общество', 'Экономика', 'Животные'],
-      addAnswerslist: [
-        {
-          value: ''
-        }
-      ],
       disFile: false,
       disUrl: false
     }
@@ -266,7 +263,8 @@ export default {
       // this.SET_NEW_POLL_TYPE(value)
       if (value === 'image') this.setQuestionType('ответ-картинки', 0)
       else if (value === 'video') this.setQuestionType('ответ-видео', 0)
-      else if (value === 'multiply') this.setQuestionType('множественный выбор', 0)
+      else if (value === 'multiply')
+        this.setQuestionType('множественный выбор', 0)
       else if (value === 'stars') {
         this.setQuestionType('рейтинг', 0)
         this.SET_NEW_POLL_DATA_VARIANT({
@@ -308,9 +306,11 @@ export default {
     async pollVideoUrl(e) {
       !!e.target.value ? (this.disFile = true) : (this.disFile = false)
       console.log('e: ', e.target.value)
-      let id = await this.ADD_FILE_URL(e.target.value)
-      if (id !== null) {
+      try {
+        let id = await this.ADD_FILE_URL(e.target.value)
         this.SET_NEW_POLL_DATA({ field: 'videoUrl', value: id })
+      } catch (error) {
+        console.log(error)
       }
     },
     async getImage(e) {
@@ -321,10 +321,12 @@ export default {
     },
     async getFiles(e, type) {
       !!e.length ? (this.disUrl = true) : (this.disUrl = false)
-      let id = await this.ADD_FILE(e)
-      console.log('id: ', id)
-      if (id !== null) {
+      try {
+        let id = await this.ADD_FILE(e)
+        console.log('id: ', id)
         this.SET_NEW_POLL_DATA({ field: type, value: id })
+      } catch (error) {
+        console.log(error)
       }
     }
   },

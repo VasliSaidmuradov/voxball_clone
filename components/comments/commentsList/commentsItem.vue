@@ -24,15 +24,16 @@
           <span @click="deleteAnswer" class="comment__answer">Удалить</span>
         </div>
       </div>
-
     </div>
+
     <comments-answer v-model="answer" @cancel="cancelAnswer" @send="sendAnswer" v-if="showAnswer"></comments-answer>
+
     <comments-list
       :class="{'comment__childs': commentsItem.child && commentsItem.level < levels}"
       v-if="commentsItem.child"
       :levels="levels"
       :commentsList="commentsItem.child"
-      style="width: 100%"
+      style="width: 100%; padding-left: 3em"
     ></comments-list>
   </div>
 </template>

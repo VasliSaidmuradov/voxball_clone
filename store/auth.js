@@ -19,7 +19,7 @@ export const state = () => ({
 		password: '',
 		name: '',
 		username: '',
-		categories: { 1: '', 2: '', 3: '' },
+		categories: [],
 		code: '',
 		country: ''
 	},
@@ -29,6 +29,7 @@ export const state = () => ({
 export const mutations = {
 	SET_REGISTRATION_DATA(state, { field, value }) {
 		state.userRegistrationData[field] = value
+		console.log(field + ' : ' + state.userRegistrationData[field])
 	},
 
 	SET_AUTHORIZATION_DATA(state, { field, value }) {
@@ -54,8 +55,8 @@ export const actions = {
 				name: state.userRegistrationData.name,
 				username: state.userRegistrationData.email,
 				email: state.userRegistrationData.email,
-				password: state.userRegistrationData.password
-				// isBuisness: state.userRegistrationData.type
+				password: state.userRegistrationData.password,
+				isBuisness: state.userRegistrationData.type
 				// phone: state.userRegistrationData.phone.replace(/\D/g, '')
 			}
 			const res = await this.$axios.post('/auth/register', data)
