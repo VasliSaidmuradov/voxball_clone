@@ -11,7 +11,7 @@
         v-show="!!GET_POLL.questions.length"
       ></poll-card>
 
-      <comments-list :levels="1" :commentsList="comments" />
+      <comments-list :levels="1" :commentsList="commentsList" />
       <div class="d-flex mr-auto ml-auto mb-5 mt-3" style="width: 50rem; justify-content: center">
         <v-btn border rounded @click="openStatistics">
           статистика
@@ -253,11 +253,25 @@ export default {
   },
   computed: {
     ...mapGetters({
-      GET_POLL: 'polls/GET_POLL'
-    })
+      GET_POLL: 'polls/GET_POLL',
+      GET_COMMENTS_LIST: 'comments/GET_COMMENTS_LIST'
+    }),
+    commentsList() {
+      let comments = this.GET_COMMENTS_LIST
+      console.log('comments: ', comments)
+      comments = comments.map(item => (item = { ...item, child: [] }))
+      console.log('comments: ', comments)
+      let commentsL = comments
+      console.log('commentsL: ', commentsL)
+      // comments.map(item => {
+      // if (item.parentId !== null) commentsL[item.parentId].child.push(item)
+      // })
+      return comments
+    }
   },
   async fetch({ store, route }) {
     await store.dispatch('polls/FETCH_POLL', route.params.id)
+    await store.dispatch('comments/FETCH_COMMENTS', { id: route.params.id })
   }
 }
 </script>
