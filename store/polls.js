@@ -5,8 +5,6 @@ export const state = () => ({
 	pollsList: [],
 	poll: {},
 	pollAnswer: {},
-	// pollComments: {},
-	// polls: [],
 	category: [],
 	newPoll: {
 		categoryId: '',
@@ -307,8 +305,8 @@ export const getters = {
 				: 'нет категории',
 			createdAt: new Date(item.createdAt).toLocaleDateString(),
 			authorAvatar:
-				item.author.avatar === null
-					? '/_nuxt/assets/img/poll-no-avatar.png'
+				!!item.author.avatar
+					? '~/assets/img/poll-no-avatar.png'
 					: item.author.avatar,
 			authorName:
 				item.author && item.author.name
@@ -317,9 +315,10 @@ export const getters = {
 			preview:
 				item.preview == ''
 					? null
-					: // '/_nuxt/assets/img/poll__image2.png'
+					: // '~/assets/img/poll__image2.png'
 					  item.preview,
-			endedAt: Date.parse(item.endedAt) < Date.parse(new Date()),
+			complete: Date.parse(item.endedAt) < Date.parse(new Date()),
+			// endedAt: Date.parse(item.endedAt),
 			path: `/polls/${item.id}`
 		}))
 	},
@@ -327,7 +326,7 @@ export const getters = {
 	GET_POLL: state => ({
 		...state.poll,
 		categoryTitle:
-			state.poll.category === null
+			!state.poll.category
 				? 'Нет категории'
 				: state.poll.category.title.substr(0, 12) + '...', // !!state.poll.category
 		createdAt: new Date(state.poll.createdAt).toLocaleDateString(),
@@ -340,15 +339,15 @@ export const getters = {
 						.join(' ')
 				: 'Нет автора',
 		preview:
-			state.poll.preview == ''
-				? '/_nuxt/assets/img/poll-no-info-image.png'
+			!state.poll.preview  
+				? require('@/assets/img/poll-no-info-image.png')
 				: 'https://cms.nova.st' + state.poll.preview,
 		authorAvatar:
-			state.poll.author == null
-				? '/_nuxt/assets/img/poll-no-avatar.png'
+			!state.poll.author
+				? '~/assets/img/poll-no-avatar.png'
 				: state.poll.author.avatar,
 		path: `/polls/${state.poll.id}`,
-		complete: new Date(state.poll.endedAt) < new Date()
+		complete: new Date() > new Date(state.poll.endedAt)
 		// questionsTitle: state.poll.questions.title,
 		// type: state.poll.questions.type
 	}),

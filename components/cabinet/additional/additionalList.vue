@@ -1,8 +1,9 @@
 <template>
   <div class="additional-list container">
-    <div class="personal-data">
+    <div class="personal-data" v-if="this.$route.query.additional === '0'">
       <h2 class="personal-data__title">ЛИЧНЫЕ ДАННЫЕ</h2>
-      <additional-item
+      <!-- {{  }} -->
+      <additional-item 
         v-for="(data, index) in personalData"
         :key="index"
         :dataTitle="data.title"
@@ -18,7 +19,7 @@
       ></additional-item>
     </div>
 
-    <div class="personal-data">
+    <div class="personal-data" v-if="this.$route.query.additional === `${1}`">
       <h2 class="personal-data__title">СЕМЕЙНОЕ ПОЛОЖЕНИЕ</h2>
       <additional-item
         v-for="(data, index) in familyStatus"
@@ -28,7 +29,7 @@
       ></additional-item>
     </div>
 
-    <div class="personal-data">
+    <div class="personal-data" v-if="this.$route.query.additional === '2'">
       <h2 class="personal-data__title">ОБРАЗОВАНИЕ И РАБОТА</h2>
       <additional-item
         v-for="(data, index) in educationAndWork"
@@ -38,10 +39,30 @@
       ></additional-item>
     </div>
 
-    <div class="personal-data">
+    <div class="personal-data" v-if="this.$route.query.additional === '3'">
       <h2 class="personal-data__title">ИНТЕРЕСЫ И УВЛЕЧЕНИЯ</h2>
       <additional-item
         v-for="(data, index) in interestsAndHobbies"
+        :key="index"
+        :dataTitle="data.title"
+        :dataType="data.type"
+      ></additional-item>
+    </div>
+
+    <div class="personal-data" v-if="this.$route.query.additional === '4'">
+      <h2 class="personal-data__title">ХОББИ И УВЛЕЧЕНИЯ</h2>
+      <additional-item
+        v-for="(data, index) in hobbiesAndInterests"
+        :key="index"
+        :dataTitle="data.title"
+        :dataType="data.type"
+      ></additional-item>
+    </div>
+
+    <div class="personal-data" v-if="this.$route.query.additional === '5'">
+      <h2 class="personal-data__title">ВАШИ ВКУСОВЫЕ ПРЕДПОЧТЕНИЯ</h2>
+      <additional-item
+        v-for="(data, index) in tastePreferences"
         :key="index"
         :dataTitle="data.title"
         :dataType="data.type"
@@ -67,12 +88,16 @@ export default {
     vBtn
   },
   props: {
-    data: Array,
+    key: Number,
+    // dataType: Array,
     personalData: Array,
     personalAddress: Array,
     familyStatus: Array,
     educationAndWork: Array,
-    interestsAndHobbies: Array
+    interestsAndHobbies: Array,
+    hobbiesAndInterests: Array,
+    tastePreferences: Array,
+    // additional: Number
   }
 }
 </script>

@@ -9,8 +9,6 @@
         type="video/mp4"
         controls
       ></video>
-      <!-- @click="$emit('showAnswerMedia')" -->
-      <!-- src="~/assets/video/placeholder_video.mp4" -->
     </div>
     <div @click="$emit('showAnswerMedia')" class="answer-item__image-wrap" v-if="type === 'image'">
       <!-- {{ 'https://cms.nova.st' + answer.file }} -->

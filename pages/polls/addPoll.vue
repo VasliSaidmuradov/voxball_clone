@@ -28,7 +28,7 @@
                   :width="'14em'"
                   class="mr-3"
                 ></upload>
-                <div>
+                <div class="add-poll-header__uploads-video">
                   <upload
                     :disabled="disFile"
                     label="загрузить видео"
@@ -401,10 +401,13 @@ export default {
       align-items: flex-start;
       width: 50%;
     }
+    &__uploads-video {
+      position: relative;
+    }
     &__input-video {
       height: 2rem;
       width: 100%;
-      border-radius: 37px;
+      // border-radius: 37px;
       outline: none;
       padding: 0 1rem;
       margin-top: 1rem;
@@ -412,6 +415,8 @@ export default {
       font-family: 'HelveticaNeue-Roman';
       font-style: italic;
       font-size: 0.8rem;
+      position: absolute;
+      bottom: 0;
     }
     &__info {
       width: 50%;

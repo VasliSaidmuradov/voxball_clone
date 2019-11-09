@@ -7,6 +7,7 @@
       <section class="Section container mt-4">
         <div class="Section__header">
           <h2 class="Section__title">Все опросы</h2>
+          
           <div class="Section__options">
             <v-select
               :options="options"
@@ -27,7 +28,6 @@
         </div>
         <div class="results-main__content">
           <polls-list :list="GET_POLLS_LIST" />
-          <!-- <polls-list :list="GET_POLLS_LIST" /> -->
         </div>
         <v-btn class="Section__button mb-5 mt-4" rounded border>
           <span>Загрузить еще</span>
@@ -108,8 +108,7 @@ export default {
     ...mapGetters({ GET_POLLS_LIST: 'polls/GET_POLLS_LIST' })
   },
   async fetch({ store }) {
-    let now = new Date().toLocaleDateString()
-    await store.dispatch('polls/FETCH_POLLS', {'query': `&filter[endedAt]=between:01.01.1970,${now}`})
+    await store.dispatch('polls/FETCH_POLLS', {'query': `&filter[endedAt]=between:${new Date(0)},${new Date()}`})
   }
 }
 </script>

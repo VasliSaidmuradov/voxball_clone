@@ -3,7 +3,6 @@
     <div v-if="data.type !== 'adv'" class="poll-item mt-4">
       <div class="poll-item__main">
         <div class="poll-item__img-wrap">
-          <!-- {{ data.preview }} -->
           <img
             v-if="!data.preview"
             class="poll-item__img"
@@ -28,7 +27,10 @@
               <icon-arrow class="ml-2"></icon-arrow>
             </v-btn>
             <div class="poll-item__line">
-              <div v-if="data.endedAt" class="poll-item__complete">Завершен</div>
+              <!-- {{ data.complete }}
+              {{ data.endedAt }} -->
+
+              <div v-if="data.complete" class="poll-item__complete">Завершен</div>
             </div>
             <div class="poll-item__author">
               <div class="poll-item__author-img-wrap">

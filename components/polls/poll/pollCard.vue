@@ -44,13 +44,16 @@
         </div>
       </div>
     </div>
+        <!-- {{ poll.type }} -->
+
     <div v-if="!complete" class="poll-card__button-wrap">
       <div class="poll-card__pay">
         +1
         <img class="poll-card__coin-image" src="~assets/img/poll-card__coin.png" alt />
       </div>
       <v-btn class="poll-card__button" border @click="VOTE($route.params.id)">
-        голосовать
+        <span class="poll-card__button-text" v-if="poll.type === 'text'">отправить ответ</span>
+        <span class="poll-card__button-text" v-else>голосовать</span>
         <icon-arrow class="ml-2" />
       </v-btn>
     </div>
@@ -173,7 +176,7 @@ export default {
     width: fit-content;
   }
   &__button-wrap {
-    width: 40%;
+    // width: 40%;
     padding-right: 3%;
     padding-bottom: 2rem;
     margin: 0 auto;
@@ -212,6 +215,9 @@ export default {
   &__arrow {
     width: 1.3em;
     margin-left: 0.5rem;
+  }
+  &__button-text {
+    width: fit-content;
   }
 }
 .answer {

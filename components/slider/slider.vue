@@ -10,7 +10,7 @@
         </p>
       </div>
       <div class="Slider-static-bottom">
-        <p class="Slider-static-bottom__title text--color-secondary">Стань акционером</p>
+        <!-- <p class="Slider-static-bottom__title text--color-secondary">Стань акционером</p>
         <p
           class="Slider-static-bottom__text Slider-static-bottom__text_upper"
         >и получай часть дохода от воксбалла.</p>
@@ -20,7 +20,7 @@
         <v-btn link class="Slider__btn--green">
           подробнее
           <icon-arrow class="ml-2"></icon-arrow>
-        </v-btn>
+        </v-btn> -->
       </div>
     </div>
     <no-ssr>

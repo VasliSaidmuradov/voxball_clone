@@ -1,5 +1,7 @@
 <template>
   <div class="cabinet-info-additional">
+    <!-- <croppa :removeButtonColor="'#00b900'"></croppa> -->
+
     <div class="cabinet-info-additional__title-wrap">
       <span class="cabinet-info-additional__title">{{ cabinetInfoAdditional.title }}</span>
     </div>
@@ -13,8 +15,8 @@
           >
             <v-btn
               class="cabinet-info-additional__button"
-              @click="$navigate('/cabinet/additional/')"
-              :data-type="button.type"
+              @click="$navigate({path: '/cabinet/additional',  query: { additional: `${index}` }})"
+              :dataType="button.type"
             >{{ button.value }}</v-btn>
             <div class="cabinet-info-additional__pay">
               <img
@@ -53,14 +55,17 @@ if (process.browser) {
   var { ToggleButton } = require('vue-js-toggle-button')
 }
 import vBtn from '@/components/buttons/vBtn.vue'
+import vCroppa from '@/components/inputs/vCroppa.vue'
 
 export default {
   components: {
     vBtn,
-    ToggleButton
+    ToggleButton,
+    vCroppa
   },
   data() {
     return {
+      myCroppa: {},
       cabinetInfoAdditional: {
         title: 'Укажите дополнительную информацию и заработайте v-coins:',
         buttons: [

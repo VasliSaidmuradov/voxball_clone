@@ -3,27 +3,41 @@
     <div class="poll-info__header">
       <div class="poll-info__info">
         <div class="poll-info__info-wrap">
-          <span class="poll-info__category">{{ poll.categoryTitle }}</span>
-          <span class="poll-info__date">{{ poll.createdAt }}</span>
+          <div class="poll-info__avatar">
+            <img class="poll-info__avatar-img" src="~assets/img/poll-no-avatar.png" alt />
+            <!-- <img class="poll-info__avatar-img" :src="poll.authorAvatar" alt /> -->
+          </div>
+          <div class="poll-info__name-wrap">
+            <span class="poll-info__name">{{ poll.authorName }}</span>
+            <span class="poll-info__date">{{ poll.createdAt }}</span>
+          </div>
         </div>
-        <div class="poll-info__info-wrap">
-          <v-btn v-if="!!poll.video || !!poll.videoUrl" class="poll-info__button" border @click="openAnswerMedia">
+        <div class="poll-info__info-wrap poll-info__info-wrap-reverse">
+          <span class="poll-info__category">{{ poll.categoryTitle }}</span>
+          <!-- <v-btn v-if="poll.video.length" @click="showVideo" class="poll-info__button">
             посмотреть видео
-            <span>
-              <icon-arrow class="ml-2" />
-            </span>
-          </v-btn>
-          <views class="poll-info__views" :viewCount="poll.viewCount"></views>
+            <icon-arrow class="ml-2" />
+          </v-btn> -->
         </div>
       </div>
       <div class="poll-info__img-wrap">
-        <!-- <img class="poll-info__img" src="~assets/img/poll-no-info-image.png" alt /> -->
-        <img class="poll-info__img" :src="poll.preview" alt />
+        <play v-if="poll.video.length && !playVideo" @click="showVideo"></play>
+        <!-- <video v-if="poll.video.length" class="poll-info__video" :src="poll.video" controls></video> -->
+        <video v-if="playVideo" class="poll-info__video" src="~assets/video/voxball.mp4" controls></video>
+        <img v-else class="poll-info__img" :src="poll.preview" alt />
         <div v-if="poll.complete" class="poll-info__complete">
           <span class="poll-info__icon-complete mr-2">
             <icon-complete />
           </span>
           <span>Завершен</span>
+        </div>
+        <div class="poll-info__views-wrap">
+          <views class="poll-info__views" :viewCount="poll.viewCount"></views>
+          <social
+            :url="this.$route.query.page"
+            :poll="poll"
+            style="justify-content: flex-end; width: 50%"
+          ></social>
         </div>
       </div>
     </div>
@@ -31,16 +45,15 @@
       <h2 class="poll-info__title">{{ poll.title }}</h2>
       <p class="poll-info__text" v-html="poll.description"></p>
     </div>
-    <div class="poll-info__footer">
+
+    <!-- <div class="poll-info__footer">
       <div class="poll-info__footer-wrap">
         <div class="poll-info__avatar">
           <img class="poll-info__avatar-img" src="~assets/img/poll-no-avatar.png" alt />
-          <!-- <img class="poll-info__avatar-img" :src="poll.authorAvatar" alt /> -->
-          <!-- {{ poll.authorAvatar }} -->
         </div>
         <p class="poll-info__name-wrap">
-          Автор:
-          <span class="poll-info__name">{{ poll.authorName }}</span>
+        Автор:
+        <span class="poll-info__name">{{ poll.authorName }}</span>
         </p>
       </div>
       <div class="poll-info__footer-wrap justify-content">
@@ -51,8 +64,8 @@
           </div>
         </div>
       </div>
-    </div>
-    <tags class="mt-5 mb-5" :arrTag="arrTags" />
+    </div>-->
+    <!-- <tags class="poll-info__tags mt-5 mb-5" :arrTag="arrTags" /> -->
 
     <v-modal v-slot:body :showModal="showAnswerMedia" @close="closeAnswerMedia()">
       <template>
@@ -60,7 +73,7 @@
           <!-- <div class="poll-info__play-icon"></div> -->
           <video
             class="poll-info__video"
-            :src="poll.video"
+            src="https://www.youtube.com/watch?v=4VK0DQhCIuU"
             width="100%"
             controls
           ></video>
@@ -77,6 +90,9 @@ import tags from '@/components/shared/tags.vue'
 import social from '@/components/shared/social.vue'
 import iconComplete from '@/components/icons/iconComplete.vue'
 import vModal from '@/components/modals/vModal.vue'
+import play from '@/components/buttons/play.vue'
+
+// Vue.use(SocialSharing);
 
 export default {
   components: {
@@ -85,7 +101,8 @@ export default {
     views,
     tags,
     social,
-    vModal
+    vModal,
+    play
   },
   props: {
     poll: Object
@@ -109,7 +126,8 @@ export default {
         'политика',
         'информационные технологии'
       ],
-      showAnswerMedia: false
+      showAnswerMedia: false,
+      playVideo: false
     }
   },
   methods: {
@@ -118,6 +136,9 @@ export default {
     },
     closeAnswerMedia() {
       this.showAnswerMedia = false
+    },
+    showVideo() {
+      this.playVideo = true
     }
   }
 }
@@ -137,6 +158,7 @@ export default {
     width: 100%;
     height: 28rem;
     position: relative;
+    margin-bottom: 1rem;
   }
   &__info {
     width: 86.3%;
@@ -150,34 +172,48 @@ export default {
     transition: 0.5s ease;
   }
   &__info-wrap {
-    width: 42%;
+    // width: 50%;
     height: 3.5rem;
     display: flex;
     align-items: center;
-    justify-content: center;
+    padding-left: 1rem;
+    &-reverse {
+      justify-content: flex-end;
+      padding-right: 1rem;
+    }
   }
   &__category {
     background-color: $base-text-color;
     color: #ffffff;
-    font-size: 0.6rem;
+    font-size: 0.9rem;
     font-weight: 500;
     text-align: center;
-    width: 46%;
-    padding-top: 0.45rem;
-    padding-bottom: 0.25rem;
+    width: fit-content;
+    margin-left: 1rem;
+    padding: 0.7rem 1.2rem;
+    padding-bottom: 0.5rem;
     text-transform: uppercase;
     transition: background-color 0.5s ease;
   }
   &__date {
-    margin-left: 1rem;
+    font-size: 0.8rem;
+    color: #333;
   }
   &__button {
     color: #ffffff;
     background-color: $base-color;
-    padding: 0.4rem 0.5rem;
+    padding: 0.6rem 1.2rem;
+    &:hover {
+      color: #fff;
+    }
+  }
+  &__views-wrap {
+    display: flex;
+    align-items: center;
   }
   &__views {
-    margin-left: 1rem;
+    // margin-left: 1rem;
+    width: 50%;
   }
   &__img-wrap {
     width: 93%;
@@ -185,7 +221,8 @@ export default {
     position: absolute;
     bottom: 0;
   }
-  &__img {
+  &__img,
+  &__video {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -222,8 +259,8 @@ export default {
     }
   }
   &__text {
-    margin: 1rem 0;
-    line-height: 1.3rem;
+    margin: 0 0 1rem 0;
+    line-height: 1.2;
     // height: 6rem;
     overflow: hidden;
     overflow-y: scroll;
@@ -244,7 +281,8 @@ export default {
   }
   &__avatar {
     border-radius: 50%;
-    width: 4.3rem;
+    width: 3rem;
+    height: 3rem;
   }
   &__avatar-img {
     width: 100%;
@@ -254,6 +292,15 @@ export default {
   &__name-wrap {
     margin-left: 1rem;
     font-family: 'times new roman psmt';
+    display: flex;
+    flex-direction: column;
+    line-height: 1.5;
+  }
+  &__name {
+    font-weight: bold;
+  }
+  &__tags {
+    display: none;
   }
   &__social-wrap {
     margin-left: 1rem;
