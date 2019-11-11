@@ -274,17 +274,6 @@ export const actions = {
 		}
 	},
 
-	// async FETCH_POLL_COMMENTS({ commit }, id) {
-	// 	try {
-	// 		let id = 1
-	// 		const res = await this.$axios.get(`/quizzes/${id}/comments`)
-	// 		console.log(res.data.data)
-	// 		commit('SET_POLL_COMMENTS', res.data.data)
-	// 	} catch ({ e }) {
-	// 		console.log({ e })
-	// 	}
-	// },
-
 	// async FETCH_POLL_COMPLETED()
 
 	async VOTE({ commit, state, getters }, id) {

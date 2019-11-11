@@ -14,6 +14,11 @@ export const actions = {
 		let res = await this.$axios.get(`quizzes/${id}/comments`)
 		console.log('comments: ', res.data.data)
 		commit('SET_COMMENTS', res.data.data)
+	},
+
+	async ADD_COMMENT({ commit }, data) {
+		try {
+		} catch (error) {}
 	}
 }
 
