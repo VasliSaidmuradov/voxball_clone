@@ -23,7 +23,7 @@
           <nuxt-link class="Footer__item" to="/">Контакты</nuxt-link>
           <nuxt-link class="Footer__item" to="/">Пакеты коинов</nuxt-link>
           <nuxt-link class="Footer__item" to="/">Пользовательское соглашение</nuxt-link>
-          <nuxt-link class="Footer__item" to="/">Стать акционером</nuxt-link>
+          <!-- <nuxt-link class="Footer__item" to="/">Стать акционером</nuxt-link> -->
           <nuxt-link class="Footer__item" to="/">Наши вакансии</nuxt-link>
           <nuxt-link class="Footer__item" to="/">Реклама на сайте</nuxt-link>
         </div>

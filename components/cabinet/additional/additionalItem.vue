@@ -1,7 +1,11 @@
 <template>
   <div class="additional-item">
     <label :for="dataTitle" class="additional-item__lebel">{{ dataTitle }}</label>
-    <v-select v-if="dataType === 'select'" class="additional-item__select" :options="gender"></v-select>
+    <v-select
+      v-if="dataType === 'select'"
+      class="additional-item__select"
+      :options="gender"
+    ></v-select>
     <input
       type="tel"
       :id="dataTitle"
@@ -45,19 +49,7 @@ export default {
   },
   props: {
     dataTitle: String,
-    dataType: String,
-    // personalData: {
-    //   type: Array,
-    //   default: () => []
-    // },
-    // personalAddress: {
-    //   type: Array,
-    //   default: () => []
-    // },
-    // familyStatus: {
-    //   type: Array,
-    //   default: () => []
-    // }
+    dataType: String
   },
   data() {
     return {

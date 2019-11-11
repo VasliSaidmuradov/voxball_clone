@@ -8,6 +8,8 @@
           :familyStatus="familyStatus"
           :educationAndWork="educationAndWork"
           :interestsAndHobbies="interestsAndHobbies"
+          :hobbiesAndInterests="hobbiesAndInterests"
+          :tastePreferences="tastePreferences"
         ></additional-list>
       </section>
     </detailed-layout>
@@ -63,6 +65,24 @@ export default {
         { title: 'Музыка:', type: 'select' },
         { title: 'ТВ:', type: 'select' },
         { title: 'Игры:', type: 'select' }
+      ],
+      hobbiesAndInterests: [
+        { title: 'Автотранспортные средства:', type: 'select' },
+        { title: 'Дом и сад:', type: 'select' },
+        { title: 'Домашние животные:', type: 'select' },
+        { title: 'Искусство и музыка:', type: 'select' },
+        { title: 'Политика и социальные проблемы:', type: 'select' },
+        { title: 'Путешествия:', type: 'select' },
+        { title: 'Прочие увлечения:', type: 'select' }
+      ],
+      tastePreferences: [
+        { title: 'Алкогольные напитки:', type: 'select' },
+        { title: 'Еда:', type: 'select' },
+        { title: 'Кулинария:', type: 'select' },
+        { title: 'Кухня:', type: 'select' },
+        { title: 'Напитки:', type: 'select' },
+        { title: 'Рестораны:', type: 'select' },
+        { title: 'Курение:', type: 'select' }
       ]
     }
   }

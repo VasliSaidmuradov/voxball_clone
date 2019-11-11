@@ -37,11 +37,11 @@ export default {
         {
           label: this.$t('nav.rating'),
           path: '/ratings'
-        },
-        {
-          label: this.$t('nav.become_shareholders'),
-          path: '/shareholders'
         }
+        // {
+        //   label: this.$t('nav.become_shareholders'),
+        //   path: '/shareholders'
+        // }
       ]
       return nav
     }

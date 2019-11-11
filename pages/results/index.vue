@@ -7,6 +7,7 @@
       <section class="Section container mt-4">
         <div class="Section__header">
           <h2 class="Section__title">Все опросы</h2>
+          
           <div class="Section__options">
             <v-select :options="options" :multiple="false" placeholder="Популярное"></v-select>
             <v-select class="ml-5" :options="options" :multiple="false" placeholder="Категории"></v-select>

@@ -3,7 +3,25 @@
     <div class="cabinet-info__avatar">
       <div class="cabinet-info__green"></div>
       <!-- <img class="cabinet-info__img" src="~assets/img/profile__image.png" alt /> -->
-      <upload class="cabinet-info__img" :height="'100%'" :width="'100%'" :label="'загрузить фото'" />
+      <!-- <upload class="cabinet-info__img" :height="'100%'" :width="'100%'" :label="'загрузить фото'" /> -->
+      <croppa
+        class="cabinet-info__img"
+        v-model="myCroppa"
+        :removeButtonColor="'#00b900'"
+        :width="width"
+        :height="height"
+        placeholder="Загрузить фото"
+        :placeholder-font-size="16"
+        :disabled="false"
+        :prevent-white-space="false"
+        :show-remove-button="true"
+        @file-choose="handleCroppaFileChoose"
+        @file-size-exceed="handleCroppaFileSizeExceed"
+        @file-type-mismatch="handleCroppaFileTypeMismatch"
+        @image-remove="handleImageRemove"
+        @move="handleCroppaMove"
+        @zoom="handleCroppaZoom"
+      ></croppa>
     </div>
     <div class="cabinet-info__content">
       <div class="cabinet-info__header">
@@ -56,15 +74,18 @@
 import upload from '@/components/inputs/upload.vue'
 import StarRating from 'vue-star-rating'
 import cabinetInfoList from '@/components/cabinet/cabinetInfoList/cabinetInfoList.vue'
+import vCroppa from '@/components/inputs/vCroppa.vue'
 
 export default {
   components: {
     upload,
     StarRating,
-    cabinetInfoList
+    cabinetInfoList,
+    vCroppa
   },
   data() {
     return {
+      myCroppa: {},
       cabinetInfo: {
         name: 'Иванов Иван',
         rating: 4,
@@ -91,7 +112,9 @@ export default {
         { name: 'reposts', link: '/reposts' },
         { name: 'pollsAnswers', link: '/cabinet' },
         { name: 'myAnswers', link: '/cabinet' }
-      ]
+      ],
+      width: 250,
+      height: 250
     }
   },
   computed: {
@@ -100,7 +123,8 @@ export default {
         x.count = this.cabinetInfo[x.name]
         return x
       })
-    }
+    },
+
   }
 }
 </script>
@@ -113,7 +137,7 @@ export default {
   &__avatar {
     position: relative;
     min-width: 16rem;
-    min-height: 12rem;
+    min-height: 16rem;
   }
   &__green {
     width: 95%;
@@ -124,10 +148,14 @@ export default {
     width: 95%;
     height: 95%;
     position: absolute;
-    bottom: 0;
-    right: 0;
-    background-color: gray;
+    top: 10px;
+    left: 10px;
+    // background-color: gray;
     border: 1px solid gray;
+    color: #fff;
+    // &:hover {
+    //   background-color: gray;
+    // }
   }
   &__content {
     width: 70%;
@@ -196,9 +224,10 @@ export default {
       padding-bottom: 2rem;
     }
   }
-  &__label {
-    width: 5rem;
-  }
+  // &__label {
+  //   // min-width: 5rem;
+  //   // width: 8rem;
+  // }
   &__coin {
     padding-left: 0.5rem;
   }
@@ -206,17 +235,19 @@ export default {
     border: 1px solid $border-color;
     border-radius: 2rem;
     color: $third-text-color;
-    width: 12rem;
+    // min-width: 12rem;
     padding: 0.5rem 1rem;
     line-height: 1.2;
+    margin-left: 0.5rem;
   }
   &__email {
     border: 1px solid $border-color;
     border-radius: 2rem;
     color: $third-text-color;
-    width: 12rem;
+    // min-width: 12rem;
     padding: 0.5rem 1rem;
     line-height: 1.2;
+    margin-left: 0.5rem;
   }
   &__list-wrap {
     margin-left: auto;
