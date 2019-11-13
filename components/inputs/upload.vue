@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex align-items-center flex-direction-column">
+  <div class="d-flex align-items-center flex-direction-column file-pond">
     <file-pond
       ref="pond"
       :class="{'myUpload': true, 'myUpload--file': file}"
@@ -8,6 +8,7 @@
       :labelIdle="`<div class='upload-btn'>${label}</div>`"
       allow-multiple="false"
       allowImageCrop="true"
+      :drop="true"
       :max-files="maxFiles"
       @updatefiles="getFiles($event)"
       :disabled="disabled"
@@ -101,6 +102,8 @@ export default {
 </script>
 
 <style lang="scss">
+.file-pond {
+}
 .upload-btn {
   border: 1px solid #000;
   color: #000;

@@ -1,7 +1,20 @@
 <template>
   <div :class="classes">
     <div v-if="type==='video'||type==='image'" class="answer-item-upload mb-3">
-      <upload @getFiles="getFiles" :label="type === 'video' ? 'Загрузить видео' : 'Загрузить фото'">  </upload>
+      <!-- <upload @getFiles="getFiles" :label="type === 'video' ? 'Загрузить видео' : 'Загрузить фото'"></upload> -->
+      <croppa
+        class="cabinet-info__img"
+        v-model="myCroppaImage"
+        :removeButtonColor="'#00b900'"
+        placeholder="ЗАГРУЗИТЬ ФОТО"
+        :placeholder-font-size="16"
+        :disabled="false"
+        :prevent-white-space="false"
+        :show-remove-button="true"
+        @file-choose="handleCroppaFileChoose"
+        @image-remove="handleImageRemove"
+        @zoom="handleCroppaZoom"
+      ></croppa>
       <div class="ml-4 w-100">
         <textarea
           style="resize:none"
@@ -27,6 +40,8 @@
         @input="SET_NEW_POLL_DATA_VARIANT({ questionIndex: variantInfo.questionIndex, variantIndex: variantInfo.variantIndex, field: 'title', value: $event.target.value})"
         class="answer-item__input"
         type="text"
+        :value="answersItem.title"
+        @keyup.enter="enter"
       />
       <!-- ref="input"-->
       <!-- @keyup.enter="enter" -->
@@ -43,6 +58,8 @@ import iconCancel from '@/components/icons/iconCancel'
 import upload from '@/components/inputs/upload'
 import vEditor from '@/components/inputs/vEditor.vue'
 import StarRating from 'vue-star-rating'
+import vCroppa from '@/components/inputs/vCroppa.vue'
+
 import { mapMutations, mapActions } from 'vuex'
 
 export default {
@@ -50,7 +67,8 @@ export default {
     iconCancel,
     upload,
     vEditor,
-    StarRating
+    StarRating,
+    vCroppa
   },
   props: {
     answersItem: Object,
@@ -60,7 +78,8 @@ export default {
   data() {
     return {
       value: '',
-      rating: 5
+      rating: 5,
+      myCroppaImage: {}
     }
   },
   mounted() {
@@ -82,17 +101,66 @@ export default {
     removeAnswer() {
       this.$emit('removeAnswer')
     },
-    async getFiles(e) {
-      let id = await this.ADD_FILE(e)
-      if (id !== null) {
-        this.SET_NEW_POLL_DATA_VARIANT({
-          questionIndex: this.variantInfo.questionIndex,
-          variantIndex: this.variantInfo.variantIndex,
-          field: 'file',
-          value: id
-        })
+
+    // async getFiles(e) {
+    //   let id = await this.ADD_FILE(e)
+    //   if (id !== null) {
+    //     this.SET_NEW_POLL_DATA_VARIANT({
+    //       questionIndex: this.variantInfo.questionIndex,
+    //       variantIndex: this.variantInfo.variantIndex,
+    //       field: 'file',
+    //       value: id
+    //     })
+    //   }
+    // },
+
+    // image poll variant add
+    handleCroppaFileChoose(e) {
+      let formData = new FormData()
+      formData.append('file', e)
+      this.setImage(formData)
+    },
+
+    dataURLtoFile(dataurl, filename) {
+      var arr = dataurl.split(','),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n)
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n)
       }
+      return new File([u8arr], filename, { type: mime })
+    },
+
+    handleCroppaZoom(e) {
+      let imageData = this.myCroppaImage
+        .getContext()
+        .canvas.toDataURL('image/png')
+      console.log('croppa resize imageData: ', imageData)
+      let file = this.dataURLtoFile(
+        imageData,
+        imageData.split(',')[1].substr(0, 15)
+      )
+      console.log('croppa resize file: ', file)
+      let formData = new FormData()
+      formData.append('file', file)
+      this.setImage(formData)
+    },
+
+    handleImageRemove() {
+      this.setImage('')
+    },
+
+    setImage(formdata) {
+      this.SET_NEW_POLL_DATA_VARIANT({
+        questionIndex: this.variantInfo.questionIndex,
+        variantIndex: this.variantInfo.variantIndex,
+        field: 'file',
+        value: formdata
+      })
     }
+    // image poll variant add end
   },
   computed: {
     classes() {
