@@ -5,10 +5,11 @@
         v-for="(item, index) in GET_NEW_POLL_VARIANTS[questionIndex]"
         :key="index"
         :answersItem="item"
-        @removeAnswer="removeAnswer(index)"
         :variantInfo="{questionIndex: questionIndex, variantIndex: index}"
         class="answers-item"
         :type="type"
+        @removeAnswer="removeAnswer(index)"
+        @enter="enter"
       ></add-answers-item>
     </div>
     <v-btn
@@ -58,6 +59,9 @@ export default {
         questionIndex: this.questionIndex,
         variantIndex: index
       })
+    },
+    enter() {
+      this.ADD_NEW_POLL_VARIANT({ questionIndex: this.questionIndex })
     }
   },
   components: {

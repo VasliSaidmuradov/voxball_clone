@@ -31,6 +31,7 @@ module.exports = {
 		'~/plugins/global.js',
 		'~/plugins/navigate.js',
 		'~/plugins/axios.js',
+		{ src: '~/plugins/vue-plyr', ssr: false },
 		{ src: '~/plugins/ckEditor.js', mode: 'client' },
 		{ src: '~plugins/vue-cookie', ssr: false },
 		{ src: '~plugins/persistedState', ssr: false }
@@ -44,7 +45,7 @@ module.exports = {
 		],
 		link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
 	},
-	css: ['@/assets/css/main.scss'],
+	css: ['@/assets/css/main.scss', 'vue-plyr/dist/vue-plyr.css'],
 
 	loading: { color: '#3B8070' },
 	build: {

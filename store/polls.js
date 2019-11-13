@@ -61,8 +61,9 @@ export const mutations = {
 	},
 
 	SET_NEW_POLL_DATA(state, data) {
-		state.newPoll[data.field] = data.value
-		console.log(`${data.field} : ${state.newPoll[data.field]}`)
+		let { field, value } = data
+		state.newPoll[field] = value
+		console.log(`${field} : ${state.newPoll[field]}`)
 	},
 
 	SET_NEW_POLL_CLEAR(state) {
@@ -139,7 +140,8 @@ export const mutations = {
 
 	REMOVE_NEW_POLL_DATA_VARIANT(state, data) {
 		const { questionIndex, variantIndex } = data
-		if (state.newPoll.variants.length > 1) {
+		console.log('remove variant: ' + questionIndex + ' : ' + variantIndex)
+		if (state.newPoll.variants[questionIndex].length > 1) {
 			state.newPoll.variants[questionIndex].splice(variantIndex, 1)
 		}
 		console.log(state.newPoll.variants[questionIndex])
@@ -193,9 +195,12 @@ export const actions = {
 	async ADD_FILE({ commit, state }, data) {
 		try {
 			console.log('ADD_FILE: ', data)
-			let formData = new FormData()
-			formData.append('file', data.file)
-			let res = await this.$axios.post('/files', formData)
+			// let formData = new FormData()
+			// formData.append('file', data.file)
+			// formData.append('file', data)
+			// let res = await this.$axios.post('/files', formData)
+			let res = await this.$axios.post('/files', data)
+			console.log('add_file: ', res.data.data.id)
 			if (!!res) return res.data.data.id
 		} catch (e) {
 			console.log(e)
@@ -215,8 +220,33 @@ export const actions = {
 		}
 	},
 
-	async ADD_POLL({ commit, state, getters }) {
+	async FILES_UPLOAD({ commit, getters, dispatch }) {
 		try {
+			getters.GET_NEW_POLL_QUESTIONS.map((item, index) => {
+				console.log(item)
+				if (item.type === 'image' || item.type === 'video')
+					item.variants.map((innerItem, innerIndex) => {
+						let id = dispatch('ADD_FILE', innerItem.file)
+						console.log(innerItem.file + ' : ' + id)
+						let data = {
+							questionIndex: index,
+							variantIndex: innerIndex,
+							field: 'file',
+							value: id
+						}
+						commit('SET_NEW_POLL_DATA_VARIANT', data)
+					})
+			})
+			return 'ok'
+		} catch (error) {
+			console.log(error)
+		}
+	},
+
+	async ADD_POLL({ commit, state, getters, dispatch }) {
+		try {
+			let ok = await dispatch('FILES_UPLOAD')
+			console.log(ok)
 			const data = {
 				...getters.GET_NEW_POLL,
 				questions: getters.GET_NEW_POLL_QUESTIONS
@@ -225,6 +255,8 @@ export const actions = {
 			delete data.variants
 			if (data.preview === '') {
 				delete data.preview
+			} else {
+				data.preview = await dispatch('ADD_FILE', data.preview)
 			}
 			if (data.video === '') {
 				delete data.video
@@ -272,17 +304,6 @@ export const actions = {
 		}
 	},
 
-	// async FETCH_POLL_COMMENTS({ commit }, id) {
-	// 	try {
-	// 		let id = 1
-	// 		const res = await this.$axios.get(`/quizzes/${id}/comments`)
-	// 		console.log(res.data.data)
-	// 		commit('SET_POLL_COMMENTS', res.data.data)
-	// 	} catch ({ e }) {
-	// 		console.log({ e })
-	// 	}
-	// },
-
 	// async FETCH_POLL_COMPLETED()
 
 	async VOTE({ commit, state, getters }, id) {
@@ -310,10 +331,9 @@ export const getters = {
 				? item.category.title.substr(0, 12) + '...'
 				: 'нет категории',
 			createdAt: new Date(item.createdAt).toLocaleDateString(),
-			authorAvatar:
-				!!item.author.avatar
-					? '~/assets/img/poll-no-avatar.png'
-					: item.author.avatar,
+			authorAvatar: !!item.author.avatar
+				? '~/assets/img/poll-no-avatar.png'
+				: item.author.avatar,
 			authorName:
 				item.author && item.author.name
 					? item.author.name.substr(0, 20)
@@ -331,7 +351,8 @@ export const getters = {
 	GET_POLL: state => ({
 		...state.poll,
 		categoryTitle:
-			!state.poll.category
+			// !state.poll.category
+			!!state.poll.category
 				? 'Нет категории'
 				: state.poll.category.title.substr(0, 12) + '...', // !!state.poll.category
 		createdAt: new Date(state.poll.createdAt).toLocaleDateString(),
@@ -343,14 +364,12 @@ export const getters = {
 						.slice(0, 3)
 						.join(' ')
 				: 'Нет автора',
-		preview:
-			!state.poll.preview  
-				? require('@/assets/img/poll-no-info-image.png')
-				: 'https://cms.nova.st' + state.poll.preview,
-		authorAvatar:
-			!state.poll.author
-				? '~/assets/img/poll-no-avatar.png'
-				: state.poll.author.avatar,
+		preview: !state.poll.preview
+			? require('@/assets/img/poll-no-info-image.png')
+			: 'https://cms.nova.st' + state.poll.preview,
+		authorAvatar: !state.poll.author
+			? '~/assets/img/poll-no-avatar.png'
+			: state.poll.author.avatar,
 		path: `/polls/${state.poll.id}`,
 		complete: new Date() > new Date(state.poll.endedAt)
 		// questionsTitle: state.poll.questions.title,

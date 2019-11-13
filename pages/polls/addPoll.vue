@@ -8,7 +8,7 @@
             <v-btn
               class="add-poll-type__item"
               :class="{'add-poll-type__item_active' : pollTypeActive === index}"
-              @click="set_poll_type(item.type, index)"
+              @click="setPollType(item.type, index)"
               border
               rounded
             >{{ item.value }}</v-btn>
@@ -21,21 +21,43 @@
             <h2 class="add-poll-header__title">{{pollTypeList[pollTypeActive].value}}</h2>
             <div class="add-poll-header__wrap">
               <div class="add-poll-header__uploads">
-                <upload
+                <!-- <upload
                   :height="'14em'"
                   @getFiles="getImage"
                   label="загрузить картинку"
                   :width="'14em'"
                   class="mr-3"
-                ></upload>
+                ></upload>-->
+                <div class="add-poll-header__croppa-wrap">
+                  <croppa
+                    class="add-poll-header__croppa"
+                    v-model="myCroppaImage"
+                    :removeButtonColor="'#00b900'"
+                    placeholder="ЗАГРУЗИТЬ ФОТО"
+                    :placeholder-font-size="8"
+                    :disabled="false"
+                    :prevent-white-space="false"
+                    :show-remove-button="true"
+                    @file-choose="handleCroppaFileChoose"
+                    @image-remove="handleImageRemove"
+                    @zoom="handleCroppaZoom"
+                  ></croppa>
+                  <!--
+                    @file-size-exceed="handleCroppaFileSizeExceed"
+                    @file-type-mismatch="handleCroppaFileTypeMismatch 
+                    @image-remove="handleImageRemove"
+                  @move="handleCroppaMove"-->
+                </div>
                 <div class="add-poll-header__uploads-video">
-                  <upload
-                    :disabled="disFile"
-                    label="загрузить видео"
-                    :height="'14em'"
-                    :width="'14em'"
-                    @getFiles="getVideo"
-                  ></upload>
+                  <div style="width: 49%">
+                    <upload
+                      :disabled="disFile"
+                      label="загрузить видео"
+                      :height="'5rem'"
+                      :width="'100%'"
+                      @getFiles="getVideo"
+                    ></upload>
+                  </div>
                   <input
                     placeholder="Или добавьте ссылку на видео"
                     class="add-poll-header__input-video"
@@ -44,6 +66,27 @@
                     :disabled="disUrl"
                   />
                 </div>
+              </div>
+              <!-- v-if="uploadedVideo" -->
+              <div class="add-poll-header__player-wrap">
+                <video
+                  class="add-poll-header__player"
+                  v-if="uploadedVideo.src"
+                  controls
+                  :src="uploadedVideo.src"
+                ></video>
+                <vue-plyr v-if="videoURL" class="add-poll-header__player">
+                  <div class="plyr__video-embed">
+                    <iframe
+                      class="plyr__iframe"
+                      :src="videoUrl || ''"
+                      allowfullscreen
+                      allowtransparency
+                      allow="autoplay"
+                    ></iframe>
+                  </div>
+                  <!-- :src="'https://player.vimeo.com/video/76979871?loop=false&byline=false&portrait=false&title=false&speed=true&transparent=0&gesture=media'" -->
+                </vue-plyr>
               </div>
               <div class="add-poll-header__info">
                 <p
@@ -119,7 +162,60 @@
               v-if="pollTypeList[pollTypeActive].type === 'questioned'"
             >добавить вопрос</v-btn>
           </section>
-          
+          <section v-if="pollTypeList[pollTypeActive].type === 'target'" class="add-poll-target">
+            <p>Данные таргет опроса</p>
+            <accordion>
+              <template v-slot:header>Личные данные</template>
+              <v-select
+                :style="'z-index: 100'"
+                :options="languages"
+                :searchable="true"
+                :multiple="false"
+              ></v-select>
+              <!-- <v-select :options="languages" :searchable="true" :multiple="false"></v-select> -->
+              <v-select :options="languages" :searchable="true" :multiple="false"></v-select>
+              <v-select
+                :style="'z-index: 100'"
+                :options="languages"
+                :searchable="true"
+                :multiple="false"
+              ></v-select>
+            </accordion>
+            <accordion>
+              <template v-slot:header>Семейное положение</template>
+              <v-select
+                :style="'z-index: 100'"
+                :options="languages"
+                :searchable="true"
+                :multiple="false"
+              ></v-select>
+              <!-- <v-select :options="languages" :searchable="true" :multiple="false"></v-select> -->
+              <v-select :options="languages" :searchable="true" :multiple="false"></v-select>
+              <v-select
+                :style="'z-index: 100'"
+                :options="languages"
+                :searchable="true"
+                :multiple="false"
+              ></v-select>
+            </accordion>
+            <accordion>
+              <template v-slot:header>Образование и работа</template>
+              <v-select
+                :style="'z-index: 100'"
+                :options="languages"
+                :searchable="true"
+                :multiple="false"
+              ></v-select>
+              <!-- <v-select :options="languages" :searchable="true" :multiple="false"></v-select> -->
+              <v-select :options="languages" :searchable="true" :multiple="false"></v-select>
+              <v-select
+                :style="'z-index: 100'"
+                :options="languages"
+                :searchable="true"
+                :multiple="false"
+              ></v-select>
+            </accordion>
+          </section>
           <section class="add-poll-options">
             <div class="add-poll-options__item">
               <p class="add-poll-options__title">1. Это приватный опрос:</p>
@@ -170,6 +266,9 @@
 if (process.browser) {
   var { ToggleButton } = require('vue-js-toggle-button')
 }
+if (process.browser) {
+  var { VuePlyr } = require('vue-plyr')
+}
 import iconCancel from '@/components/icons/iconCancel'
 import detailedLayout from '@/components/layouts/detailedLayout.vue'
 import vFormLayout from '@/components/forms/vFormLayout.vue'
@@ -180,6 +279,9 @@ import datePicker from '@/components/inputs/datePicker.vue'
 import vTags from '@/components/tags/vTags.vue'
 import vSelect from 'vue-select'
 import iconArrow from '@/components/icons/iconArrow.vue'
+import vCroppa from '@/components/inputs/vCroppa.vue'
+import accordion from '@/components/shared/accordion.vue'
+import 'vue-plyr/dist/vue-plyr.css'
 
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 
@@ -197,7 +299,10 @@ export default {
     vTags,
     vSelect,
     iconArrow,
-    iconCancel
+    iconCancel,
+    vCroppa,
+    VuePlyr,
+    accordion
   },
   data() {
     return {
@@ -223,7 +328,9 @@ export default {
       languages: ['Русский', 'Казахский', 'Английский'],
       category: ['Общество', 'Экономика', 'Животные'],
       disFile: false,
-      disUrl: false
+      disUrl: false,
+      myCroppaImage: {},
+      videoUrl: ''
     }
   },
   methods: {
@@ -235,19 +342,182 @@ export default {
       SET_NEW_POLL_DATA_VARIANT: 'polls/SET_NEW_POLL_DATA_VARIANT',
       REMOVE_NEW_POLL_DATA_QUESTION: 'polls/REMOVE_NEW_POLL_DATA_QUESTION'
     }),
+
     ...mapActions({
       ADD_POLL: 'polls/ADD_POLL',
       ADD_FILE: 'polls/ADD_FILE',
       ADD_FILE_URL: 'polls/ADD_FILE_URL'
     }),
-    inputAnswer(data, questionIndex) {
-      SET_NEW_POLL_DATA_VARIANT({
-        questionIndex: questionIndex,
-        variantIndex: data.index,
-        field: 'title',
-        value: data.value
+
+    setPollType(value, index) {
+      this.pollTypeActive = index
+      this.SET_NEW_POLL_DATA({ field: 'type', value: value })
+      if (value !== 'questioned' && value !== 'target') {
+        let question = this.questionTypeList.find(item => item.type === value)
+        console.log('question: ', question)
+        this.setQuestionType(question.value, 0)
+      }
+    },
+
+    setQuestionType(value, index) {
+      let type = this.questionTypeList.find(item => item.value == value).type
+      console.log('№ ' + index + ' questiontype: ' + value + ' - ', type)
+      this.SET_NEW_POLL_DATA_QUESTION({
+        questionIndex: index,
+        field: 'type',
+        value: type
       })
     },
+
+    categorySet(e) {
+      let categoryId = this.GET_CATEGORY_LIST.find(item => item.title === e).id
+      // console.log('categoryId: ', typeof categoryId)
+      this.SET_NEW_POLL_DATA({ field: 'categoryId', value: categoryId })
+    },
+
+    removeQuestion(index) {
+      this.REMOVE_NEW_POLL_DATA_QUESTION({
+        questionIndex: index
+      })
+    },
+
+    // image preview add
+    handleCroppaFileChoose(e) {
+      let formData = new FormData()
+      formData.append('file', e)
+      this.setImage(formData)
+    },
+
+    dataURLtoFile(dataurl, filename) {
+      var arr = dataurl.split(','),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n)
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n)
+      }
+      return new File([u8arr], filename, { type: mime })
+    },
+
+    async handleCroppaZoom(e) {
+      let imageData = this.myCroppaImage
+        .getContext()
+        .canvas.toDataURL('image/png')
+      console.log('croppa resize imageData: ', imageData)
+      let file = await this.dataURLtoFile(
+        imageData,
+        imageData.split(',')[1].substr(0, 15)
+      )
+      console.log('croppa resize file: ', file)
+      let formData = new FormData()
+      formData.append('file', file)
+      this.setImage(formData)
+    },
+
+    handleImageRemove() {
+      this.setImage('')
+    },
+
+    setImage(formdata) {
+      this.SET_NEW_POLL_DATA({ field: 'preview', value: formdata })
+    },
+    // image preview add end
+
+    // video upload
+    readFileAsync(file) {
+      return new Promise((resolve, reject) => {
+        let reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onload = () => resolve(reader.result)
+        reader.onerror = error => reject(error)
+      })
+    },
+
+    async toBase64(file) {
+      try {
+        let base64 = await this.readFileAsync(file)
+        console.log(base64)
+        return base64
+      } catch (err) {
+        console.log(err)
+      }
+    },
+
+    async pollVideoUrl(e) {
+      try {
+        let value = e.target.value
+        value ? (this.disFile = true) : (this.disFile = false)
+        console.log('e: ', value)
+        let host = await this.hostType(value)
+        // let hostValidation = ?
+        let id = await this.hostVideoId({ host: host, src: value })
+        let hostPlayer = await this.hostPlayer({ host: host, id: id })
+        this.videoUrl = hostPlayer
+        console.log('hostPlayer: ', hostPlayer)
+        // https://www.youtube.com/watch?v=Of0S_6U9T8g
+        // https://player.vimeo.com/video/76979871?loop=false&byline=false&portrait=false&title=false&speed=true&transparent=0&gesture=media'
+        // https://www.youtube.com/embed/tzArj5VDTsc?iv_load_policy=3&modestbranding=1&playsinline=1&showinfo=0&rel=0&enablejsapi=1'
+        this.SET_NEW_POLL_DATA({ field: 'videoUrl', value: value })
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
+    hostType(value) {
+      let regYou = /youtube.com/i
+      let regVim = /vimeo.com/i
+      let host = regYou.test(value)
+        ? 'youtube'
+        : regVim.test(value)
+        ? 'vimeo'
+        : 'false'
+      return host
+    },
+
+    hostVideoId(data) {
+      let { host, src } = data
+      let id
+      if (host === 'youtube') {
+        id = src.split('=')[1]
+      }
+      if (host === 'vimeo') {
+        id = src.split('vimeo.com/')[1]
+      }
+      console.log('src: ', id)
+      return id
+    },
+
+    hostPlayer(data) {
+      let { host, id } = data
+      let player
+      if (host === 'youtube') {
+        player = `https://www.youtube.com/embed/${id}?iv_load_policy=3&modestbranding=1&playsinline=1&showinfo=0&rel=0&enablejsapi=1`
+      }
+      if (host === 'vimeo') {
+        player = `https://player.vimeo.com/video/${id}?loop=false&byline=false&portrait=false&title=false&speed=true&transparent=0&gesture=media`
+      }
+      return player
+    },
+
+    async getVideo(e) {
+      await this.getFiles(e, 'video')
+    },
+
+    async getFiles(e, type) {
+      try {
+        e.length ? (this.disUrl = true) : (this.disUrl = false)
+        let file = e.file
+        let previewSRC = await this.toBase64(file)
+        this.SET_NEW_POLL_DATA({
+          field: 'video',
+          value: { file: file, src: previewSRC }
+        })
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
     async publishPoll() {
       this.SET_NEW_POLL_DATA({
         field: 'startedAt',
@@ -258,79 +528,9 @@ export default {
       // console.log('pollId', pollId )
       if (!!pollId) this.$navigate(`/polls/${pollId.data.data.id}`)
       // localStorage.removeItem('vuex')
-    },
-    set_poll_type(value, index) {
-      this.pollTypeActive = index
-      // this.SET_NEW_POLL_TYPE(value)
-      if (value === 'image') this.setQuestionType('ответ-картинки', 0)
-      else if (value === 'video') this.setQuestionType('ответ-видео', 0)
-      else if (value === 'multiply')
-        this.setQuestionType('множественный выбор', 0)
-      else if (value === 'stars') {
-        this.setQuestionType('рейтинг', 0)
-        this.SET_NEW_POLL_DATA_VARIANT({
-          questionIndex: 0,
-          variantIndex: 0,
-          field: 'title',
-          value: 'stars'
-        })
-      } else if (value === 'text') {
-        this.setQuestionType('ответ-текстовый', 0)
-        this.SET_NEW_POLL_DATA_VARIANT({
-          questionIndex: 0,
-          variantIndex: 0,
-          field: 'title',
-          value: 'text'
-        })
-      } else this.setQuestionType('одиночный выбор', 0)
-      this.SET_NEW_POLL_DATA({ field: 'type', value: value })
-    },
-    categorySet(e) {
-      let categoryId = this.GET_CATEGORY_LIST.find(item => item.title === e).id
-      // console.log('categoryId: ', typeof categoryId)
-      this.SET_NEW_POLL_DATA({ field: 'categoryId', value: categoryId })
-    },
-    setQuestionType(e, index) {
-      let type = this.questionTypeList.find(item => item.value == e).type
-      console.log('questiontype: ', e, index, ' ', type)
-      this.SET_NEW_POLL_DATA_QUESTION({
-        questionIndex: index,
-        field: 'type',
-        value: type
-      })
-    },
-    removeQuestion(index) {
-      this.REMOVE_NEW_POLL_DATA_QUESTION({
-        questionIndex: index
-      })
-    },
-    async pollVideoUrl(e) {
-      !!e.target.value ? (this.disFile = true) : (this.disFile = false)
-      console.log('e: ', e.target.value)
-      try {
-        let id = await this.ADD_FILE_URL(e.target.value)
-        this.SET_NEW_POLL_DATA({ field: 'videoUrl', value: id })
-      } catch (error) {
-        console.log(error)
-      }
-    },
-    async getImage(e) {
-      await this.getFiles(e, 'preview')
-    },
-    async getVideo(e) {
-      await this.getFiles(e, 'video')
-    },
-    async getFiles(e, type) {
-      !!e.length ? (this.disUrl = true) : (this.disUrl = false)
-      try {
-        let id = await this.ADD_FILE(e)
-        console.log('id: ', id)
-        this.SET_NEW_POLL_DATA({ field: type, value: id })
-      } catch (error) {
-        console.log(error)
-      }
     }
   },
+
   computed: {
     ...mapGetters({
       GET_NEW_POLL: 'polls/GET_NEW_POLL',
@@ -338,7 +538,18 @@ export default {
       GET_NEW_POLL_QUESTIONS: 'polls/GET_NEW_POLL_QUESTIONS',
       GET_NEW_POLL_VARIANTS: 'polls/GET_NEW_POLL_VARIANTS',
       GET_CATEGORY_LIST: 'polls/GET_CATEGORY_LIST'
-    })
+    }),
+
+    uploadedVideo() {
+      let file = this.GET_NEW_POLL.video
+      return file
+    },
+
+    videoURL() {
+      let src = this.GET_NEW_POLL.videoUrl
+      console.log(src)
+      return src
+    }
   },
   async fetch({ store }) {
     await store.dispatch('polls/FETCH_CATEGORY')
@@ -395,31 +606,55 @@ export default {
       color: black;
       font-family: 'times new roman psmt';
     }
-    &__wrap {
-      display: flex;
-      align-items: flex-start;
-    }
     &__uploads {
       display: flex;
       align-items: flex-start;
-      width: 50%;
+      flex-direction: column;
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+    &__wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    &__croppa-wrap {
+      width: 100%;
+      padding: 1rem 25%;
+      height: 20rem;
+    }
+    &__croppa {
+      height: 100%;
+      width: 100%;
     }
     &__uploads-video {
-      position: relative;
+      width: 100%;
+      padding-right: 25%;
+      padding-left: 25%;
+      padding-top: 1rem;
+      display: flex;
+      justify-content: space-between;
     }
     &__input-video {
-      height: 2rem;
-      width: 100%;
-      // border-radius: 37px;
+      height: 5rem;
+      width: 49%;
       outline: none;
       padding: 0 1rem;
-      margin-top: 1rem;
+      border-radius: 0.5rem;
       color: $base-text-color;
       font-family: 'HelveticaNeue-Roman';
       font-style: italic;
-      font-size: 0.8rem;
-      position: absolute;
-      bottom: 0;
+      font-size: 1rem;
+    }
+    &__player-wrap {
+      width: 100%;
+      padding-right: 25%;
+      padding-left: 25%;
+      padding-bottom: 2rem;
+    }
+    &__player {
+      width: 100%;
+      height: 100%;
     }
     &__info {
       width: 50%;
@@ -444,8 +679,11 @@ export default {
     padding: 1rem 0;
     border-bottom: 1px solid $border-color;
   }
-  &-questions {
+  &-target {
+    padding-top: 1rem;
     border-top: 1px solid $border-color;
+  }
+  &-questions {
     padding-bottom: 1rem;
     &__title {
       border: 1px solid $border-color;
@@ -547,5 +785,13 @@ export default {
   height: 2.3rem;
   overflow-y: scroll;
   text-transform: lowercase;
+}
+.add-poll-header__croppa canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+.plyr__iframe {
+  width: 100%;
+  min-height: 20rem;
 }
 </style>
