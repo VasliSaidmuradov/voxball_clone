@@ -251,7 +251,7 @@ export const actions = {
 	async FETCH_POLL({ commit }, id, data = '') {
 		try {
 			const res = await this.$axios.get(
-				`/quizzes/${id}?with[author]&with[category]&with[questions][with][variants]&with[voteCount]${data}`
+				`/quizzes/${id}?with[author]&with[category]&with[article]&with[questions][with][variants]&with[voteCount]${data}`
 			)
 			console.log(res.data.data)
 			commit('SET_POLL', res.data.data)

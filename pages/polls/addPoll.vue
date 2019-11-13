@@ -119,6 +119,7 @@
               v-if="pollTypeList[pollTypeActive].type === 'questioned'"
             >добавить вопрос</v-btn>
           </section>
+          
           <section class="add-poll-options">
             <div class="add-poll-options__item">
               <p class="add-poll-options__title">1. Это приватный опрос:</p>

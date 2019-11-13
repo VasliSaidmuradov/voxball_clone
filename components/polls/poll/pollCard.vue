@@ -22,7 +22,6 @@
               :config="editorConfig"
             />
           </div>
-
           <div class="answer-item__ratings ml-auto mr-auto" v-if="question.type === 'stars'">
             <no-ssr>
               <star-rating
@@ -31,23 +30,37 @@
                 border-color="#999"
                 :border-width="1"
                 :padding="1"
+                :read-only="false"
                 :show-rating="false"
                 :round-start-rating="false"
-                @rating-selected="SET_POLL_ANSWER({'questionId': question.id, 'answers': $event})"
+                @rating-selected="SET_POLL_ANSWER({'questionId': question.id, 'answers': String($event)})"
               ></star-rating>
+                <!-- @rating-selected="SET_POLL_ANSWER({'questionId': question.id, 'answers': Array.from(String($event))})" -->
+
             </no-ssr>
           </div>
         </div>
       </div>
     </div>
-        <!-- {{ poll.type }} -->
+    <!-- {{ GET_POLL_ANSWER }}
+    <br />
+    {{ isCheckedVariants() }}
+    <br /> -->
 
     <div v-if="!complete" class="poll-card__button-wrap">
-      <div class="poll-card__pay">
+      <div class="poll-card__pay" v-show="!isHidden">
         +1
         <img class="poll-card__coin-image" src="~assets/img/poll-card__coin.png" alt />
       </div>
-      <v-btn class="poll-card__button" border @click="VOTE($route.params.id)">
+      <!-- <v-btn class="poll-card__button" border @click="VOTE($route.params.id)"> -->
+      <v-btn
+        class="poll-card__button"
+        border
+        @click="voteToPoll"
+        v-show="!isHidden"
+        :disabled="!isCheckedVariants()"
+      >
+        <!-- <v-btn class="poll-card__button" border @click="voteToPoll" v-show="!isHidden"> -->
         <span class="poll-card__button-text" v-if="poll.type === 'text'">отправить ответ</span>
         <span class="poll-card__button-text" v-else>голосовать</span>
         <icon-arrow class="ml-2" />
@@ -117,9 +130,9 @@ export default {
   data() {
     return {
       questionType: 'stars',
-      showAnswerMedia: false
-      // qType: 'text'
-      // rating: 0
+      showAnswerMedia: false,
+      isHidden: false,
+      isDisabled: true
     }
   },
   methods: {
@@ -134,6 +147,23 @@ export default {
     },
     closeAnswerMedia() {
       this.showAnswerMedia = false
+    },
+    // showComments() {
+    //   this.$emit('showCommentsList')
+    // },
+    voteToPoll() {
+      this.VOTE(this.$route.params.id)
+      this.$emit('show-comments-list')
+      this.isHidden = true
+    },
+    isCheckedVariants() {
+      let poll = this.GET_POLL_ANSWER
+      let arr = []
+
+      for (let prop in poll) {
+        !poll[prop].length ? arr : arr.push(poll[prop])
+      }
+      return arr.length == this.poll.questions.length ? true : false
     }
   },
   computed: {
@@ -172,7 +202,6 @@ export default {
     width: fit-content;
   }
   &__button-wrap {
-    // width: 40%;
     padding-right: 3%;
     padding-bottom: 2rem;
     margin: 0 auto;
@@ -183,10 +212,6 @@ export default {
     padding: 0.7rem 1.5rem;
     border-color: $base-text-color;
     text-transform: uppercase;
-    &:hover {
-      background-color: $base-color;
-      border-color: $base-color;
-    }
   }
   &__pay {
     display: flex;

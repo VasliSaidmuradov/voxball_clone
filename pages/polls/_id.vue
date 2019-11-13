@@ -9,9 +9,9 @@
         class="mb-5"
         :poll="GET_POLL"
         v-show="!!GET_POLL.questions.length"
+        @show-comments-list="showCommentList"
       ></poll-card>
-
-      <comments-list :levels="1" :commentsList="commentsList" />
+      <comments-list v-if="showComments" :commentsList="comments" :levels="1" />
       <div class="d-flex mr-auto ml-auto mb-5 mt-3" style="width: 50rem; justify-content: center">
         <v-btn border rounded @click="openStatistics">
           статистика
@@ -94,6 +94,7 @@ export default {
   },
   data() {
     return {
+      showComments: false,
       showToTopModal: false,
       showStatisticsModal: false,
       pollData: {
@@ -249,6 +250,9 @@ export default {
     },
     closeStatistics() {
       this.showStatisticsModal = false
+    },
+    showCommentList() {
+      this.showComments = true
     }
   },
   computed: {
