@@ -17,13 +17,19 @@
           <!-- <v-btn v-if="poll.video.length" @click="showVideo" class="poll-info__button">
             посмотреть видео
             <icon-arrow class="ml-2" />
-          </v-btn> -->
+          </v-btn>-->
         </div>
       </div>
       <div class="poll-info__img-wrap">
         <play v-if="poll.video.length && !playVideo" @click="showVideo"></play>
         <!-- <video v-if="poll.video.length" class="poll-info__video" :src="poll.video" controls></video> -->
-        <video v-if="playVideo" class="poll-info__video" src="~assets/video/voxball.mp4" controls></video>
+        <!-- <video v-if="playVideo" class="poll-info__video" src="~assets/video/voxball.mp4" controls></video> -->
+        <app-player
+          v-if="playVideo"
+          :width="'100%'"
+          :height="'100%'"
+          :src="poll.video || 'https://www.youtube.com/watch?v=JuCfEwvKPBw'"
+        />
         <img v-else class="poll-info__img" :src="poll.preview" alt />
         <div v-if="poll.complete" class="poll-info__complete">
           <span class="poll-info__icon-complete mr-2">
@@ -92,6 +98,7 @@ import social from '@/components/shared/social.vue'
 import iconComplete from '@/components/icons/iconComplete.vue'
 import vModal from '@/components/modals/vModal.vue'
 import play from '@/components/buttons/play.vue'
+import appPlayer from '@/components/inputs/appPlayer.vue'
 
 // Vue.use(SocialSharing);
 
@@ -103,7 +110,8 @@ export default {
     tags,
     social,
     vModal,
-    play
+    play,
+    appPlayer
   },
   props: {
     poll: Object

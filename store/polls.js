@@ -18,6 +18,7 @@ export const state = () => ({
 		isPrivate: false,
 		isOpen: false,
 		canComment: false,
+		tags: [],
 		type: 'simple',
 		questions: [{ title: '', type: 'simple' }],
 		variants: [
@@ -28,7 +29,8 @@ export const state = () => ({
 			]
 		]
 	},
-	pollType: ''
+	pollType: '',
+	tags: []
 })
 
 export const mutations = {
@@ -79,6 +81,7 @@ export const mutations = {
 			isPrivate: false,
 			isOpen: false,
 			canComment: false,
+			tags: [],
 			type: 'simple',
 			questions: [{ title: '', type: 'simple' }],
 			variants: [
@@ -151,6 +154,10 @@ export const mutations = {
 		// console.log(state.pollsList)
 		state.pollsList = [...state.pollsList, ...polls]
 		// console.log(state.pollsList)
+	},
+
+	SET_TAGS(state, tags) {
+		state.tags = tags
 	}
 }
 
@@ -316,6 +323,37 @@ export const actions = {
 		} catch ({ e }) {
 			console.log(e)
 		}
+	},
+
+	async FETCH_TAGS({ commit, getters }, data) {
+		try {
+			let res
+			// data = data
+			// 	.split('')
+			// 	.map((it, ind) => (ind === 0 ? it.toUpperCase() : it))
+			// 	.join('')
+			// console.log('tags data: ', data)
+			if (data === null) res = await this.$axios.get('/quizzes/tags')
+			else {
+				res = await this.$axios.get('/quizzes/tags')
+				// res = this.$axios.get(`/quizzes/tags?search=${data}`)
+			}
+			res = res.data.data
+			// console.log('tags: ', res)
+			commit('SET_TAGS', res)
+		} catch (error) {
+			console.log(error)
+		}
+	},
+
+	async SET_TAGS({ commit, getters }, data) {
+		try {
+			let poll = getters.GET_NEW_POLL
+			tags = [...poll.tags, data]
+			commit('SET_NEW_POLL_DATA', { field: 'tags', value: tags })
+		} catch (error) {
+			console.log('error: ', error)
+		}
 	}
 }
 
@@ -391,7 +429,8 @@ export const getters = {
 			variants: state.newPoll.variants[index]
 		})),
 	GET_NEW_POLL_VARIANTS: state => state.newPoll.variants,
-	GET_CATEGORY_LIST: state => state.category
+	GET_CATEGORY_LIST: state => state.category,
+	GET_TAGS: state => state.tags
 }
 
 // console.log(Store)
