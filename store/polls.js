@@ -202,13 +202,14 @@ export const actions = {
 	async ADD_FILE({ commit, state }, data) {
 		try {
 			console.log('ADD_FILE: ', data)
+
 			// let formData = new FormData()
 			// formData.append('file', data.file)
 			// formData.append('file', data)
 			// let res = await this.$axios.post('/files', formData)
 			let res = await this.$axios.post('/files', data)
 			console.log('add_file: ', res.data.data.id)
-			if (!!res) return res.data.data.id
+			return res.data.data.id
 		} catch (e) {
 			console.log(e)
 		}
@@ -254,22 +255,25 @@ export const actions = {
 		try {
 			let ok = await dispatch('FILES_UPLOAD')
 			console.log(ok)
-			const data = {
+			let data = {
 				...getters.GET_NEW_POLL,
 				questions: getters.GET_NEW_POLL_QUESTIONS
 			}
 			console.log(data)
 			delete data.variants
-			if (data.preview === '') {
-				delete data.preview
-			} else {
-				data.preview = await dispatch('ADD_FILE', data.preview)
-			}
+			data.preview = await dispatch('ADD_FILE', data.preview)
+			console.log(data.preview)
 			if (data.video === '') {
 				delete data.video
+			} else {
+				let formData = new FormData()
+				formData.append('file', data.video.file)
+				data.video = await dispatch('ADD_FILE', formData)
 			}
 			if (data.videoUrl === '') {
 				delete data.videoUrl
+			} else {
+				data.video = await dispatch('ADD_FILE_URL', data.videoUrl)
 			}
 			delete data.authorId
 			data.questions.forEach(item => {
@@ -280,7 +284,7 @@ export const actions = {
 			const res = await this.$axios.post('/quizzes', data)
 			console.log(res)
 			commit('SET_NEW_POLL_CLEAR')
-			if (!!res) return res
+			return res
 			// commit('SET_POLLS', res.data.data)
 		} catch (e) {
 			console.log(e)

@@ -15,7 +15,9 @@
       <!-- :src="'https://player.vimeo.com/video/76979871?loop=false&byline=false&portrait=false&title=false&speed=true&transparent=0&gesture=media'" -->
     </vue-plyr>
     <div v-if="videoSRC" :style="styles">
-      <video class="player" controls :src="videoSRC"></video>
+      <vue-plyr>
+        <video class="player" controls :src="videoSRC"></video>
+      </vue-plyr>
     </div>
   </div>
 </template>
@@ -120,5 +122,8 @@ export default {
     width: 100%;
     height: 100%;
   }
+}
+.plyr__progress__container {
+  width: 100% !important;
 }
 </style>

@@ -3,13 +3,23 @@
     <detailed-layout :title="'Создание опрос'">
       <section class="add-poll-type">
         <h2 class="add-poll-type__title">Выберите тип опроса:</h2>
-        {{ this.GET_TAGS }}
         <div class="add-poll-type__list">
           <div v-for="(item, index) in pollTypeList" :key="index">
             <v-btn
               class="add-poll-type__item"
               :class="{'add-poll-type__item_active' : pollTypeActive === index}"
               @click="setPollType(item.type, index)"
+              border
+              rounded
+            >{{ item.value }}</v-btn>
+          </div>
+        </div>
+        <div v-if="GET_NEW_POLL['type'] === 'questioned'" class="add-poll-type__list">
+          <div v-for="(item, index) in questionedPollTypeList" :key="index">
+            <v-btn
+              class="add-poll-type__item"
+              :class="{'add-poll-type__item_active': (GET_NEW_POLL_QUESTIONS[0] || []).type === item.type}"
+              @click="setQuestionType(item.type)"
               border
               rounded
             >{{ item.value }}</v-btn>
@@ -77,24 +87,6 @@
                 </div>
               </div>
               <div class="add-poll-header__player-wrap">
-                <!-- <video
-                  class="add-poll-header__player"
-                  v-if="uploadedVideo.src"
-                  controls
-                  :src="uploadedVideo.src"
-                ></video>
-                <vue-plyr v-if="videoURL" class="add-poll-header__player">
-                  <div class="plyr__video-embed">
-                    <iframe
-                      class="plyr__iframe"
-                      :src="videoUrl || ''"
-                      allowfullscreen
-                      allowtransparency
-                      allow="autoplay"
-                    ></iframe>
-                </div>-->
-                <!-- :src="'https://player.vimeo.com/video/76979871?loop=false&byline=false&portrait=false&title=false&speed=true&transparent=0&gesture=media'" -->
-                <!-- </vue-plyr> -->
                 <app-player :src="videoUrl" />
               </div>
               <div class="add-poll-header__info">
@@ -373,13 +365,12 @@ export default {
       }
     },
 
-    setQuestionType(value, index) {
-      let type = this.questionTypeList.find(item => item.value == value).type
-      // console.log('№ ' + index + ' questiontype: ' + value + ' - ', type)
+    setQuestionType(value, index = this.GET_NEW_POLL_QUESTIONS.length - 1) {
+      console.log(value, index)
       this.SET_NEW_POLL_DATA_QUESTION({
         questionIndex: index,
         field: 'type',
-        value: type
+        value: value
       })
     },
 
@@ -589,7 +580,12 @@ export default {
       GET_NEW_POLL_VARIANTS: 'polls/GET_NEW_POLL_VARIANTS',
       GET_CATEGORY_LIST: 'polls/GET_CATEGORY_LIST',
       GET_TAGS: 'polls/GET_TAGS'
-    })
+    }),
+    questionedPollTypeList() {
+      return this.pollTypeList.filter(
+        item => item.type !== 'questioned' && item.type !== 'target'
+      )
+    }
 
     // uploadedVideo() {
     //   let file = this.GET_NEW_POLL.video
@@ -697,11 +693,11 @@ export default {
       outline: none;
       padding: 0 1rem;
       margin-top: 0.2rem;
-      border-radius: 0.5rem;
+      border-radius: 1rem;
       color: $base-text-color;
       font-family: 'HelveticaNeue-Roman';
       font-style: italic;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
     }
     &__input-video-cancel {
       position: absolute;
