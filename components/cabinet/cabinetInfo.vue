@@ -1,27 +1,25 @@
 <template>
   <div class="cabinet-info">
     <div class="cabinet-info__avatar">
+      <!-- {{ consoleLog() }} -->
       <div class="cabinet-info__green"></div>
       <!-- <img class="cabinet-info__img" src="~assets/img/profile__image.png" alt /> -->
       <!-- <upload class="cabinet-info__img" :height="'100%'" :width="'100%'" :label="'загрузить фото'" /> -->
       <croppa
         class="cabinet-info__img"
         v-model="myCroppa"
-        :removeButtonColor="'#00b900'"
-        :width="width"
-        :height="height"
-        placeholder="Загрузить фото"
         :placeholder-font-size="16"
-        :disabled="false"
-        :prevent-white-space="false"
-        :show-remove-button="true"
-        @file-choose="handleCroppaFileChoose"
-        @file-size-exceed="handleCroppaFileSizeExceed"
-        @file-type-mismatch="handleCroppaFileTypeMismatch"
-        @image-remove="handleImageRemove"
-        @move="handleCroppaMove"
-        @zoom="handleCroppaZoom"
+        :videoEnabled="true"
+        :preload="preload"
       ></croppa>
+      <div class="cabinet-info__zoom-wrap" v-show="this.myCroppa.imageSet">
+        <div class="cabinet-info__zoom"  @click="myCroppa.zoomIn()">
+          <icon-zoom-in class="cabinet-info__zoom-in"></icon-zoom-in>
+        </div>
+        <div class="cabinet-info__zoom" @click="myCroppa.zoomOut()">
+          <icon-zoom-out class="cabinet-info__zoom-out"></icon-zoom-out>
+        </div>
+      </div>
     </div>
     <div class="cabinet-info__content">
       <div class="cabinet-info__header">
@@ -75,13 +73,19 @@ import upload from '@/components/inputs/upload.vue'
 import StarRating from 'vue-star-rating'
 import cabinetInfoList from '@/components/cabinet/cabinetInfoList/cabinetInfoList.vue'
 import vCroppa from '@/components/inputs/vCroppa.vue'
+// import EleUploadVideo from 'vue-ele-upload-video'
+import iconZoomIn from '@/components/icons/iconZoomIn.vue'
+import iconZoomOut from '@/components/icons/iconZoomOut.vue'
 
 export default {
   components: {
     upload,
     StarRating,
     cabinetInfoList,
-    vCroppa
+    vCroppa,
+    iconZoomIn,
+    iconZoomOut
+    // EleUploadVideo
   },
   data() {
     return {
@@ -91,7 +95,7 @@ export default {
         rating: 4,
         category: ['общество', 'персона', 'экономика'],
         coins: 100,
-        tel: '+7 705 123 12 12',
+        tel: '+7 705 123 1212',
         email: 'ivanovivan@mail.com',
         polls: 5,
         ratings: 6,
@@ -123,8 +127,15 @@ export default {
         x.count = this.cabinetInfo[x.name]
         return x
       })
+    }
+  },
+  methods: {
+    consoleLog() {
+      return console.log(this.myCroppa.video)
     },
-
+    preload() {
+      return this.myCroppa.video.setAttribute('preload', 'metadata');
+    }
   }
 }
 </script>
@@ -150,12 +161,31 @@ export default {
     position: absolute;
     top: 10px;
     left: 10px;
-    // background-color: gray;
     border: 1px solid gray;
     color: #fff;
-    // &:hover {
-    //   background-color: gray;
-    // }
+  }
+  &__zoom-wrap {
+    position: absolute;
+    bottom: 2%;
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+  }
+  &__zoom {
+    width: 10%;
+    height: 100%;
+    margin: 0 0.5rem;
+    cursor: pointer;
+    &-in,
+    &-out {
+      width: 100%;
+      height: 100%;
+
+      &:hover {
+        fill: $base-color;
+      }
+    }
   }
   &__content {
     width: 70%;
@@ -224,10 +254,6 @@ export default {
       padding-bottom: 2rem;
     }
   }
-  // &__label {
-  //   // min-width: 5rem;
-  //   // width: 8rem;
-  // }
   &__coin {
     padding-left: 0.5rem;
   }

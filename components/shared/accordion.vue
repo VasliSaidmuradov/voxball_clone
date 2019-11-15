@@ -1,7 +1,7 @@
 <template>
   <div class="accordion" v-bind:class="theme">
     <div class="header" v-on:click="toggle">
-      <slot name="header">HINT</slot>
+      <slot name="header">{{ questionTitle }}</slot>
       <i class="fa fa-2x fa-angle-down header-icon" v-bind:class="{ rotate: show }"></i>
     </div>
     <transition
@@ -28,11 +28,13 @@ export default {
     }
   },
   props: {
-    theme: String
+    theme: String,
+    questionTitle: String
+    // show: Boolean
   },
   methods: {
     toggle: function() {
-      this.show = !this.show
+        this.show = !this.show
     },
     // enter: function(el, done) {
     //   $(el).slideDown(150, done);
@@ -44,13 +46,18 @@ export default {
       el.style.height = '0'
     },
     enter: function(el) {
-      el.style.height = el.scrollHeight * 2 + 'px'
+      el.style.height = el.scrollHeight + 'px'
     },
     beforeLeave: function(el) {
       el.style.height = el.scrollHeight + 'px'
     },
     leave: function(el) {
       el.style.height = '0'
+    },
+    firstAccordionShowed() {
+      this.poll.questions.forEach(index => {
+        index === 0 ? this.show : !this.show
+      })
     }
   }
 }
@@ -62,6 +69,9 @@ export default {
   margin-bottom: 1rem;
   background-color: $base-color;
   border-radius: 0.5rem;
+  // &[data-id='0'] .body {
+  //   display: block !important;
+  // }
 }
 
 .accordion .header {

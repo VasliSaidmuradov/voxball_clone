@@ -3,15 +3,16 @@
     <detailed-layout :title="'Мои Опросы'">
       <!-- {{ $route.params.id }} -->
       <!-- {{ GET_POLL }} -->
+      <!-- <button @click="$store.dispatch('polls/FETCH_POLL', {id: $route.params.id})">asd</button> -->
       <poll-info class="mt-5" :poll="GET_POLL"></poll-info>
       <poll-card
         :complete="GET_POLL['complete']"
         class="mb-5"
         :poll="GET_POLL"
         v-show="!!GET_POLL.questions.length"
+        @show-comments-list="showCommentList"
       ></poll-card>
-
-      <comments-list :levels="1" :commentsList="commentsList" />
+      <comments-list v-if="showComments" :commentsList="comments" :levels="1" />
       <div class="d-flex mr-auto ml-auto mb-5 mt-3" style="width: 50rem; justify-content: center">
         <v-btn border rounded @click="openStatistics">
           статистика
@@ -57,12 +58,12 @@
       >
         <template slot="body">
           <div class="statisticsModal__header">
-            <span class="statisticsModal__item">ответы: {{ this.pollData.answers }}</span>
+            <span class="statisticsModal__item">ответы: {{ GET_POLL.voteCount }}</span>
             <span class="statisticsModal__item">репосты: {{ this.pollData.repost }}</span>
             <span class="statisticsModal__item">комментарии: {{ this.comments.length }}</span>
-            <span class="statisticsModal__item">просмотры: {{ this.pollData.views }}</span>
+            <span class="statisticsModal__item">просмотры: {{ GET_POLL.viewCount }}</span>
           </div>
-          <poll-card class="mb-5" :answers="answers" complete></poll-card>
+          <!-- <poll-card class="mb-5" :answers="answers" complete></poll-card> -->
         </template>
       </v-modal>
     </detailed-layout>
@@ -94,6 +95,7 @@ export default {
   },
   data() {
     return {
+      showComments: false,
       showToTopModal: false,
       showStatisticsModal: false,
       pollData: {
@@ -249,6 +251,9 @@ export default {
     },
     closeStatistics() {
       this.showStatisticsModal = false
+    },
+    showCommentList() {
+      this.showComments = true
     }
   },
   computed: {
@@ -270,7 +275,7 @@ export default {
     }
   },
   async fetch({ store, route }) {
-    await store.dispatch('polls/FETCH_POLL', route.params.id)
+    await store.dispatch('polls/FETCH_POLL', {id: route.params.id})
     await store.dispatch('comments/FETCH_COMMENTS', { id: route.params.id })
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="answer-item-wrapper">
     <div class="answer-item__video-wrap" v-if="type === 'video'">
-      <!-- <div class="answer-item__play-icon"></div> -->
+      
       <video
         class="answer-item__video"
         :src="'https://cms.nova.st' + answer.file"
@@ -14,11 +14,10 @@
       <img :src="'https://cms.nova.st' + answer.file" alt />
     </div>
     <div :class="classes" @click="selectAnswer">
-      <span class="answer-item__percent" v-if="complete">{{ percentage }}%</span>
-
+      <span class="answer-item__percent" v-if="complete || isVoted">{{ percentage ? percentage : 0  }}%</span>
       <div class="answer-item__label">{{ answer.title }}</div>
-      <span v-if="complete" class="answer-item__percent-bg" :style="{ width: percentage + '%' }"></span>
-      <div v-else class="answer-item__checkbox">
+      <span v-if="complete || isVoted" class="answer-item__percent-bg" :style="{ width: percentage + '%' }"></span>
+      <div v-else class="answer-item__checkbox" v-show="!isVoted">
         <iconComplete v-if="checked" class="answer-item__complete-icon"></iconComplete>
       </div>
     </div>
@@ -36,7 +35,6 @@ export default {
     label: String,
     percentage: {
       type: Number
-      // default: 25
     },
     checked: Boolean,
     // type: {
@@ -53,7 +51,12 @@ export default {
       type: String,
       default: 'simple'
     },
-    complete: Boolean
+    complete: Boolean,
+    isVoted: Boolean,
+    answerVoteStatistics: {
+			type: Object,
+			default: () => {}
+    }
   },
   components: {
     iconComplete,
@@ -68,8 +71,23 @@ export default {
   },
   methods: {
     selectAnswer() {
-      if (this.percentage) return
+      if (this.isVoted || this.complete) return
       this.$emit('click')
+    },
+    persentage() {
+      let persentage = Object.values(this.answerVoteStatistics)
+      let res = []
+      persentage.forEach( elem => {
+        for (let key of Object.entries(elem)) {
+          // console.log(key)
+          res.push(key)
+          
+        }
+      })
+     
+      return res
+      
+      // console.log(persentage)
     }
   },
   computed: {
@@ -175,6 +193,9 @@ export default {
   &--checked {
     border-color: $base-color;
   }
+  &__percent {
+    margin-right: 1rem;
+  }
 
   &__percent-bg {
     height: 100%;
@@ -182,11 +203,12 @@ export default {
     opacity: 0.2;
     position: absolute;
     top: 0;
-    left: -0.1rem;
+    left: 0;
     z-index: -1;
     padding: 0.8rem;
     border-top-left-radius: 1.3rem;
     border-bottom-left-radius: 1.3rem;
+    border-radius: 1.3rem;
   }
 
   &__text-editor {
