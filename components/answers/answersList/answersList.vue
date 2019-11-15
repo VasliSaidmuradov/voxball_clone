@@ -15,6 +15,7 @@
 			:type="type"
 			:isHidden="isHidden"
 			:isVoted="isVoted"
+			:userAnswers="userAnswers"
 		></answers-item>
 	</div>
 </template>
@@ -51,6 +52,10 @@ export default {
 		isVoted: {
 			type: Boolean,
 			default: false
+		},
+		userAnswers: {
+			type: Array,
+			default: () => []
 		},
 		answerVoteStatistics: {
 			type: Object,

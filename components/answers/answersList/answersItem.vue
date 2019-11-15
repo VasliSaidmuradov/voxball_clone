@@ -1,7 +1,6 @@
 <template>
   <div class="answer-item-wrapper">
     <div class="answer-item__video-wrap" v-if="type === 'video'">
-      
       <video
         class="answer-item__video"
         :src="'https://cms.nova.st' + answer.file"
@@ -14,10 +13,21 @@
       <img :src="'https://cms.nova.st' + answer.file" alt />
     </div>
     <div :class="classes" @click="selectAnswer">
-      <span class="answer-item__percent" v-if="complete || isVoted">{{ percentage ? percentage : 0  }}%</span>
+      <span
+        class="answer-item__percent"
+        v-if="complete || Object.values(userAnswers).toString().length"
+      >{{ percentage ? percentage : 0 }}%</span>
       <div class="answer-item__label">{{ answer.title }}</div>
-      <span v-if="complete || isVoted" class="answer-item__percent-bg" :style="{ width: percentage + '%' }"></span>
-      <div v-else class="answer-item__checkbox" v-show="!isVoted">
+      <span
+        v-if="complete || Object.values(userAnswers).toString().length"
+        class="answer-item__percent-bg"
+        :style="{ width: percentage + '%' }"
+      ></span>
+      <div
+        v-else
+        class="answer-item__checkbox"
+        v-show="Object.values(userAnswers).toString().length"
+      >
         <iconComplete v-if="checked" class="answer-item__complete-icon"></iconComplete>
       </div>
     </div>
@@ -53,9 +63,13 @@ export default {
     },
     complete: Boolean,
     isVoted: Boolean,
+    userAnswers: {
+      type: Array,
+      default: () => []
+    },
     answerVoteStatistics: {
-			type: Object,
-			default: () => {}
+      type: Object,
+      default: () => {}
     }
   },
   components: {
@@ -71,22 +85,22 @@ export default {
   },
   methods: {
     selectAnswer() {
-      if (this.isVoted || this.complete) return
+      if (Object.values(this.userAnswers).toString().length || this.complete)
+        return
       this.$emit('click')
     },
     persentage() {
       let persentage = Object.values(this.answerVoteStatistics)
       let res = []
-      persentage.forEach( elem => {
+      persentage.forEach(elem => {
         for (let key of Object.entries(elem)) {
           // console.log(key)
           res.push(key)
-          
         }
       })
-     
+
       return res
-      
+
       // console.log(persentage)
     }
   },

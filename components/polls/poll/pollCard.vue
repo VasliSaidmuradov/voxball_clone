@@ -1,6 +1,5 @@
 <template>
   <div class="poll-card">
-    <!-- {{ poll.isVoted }} -->
     <div v-for="(question,index) in poll.questions" :key="question.id" class="poll-card__question">
       <accordion
         class="poll-card__accordion"
@@ -22,6 +21,7 @@
               @showAnswerMedia="openAnswerMedia()"
               :isHidden="isHidden"
               :isVoted="poll.isVoted"
+              :userAnswers="poll.userAnswers"
               :results="answerVoteStatistics"
             ></answers-list>
 
@@ -63,10 +63,10 @@
               :answersList="question.variants"
               :complete="complete"
               :isVoted="poll.isVoted"
+              :userAnswers="poll.userAnswers"
               v-if="question.type !== 'text' && question.type !== 'stars'"
               @showAnswerMedia="openAnswerMedia()"
             ></answers-list>
-            <!-- {{question}} -->
             <div class="poll-card__text-editor" v-if="question.type === 'text'">
               <v-editor
                 class="m-auto"
@@ -78,12 +78,13 @@
             <div class="answer-item__ratings ml-auto mr-auto" v-if="question.type === 'stars'">
               <no-ssr>
                 <star-rating
+                  :rating="Object.values(poll.userAnswers).toString()"
                   :value="GET_POLL_ANSWER[question.id]"
                   inactive-color="#fff"
                   border-color="#999"
                   :border-width="1"
                   :padding="1"
-                  :read-only="false"
+                  :read-only=" Object.values(poll.userAnswers).toString().length || complete ? true : false"
                   :show-rating="false"
                   :round-start-rating="false"
                   @rating-selected="SET_POLL_ANSWER({'questionId': question.id, 'answers': String($event)})"
@@ -95,8 +96,9 @@
         </div>
       </div>
     </div>
-    <div v-if="!complete" class="poll-card__button-wrap">
-      <div class="poll-card__pay" v-show="!poll.isVoted">
+
+    <div v-if="!complete" class="poll-card__button-wrap" v-show="!Object.values(poll.userAnswers).toString().length">
+      <div class="poll-card__pay">
         +1
         <img class="poll-card__coin-image" src="~assets/img/poll-card__coin.png" alt />
       </div>
@@ -104,7 +106,6 @@
         class="poll-card__button"
         border
         @click="voteToPoll"
-        v-show="!poll.isVoted"
         :disabled="!isCheckedVariants()"
       >
         <span class="poll-card__button-text" v-if="poll.type === 'text'">отправить ответ</span>
@@ -112,26 +113,6 @@
         <icon-arrow class="ml-2" />
       </v-btn>
     </div>
-
-    <!-- {{ GET_POLL_ANSWER }}
-    <br />
-    {{ isCheckedVariants() }}
-    <br />-->
-    <!-- {{ answerResults }} <br>
-    {{ Object.keys(answerResults) }} <br>
-    {{ Object.entries(answerResults) }} <br>-->
-    <!-- {{ (answerVoteStatistics) }}
-    <br />
-    {{ Object.keys(answerVoteStatistics) }}
-    <br />
-    {{ Object.entries(answerVoteStatistics) }}
-    <br />
-    {{ Object.values(answerVoteStatistics) }}
-    <br />
-    {{ Object.values(ans) }}
-    <br />-->
-
-    <!-- {{ values }} -->
     <div class="poll-card__footer">
       <div>Проголосовали: {{ poll.voteCount }}</div>
       <div v-if="!complete">Дата окончания опроса: {{ poll.endedAt }}</div>

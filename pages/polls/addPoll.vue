@@ -48,9 +48,7 @@
                     @file-choose="handleCroppaFileChoose"
                     @image-remove="handleImageRemove"
                     @zoom="handleCroppaZoom"
-                    :width="800"
-                    :height="500"
-                  ></croppa>
+                    ></croppa>
                   <!--
                     @file-size-exceed="handleCroppaFileSizeExceed"
                     @file-type-mismatch="handleCroppaFileTypeMismatch 
