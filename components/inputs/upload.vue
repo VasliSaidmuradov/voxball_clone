@@ -12,6 +12,8 @@
       :max-files="maxFiles"
       @updatefiles="getFiles($event)"
       :disabled="disabled"
+      :accepted-file-types="acceptedfiletypes"
+      @removefile="removefile($event)"
     />
     <!-- :allowFileTypeValidation="type"
     :acceptedFileTypes="mime_types[type]"-->
@@ -50,6 +52,9 @@ export default {
         let data = e[0]
         this.$emit('getFiles', data)
       }
+    },
+    removefile(e) {
+      this.$emit('removefile', e)
     }
   },
   props: {
@@ -80,6 +85,9 @@ export default {
     type: {
       type: String,
       default: null
+    },
+    acceptedfiletypes: {
+      type: String
     }
   },
   computed: {

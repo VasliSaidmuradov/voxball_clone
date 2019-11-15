@@ -8,21 +8,12 @@
           v-model="tag"
           :tags="tags"
           @tags-changed="newTags => tags = newTags"
+          @input="search"
           :placeholder="''"
+          :autocomplete-items="filteredItems"
         />
       </div>
       <div class="tags__main">
-        <div class="tags__choose">
-          <h4 class="tags__title_gray">Выберите из предложенных тегов:</h4>
-          <div class="tags-custom__choose-list">
-            <div
-              v-for="(item, index) in optList"
-              :key="index"
-              class="ti-tag"
-              @click="tagAdd(item.text)"
-            >{{ item.text }}</div>
-          </div>
-        </div>
         <div class="tags__selected">
           <h4 class="tags__title">Выбранные теги:</h4>
           <vue-tags-input
@@ -48,7 +39,7 @@ export default {
     VueTagsInput
   },
   props: {
-    // optList: Array
+    tagsList: Array
   },
   data() {
     return {
@@ -65,6 +56,36 @@ export default {
   methods: {
     tagAdd(text) {
       this.tags.push({ text })
+    },
+    search(value) {
+      try {
+        // console.log('tags input search: ', value)
+        // console.log('tags: ', this.tags)
+        this.$emit('input', this.tag)
+      } catch (err) {
+        console.log('tags error: ', err)
+      }
+    }
+  },
+  watch: {
+    tags() {
+      console.log('tags array', this.tags)
+      this.$emit('change', this.tags.map(i => i.text))
+    }
+  },
+  computed: {
+    filteredItems() {
+      if (this.tagsList.length !== 0) {
+        let list = this.tagsList
+        list = list.map(item => item.name)
+        return list.filter(i => {
+          return i.toLowerCase().indexOf(this.tag.toLowerCase()) !== -1
+        })
+      } else {
+        return this.optList.filter(i => {
+          return i.text.toLowerCase().indexOf(this.tag.toLowerCase()) !== -1
+        })
+      }
     }
   }
 }
@@ -74,6 +95,18 @@ export default {
 .tags {
   display: flex;
   flex-direction: column;
+  &__header {
+    position: relative;
+  }
+  &-dropdown {
+    position: absolute;
+    top: 3rem;
+    display: none;
+    &__item {
+      height: 2rem;
+      width: 8rem;
+    }
+  }
   &__title {
     margin: 0;
     padding-top: 1.5rem;
@@ -92,7 +125,7 @@ export default {
     width: 30%;
   }
   &__selected {
-    width: 65%;
+    width: 100%;
   }
 }
 </style>
@@ -198,12 +231,14 @@ export default {
 .tags-custom__selected .ti-tags .ti-tag {
   border-radius: 37px;
   padding: 4px 12px;
-  margin: 0.5rem 0;
-  margin-right: 0.6rem;
+  font-size: 1rem;
+  text-transform: lowercase;
+  // margin: 0.5rem 0;
+  // margin-right: 0.6rem;
 }
 
 .tags-custom__selected .ti-tag .ti-actions {
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 
 // optional tags
@@ -226,5 +261,19 @@ export default {
 
 .tags-custom__choose-list .ti-tag .ti-actions {
   display: none;
+}
+
+.tags .vue-tags-input .ti-autocomplete {
+  width: fit-content;
+  background: white;
+  border: 1px solid $border-color;
+  margin-left: 0.7rem;
+  padding-left: 0;
+  border-top: none;
+}
+
+.tags .vue-tags-input .ti-autocomplete .ti-item {
+  padding: 0.2rem 0.5rem;
+  padding-left: 0;
 }
 </style>

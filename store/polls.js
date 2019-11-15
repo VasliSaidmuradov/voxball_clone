@@ -18,6 +18,7 @@ export const state = () => ({
 		isPrivate: false,
 		isOpen: false,
 		canComment: false,
+		tags: [],
 		type: 'simple',
 		questions: [{ title: '', type: 'simple' }],
 		variants: [
@@ -28,7 +29,8 @@ export const state = () => ({
 			]
 		]
 	},
-	pollType: ''
+	pollType: '',
+	tags: []
 })
 
 export const mutations = {
@@ -79,6 +81,7 @@ export const mutations = {
 			isPrivate: false,
 			isOpen: false,
 			canComment: false,
+			tags: [],
 			type: 'simple',
 			questions: [{ title: '', type: 'simple' }],
 			variants: [
@@ -151,6 +154,10 @@ export const mutations = {
 		// console.log(state.pollsList)
 		state.pollsList = [...state.pollsList, ...polls]
 		// console.log(state.pollsList)
+	},
+
+	SET_TAGS(state, tags) {
+		state.tags = tags
 	}
 }
 
@@ -195,13 +202,14 @@ export const actions = {
 	async ADD_FILE({ commit, state }, data) {
 		try {
 			console.log('ADD_FILE: ', data)
+
 			// let formData = new FormData()
 			// formData.append('file', data.file)
 			// formData.append('file', data)
 			// let res = await this.$axios.post('/files', formData)
 			let res = await this.$axios.post('/files', data)
 			console.log('add_file: ', res.data.data.id)
-			if (!!res) return res.data.data.id
+			return res.data.data.id
 		} catch (e) {
 			console.log(e)
 		}
@@ -247,22 +255,25 @@ export const actions = {
 		try {
 			let ok = await dispatch('FILES_UPLOAD')
 			console.log(ok)
-			const data = {
+			let data = {
 				...getters.GET_NEW_POLL,
 				questions: getters.GET_NEW_POLL_QUESTIONS
 			}
 			console.log(data)
 			delete data.variants
-			if (data.preview === '') {
-				delete data.preview
-			} else {
-				data.preview = await dispatch('ADD_FILE', data.preview)
-			}
+			data.preview = await dispatch('ADD_FILE', data.preview)
+			console.log(data.preview)
 			if (data.video === '') {
 				delete data.video
+			} else {
+				let formData = new FormData()
+				formData.append('file', data.video.file)
+				data.video = await dispatch('ADD_FILE', formData)
 			}
 			if (data.videoUrl === '') {
 				delete data.videoUrl
+			} else {
+				data.video = await dispatch('ADD_FILE_URL', data.videoUrl)
 			}
 			delete data.authorId
 			data.questions.forEach(item => {
@@ -273,7 +284,7 @@ export const actions = {
 			const res = await this.$axios.post('/quizzes', data)
 			console.log(res)
 			commit('SET_NEW_POLL_CLEAR')
-			if (!!res) return res
+			return res
 			// commit('SET_POLLS', res.data.data)
 		} catch (e) {
 			console.log(e)
@@ -317,6 +328,37 @@ export const actions = {
 			return res.data.data
 		} catch ({ e }) {
 			console.log(e)
+		}
+	},
+
+	async FETCH_TAGS({ commit, getters }, data) {
+		try {
+			let res
+			// data = data
+			// 	.split('')
+			// 	.map((it, ind) => (ind === 0 ? it.toUpperCase() : it))
+			// 	.join('')
+			// console.log('tags data: ', data)
+			if (data === null) res = await this.$axios.get('/quizzes/tags')
+			else {
+				res = await this.$axios.get('/quizzes/tags')
+				// res = this.$axios.get(`/quizzes/tags?search=${data}`)
+			}
+			res = res.data.data
+			// console.log('tags: ', res)
+			commit('SET_TAGS', res)
+		} catch (error) {
+			console.log(error)
+		}
+	},
+
+	async SET_TAGS({ commit, getters }, data) {
+		try {
+			let poll = getters.GET_NEW_POLL
+			tags = [...poll.tags, data]
+			commit('SET_NEW_POLL_DATA', { field: 'tags', value: tags })
+		} catch (error) {
+			console.log('error: ', error)
 		}
 	}
 }
@@ -393,7 +435,8 @@ export const getters = {
 			variants: state.newPoll.variants[index]
 		})),
 	GET_NEW_POLL_VARIANTS: state => state.newPoll.variants,
-	GET_CATEGORY_LIST: state => state.category
+	GET_CATEGORY_LIST: state => state.category,
+	GET_TAGS: state => state.tags
 }
 
 // console.log(Store)
