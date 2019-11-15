@@ -1,7 +1,7 @@
 <template>
   <div class="cabinet-info">
     <div class="cabinet-info__avatar">
-      {{ consoleLog() }}
+      <!-- {{ consoleLog() }} -->
       <div class="cabinet-info__green"></div>
       <!-- <img class="cabinet-info__img" src="~assets/img/profile__image.png" alt /> -->
       <!-- <upload class="cabinet-info__img" :height="'100%'" :width="'100%'" :label="'загрузить фото'" /> -->
@@ -11,7 +11,6 @@
         :placeholder-font-size="16"
         :videoEnabled="true"
         :preload="preload"
-        
       ></croppa>
       <div class="cabinet-info__zoom-wrap" v-show="this.myCroppa.imageSet">
         <div class="cabinet-info__zoom"  @click="myCroppa.zoomIn()">

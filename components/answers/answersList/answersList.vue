@@ -4,15 +4,17 @@
 			Нет вариантов ответа 			
 		</div> -->
 		<answers-item
-			v-for="answer in answersList"
+			v-for="answer in answers"
 			:key="answer.id"
 			:answer="answer"
 			:checked="value.includes(answer.id)"
 			@showAnswerMedia="$emit('showAnswerMedia')"
 			@click="selectAnswer(answer.id)"
-			:percentage="answer.percentage"
+			:percentage="answer.percent"
 			:complete="complete"
 			:type="type"
+			:isHidden="isHidden"
+			:isVoted="isVoted"
 		></answers-item>
 	</div>
 </template>
@@ -44,7 +46,16 @@ export default {
 		percent: {
 			type: Array
 		},
-		complete: Boolean
+		complete: Boolean,
+		isHidden: Boolean,
+		isVoted: {
+			type: Boolean,
+			default: false
+		},
+		answerVoteStatistics: {
+			type: Object,
+			default: () => {}
+		}
 	},
 	components: {
 		answersItem,
@@ -59,7 +70,13 @@ export default {
 	computed: {
 		...mapGetters({ GET_POLL_ANSWERS: 'polls/GET_POLL_ANSWERS' }),
 		answers() {
-			return this.answersList
+			return this.answersList.map((item, index, arr) => ({
+				...item,
+				percent: (item.voteCount / this.totalCount) * 100
+			}))
+		},
+		totalCount() {
+			return this.answersList.reduce((total, item) => total+=item.voteCount, 0)
 		}
 	},
 	methods: {

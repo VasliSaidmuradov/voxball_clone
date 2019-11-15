@@ -1,72 +1,137 @@
 <template>
   <div class="poll-card">
-    <div class="poll-card__question" v-for="question in poll.questions" :key="question.id">
-      <h2 class="poll-card__title">{{ question.title }}</h2>
-      <div class="poll-card__answer">
-        <div class="answer__list">
-          <answers-list
-            :type="question.type"
-            :value="GET_POLL_ANSWER[question.id]"
-            @input="SET_POLL_ANSWER({'questionId': question.id, 'answers': $event})"
-            :answersList="question.variants"
-            :complete="complete"
-            v-if="question.type !== 'text' && question.type !== 'stars'"
-            @showAnswerMedia="openAnswerMedia()"
-          ></answers-list>
-          <!-- {{question}} -->
-          <div class="poll-card__text-editor" v-if="question.type === 'text'">
-            <v-editor
-              class="m-auto"
-              style="width: 90%; height: auto; margin-bottom: 1rem;"
+    <!-- {{ poll.isVoted }} -->
+    <div v-for="(question,index) in poll.questions" :key="question.id" class="poll-card__question">
+      <accordion
+        class="poll-card__accordion"
+        v-if="poll.type === pollTypeQuestioned"
+        :data-id="index"
+        :questionTitle="question.title"
+        :show="show"
+      >
+        <h2 class="poll-card__title">{{ question.title }}</h2>
+        <div class="poll-card__answer">
+          <div class="answer__list">
+            <answers-list
+              :type="question.type"
+              :value="GET_POLL_ANSWER[question.id]"
               @input="SET_POLL_ANSWER({'questionId': question.id, 'answers': $event})"
-              :config="editorConfig"
-            />
-          </div>
-          <div class="answer-item__ratings ml-auto mr-auto" v-if="question.type === 'stars'">
-            <no-ssr>
-              <star-rating
-                :value="GET_POLL_ANSWER[question.id]"
-                inactive-color="#fff"
-                border-color="#999"
-                :border-width="1"
-                :padding="1"
-                :read-only="false"
-                :show-rating="false"
-                :round-start-rating="false"
-                @rating-selected="SET_POLL_ANSWER({'questionId': question.id, 'answers': String($event)})"
-              ></star-rating>
-                <!-- @rating-selected="SET_POLL_ANSWER({'questionId': question.id, 'answers': Array.from(String($event))})" -->
+              :answersList="question.variants"
+              :complete="complete"
+              v-if="question.type !== 'text' && question.type !== 'stars'"
+              @showAnswerMedia="openAnswerMedia()"
+              :isHidden="isHidden"
+              :isVoted="poll.isVoted"
+              :results="answerVoteStatistics"
+            ></answers-list>
 
-            </no-ssr>
+            <div class="poll-card__text-editor" v-if="question.type === 'text'">
+              <v-editor
+                class="m-auto"
+                style="width: 90%; height: auto; margin-bottom: 1rem;"
+                @input="SET_POLL_ANSWER({'questionId': question.id, 'answers': $event})"
+                :config="editorConfig"
+              />
+            </div>
+            <div class="answer-item__ratings ml-auto mr-auto" v-if="question.type === 'stars'">
+              <no-ssr>
+                <star-rating
+                  :value="GET_POLL_ANSWER[question.id]"
+                  inactive-color="#fff"
+                  border-color="#999"
+                  :border-width="1"
+                  :padding="1"
+                  :read-only="false"
+                  :show-rating="false"
+                  :round-start-rating="false"
+                  @rating-selected="SET_POLL_ANSWER({'questionId': question.id, 'answers': String($event)})"
+                ></star-rating>
+                <!-- @rating-selected="SET_POLL_ANSWER({'questionId': question.id, 'answers': Array.from(String($event))})" -->
+              </no-ssr>
+            </div>
+          </div>
+        </div>
+      </accordion>
+      <div v-else>
+        <h2 class="poll-card__title">{{ question.title }}</h2>
+        <div class="poll-card__answer">
+          <div class="answer__list">
+            <answers-list
+              :type="question.type"
+              :value="GET_POLL_ANSWER[question.id]"
+              @input="SET_POLL_ANSWER({'questionId': question.id, 'answers': $event})"
+              :answersList="question.variants"
+              :complete="complete"
+              :isVoted="poll.isVoted"
+              v-if="question.type !== 'text' && question.type !== 'stars'"
+              @showAnswerMedia="openAnswerMedia()"
+            ></answers-list>
+            <!-- {{question}} -->
+            <div class="poll-card__text-editor" v-if="question.type === 'text'">
+              <v-editor
+                class="m-auto"
+                style="width: 90%; height: auto; margin-bottom: 1rem;"
+                @input="SET_POLL_ANSWER({'questionId': question.id, 'answers': $event})"
+                :config="editorConfig"
+              />
+            </div>
+            <div class="answer-item__ratings ml-auto mr-auto" v-if="question.type === 'stars'">
+              <no-ssr>
+                <star-rating
+                  :value="GET_POLL_ANSWER[question.id]"
+                  inactive-color="#fff"
+                  border-color="#999"
+                  :border-width="1"
+                  :padding="1"
+                  :read-only="false"
+                  :show-rating="false"
+                  :round-start-rating="false"
+                  @rating-selected="SET_POLL_ANSWER({'questionId': question.id, 'answers': String($event)})"
+                ></star-rating>
+                <!-- @rating-selected="SET_POLL_ANSWER({'questionId': question.id, 'answers': Array.from(String($event))})" -->
+              </no-ssr>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- {{ GET_POLL_ANSWER }}
-    <br />
-    {{ isCheckedVariants() }}
-    <br /> -->
-
     <div v-if="!complete" class="poll-card__button-wrap">
-      <div class="poll-card__pay" v-show="!isHidden">
+      <div class="poll-card__pay" v-show="!poll.isVoted">
         +1
         <img class="poll-card__coin-image" src="~assets/img/poll-card__coin.png" alt />
       </div>
-      <!-- <v-btn class="poll-card__button" border @click="VOTE($route.params.id)"> -->
       <v-btn
         class="poll-card__button"
         border
         @click="voteToPoll"
-        v-show="!isHidden"
+        v-show="!poll.isVoted"
         :disabled="!isCheckedVariants()"
       >
-        <!-- <v-btn class="poll-card__button" border @click="voteToPoll" v-show="!isHidden"> -->
         <span class="poll-card__button-text" v-if="poll.type === 'text'">отправить ответ</span>
         <span class="poll-card__button-text" v-else>голосовать</span>
         <icon-arrow class="ml-2" />
       </v-btn>
     </div>
 
+    <!-- {{ GET_POLL_ANSWER }}
+    <br />
+    {{ isCheckedVariants() }}
+    <br />-->
+    <!-- {{ answerResults }} <br>
+    {{ Object.keys(answerResults) }} <br>
+    {{ Object.entries(answerResults) }} <br>-->
+    <!-- {{ (answerVoteStatistics) }}
+    <br />
+    {{ Object.keys(answerVoteStatistics) }}
+    <br />
+    {{ Object.entries(answerVoteStatistics) }}
+    <br />
+    {{ Object.values(answerVoteStatistics) }}
+    <br />
+    {{ Object.values(ans) }}
+    <br />-->
+
+    <!-- {{ values }} -->
     <div class="poll-card__footer">
       <div>Проголосовали: {{ poll.voteCount }}</div>
       <div v-if="!complete">Дата окончания опроса: {{ poll.endedAt }}</div>
@@ -97,6 +162,7 @@ import answersList from '@/components/answers/answersList/answersList.vue'
 import vEditor from '@/components/inputs/vEditor.vue'
 import StarRating from 'vue-star-rating'
 import vModal from '@/components/modals/vModal.vue'
+import accordion from '@/components/shared/accordion.vue'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 // if (process.browser) {
@@ -109,7 +175,8 @@ export default {
     answersList,
     vEditor,
     StarRating,
-    vModal
+    vModal,
+    accordion
   },
   props: {
     poll: {
@@ -132,7 +199,12 @@ export default {
       questionType: 'stars',
       showAnswerMedia: false,
       isHidden: false,
-      isDisabled: true
+      isDisabled: true,
+      // isVoted: false,
+      pollTypeQuestioned: 'questioned',
+      show: false,
+      answerResults: {},
+      answerVoteStatistics: {}
     }
   },
   methods: {
@@ -151,19 +223,43 @@ export default {
     // showComments() {
     //   this.$emit('showCommentsList')
     // },
-    voteToPoll() {
-      this.VOTE(this.$route.params.id)
-      this.$emit('show-comments-list')
-      this.isHidden = true
+    async voteToPoll() {
+      const results = await this.VOTE(this.$route.params.id)
+      console.log(results)
+      await this.$store.dispatch('polls/FETCH_POLL', { id: this.$route.params.id })
+
+      // this.answerResults = results
+      // this.answerVoteStatistics = results.questions
+      // this.ans = Object.values(this.answerVoteStatistics)
+
+      // console.log('Result: ' + this.answerResults)
+      // console.log('Answer: ' + ans)
+
+      // this.$emit('show-comments-list')
     },
     isCheckedVariants() {
       let poll = this.GET_POLL_ANSWER
       let arr = []
+      // console.log(this.poll.type)
+      // console.log(this.pollTypeQuestioned)
 
+      // if (this.poll.type === this.pollTypeQuestioned) {
+      //   return true
+      // } else {
       for (let prop in poll) {
         !poll[prop].length ? arr : arr.push(poll[prop])
       }
       return arr.length == this.poll.questions.length ? true : false
+      // }
+    },
+    TEST() {
+      let doublePrices = Object.fromEntries(
+        // преобразовать в массив, затем map, затем fromEntries обратно объект
+        Object.entries(answerVoteStatistics).map(([key, value]) => [
+          key,
+          value * 2
+        ])
+      )
     }
   },
   computed: {
@@ -183,7 +279,7 @@ export default {
   box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.2);
 
   &__question {
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
   }
   &__title {
     color: black;
@@ -207,6 +303,7 @@ export default {
     margin: 0 auto;
     display: flex;
     align-items: center;
+    justify-content: center;
   }
   &__button {
     padding: 0.7rem 1.5rem;

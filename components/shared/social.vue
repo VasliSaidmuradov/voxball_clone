@@ -151,7 +151,7 @@ import iconFacebook from '@/components/icons/iconFacebook.vue'
 import iconTwitter from '@/components/icons/iconTwitter.vue'
 import iconTelegram from '@/components/icons/iconTelegram.vue'
 import iconWhatsapp from '@/components/icons/iconWhatsapp.vue'
-// import SocialSharing from 'vue-social-sharing'
+import SocialSharing from 'vue-social-sharing'
 
 export default {
   props: {
@@ -159,6 +159,7 @@ export default {
     poll: {
       type: Object
     }
+    // pollTitle: String
   },
   components: {
     iconVk,
@@ -166,7 +167,7 @@ export default {
     iconTwitter,
     iconTelegram,
     iconWhatsapp,
-    // SocialSharing
+    SocialSharing
   }
 }
 </script>

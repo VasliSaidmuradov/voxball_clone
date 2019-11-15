@@ -33,11 +33,11 @@
         </div>
         <div class="poll-info__views-wrap">
           <views class="poll-info__views" :viewCount="poll.viewCount"></views>
-          <social
+          <social-share
             :url="this.$route.query.page"
             :poll="poll"
             style="justify-content: flex-end; width: 50%"
-          ></social>
+          ></social-share>
         </div>
       </div>
     </div>
@@ -88,7 +88,7 @@
 import iconArrow from '@/components/icons/iconArrow.vue'
 import views from '@/components/shared/views.vue'
 import tags from '@/components/shared/tags.vue'
-import social from '@/components/shared/social.vue'
+import socialShare from '@/components/shared/social.vue'
 import iconComplete from '@/components/icons/iconComplete.vue'
 import vModal from '@/components/modals/vModal.vue'
 import play from '@/components/buttons/play.vue'
@@ -101,7 +101,7 @@ export default {
     iconComplete,
     views,
     tags,
-    social,
+    socialShare,
     vModal,
     play
   },

@@ -280,10 +280,11 @@ export const actions = {
 		}
 	},
 
-	async FETCH_POLL({ commit }, id, data = '') {
+	async FETCH_POLL({ commit },{id, data = ''}) {
 		try {
+			console.log(id, '---')
 			const res = await this.$axios.get(
-				`/quizzes/${id}?with[author]&with[category]&with[article]&with[questions][with][variants]&with[voteCount]${data}`
+				`/quizzes/${id}?with[author]&with[userAnswers]&with[isVoted]&with[category]&with[article]&with[questions][with][variants]&with[voteCount]${data}`
 			)
 			console.log(res.data.data)
 			commit('SET_POLL', res.data.data)
@@ -312,7 +313,8 @@ export const actions = {
 				`/quizzes/${id}/answers`,
 				state.pollAnswer
 			)
-			// console.log(res)
+			console.log(res)
+			return res.data.data
 		} catch ({ e }) {
 			console.log(e)
 		}
@@ -353,8 +355,8 @@ export const getters = {
 		categoryTitle:
 			// !state.poll.category
 			!!state.poll.category
-				? 'Нет категории'
-				: state.poll.category.title.substr(0, 12) + '...', // !!state.poll.category
+				? state.poll.category.title.substr(0, 12) + '...'
+				: 'Нет категории', // !!state.poll.category
 		createdAt: new Date(state.poll.createdAt).toLocaleDateString(),
 		endedAt: new Date(state.poll.endedAt).toLocaleDateString(),
 		authorName:
@@ -371,7 +373,7 @@ export const getters = {
 			? '~/assets/img/poll-no-avatar.png'
 			: state.poll.author.avatar,
 		path: `/polls/${state.poll.id}`,
-		complete: new Date() > new Date(state.poll.endedAt)
+		complete: new Date() > new Date(state.poll.endedAt),
 		// questionsTitle: state.poll.questions.title,
 		// type: state.poll.questions.type
 	}),
