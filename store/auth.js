@@ -23,6 +23,7 @@ export const state = () => ({
 		code: '',
 		country: ''
 	},
+	dictionaries: {},
 	token: null
 })
 
@@ -44,6 +45,11 @@ export const mutations = {
 		state.userData = {
 			...user
 		}
+	},
+
+	SET_DICTIONARIES(state, dict) {
+		let { field, value } = dict
+		state.dictionaries[field] = value
 	}
 }
 
@@ -109,6 +115,20 @@ export const actions = {
 		} catch (e) {
 			console.log('error user_logout', e)
 		}
+	},
+
+	async FETCH_DICTIONARIES({ commit }, id) {
+		try {
+			let res = await this.$axios.get(
+				`/users/dictionaries/${id ? id : 0}?with[children]`
+			)
+			res = res.data.data
+			res = res.filter(item => item.children.length !== 0)
+			console.log('dictionaries: ' + res)
+			commit('SET_DICTIONARIES', { field: 'family', value: res })
+		} catch (e) {
+			console.log('dict error: ', e)
+		}
 	}
 }
 
@@ -117,5 +137,6 @@ export const getters = {
 	GET_AUTHORIZATION_DATA: state => state.userAuthorizationData,
 	GET_TOKEN: state => state.token,
 	GET_USER: state => state.userData,
+	GET_DICTIONARIES: state => state.dictionaries,
 	IS_LOGGED_IN: state => !!state.token
 }

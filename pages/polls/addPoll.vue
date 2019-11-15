@@ -3,6 +3,7 @@
     <detailed-layout :title="'Создание опрос'">
       <section class="add-poll-type">
         <h2 class="add-poll-type__title">Выберите тип опроса:</h2>
+        <!-- {{ family }} -->
         <div class="add-poll-type__list">
           <div v-for="(item, index) in pollTypeList" :key="index">
             <v-btn
@@ -48,8 +49,6 @@
                     @file-choose="handleCroppaFileChoose"
                     @image-remove="handleImageRemove"
                     @zoom="handleCroppaZoom"
-                    :width="800"
-                    :height="500"
                   ></croppa>
                   <!--
                     @file-size-exceed="handleCroppaFileSizeExceed"
@@ -187,19 +186,18 @@
             <accordion>
               <template v-slot:header>Семейное положение</template>
               <v-select
-                :style="'z-index: 100'"
-                :options="languages"
+                :options="family[0].children.map(item => item.title)"
                 :searchable="true"
                 :multiple="false"
               ></v-select>
+              <div style="height: 5rem; width: 1px"></div>
               <!-- <v-select :options="languages" :searchable="true" :multiple="false"></v-select> -->
-              <v-select :options="languages" :searchable="true" :multiple="false"></v-select>
               <v-select
-                :style="'z-index: 100'"
-                :options="languages"
+                :options="family[1].children.map(item => item.title)"
                 :searchable="true"
                 :multiple="false"
               ></v-select>
+              <div style="height: 5rem; width: 1px"></div>
             </accordion>
             <accordion>
               <template v-slot:header>Образование и работа</template>
@@ -358,6 +356,7 @@ export default {
     }),
 
     setPollType(value, index) {
+      console.log(value)
       this.pollTypeActive = index
       this.SET_NEW_POLL_DATA({ field: 'type', value: value })
       if (value !== 'questioned' && value !== 'target') {
@@ -367,12 +366,13 @@ export default {
       }
     },
 
-    setQuestionType(value, index = this.GET_NEW_POLL_QUESTIONS.length - 1) {
-      console.log(value, index)
+    setQuestionType(value, index) {
+      let type = this.questionTypeList.find(item => item.value == value).type
+      // console.log('№ ' + index + ' questiontype: ' + value + ' - ', type)
       this.SET_NEW_POLL_DATA_QUESTION({
         questionIndex: index,
         field: 'type',
-        value: value
+        value: type
       })
     },
 
@@ -581,12 +581,19 @@ export default {
       GET_NEW_POLL_QUESTIONS: 'polls/GET_NEW_POLL_QUESTIONS',
       GET_NEW_POLL_VARIANTS: 'polls/GET_NEW_POLL_VARIANTS',
       GET_CATEGORY_LIST: 'polls/GET_CATEGORY_LIST',
-      GET_TAGS: 'polls/GET_TAGS'
+      GET_TAGS: 'polls/GET_TAGS',
+      GET_DICTIONARIES: 'auth/GET_DICTIONARIES'
     }),
+
     questionedPollTypeList() {
       return this.pollTypeList.filter(
         item => item.type !== 'questioned' && item.type !== 'target'
       )
+    },
+
+    family() {
+      console.log(this.GET_DICTIONARIES.family)
+      return this.GET_DICTIONARIES.family
     }
 
     // uploadedVideo() {
@@ -607,6 +614,7 @@ export default {
   async fetch({ store }) {
     await store.dispatch('polls/FETCH_CATEGORY')
     await store.dispatch('polls/FETCH_TAGS')
+    await store.dispatch('auth/FETCH_DICTIONARIES')
   }
 }
 </script>

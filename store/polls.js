@@ -230,12 +230,11 @@ export const actions = {
 
 	async FILES_UPLOAD({ commit, getters, dispatch }) {
 		try {
-			getters.GET_NEW_POLL_QUESTIONS.map((item, index) => {
-				console.log(item)
-				if (item.type === 'image' || item.type === 'video')
-					item.variants.map((innerItem, innerIndex) => {
-						let id = dispatch('ADD_FILE', innerItem.file)
-						console.log(innerItem.file + ' : ' + id)
+			getters.GET_NEW_POLL_QUESTIONS.forEach((item, index) => {
+				if (item.type === 'image' || item.type === 'video') {
+					item.variants.forEach(async (innerItem, innerIndex) => {
+						let id = await dispatch('ADD_FILE', innerItem.file)
+						console.log('id------', id)
 						let data = {
 							questionIndex: index,
 							variantIndex: innerIndex,
@@ -244,8 +243,8 @@ export const actions = {
 						}
 						commit('SET_NEW_POLL_DATA_VARIANT', data)
 					})
+				}
 			})
-			return 'ok'
 		} catch (error) {
 			console.log(error)
 		}
@@ -253,8 +252,8 @@ export const actions = {
 
 	async ADD_POLL({ commit, state, getters, dispatch }) {
 		try {
-			let ok = await dispatch('FILES_UPLOAD')
-			console.log(ok)
+			await dispatch('FILES_UPLOAD')
+			// console.log(ok)
 			let data = {
 				...getters.GET_NEW_POLL,
 				questions: getters.GET_NEW_POLL_QUESTIONS
@@ -291,7 +290,7 @@ export const actions = {
 		}
 	},
 
-	async FETCH_POLL({ commit },{id, data = ''}) {
+	async FETCH_POLL({ commit }, { id, data = '' }) {
 		try {
 			console.log(id, '---')
 			const res = await this.$axios.get(
@@ -415,7 +414,7 @@ export const getters = {
 			? '~/assets/img/poll-no-avatar.png'
 			: state.poll.author.avatar,
 		path: `/polls/${state.poll.id}`,
-		complete: new Date() > new Date(state.poll.endedAt),
+		complete: new Date() > new Date(state.poll.endedAt)
 		// questionsTitle: state.poll.questions.title,
 		// type: state.poll.questions.type
 	}),
