@@ -124,6 +124,7 @@ export default {
   cursor: pointer;
   position: relative;
   display: flex;
+  overflow: hidden;
 
   &__video-wrap,
   &__image-wrap {
@@ -220,9 +221,9 @@ export default {
     left: 0;
     z-index: -1;
     padding: 0.8rem;
-    border-top-left-radius: 1.3rem;
-    border-bottom-left-radius: 1.3rem;
-    border-radius: 1.3rem;
+    // border-top-left-radius: 1.3rem;
+    // border-bottom-left-radius: 1.3rem;
+    // border-radius: 1.3rem;
   }
 
   &__text-editor {

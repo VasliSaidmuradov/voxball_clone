@@ -3,7 +3,6 @@
     <detailed-layout :title="'Создание опрос'">
       <section class="add-poll-type">
         <h2 class="add-poll-type__title">Выберите тип опроса:</h2>
-        <!-- {{ family }} -->
         <div class="add-poll-type__list">
           <div v-for="(item, index) in pollTypeList" :key="index">
             <v-btn
@@ -19,12 +18,23 @@
           <div v-for="(item, index) in questionedPollTypeList" :key="index">
             <v-btn
               class="add-poll-type__item"
-              :class="{'add-poll-type__item_active': (GET_NEW_POLL_QUESTIONS[0] || []).type === item.type}"
-              @click="setQuestionType(item.type)"
+              :class="{'add-poll-type__item_active': GET_NEW_POLL_QUESTIONS[currentQuestionIndex].type === item.type}"
+              @click="setQuestionType(item.type, currentQuestionIndex)"
               border
               rounded
             >{{ item.value }}</v-btn>
           </div>
+        </div>
+        <div
+          class="questioned-list col-8 m-auto"
+          v-for="(question,index) in GET_NEW_POLL_QUESTIONS"
+          :key="index"
+          @click="currentQuestionIndex=index"
+        >
+          <div
+            :class="{'questioned-item--active': index === currentQuestionIndex}"
+            class="questioned-item"
+          >{{question.type}}</div>
         </div>
       </section>
       <v-form-layout id="wrapp" ref="wrapp" :bottomLine="false" class="add-poll__form-layout">
@@ -50,11 +60,6 @@
                     @image-remove="handleImageRemove"
                     @zoom="handleCroppaZoom"
                   ></croppa>
-                  <!--
-                    @file-size-exceed="handleCroppaFileSizeExceed"
-                    @file-type-mismatch="handleCroppaFileTypeMismatch 
-                    @image-remove="handleImageRemove"
-                  @move="handleCroppaMove"-->
                 </div>
                 <div class="add-poll-header__uploads-video">
                   <div style="width: 49%">
@@ -93,7 +98,7 @@
               <div class="add-poll-header__info">
                 <p
                   class="add-poll-header__text"
-                >Введите загаловок {{pollTypeList[pollTypeActive].type !== 'questioned' ? '(он же является вопросом)' : ''}}</p>
+                >Введите заголовок {{pollTypeList[pollTypeActive].type !== 'questioned' ? '(он же является вопросом)' : ''}}</p>
                 <input
                   class="add-poll-header__input-title"
                   type="text"
@@ -193,6 +198,7 @@
               <div style="height: 5rem; width: 1px"></div>
               <!-- <v-select :options="languages" :searchable="true" :multiple="false"></v-select> -->
               <v-select
+                :style="'z-index: 20'"
                 :options="family[1].children.map(item => item.title)"
                 :searchable="true"
                 :multiple="false"
@@ -335,7 +341,8 @@ export default {
       myCroppaImage: {},
       videoUrl: '',
       croppaWidth: 0,
-      croppaHeight: 0
+      croppaHeight: 0,
+      currentQuestionIndex: 0
     }
   },
   methods: {
@@ -356,7 +363,6 @@ export default {
     }),
 
     setPollType(value, index) {
-      console.log(value)
       this.pollTypeActive = index
       this.SET_NEW_POLL_DATA({ field: 'type', value: value })
       if (value !== 'questioned' && value !== 'target') {
@@ -367,13 +373,21 @@ export default {
     },
 
     setQuestionType(value, index) {
-      let type = this.questionTypeList.find(item => item.value == value).type
-      // console.log('№ ' + index + ' questiontype: ' + value + ' - ', type)
-      this.SET_NEW_POLL_DATA_QUESTION({
-        questionIndex: index,
-        field: 'type',
-        value: type
-      })
+      if (this.isQuestioned) {
+        this.SET_NEW_POLL_DATA_QUESTION({
+          questionIndex: index,
+          field: 'type',
+          value: value
+        })
+      } else {
+        let type = this.questionTypeList.find(item => item.value == value).type
+        console.log('№ ' + index + ' questiontype: ' + value + ' - ', type)
+        this.SET_NEW_POLL_DATA_QUESTION({
+          questionIndex: index,
+          field: 'type',
+          value: type
+        })
+      }
     },
 
     categorySet(e) {
@@ -594,6 +608,10 @@ export default {
     family() {
       console.log(this.GET_DICTIONARIES.family)
       return this.GET_DICTIONARIES.family
+    },
+
+    isQuestioned() {
+      return this.GET_NEW_POLL['type'] === 'questioned'
     }
 
     // uploadedVideo() {
@@ -620,6 +638,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.questioned-item {
+  border: 1px solid #c1c1c1;
+  margin: 1rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: 0.5s;
+
+  &--active {
+    border-color: $base-color;
+  }
+}
+
 .add-poll {
   background-image: url('~assets/img/registration__bg.png');
   background-size: cover;
@@ -838,8 +868,8 @@ export default {
 }
 </style>
 <style>
-.add-poll .filepond--drop-label {
-  background-color: white;
+.add-poll-answers .filepond--drop-label {
+  background-color: #ebebeb;
 }
 .add-poll .filepond--drop-label label {
   width: 100%;
