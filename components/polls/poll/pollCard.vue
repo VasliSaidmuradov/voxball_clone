@@ -78,13 +78,13 @@
             <div class="answer-item__ratings ml-auto mr-auto" v-if="question.type === 'stars'">
               <no-ssr>
                 <star-rating
-                  :rating="Object.values(poll.userAnswers).toString()"
+                  :rating="!poll.userAnswers ? '' : Object.values(poll.userAnswers).toString()"
                   :value="GET_POLL_ANSWER[question.id]"
                   inactive-color="#fff"
                   border-color="#999"
                   :border-width="1"
                   :padding="1"
-                  :read-only=" Object.values(poll.userAnswers).toString().length || complete ? true : false"
+                  :read-only="!poll.userAnswers ? '' : Object.values(poll.userAnswers).toString().length || complete ? true : false"
                   :show-rating="false"
                   :round-start-rating="false"
                   @rating-selected="SET_POLL_ANSWER({'questionId': question.id, 'answers': String($event)})"
@@ -97,7 +97,7 @@
       </div>
     </div>
 
-    <div v-if="!complete" class="poll-card__button-wrap" v-show="!Object.values(poll.userAnswers).toString().length">
+    <div v-if="!complete" class="poll-card__button-wrap" v-show="!poll.userAnswers ? '': !Object.values(poll.userAnswers).toString().length">
       <div class="poll-card__pay">
         +1
         <img class="poll-card__coin-image" src="~assets/img/poll-card__coin.png" alt />
@@ -201,22 +201,10 @@ export default {
     closeAnswerMedia() {
       this.showAnswerMedia = false
     },
-    // showComments() {
-    //   this.$emit('showCommentsList')
-    // },
     async voteToPoll() {
       const results = await this.VOTE(this.$route.params.id)
       console.log(results)
       await this.$store.dispatch('polls/FETCH_POLL', { id: this.$route.params.id })
-
-      // this.answerResults = results
-      // this.answerVoteStatistics = results.questions
-      // this.ans = Object.values(this.answerVoteStatistics)
-
-      // console.log('Result: ' + this.answerResults)
-      // console.log('Answer: ' + ans)
-
-      // this.$emit('show-comments-list')
     },
     isCheckedVariants() {
       let poll = this.GET_POLL_ANSWER
@@ -232,15 +220,6 @@ export default {
       }
       return arr.length == this.poll.questions.length ? true : false
       // }
-    },
-    TEST() {
-      let doublePrices = Object.fromEntries(
-        // преобразовать в массив, затем map, затем fromEntries обратно объект
-        Object.entries(answerVoteStatistics).map(([key, value]) => [
-          key,
-          value * 2
-        ])
-      )
     }
   },
   computed: {
