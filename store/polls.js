@@ -230,21 +230,20 @@ export const actions = {
 
 	async FILES_UPLOAD({ commit, getters, dispatch }) {
 		try {
-			getters.GET_NEW_POLL_QUESTIONS.forEach((item, index) => {
-				if (item.type === 'image' || item.type === 'video') {
-					item.variants.forEach(async (innerItem, innerIndex) => {
-						let id = await dispatch('ADD_FILE', innerItem.file)
-						console.log('id------', id)
-						let data = {
-							questionIndex: index,
-							variantIndex: innerIndex,
+			for (const question of getters.GET_NEW_POLL_QUESTIONS) {
+				if (question.type === 'image' || question.type === 'video') {
+					for (const variant of question.variants) {
+						const id = await dispatch('ADD_FILE', variant.file)
+						const data = {
+							questionIndex: getters.GET_NEW_POLL_QUESTIONS.indexOf(question),
+							variantIndex: question.variants.indexOf(variant),
 							field: 'file',
 							value: id
 						}
 						commit('SET_NEW_POLL_DATA_VARIANT', data)
-					})
+					}
 				}
-			})
+			}
 		} catch (error) {
 			console.log(error)
 		}
@@ -253,7 +252,7 @@ export const actions = {
 	async ADD_POLL({ commit, state, getters, dispatch }) {
 		try {
 			await dispatch('FILES_UPLOAD')
-			// console.log(ok)
+			console.log(getters.GET_NEW_POLL, '<=========')
 			let data = {
 				...getters.GET_NEW_POLL,
 				questions: getters.GET_NEW_POLL_QUESTIONS

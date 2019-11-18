@@ -171,7 +171,7 @@ export default {
     }
   }
   .filepond--drop-label {
-    background: white;
+    background: inherit;
   }
   .upload-btn {
     color: $base-text-color;

@@ -1,8 +1,10 @@
 <template>
   <div :class="classes">
-    <div v-if="type==='video'||type==='image'" class="answer-item-upload mb-3">
-      <!-- <upload @getFiles="getFiles" :label="type === 'video' ? 'Загрузить видео' : 'Загрузить фото'"></upload> -->
+    <div v-if="type==='video' || type==='image'" class="answer-item-upload mb-3">
+      <upload v-if="type === 'video'" @getFiles="getFiles" label="Загрузить видео"></upload>
+      <app-player :src="videoUrl"></app-player>
       <croppa
+        v-if="type === 'image'"
         class="cabinet-info__img"
         v-model="myCroppaImage"
         :removeButtonColor="'#00b900'"
@@ -59,6 +61,7 @@ import upload from '@/components/inputs/upload'
 import vEditor from '@/components/inputs/vEditor.vue'
 import StarRating from 'vue-star-rating'
 import vCroppa from '@/components/inputs/vCroppa.vue'
+import appPlayer from '@/components/inputs/appPlayer.vue'
 
 import { mapMutations, mapActions } from 'vuex'
 
